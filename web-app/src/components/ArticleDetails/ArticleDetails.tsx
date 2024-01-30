@@ -25,9 +25,13 @@ export default function ArticleDetails({
           <div>{description}</div>
           <Separator />
           <div>
-            Annoncée publiée par <b>{owner}</b>.
+            Annoncée publiée par{" "}
+            <b>
+              {owner.firstName} {owner.lastName}
+            </b>
+            .
           </div>
-          <ButtonLikeLink href={`mailto:${owner}`}>
+          <ButtonLikeLink href={`mailto:${owner.email}`}>
             <MailIcon />
             Envoyer un email
           </ButtonLikeLink>

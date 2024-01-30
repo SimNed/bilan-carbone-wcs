@@ -1,5 +1,5 @@
 import { Field, Float, Int, ArgsType } from "type-graphql";
-import { IsEmail, Min, MinLength } from "class-validator";
+import { Min, MinLength } from "class-validator";
 
 @ArgsType()
 export class CreateOrUpdateAd {
@@ -9,10 +9,6 @@ export class CreateOrUpdateAd {
 
   @Field({ nullable: true })
   description!: string;
-
-  @Field()
-  @IsEmail()
-  owner!: string;
 
   @Field(() => Float)
   @Min(0)

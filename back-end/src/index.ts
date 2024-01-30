@@ -10,7 +10,7 @@ import UserSession from "./entities/userSession";
 
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
-import { buildSchema } from "type-graphql";
+import { AuthChecker, buildSchema } from "type-graphql";
 import { AdResolver } from "./resolvers/AdResolver";
 import { TagResolver } from "./resolvers/TagResolver";
 import { UserResolver } from "./resolvers/UserResolver";
@@ -25,11 +25,16 @@ const dataSource = new DataSource({
   synchronize: true,
 });
 
+const authChecker: AuthChecker<Context> = ({ context }) => {
+  return Boolean(context.user);
+};
+
 const PORT = 4000;
 const startApolloServer = async () => {
   const schema = await buildSchema({
     resolvers: [AdResolver, TagResolver, UserResolver],
     validate: true,
+    authChecker,
   });
   const server = new ApolloServer({ schema });
 

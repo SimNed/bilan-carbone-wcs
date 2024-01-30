@@ -23,7 +23,12 @@ const GET_AD = gql`
       title
       price
       description
-      owner
+      owner {
+        id
+        email
+        firstName
+        lastName
+      }
       createdAt
     }
   }

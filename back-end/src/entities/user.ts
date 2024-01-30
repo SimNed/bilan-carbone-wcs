@@ -9,6 +9,7 @@ import {
 import { compare, hash } from "bcrypt";
 import { CreateOrUpdateUser, SignInUser } from "./user.args";
 import UserSession from "./userSession";
+import Ad from "./ad";
 
 @Entity("AppUser")
 @ObjectType()
@@ -29,11 +30,19 @@ class User extends BaseEntity {
   @Field()
   lastName!: string;
 
+  @Field()
+  get initials(): string {
+    return `${this.firstName[0]}${this.lastName[0]}`;
+  }
+
   @Column()
   hashedPassword!: string;
 
   @OneToMany(() => UserSession, (session) => session.user)
   sessions!: UserSession[];
+
+  @OneToMany(() => Ad, (ad) => ad.owner)
+  ads!: Ad[];
 
   constructor(user?: CreateOrUpdateUser) {
     super();

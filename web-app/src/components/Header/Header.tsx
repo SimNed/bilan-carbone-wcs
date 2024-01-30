@@ -8,8 +8,23 @@ import { ButtonLikeLink, Logo } from "../Link/ButtonLikeLink";
 import { MainSearchField } from "../FormElements/Input/Input";
 import { BaseLink } from "../Link/BaseLink";
 import ResponsiveLabel from "../ResponsiveLabel/ResponsiveLabel";
+import { gql, useQuery } from "@apollo/client";
+import { GetMyProfileHeaderQuery } from "@/gql/graphql";
+
+const GET_MY_PROFILE_HEADER = gql`
+  query GetMyProfileHeader {
+    myProfile {
+      id
+      initials
+    }
+  }
+`;
 
 export default function Header() {
+  const { data, loading } = useQuery<GetMyProfileHeaderQuery>(
+    GET_MY_PROFILE_HEADER
+  );
+
   return (
     <styled.Header>
       <styled.MainMenu>
@@ -24,6 +39,11 @@ export default function Header() {
             <SearchIcon />
           </PrimaryButton>
         </styled.TextFieldWithButton>
+        {!loading && (
+          <ButtonLikeLink href={data?.myProfile ? "/my-profile" : "/sign-in"}>
+            {data?.myProfile ? data.myProfile.initials : "Me connecter"}
+          </ButtonLikeLink>
+        )}
         <ButtonLikeLink href="/publish-article">
           <ResponsiveLabel
             mobileLabel="Publier"

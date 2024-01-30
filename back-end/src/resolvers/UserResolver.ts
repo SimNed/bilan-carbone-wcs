@@ -1,4 +1,4 @@
-import { Args, Ctx, Mutation, Query, Resolver } from "type-graphql";
+import { Args, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
 import User from "../entities/user";
 import { CreateOrUpdateUser, SignInUser } from "../entities/user.args";
 import { Context } from "..";
@@ -21,11 +21,9 @@ export class UserResolver {
     return user;
   }
 
+  @Authorized()
   @Query(() => User)
   async myProfile(@Ctx() { user }: Context): Promise<User> {
-    if (!user) {
-      throw new Error(`Vous n'êtes pas connecté.`);
-    }
-    return user;
+    return user as User;
   }
 }

@@ -1,10 +1,19 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import {
+  ApolloClient,
+  InMemoryCache,
+  NormalizedCacheObject,
+} from "@apollo/client";
+
+let apolloClient: ApolloClient<NormalizedCacheObject>;
 
 const createApolloClient = () => {
-  return new ApolloClient({
-    uri: "/api",
-    cache: new InMemoryCache(),
-  });
+  if (!apolloClient) {
+    apolloClient = new ApolloClient({
+      uri: "/api",
+      cache: new InMemoryCache(),
+    });
+  }
+  return apolloClient;
 };
 
 export default createApolloClient;
