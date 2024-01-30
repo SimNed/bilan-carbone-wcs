@@ -19,6 +19,8 @@ export default function Header() {
     GET_MY_PROFILE_HEADER
   );
 
+  return <div>Header</div>
+
   // return (
     // <styled.Header>
     //   <styled.MainMenu>
