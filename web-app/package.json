@@ -1,0 +1,29 @@
+{
+  "name": "web-app",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "graphql-codegen": "graphql-codegen --config graphql-codegen.ts"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.8.7",
+    "graphql": "^16.8.1",
+    "next": "latest",
+    "react": "latest",
+    "react-dom": "latest",
+    "styled-components": "^6.0.8"
+  },
+  "devDependencies": {
+    "@graphql-codegen/cli": "5.0.0",
+    "@types/node": "latest",
+    "@types/react": "latest",
+    "@types/react-dom": "latest",
+    "babel-plugin-styled-components": "^2.1.4",
+    "typescript": "latest",
+    "@graphql-codegen/client-preset": "4.1.0"
+  }
+}
