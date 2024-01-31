@@ -8,20 +8,19 @@ import {
   Query,
   Resolver,
 } from "type-graphql";
-import Ad from "../entities/ad";
-import { CreateOrUpdateAd } from "../entities/transportation.args";
 import { Context } from "..";
 import User from "../entities/user";
+import Transportation from "../entities/transportation";
 
 @Resolver()
-export class AdResolver {
-  // @Query(() => [Ad])
-  // ads(@Arg("category", { nullable: true }) category: number) {
-  //   return Ad.getAds(category ?? undefined);
-  // }
+export class TransportationResolver {
+  @Query(() => [Transportation])
+  transportations() {
+    return Transportation.getTransportations()
+  }
 
   // @Query(() => Ad)
-  // ad(@Arg("id", () => ID) id: string) {
+  // transportation(@Arg("id", () => ID) id: string) {
   //   return Ad.getAdById(id);
   // }
 
