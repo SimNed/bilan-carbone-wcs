@@ -9,7 +9,7 @@ import {
   Resolver,
 } from "type-graphql";
 import Ad from "../entities/ad";
-import { CreateOrUpdateAd } from "../entities/ad.args";
+import { CreateOrUpdateAd } from "../entities/transportation.args";
 import { Context } from "..";
 import User from "../entities/user";
 
