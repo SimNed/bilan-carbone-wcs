@@ -2,23 +2,21 @@ import { DataSource } from "typeorm";
 import "reflect-metadata";
 import { Response } from "express";
 
-import Ad from "./entities/ad";
 import User from "./entities/user";
-import UserSession from "./entities/userSession";
 
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { AuthChecker, buildSchema } from "type-graphql";
-import { AdResolver } from "./resolvers/AdResolver";
-import { UserResolver } from "./resolvers/UserResolver";
-import { getUserSessionIdFromCookie } from "./utils/cookie";
+import Transportation from "./entities/transportation";
+import Ride from "./entities/ride";
+import { TransportationResolver } from "./resolvers/TransportationResolver";
 
 export type Context = { res: Response; user: User | null };
 
 const dataSource = new DataSource({
   type: "postgres",
   url: process.env.DATABASE_URL,
-  entities: [Ad, User, UserSession],
+  entities: [User, Ride, Transportation ],
   synchronize: true,
 });
 
@@ -29,7 +27,7 @@ const authChecker: AuthChecker<Context> = ({ context }) => {
 const PORT = 4000;
 const startApolloServer = async () => {
   const schema = await buildSchema({
-    resolvers: [AdResolver, UserResolver],
+    resolvers: [TransportationResolver],
     validate: true,
     authChecker,
   });
@@ -38,10 +36,10 @@ const startApolloServer = async () => {
   const { url } = await startStandaloneServer(server, {
     listen: { port: PORT },
     context: async ({ req, res }): Promise<Context> => {
-      const userSessionId = getUserSessionIdFromCookie(req);
-      const user = userSessionId
-        ? await User.getUserWithSessionId(userSessionId)
-        : null;
+      // const userSessionId = getUserSessionIdFromCookie(req);
+      const user = null // userSessionId
+        // ? await User.getUserWithSessionId(userSessionId)
+        // : null;
       return { res: res as Response, user };
     },
   });

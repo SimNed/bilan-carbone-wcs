@@ -40,6 +40,11 @@ class Transportation extends BaseEntity {
       this.carboneEmission = transportation.carbone;
     }
   }
+
+  static async getTransportations(): Promise<Transportation[]>{
+    const transportations = await Transportation.find()
+    return transportations
+  }
 }
 
 export default Transportation;
