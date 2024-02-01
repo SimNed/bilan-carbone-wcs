@@ -8,8 +8,8 @@ export const HeaderStyled = styled.header`
   flex: 1;
   margin: 0;
   padding: 0 .5rem;
-  background-color: ${(props) => props.theme.colors.primary};
-  color: ${(props) => props.theme.colors.secondary};
+  background-color: white;
+  color: black;
   
 `;
   
