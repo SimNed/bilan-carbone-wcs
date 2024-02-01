@@ -30,6 +30,7 @@ const startApolloServer = async () => {
   });
 
   await dataSource.initialize();
+  await Transportation.initializeTransportations();
 
   console.log(`🚀  Server ready at: ${url}`);
 };
