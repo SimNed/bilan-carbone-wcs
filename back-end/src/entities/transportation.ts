@@ -5,18 +5,16 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ObjectType, Field, ID, Float } from 'type-graphql';
+import { ObjectType, Field, Float, Int } from 'type-graphql';
 
 import { CreateOrUpdateTransportation } from './transportation.args';
 import Ride from './ride';
-
-type TransportationArgs = CreateOrUpdateTransportation;
 
 @Entity()
 @ObjectType()
 class Transportation extends BaseEntity {
   @PrimaryGeneratedColumn()
-  @Field(() => ID)
+  @Field(() => Int)
   id!: number;
 
   @Column()
@@ -27,9 +25,9 @@ class Transportation extends BaseEntity {
   @Field(() => Float)
   carboneEmission!: number;
 
-  // @OneToMany(() => Ride, (ride) => ride.transportation)
-  // @Field(() => [Ride])
-  // rides!: Ride[];
+  @OneToMany(() => Ride, (ride) => ride.transportation)
+  @Field(() => [Ride])
+  rides!: Ride[];
 
   constructor(transportation?: Partial<Transportation>) {
     super();
@@ -107,7 +105,6 @@ class Transportation extends BaseEntity {
   ): Promise<Transportation> {
     const transportation = await Transportation.getTransportationById(id);
     Object.assign(transportation, partialTransportation);
-
     await transportation.save();
     transportation.reload();
     return transportation;

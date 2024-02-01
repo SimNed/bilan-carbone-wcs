@@ -31,11 +31,11 @@ class Ride extends BaseEntity {
   @Field(() => Date)
   date!: Date;
 
-  // @ManyToOne(() => Transportation, (transportation) => transportation.rides, {
-  //   eager: true,
-  // })
-  // @Field(() => Transportation)
-  // transportation!: Transportation;
+  @ManyToOne(() => Transportation, (transportation) => transportation.rides, {
+    eager: true,
+  })
+  @Field(() => Transportation)
+  transportation!: Transportation;
 
   constructor(ride?: RideArgs) {
     super();
@@ -64,6 +64,12 @@ class Ride extends BaseEntity {
 
   static async createRide(rideData: RideArgs): Promise<Ride> {
     const newRide = new Ride(rideData);
+    if (rideData.transportationId) {
+      const transportation = await Transportation.getTransportationById(
+        rideData.transportationId
+      );
+      newRide.transportation = transportation;
+    }
     const savedRide = await newRide.save();
     return savedRide;
   }
