@@ -6,7 +6,6 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { ObjectType, Field, Float, Int } from 'type-graphql';
-
 import { CreateOrUpdateTransportation } from './transportation.args';
 import Ride from './ride';
 
