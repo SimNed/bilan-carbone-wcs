@@ -1,17 +1,16 @@
-import Form from "@/components/Form/Form";
-import { Input } from "@/components/Input/Input";
+import { FlexCenteredContainerStyled } from "@/components/Containers/FlexCenteredContainer.styled";
+import Form from "@/components/FormElements/Form/Form";
+import { Input } from "@/components/FormElements/Input/Input";
 
 export default function SignInPage() {
 
   return(
-    <>
-      <img src='' alt =''/>
-      <div className="form-wrapper">
+    <FlexCenteredContainerStyled $isColumn>
+        <h1>Sign In</h1>
         <Form>
           <Input type="text" label="email" />
           <Input type="text" label="password" />
         </Form>
-      </div>
-    </>
+    </FlexCenteredContainerStyled>
   );
 }

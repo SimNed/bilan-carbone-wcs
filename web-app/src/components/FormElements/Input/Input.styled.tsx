@@ -1,5 +1,6 @@
 import styled from "styled-components";
 
 export const InputStyled = styled.input`
-    border: 1px solid red;
+    margin: .25rem;
+    padding: .25rem;
 `

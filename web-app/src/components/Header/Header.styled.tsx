@@ -5,16 +5,20 @@ export const HeaderStyled = styled.header`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex: 1;
   margin: 0;
   padding: 0 .5rem;
   background-color: ${(props) => props.theme.colors.primary};
   color: ${(props) => props.theme.colors.secondary};
-  img{
-    height: 72px;
-  }
-  .header-title-section{
-    display: flex;
-    gap: 2rem;
-    align-items: center;
-  }
+  
 `;
+  
+export const HeaderTitleSectionStyled = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex: 1;
+  img{
+    height: 32px;
+  }
+`
