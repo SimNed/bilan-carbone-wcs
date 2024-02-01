@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import Head from "next/head";
 
 import Header from "../Header/Header";
-import { LayoutContainerStyled, MainContentContainerStyled } from "./Layout.styled";
+import { MainContent } from "./Layout.styled";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
@@ -15,10 +15,8 @@ export default function Layout({ children }: { children: ReactNode }) {
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </Head>
-      <LayoutContainerStyled>
-        <Header />
-        <MainContentContainerStyled>{children}</MainContentContainerStyled>
-      </LayoutContainerStyled>
+      <Header />
+      <MainContent>{children}</MainContent>
     </>
   );
 }
