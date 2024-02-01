@@ -1,5 +1,5 @@
-import { Field, Float, ArgsType } from "type-graphql";
-import { Min, MinLength } from "class-validator";
+import { Field, Float, ArgsType, Int } from 'type-graphql';
+import { Min, MinLength } from 'class-validator';
 
 @ArgsType()
 export class CreateOrUpdateTransportation {
@@ -9,5 +9,5 @@ export class CreateOrUpdateTransportation {
 
   @Field(() => Float)
   @Min(0)
-  carbone!: number;
+  carboneEmission!: number;
 }

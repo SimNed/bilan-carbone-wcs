@@ -1,5 +1,5 @@
-import { Field, Float, ArgsType } from "type-graphql";
-import { Min, MinLength } from "class-validator";
+import { Field, Float, ArgsType, Int } from 'type-graphql';
+import { Min, MinLength } from 'class-validator';
 
 @ArgsType()
 export class CreateOrUpdateRide {
@@ -10,8 +10,7 @@ export class CreateOrUpdateRide {
   @Field(() => Float)
   @Min(0)
   distance!: number;
-  
-  @Field(() => Float)
-  @Min(0)
+
+  @Field()
   date!: Date;
 }
