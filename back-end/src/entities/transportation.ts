@@ -5,7 +5,7 @@ import {
   OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
-import { ObjectType, Field, ID, Float } from 'type-graphql';
+import { ObjectType, Field, ID, Float, Int } from 'type-graphql';
 
 import { CreateOrUpdateTransportation } from './transportation.args';
 import Ride from './ride';
@@ -15,9 +15,9 @@ type TransportationArgs = CreateOrUpdateTransportation;
 @Entity()
 @ObjectType()
 class Transportation extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
-  @Field(() => ID)
-  id!: string;
+  @PrimaryGeneratedColumn()
+  @Field(() => Int)
+  id!: number;
 
   @Column()
   @Field()
@@ -27,9 +27,9 @@ class Transportation extends BaseEntity {
   @Field(() => Float)
   carboneEmission!: number;
 
-  // @OneToMany(() => Ride, (ride) => ride.transportation)
-  // @Field(() => [Ride])
-  // rides!: Ride[];
+  @OneToMany(() => Ride, (ride) => ride.transportation)
+  @Field(() => [Ride])
+  rides!: Ride[];
 
   constructor(transportation?: TransportationArgs) {
     super();
@@ -45,7 +45,7 @@ class Transportation extends BaseEntity {
     return transportations;
   }
 
-  static async getTransportationById(id: string): Promise<Transportation> {
+  static async getTransportationById(id: number): Promise<Transportation> {
     const transportation = await Transportation.findOne({
       where: { id },
     });
@@ -64,7 +64,7 @@ class Transportation extends BaseEntity {
   }
 
   static async updateTransportation(
-    id: string,
+    id: number,
     partialTransportation: CreateOrUpdateTransportation
   ): Promise<Transportation> {
     const transportation = await Transportation.getTransportationById(id);
@@ -75,7 +75,7 @@ class Transportation extends BaseEntity {
     return transportation;
   }
 
-  static async deleteTransportation(id: string): Promise<Transportation> {
+  static async deleteTransportation(id: number): Promise<Transportation> {
     const transportation = await Transportation.getTransportationById(id);
     await Transportation.delete(id);
     return transportation;

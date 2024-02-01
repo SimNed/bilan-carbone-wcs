@@ -13,4 +13,7 @@ export class CreateOrUpdateRide {
 
   @Field()
   date!: Date;
+
+  @Field(() => Int)
+  transportationId!: number;
 }
