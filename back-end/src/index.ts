@@ -7,6 +7,7 @@ import User from "./entities/user";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { AuthChecker, buildSchema } from "type-graphql";
+
 import Transportation from "./entities/transportation";
 import Ride from "./entities/ride";
 import { TransportationResolver } from "./resolvers/TransportationResolver";

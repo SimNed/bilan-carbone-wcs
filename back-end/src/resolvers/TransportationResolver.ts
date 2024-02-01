@@ -1,16 +1,13 @@
 import {
   Arg,
   Args,
-  Authorized,
-  Ctx,
   ID,
   Mutation,
   Query,
   Resolver,
 } from "type-graphql";
-import { Context } from "..";
-import User from "../entities/user";
 import Transportation from "../entities/transportation";
+import { CreateOrUpdateTransportation } from "../entities/transportation.args";
 
 @Resolver()
 export class TransportationResolver {
@@ -19,26 +16,23 @@ export class TransportationResolver {
     return Transportation.getTransportations()
   }
 
-  // @Query(() => Ad)
-  // transportation(@Arg("id", () => ID) id: string) {
-  //   return Ad.getAdById(id);
-  // }
+  @Query(() => Transportation)
+  transportation(@Arg("id", () => ID) id: string) {
+    return Transportation.getTransportationById(id)
+  }
 
-  // @Authorized()
-  // @Mutation(() => Ad)
-  // createAd(@Args() args: CreateOrUpdateAd, @Ctx() { user }: Context) {
-  //   return Ad.saveNewAd({ ...args, owner: user as User });
-  // }
+  @Mutation(() => Transportation)
+  createTransportation(@Args() args: CreateOrUpdateTransportation,) {
+    return Transportation.saveTransportation(args);
+  }
 
-  // @Authorized()
-  // @Mutation(() => Ad)
-  // updateAd(@Arg("id", () => ID) id: string, @Args() args: CreateOrUpdateAd) {
-  //   return Ad.updateAd(id, args);
-  // }
+  @Mutation(() => Transportation)
+  updateTransportation(@Arg("id", () => ID) id: string, @Args() args: CreateOrUpdateTransportation,) {
+    return Transportation.updateTransportation(id, args)
+  }
 
-  // @Authorized()
-  // @Mutation(() => Ad)
-  // async deleteAd(@Arg("id", () => ID) id: string) {
-  //   return Ad.deleteAd(id);
-  // }
+  @Mutation(() => Transportation)
+  async deleteTransportation(@Arg("id", () => ID) id: string) {
+    return Transportation.deleteTransportation(id);
+  }
 }
