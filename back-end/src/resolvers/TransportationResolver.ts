@@ -11,25 +11,25 @@ export class TransportationResolver {
   }
 
   @Query(() => Transportation)
-  transportation(@Arg('id', () => ID) id: string) {
+  transportation(@Arg('id', () => ID) id: number) {
     return Transportation.getTransportationById(id);
   }
 
   @Mutation(() => Transportation)
   createTransportation(@Args() args: CreateOrUpdateTransportation) {
-    return Transportation.createTransportation({ ...args });
+    return Transportation.createTransportationIfNotExisting({ ...args });
   }
 
   @Mutation(() => Transportation)
   updateTransportation(
-    @Arg('id', () => ID) id: string,
+    @Arg('id', () => ID) id: number,
     @Args() args: CreateOrUpdateTransportation
   ) {
     return Transportation.updateTransportation(id, args);
   }
 
   @Mutation(() => Transportation)
-  async deleteTransportation(@Arg('id', () => ID) id: string) {
+  async deleteTransportation(@Arg('id', () => ID) id: number) {
     return Transportation.deleteTransportation(id);
   }
 }

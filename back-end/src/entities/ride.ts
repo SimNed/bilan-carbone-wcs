@@ -65,8 +65,10 @@ class Ride extends BaseEntity {
   static async createRide(rideData: RideArgs): Promise<Ride> {
     const newRide = new Ride(rideData);
     if (rideData.transportationId) {
-      const transportation = await Transportation.getTransportationById(rideData.transportationId)
-      newRide.transportation = transportation
+      const transportation = await Transportation.getTransportationById(
+        rideData.transportationId
+      );
+      newRide.transportation = transportation;
     }
     const savedRide = await newRide.save();
     return savedRide;
