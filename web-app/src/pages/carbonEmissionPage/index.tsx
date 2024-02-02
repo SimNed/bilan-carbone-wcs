@@ -1,9 +1,11 @@
-import { FlexCenteredContainerStyled } from '@/components/Containers/FlexCenteredContainer.styled';
+import { CarbonEmissionPageLayout } from '@/components/Layout/CarbonEmissionPageLayout/CarbonEmissionPageLayoutStyled';
+import RideFormView from './view/RideFormView/RideFormView';
 
 export default function CarbonEmissionPage() {
   return (
-    <FlexCenteredContainerStyled>
+    <CarbonEmissionPageLayout>
       <h1>Carbon emission page</h1>
-    </FlexCenteredContainerStyled>
+      <RideFormView />
+    </CarbonEmissionPageLayout>
   );
 }
