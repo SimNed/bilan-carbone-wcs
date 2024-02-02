@@ -35,8 +35,8 @@ export default function ProfilPage() {
               <RideDetailsStyled>
                 <h4>{ride.label}</h4>
                 <p>{formatDateToDisplay(ride.date)}</p>
-                <p>distance parcourue: {ride.distance}</p>
-                <p>dépense carbone (CO2/kg): ???</p>
+                <p>distance parcourue: {ride.distance} km</p>
+                <p>dépense carbone: ??? CO2/kg</p>
               </RideDetailsStyled>
           )})}
       </RidesContainerStyled>
