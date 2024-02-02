@@ -3,7 +3,6 @@ import { PrimaryButton } from "@/components/Buttons/PrimaryButton";
 import { ContainerBanner } from "@/components/Containers/ContainerBanner";
 import { FlexCenteredContainerStyled } from "@/components/Containers/FlexCenteredContainer.styled";
 import { ButtonLink } from "@/components/Link/ButtonLink";
-import CommonModal from "@/components/Modal/CommonModal";
 import Link from "next/link";
 
 export default function HomePage() {
@@ -11,7 +10,6 @@ export default function HomePage() {
     <>
       <ContainerBanner>
         <h1>Home</h1>
-        <CommonModal />
       </ContainerBanner>
       <FlexCenteredContainerStyled $isColumn>
         <ButtonLink href={"./sign-up"}>

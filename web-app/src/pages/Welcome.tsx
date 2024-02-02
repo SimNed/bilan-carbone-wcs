@@ -18,7 +18,7 @@ const Welcome = () => {
             Je calcule mon empreinte carbone
           </PrimaryButton>
         </ButtonLink>
-        <ButtonLink href={"./my-profil"}>
+        <ButtonLink href={"./profil"}>
           <PrimaryButton style={{ margin: "1rem 0 1rem" }}>
             Voir mes statistiques
           </PrimaryButton>
