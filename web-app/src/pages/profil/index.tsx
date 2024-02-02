@@ -1,16 +1,17 @@
-import Form from "@/components/FormElements/Form/Form";
 import { Input } from "@/components/FormElements/Input/Input";
-import { getDefaultUser, getRideAndCarboneRandomNumbers } from "@/utils";
-import { ProfilContentStyled, ProfilHeaderStyled } from "./profil.styled";
-import CarbonEmissionButton from "@/components/Buttons/CarbonEmissionButton/CarbonEmissionButton";
+import { formatDateToDisplay, getDefaultUser } from "@/utils";
+import { ProfilContentStyled, ProfilHeaderStyled, RideDetailsStyled, RidesContainerStyled } from "./profil.styled";
 import BaseButton from "@/components/Buttons/BaseButton/BaseButton";
 import { CenteredContainerStyled } from "@/components/Containers/CenteredContainer.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function ProfilPage() {
 
     const [defaultUser, setDefaultUser] = useState(getDefaultUser());
-    const [defaultRideAndCarbonNumber, setDefaultRideAndCarbonNumber] = useState(getRideAndCarboneRandomNumbers())
+
+    useEffect(() => {
+      console.log(defaultUser.rides)
+    }, [])
 
   return(
     <CenteredContainerStyled $width="50%">
@@ -24,8 +25,21 @@ export default function ProfilPage() {
       </ProfilHeaderStyled>
       <ProfilContentStyled>
         <Input type="text" label="Filtres"/>
-        <h3>Nombre d'empreinte carbone réalisé: {`${defaultRideAndCarbonNumber.ride}`}</h3>
-        <h3>Nombre d'empreinte carbone réalisé: {`${defaultRideAndCarbonNumber.carbon}`}</h3>
+        <h3>Nombre d'empreinte carbone réalisé: {defaultUser.rides.length}</h3>
+        <h3>Nombre de dépenses réalisées (CO2/Kg): ???</h3>
+        <RidesContainerStyled>
+          {defaultUser.rides.map((ride: { label: string, distance: number, date: string, carbon: number }) => {
+            let formatedDate = new Date(ride.date)
+
+            return(
+              <RideDetailsStyled>
+                <h4>{ride.label}</h4>
+                <p>{formatDateToDisplay(ride.date)}</p>
+                <p>distance parcourue: {ride.distance}</p>
+                <p>dépense carbone (CO2/kg): ???</p>
+              </RideDetailsStyled>
+          )})}
+      </RidesContainerStyled>
       </ProfilContentStyled>
     </CenteredContainerStyled>
   );

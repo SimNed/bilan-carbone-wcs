@@ -8,8 +8,7 @@ export const ProfilHeaderStyled = styled.header`
     padding: .5rem;
 `
 
-export const ProfilContentStyled = styled.header`
-    
+export const ProfilContentStyled = styled.header`    
     justify-content: space-around;
     align-items: center;
     background-color: tomato;
@@ -18,4 +17,12 @@ export const ProfilContentStyled = styled.header`
     input{
         width: 100%;
     }
+`
+export const RidesContainerStyled = styled.ul`
+    width: 100%;
+`
+
+export const RideDetailsStyled = styled.li`
+    list-style-type:none;
+    padding: 1rem;
 `
