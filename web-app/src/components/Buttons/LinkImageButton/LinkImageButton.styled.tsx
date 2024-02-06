@@ -1,9 +1,9 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-export const LinkButtonStyled = styled(Link)`
-  text-decoration: none;
+export const LinkImageButtonStyled = styled(Link)`
   img{
     width: 48px;
+    height: 48px;
   }
 `;
