@@ -1,4 +1,4 @@
-import CarbonEmissionButton from '@/components/Buttons/CarbonEmissionButton/CarbonEmissionButton';
+import BaseButton from '@/components/Buttons/BaseButton/BaseButton';
 import Form from '@/components/FormElements/Form/Form';
 import {
   FormTitle,
@@ -37,7 +37,7 @@ export default function RideFormView() {
               <option value='publicTransport'>Avion</option>
             </FormSelect>
           </FormLabelWithField>
-          <CarbonEmissionButton />
+          <BaseButton onClick={() => {}}>Ajouter mon trajet</BaseButton>
         </Form>
       </FormViewStyled>
     </>
