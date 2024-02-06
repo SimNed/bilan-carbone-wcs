@@ -1,10 +1,10 @@
-import CarbonEmissionButton from '@/components/Buttons/CarbonEmissionButton/CarbonEmissionButton';
 import { RideFormStyled } from './RideForm.styled';
 import {
   FormLabelWithField,
   Select,
   TextField,
 } from '../RideFormInput/RideFormInput.styled';
+import BaseButton from '@/components/Buttons/BaseButton/BaseButton';
 
 export default function RideForm() {
   return (
@@ -30,7 +30,7 @@ export default function RideForm() {
           <option value='publicTransport'>Avion</option>
         </Select>
       </FormLabelWithField>
-      <CarbonEmissionButton />
+      <BaseButton onClick={() => {}}>calcul</BaseButton>
     </RideFormStyled>
   );
 }

@@ -1,7 +1,8 @@
-import { PrimaryButton } from "@/components/Buttons/PrimaryButton";
+import LinkButton from "@/components/Buttons/LinkButton/LinkButton";
 import { ContainerBanner } from "@/components/Containers/ContainerBanner";
 import { FlexCenteredContainerStyled } from "@/components/Containers/FlexCenteredContainer.styled";
-import { ButtonLink } from "@/components/Link/ButtonLink";
+
+import styled from "styled-components";
 import { TitleView } from "@/components/TitleView/TitleView";
 
 const Welcome = () => {
@@ -12,16 +13,7 @@ const Welcome = () => {
         <p>Calculer votre empreinte carbone simplement 👇🏻</p>
       </ContainerBanner>
       <FlexCenteredContainerStyled $isColumn>
-        <ButtonLink href={"/carbonEmissionPage"}>
-          <PrimaryButton $isPrimary style={{ margin: "1rem 0 1rem" }}>
-            Je calcule mon empreinte carbone
-          </PrimaryButton>
-        </ButtonLink>
-        <ButtonLink href={"./profil"}>
-          <PrimaryButton style={{ margin: "1rem 0 1rem" }}>
-            Voir mes statistiques
-          </PrimaryButton>
-        </ButtonLink>
+        <LinkButton href='./carbonEmissionPage'>Je calcule mon empreinte carbonne</LinkButton>
       </FlexCenteredContainerStyled>
     </>
   );
