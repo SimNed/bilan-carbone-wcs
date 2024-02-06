@@ -1,6 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-export const ButtonLink = styled(Link)`
+export const LinkButtonStyled = styled(Link)`
   text-decoration: none;
 `;
