@@ -1,8 +1,8 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export const FormStyled = styled.form`
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    width: 260px;
-` 
+  display: grid;
+  width: 100%;
+  gap: 16px;
+  align-items: baseline;
+`;
