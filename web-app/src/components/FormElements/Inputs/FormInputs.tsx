@@ -1,12 +1,17 @@
 import styled from 'styled-components';
 
+export const InputStyled = styled.input`
+  margin: 0.25rem;
+  padding: 0.25rem;
+`;
+
 export const FormLabelWithField = styled.label`
   display: grid;
   width: 100%;
   gap: 6px;
 `;
 
-export const TextField = styled.input`
+export const FormTextField = styled.input`
   height: 40px;
   background-color: white;
   padding: 8px;
@@ -16,7 +21,7 @@ export const TextField = styled.input`
   font-family: inherit;
 `;
 
-export const Select = styled.select`
+export const FormSelect = styled.select`
   height: 40px;
   background-color: white;
   padding: 8px;
