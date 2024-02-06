@@ -1,28 +1,20 @@
-import CarbonEmissionButton from "@/components/Buttons/CarbonEmissionButton/CarbonEmissionButton";
-import { PrimaryButton } from "@/components/Buttons/PrimaryButton";
+import LinkButton from "@/components/Buttons/LinkButton/LinkButton";
 import { ContainerBanner } from "@/components/Containers/ContainerBanner";
 import { FlexCenteredContainerStyled } from "@/components/Containers/FlexCenteredContainer.styled";
-import { ButtonLink } from "@/components/Link/ButtonLink";
-import Link from "next/link";
+import { TitleView } from "@/components/TitleView/TitleView";
 
 export default function HomePage() {
   return (
     <>
-      <ContainerBanner>
-        <h1>Home</h1>
+      <ContainerBanner $isColumn>
+        <TitleView>Bienvenue</TitleView>
+        <p>Calculer votre empreinte carbone simplement 👇🏻</p>
       </ContainerBanner>
       <FlexCenteredContainerStyled $isColumn>
-        <ButtonLink href={"./sign-up"}>
-          <PrimaryButton style={{ margin: "1rem 0 1rem" }}>
-            S'inscrire
-          </PrimaryButton>
-        </ButtonLink>
-        <ButtonLink href={"./Welcome"}>
-          <PrimaryButton $isPrimary style={{ margin: "1rem 0 1rem" }}>
-            Accueil
-          </PrimaryButton>
-        </ButtonLink>
-        <CarbonEmissionButton />
+        <LinkButton href="./carbonEmissionPage">
+          Je calcule mon empreinte carbonne
+        </LinkButton>
+        <LinkButton href="./profil">Voir mon profil</LinkButton>
       </FlexCenteredContainerStyled>
     </>
   );
