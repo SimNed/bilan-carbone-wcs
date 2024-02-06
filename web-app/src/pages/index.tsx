@@ -1,16 +1,20 @@
 import LinkButton from "@/components/Buttons/LinkButton/LinkButton";
 import { ContainerBanner } from "@/components/Containers/ContainerBanner";
 import { FlexCenteredContainerStyled } from "@/components/Containers/FlexCenteredContainer.styled";
+import { TitleView } from "@/components/TitleView/TitleView";
 
 export default function HomePage() {
   return (
     <>
-      <ContainerBanner>
-        <h1>Home</h1>
+      <ContainerBanner $isColumn>
+        <TitleView>Bienvenue</TitleView>
+        <p>Calculer votre empreinte carbone simplement 👇🏻</p>
       </ContainerBanner>
       <FlexCenteredContainerStyled $isColumn>
-        <LinkButton href='./sign-up'>s'inscrire</LinkButton>
-        <LinkButton href='./welcome'>welcome</LinkButton>
+        <LinkButton href="./carbonEmissionPage">
+          Je calcule mon empreinte carbonne
+        </LinkButton>
+        <LinkButton href="./profil">Voir mon profil</LinkButton>
       </FlexCenteredContainerStyled>
     </>
   );
