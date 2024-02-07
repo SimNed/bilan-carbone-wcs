@@ -5,10 +5,12 @@ export default function ContentView() {
   return (
     <>
       <PageContentLayout>
-        <LinkButton href='./carbonEmissionPage'>
+        <LinkButton color='SECONDARY' href='./carbonEmissionPage'>
           Je calcule mon empreinte carbonne
         </LinkButton>
-        <LinkButton href='./profil'>Voir mon profil</LinkButton>
+        <LinkButton color='SECONDARY' href='./profil'>
+          Voir mon profil
+        </LinkButton>
       </PageContentLayout>
     </>
   );
