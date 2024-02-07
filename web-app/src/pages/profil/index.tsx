@@ -11,6 +11,7 @@ import { useEffect } from 'react';
 import { Input } from '@/components/FormElements/Inputs/Input';
 import { gql, useQuery } from '@apollo/client';
 import { GetRidesQuery } from '@/gql/graphql';
+import RideDetails from './components/RideDetails';
 
 export default function ProfilPage() {
   const defaultUser = getDefaultUser()
@@ -65,13 +66,7 @@ export default function ProfilPage() {
                   transportation: { label: string};
                 }) => {
                   return (
-                    <RideDetailsStyled key={ride.label + ride.date}>
-                      <h4>{ride.label}</h4>
-                      <p>{ride.transportation.label}</p>
-                      <p>{formatDateToDisplay(ride.date)}</p>
-                      <p>distance parcourue: {ride.distance} km</p>
-                      <p>dépense carbone: ??? CO2/kg</p>
-                    </RideDetailsStyled>
+                    <RideDetails key={ride.label + ride.date} ride={ride} />
                   );
                 }
               )}

@@ -23,6 +23,6 @@ export const RidesContainerStyled = styled.ul`
 `
 
 export const RideDetailsStyled = styled.li`
-    list-style-type:none;
+    list-style-type: none;
     padding: 1rem;
 `
