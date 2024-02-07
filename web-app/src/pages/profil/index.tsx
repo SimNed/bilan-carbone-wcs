@@ -51,7 +51,7 @@ export default function ProfilPage() {
       </ProfilHeaderStyled>
       <ProfilContentStyled>
         <Input type='text' label='Filtres' />
-        { data ? (
+        { data && data.rides.length > 0 ? (
           <>
             <h3>Nombre d'empreinte carbone réalisé: {data.rides.length}</h3>
             <h3>Nombre de dépenses réalisées (CO2/Kg): ???</h3>
