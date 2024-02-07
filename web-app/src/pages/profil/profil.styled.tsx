@@ -11,7 +11,7 @@ export const ProfilHeaderStyled = styled.header`
 export const ProfilContentStyled = styled.header`    
     justify-content: space-around;
     align-items: center;
-    background-color: tomato;
+    background-color: white;
     padding: 2.5rem;
     box-sizing: content-box;
     input{
