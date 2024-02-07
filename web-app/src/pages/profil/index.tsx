@@ -2,7 +2,6 @@ import { formatDateToDisplay, getDefaultUser } from '@/utils';
 import {
   ProfilContentStyled,
   ProfilHeaderStyled,
-  RideDetailsStyled,
   RidesContainerStyled,
 } from './profil.styled';
 import BaseButton from '@/components/Buttons/BaseButton/BaseButton';
