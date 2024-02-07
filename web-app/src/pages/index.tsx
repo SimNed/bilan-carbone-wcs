@@ -1,22 +1,15 @@
-import LinkButton from '@/components/Buttons/LinkButton/LinkButton';
-import {
-  PageContentLayout,
-  PageLayout,
-} from '@/components/Layout/Layout.styled';
+import { PageLayout } from '@/components/Layout/Layout.styled';
 import { TitleView } from '@/components/TitleView/TitleView';
+import BaselineView from './home_page/components/Baseline/Baseline';
+import ContentView from './home_page/view/ContentView';
 
 export default function HomePage() {
   return (
     <>
       <PageLayout>
-        <TitleView>Bienvenue</TitleView>
-        <p>Calculer votre empreinte carbone simplement 👇🏻</p>
-        <PageContentLayout>
-          <LinkButton href='./carbonEmissionPage'>
-            Je calcule mon empreinte carbonne
-          </LinkButton>
-          <LinkButton href='./profil'>Voir mon profil</LinkButton>
-        </PageContentLayout>
+        <TitleView>Wild Carbon</TitleView>
+        <BaselineView />
+        <ContentView />
       </PageLayout>
     </>
   );

@@ -19,10 +19,12 @@ export const PageLayout = styled.div`
 `;
 
 export const PageContentLayout = styled.div`
-  // TODO: background-color: ?;
+  // TODO: Add some style. background-color ?;
   height: 300px; //TODO: Make it dynamic ?;
+  width: 80vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-evenly;
+  background-color: #f1e7c5;
 `;
