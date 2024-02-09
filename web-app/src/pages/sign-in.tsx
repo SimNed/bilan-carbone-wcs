@@ -1,19 +1,38 @@
-import { FlexCenteredContainerStyled } from "@/components/Containers/FlexCenteredContainer.styled";
-import Form from "@/components/FormElements/Form/Form";
-import { Input } from "@/components/FormElements/Input/Input";
+// import { FlexCenteredContainerStyled } from "@/components/Containers/FlexCenteredContainer.styled";
+// import Form from "@/components/FormElements/Form/Form";
+// import { Input } from "@/components/FormElements/Input/Input";
+// import { useState } from "react";
 
-export default function SignInPage() {
+// export default function SignInPage() {
+//   const SIGN_IN_FORM = gql`
+//     mutation SignInForm($email: String!, $password: String!) {
+//       signIn(email: $email, password: $password) {
+//         id
+//         email
+//         firstName
+//         lastName
+//       }
+//     }
+// `;
 
-  return(
-    <FlexCenteredContainerStyled $isColumn>
-        <h1>Sign In</h1>
-        <Form>
-          <Input type="text" label="email" />
-          <Input type="text" label="password" />
-        </Form>
-    </FlexCenteredContainerStyled>
-  );
-}
+//   const [formData, setFormData] = useState<SignInFormMutationVariables>({ email: "", password: "" });
+
+//   const updateFormData = (
+//     partialFormData: Partial<SignInFormMutationVariables>
+//   ) => {
+//     setFormData({ ...formData, ...partialFormData });
+//   };
+
+//   return(
+//     <FlexCenteredContainerStyled $isColumn>
+//         <h1>Sign In</h1>
+//         <Form>
+//           <Input type="text" label="email" onChange={(e) => updateFormData({ email: e.target.value })} />
+//           <Input type="text" label="password" onChange={(e) => updateFormData({ password: e.target.value })} />
+//         </Form>
+//     </FlexCenteredContainerStyled>
+//   );
+// }
 
 // import { PrimaryButton } from "@/components/Button/PrimaryButton";
 // import { Form } from "@/components/FormElements/Form/Form";
