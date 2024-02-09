@@ -1,7 +1,7 @@
-import { ReactNode } from "react"
+import { FormEventHandler, ReactNode } from "react"
 import { FormStyled } from "./Form.styled"
 
-const Form = ({ children, onSubmit }: { children :ReactNode; onSubmit: (event: React.FormEvent<HTMLInputElement>) => void }) => {
+const Form = ({ children, onSubmit }: { children :ReactNode; onSubmit: FormEventHandler<HTMLFormElement> }) => {
     return(
         <FormStyled onSubmit={onSubmit}>{children}</FormStyled>
     )
