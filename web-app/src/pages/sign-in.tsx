@@ -1,16 +1,42 @@
-import { FlexCenteredContainerStyled } from "@/components/Containers/FlexCenteredContainer.styled";
+import { CenteredContainerStyled } from "@/components/Containers/CenteredContainer.styled";
 import Form from "@/components/FormElements/Form/Form";
-import { Input } from "@/components/FormElements/Input/Input";
+import { FormTitle } from "@/components/FormElements/FormView/FormView.styled";
+import { FormLabelWithField, TextField } from "@/components/Input/Input";
+import BaseButton from "@/components/Buttons/BaseButton/BaseButton";
+import { LinkStyled } from "@/components/Link/StyledLink";
 
-export default function SignInPage() {
+interface SignInPageProps {
+  onToggleModalContent: () => void;
+}
 
-  return(
-    <FlexCenteredContainerStyled $isColumn>
-        <h1>Sign In</h1>
+export default function SignInPage({ onToggleModalContent }: SignInPageProps) {
+  return (
+    <>
+      <CenteredContainerStyled $width="80%">
+        <FormTitle>Se connecter</FormTitle>
         <Form>
-          <Input type="text" label="email" />
-          <Input type="text" label="password" />
+          <FormLabelWithField>
+            Adresse email
+            <TextField type="email" autoComplete="username" required />
+          </FormLabelWithField>
+          <FormLabelWithField>
+            Mot de passe
+            <TextField
+              type="password"
+              minLength={12}
+              autoComplete="current-password"
+              required
+            />
+          </FormLabelWithField>
+          <BaseButton>Se connecter</BaseButton>
+          <p>
+            Vous n'avez pas de compte ?{" "}
+            <LinkStyled onClick={onToggleModalContent}>
+              Créer un compte
+            </LinkStyled>
+          </p>
         </Form>
-    </FlexCenteredContainerStyled>
+      </CenteredContainerStyled>
+    </>
   );
 }
