@@ -10,8 +10,9 @@ import {
   FormSelect,
   FormTextField,
 } from '@/components/FormElements/Inputs/FormInputs';
-import { CreateRideFormMutation, CreateRideFormMutationVariables, MutationCreateRideArgs } from '@/gql/graphql';
-import { gql, useMutation } from '@apollo/client';
+import { CreateRideFormMutation, CreateRideFormMutationVariables, GetTransportationsQuery, MutationCreateRideArgs } from '@/gql/graphql';
+import { capitalizeFirstLetter } from '@/utils';
+import { gql, useMutation, useQuery } from '@apollo/client';
 import { useState } from 'react';
 
 const CREATE_RIDE = gql`
@@ -33,7 +34,7 @@ const CREATE_RIDE = gql`
 `;
 
 const GET_TRANSPORTATIONS = gql`
-  query Query {
+  query GetTransportations {
     transportations {
       label
       id
@@ -50,6 +51,8 @@ export default function RideFormView() {
     transportationId: 1,
   });
 
+  const { data } = useQuery<GetTransportationsQuery>(GET_TRANSPORTATIONS)
+
   const updateFormData = (partialFormData: Partial<CreateRideFormMutationVariables>) => {
     setFormData({ ...formData, ...partialFormData });
   };
@@ -57,7 +60,7 @@ export default function RideFormView() {
   const [createRideMutation] = useMutation<CreateRideFormMutation, CreateRideFormMutationVariables>(CREATE_RIDE);
 
   const createRide = async () => {
-    const {data} = await createRideMutation({
+    await createRideMutation({
       variables: {
         label: formData.label,
         distance: formData.distance,
@@ -93,7 +96,7 @@ export default function RideFormView() {
           <FormLabelWithField>
             Distance en km:
             <FormTextField
-              type='text'
+              type='number'
               required
               onChange={(event) => {
                 updateFormData({ distance: parseInt(event.target.value) });
@@ -116,15 +119,12 @@ export default function RideFormView() {
               required
               onChange={(event) => {
                 updateFormData({
-                  transportationId: 3,
+                  transportationId: parseInt(event.target.value),
                 });
               }}
             >
               <option value=''>Sélectionner</option>
-              <option value='1'>Train</option>
-              <option value='2'>Voiture</option>
-              <option value='3'>Bus</option>
-              <option value='4'>Avion</option>
+              {data?.transportations.map((transportation) =>  <option value={transportation.id}>{capitalizeFirstLetter(transportation.label)}</option>)}
             </FormSelect>
           </FormLabelWithField>
           <BaseButton>Ajouter mon trajet</BaseButton>
