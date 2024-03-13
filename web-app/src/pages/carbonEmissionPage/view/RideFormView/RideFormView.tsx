@@ -117,13 +117,13 @@ export default function RideFormView() {
             Moyen de transport:
             <FormSelect
               required
+              placeholder='Sélectionner'
               onChange={(event) => {
                 updateFormData({
                   transportationId: parseInt(event.target.value),
                 });
               }}
             >
-              <option value=''>Sélectionner</option>
               {data?.transportations.map((transportation) =>  <option value={transportation.id}>{capitalizeFirstLetter(transportation.label)}</option>)}
             </FormSelect>
           </FormLabelWithField>
