@@ -10,7 +10,7 @@ import {
   FormSelect,
   FormTextField,
 } from '@/components/FormElements/Inputs/FormInputs';
-import { MutationCreateRideArgs } from '@/gql/graphql';
+import { CreateRideFormMutation, CreateRideFormMutationVariables, MutationCreateRideArgs } from '@/gql/graphql';
 import { gql, useMutation } from '@apollo/client';
 import { useState } from 'react';
 
@@ -18,48 +18,51 @@ const CREATE_RIDE = gql`
   mutation CreateRideForm(
     $label: String!
     $distance: Float!
-    $date: String!
-    $transportation: String!
+    $date: DateTimeISO!
+    $transportationId: Int!
   ) {
     createRide(
       label: $label
       distance: $distance
       date: $date
-      transportation: $transportation
+      transportationId: $transportationId
     ) {
       id
-      label
-      distance
-      date
-      transportation {
-        id
-        label
-      }
     }
   }
 `;
 
+const GET_TRANSPORTATIONS = gql`
+  query Query {
+    transportations {
+      label
+      id
+      carboneEmission
+    }
+  }
+`
+
 export default function RideFormView() {
-  const [formData, setFormData] = useState<MutationCreateRideArgs>({
+  const [formData, setFormData] = useState<CreateRideFormMutationVariables>({
     label: '',
     distance: 0,
     date: '',
     transportationId: 1,
   });
 
-  const updateFormData = (partialFormData: Partial<MutationCreateRideArgs>) => {
+  const updateFormData = (partialFormData: Partial<CreateRideFormMutationVariables>) => {
     setFormData({ ...formData, ...partialFormData });
   };
 
-  const [createRideMutation] = useMutation<MutationCreateRideArgs>(CREATE_RIDE);
+  const [createRideMutation] = useMutation<CreateRideFormMutation, CreateRideFormMutationVariables>(CREATE_RIDE);
 
   const createRide = async () => {
-    const { data } = await createRideMutation({
+    const {data} = await createRideMutation({
       variables: {
         label: formData.label,
         distance: formData.distance,
         date: formData.date,
-        transportation: formData.transportationId,
+        transportationId: formData.transportationId,
       },
     });
   };
@@ -69,8 +72,10 @@ export default function RideFormView() {
       <FormViewStyled>
         <FormTitle>Nouveau trajet :</FormTitle>
         <Form
-          onSubmit={(event: { preventDefault: () => void }) => {
+          aria-label='form'
+          onSubmit={(event) => {
             event.preventDefault();
+            console.log(formData)
             createRide();
           }}
         >
@@ -101,7 +106,7 @@ export default function RideFormView() {
               type='date'
               required
               onChange={(event) => {
-                updateFormData({ date: event.target.value });
+                updateFormData({ date: new Date(event.target.value).toISOString() });
               }}
             />
           </FormLabelWithField>
@@ -111,14 +116,14 @@ export default function RideFormView() {
               required
               onChange={(event) => {
                 updateFormData({
-                  transportationId: parseInt(event.target.value),
+                  transportationId: 3,
                 });
               }}
             >
               <option value=''>Sélectionner</option>
               <option value='1'>Train</option>
               <option value='2'>Voiture</option>
-              <option value='2'>Bus</option>
+              <option value='3'>Bus</option>
               <option value='4'>Avion</option>
             </FormSelect>
           </FormLabelWithField>

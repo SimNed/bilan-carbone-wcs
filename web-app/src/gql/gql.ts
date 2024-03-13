@@ -13,6 +13,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Therefore it is highly recommended to use the babel or swc plugin for production.
  */
 const documents = {
+    "\n  mutation CreateRideForm(\n    $label: String!\n    $distance: Float!\n    $date: DateTimeISO!\n    $transportationId: Int!\n  ) {\n    createRide(\n      label: $label\n      distance: $distance\n      date: $date\n      transportationId: $transportationId\n    ) {\n      id\n    }\n  }\n": types.CreateRideFormDocument,
     "\n  query GetRides {\n    rides {\n      id\n      label\n      distance\n      date\n      transportation {\n        label\n      }\n    }\n  }\n  ": types.GetRidesDocument,
 };
 
@@ -30,6 +31,10 @@ const documents = {
  */
 export function graphql(source: string): unknown;
 
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation CreateRideForm(\n    $label: String!\n    $distance: Float!\n    $date: DateTimeISO!\n    $transportationId: Int!\n  ) {\n    createRide(\n      label: $label\n      distance: $distance\n      date: $date\n      transportationId: $transportationId\n    ) {\n      id\n    }\n  }\n"): (typeof documents)["\n  mutation CreateRideForm(\n    $label: String!\n    $distance: Float!\n    $date: DateTimeISO!\n    $transportationId: Int!\n  ) {\n    createRide(\n      label: $label\n      distance: $distance\n      date: $date\n      transportationId: $transportationId\n    ) {\n      id\n    }\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
