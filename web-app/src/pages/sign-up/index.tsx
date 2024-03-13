@@ -38,9 +38,9 @@ const SIGN_UP_FORM = gql`
   const signUp = async () => {
     const { data } = await signUpMutation({ variables: formData });
     
-        if (data && data.signUp) {
-          router.push("/sign-in");
-        }
+        // if (data && data.signUp) {
+        //   router.push("/sign-in");
+        // }
       };
 
   return (
@@ -51,7 +51,7 @@ const SIGN_UP_FORM = gql`
         signUp()
       })}>
         <Input type='text' label='email' onChange={(e) => updateFormData({ email: e.target.value })}/>
-        <Input type='text' label='first name' onChange={(e) => updateFormData({ firstname: e.target.value })}/>
+        <Input type='text' label='first name' onChange={(e) => updateFormData({ firstName: e.target.value })}/>
         <Input type='text' label='last name' onChange={(e) => updateFormData({ lastName: e.target.value })}/>
         <Input type='text' label='password' onChange={(e) => updateFormData({ password: e.target.value })}/>
         <BaseButton>valider</BaseButton>

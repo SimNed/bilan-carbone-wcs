@@ -9,6 +9,7 @@ import { ObjectType, Field, ID, Float } from 'type-graphql';
 
 import { CreateOrUpdateRide } from './ride.args';
 import Transportation from './transportation';
+import User from './user';
 
 type RideArgs = CreateOrUpdateRide & {};
 
@@ -30,6 +31,10 @@ class Ride extends BaseEntity {
   @Column()
   @Field(() => Date)
   date!: Date;
+
+  @ManyToOne(() => User, (user) => user.rides, { eager: true })
+  @Field(() => User)
+  owner!: User;
 
   @ManyToOne(() => Transportation, (transportation) => transportation.rides, {
     eager: true,

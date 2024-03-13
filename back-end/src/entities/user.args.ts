@@ -16,7 +16,7 @@ export class CreateOrUpdateUser {
   lastName!: string;
 
   @Field()
-  @MinLength(12)
+  @MinLength(3)
   password!: string;
 }
 

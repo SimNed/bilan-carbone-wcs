@@ -30,7 +30,7 @@ class User extends BaseEntity {
   lastName!: string;
 
   @Column()
-  hashedPassword!: string;
+  password!: string;
 
   @OneToMany(() => Ride, (ride) => ride.owner)
   rides!: Ride[];
@@ -42,7 +42,7 @@ class User extends BaseEntity {
       this.email = user.email;
       this.firstName = user.firstName;
       this.lastName = user.lastName;
-      this.hashedPassword = user.password;
+      this.password = user.password;
     }
   }
 
@@ -60,7 +60,7 @@ class User extends BaseEntity {
     password,
   }: SignInUser): Promise<User> {
     const user = await User.findOne({ where: { email } });
-    if (!user || !(await compare(password, user.hashedPassword))) {
+    if (!user || !(await compare(password, user.password))) {
       throw new Error("INVALID_CREDENTIALS");
     }
     return user;
