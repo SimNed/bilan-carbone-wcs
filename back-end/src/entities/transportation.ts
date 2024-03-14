@@ -57,12 +57,12 @@ class Transportation extends BaseEntity {
     await Transportation.createTransportationIfNotExisting({
       id: 4,
       label: 'train',
-      carboneEmission: 10,
+      carboneEmission: 50,
     });
     await Transportation.createTransportationIfNotExisting({
       id: 5,
-      label: 'avion',
-      carboneEmission: 285,
+      label: 'train',
+      carboneEmission: 500,
     });
   }
 
