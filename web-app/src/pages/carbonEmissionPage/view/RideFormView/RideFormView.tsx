@@ -1,6 +1,6 @@
 import BaseButton from '@/components/Buttons/BaseButton/BaseButton';
 import { Form } from '@/components/FormElements/Form/Form.styled';
-// import Form from '@/components/FormElements/Form/Form';
+import { enqueueSnackbar } from 'notistack'
 import {
   FormTitle,
   FormViewStyled,
@@ -13,7 +13,8 @@ import {
 import { CreateRideFormMutation, CreateRideFormMutationVariables, GetTransportationsQuery, MutationCreateRideArgs } from '@/gql/graphql';
 import { capitalizeFirstLetter } from '@/utils';
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
+import { useRouter } from 'next/router';
 
 const CREATE_RIDE = gql`
   mutation CreateRideForm(
@@ -52,6 +53,7 @@ export default function RideFormView() {
   });
 
   const { data } = useQuery<GetTransportationsQuery>(GET_TRANSPORTATIONS)
+  const formRef = useRef<HTMLFormElement>(null)
 
   const updateFormData = (partialFormData: Partial<CreateRideFormMutationVariables>) => {
     setFormData({ ...formData, ...partialFormData });
@@ -60,7 +62,8 @@ export default function RideFormView() {
   const [createRideMutation] = useMutation<CreateRideFormMutation, CreateRideFormMutationVariables>(CREATE_RIDE);
 
   const createRide = async () => {
-    await createRideMutation({
+
+    const {data} = await createRideMutation({
       variables: {
         label: formData.label,
         distance: formData.distance,
@@ -68,6 +71,14 @@ export default function RideFormView() {
         transportationId: formData.transportationId,
       },
     });
+
+    if(data){
+      enqueueSnackbar("trajet enregistré !", { variant: "success" })
+      if(formRef.current)
+        formRef.current.reset();
+    } else {
+      enqueueSnackbar("erreur d'enregistrement", { variant: "error" })
+    }
   };
 
   return (
@@ -75,10 +86,10 @@ export default function RideFormView() {
       <FormViewStyled>
         <FormTitle>Nouveau trajet :</FormTitle>
         <Form
+          ref={formRef}
           aria-label='form'
           onSubmit={(event) => {
             event.preventDefault();
-            console.log(formData)
             createRide();
           }}
         >
@@ -97,6 +108,7 @@ export default function RideFormView() {
             Distance en km:
             <FormTextField
               type='number'
+              min={0}
               required
               onChange={(event) => {
                 updateFormData({ distance: parseInt(event.target.value) });
@@ -117,7 +129,6 @@ export default function RideFormView() {
             Moyen de transport:
             <FormSelect
               required
-              placeholder='Sélectionner'
               onChange={(event) => {
                 updateFormData({
                   transportationId: parseInt(event.target.value),
