@@ -11,6 +11,10 @@ export function formatDateToDisplay(date: string){
   return `${formatedDate.getDate()}/${formatedDate.getMonth() + 1 < 10 ? '0' + (formatedDate.getMonth() + 1) : (formatedDate.getMonth() + 1)}/${formatedDate.getFullYear()} `
 }
 
+export function capitalizeFirstLetter(str: string){
+  return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
 export const getDefaultUser = (): Record<string, any> => {
   return {id: "un_uuid_par_defaut", firstName: "John", lastName: 'Doe', email: "john.doe@mail.com", password: 'secret.password', rides: [
     {
