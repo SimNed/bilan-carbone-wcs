@@ -1,5 +1,5 @@
 import { CenteredContainerStyled } from "@/components/Containers/CenteredContainer.styled";
-import Form from "@/components/FormElements/Form/Form";
+import { Form } from "@/components/FormElements/Form/Form.styled";
 import { FormTitle } from "@/components/FormElements/FormView/FormView.styled";
 import { FormLabelWithField, TextField } from "@/components/Input/Input";
 import BaseButton from "@/components/Buttons/BaseButton/BaseButton";
