@@ -1,39 +1,45 @@
+import BaseButton from "@/components/Buttons/BaseButton/BaseButton";
 import { CenteredContainerStyled } from "@/components/Containers/CenteredContainer.styled";
 import { Form } from "@/components/FormElements/Form/Form.styled";
 import { FormTitle } from "@/components/FormElements/FormView/FormView.styled";
 import { FormLabelWithField, TextField } from "@/components/Input/Input";
-import BaseButton from "@/components/Buttons/BaseButton/BaseButton";
 import { LinkStyled } from "@/components/Link/StyledLink";
 
-interface SignInPageProps {
+interface SignUnPageProps {
   onToggleModalContent: () => void;
 }
 
-export default function SignInPage({ onToggleModalContent }: SignInPageProps) {
+export default function SignUpPage({ onToggleModalContent }: SignUnPageProps) {
   return (
     <>
       <CenteredContainerStyled $width="80%">
-        <FormTitle>Se connecter</FormTitle>
+        <FormTitle>Créer un compte</FormTitle>
         <Form>
           <FormLabelWithField>
             Adresse email
             <TextField type="email" autoComplete="username" required />
           </FormLabelWithField>
           <FormLabelWithField>
+            Prénom
+            <TextField type="text" required />
+          </FormLabelWithField>
+          <FormLabelWithField>
+            Nom
+            <TextField type="text" required />
+          </FormLabelWithField>
+          <FormLabelWithField>
             Mot de passe
             <TextField
               type="password"
               minLength={12}
-              autoComplete="current-password"
+              autoComplete="new-password"
               required
             />
           </FormLabelWithField>
-          <BaseButton>Se connecter</BaseButton>
+          <BaseButton>Créer un compte</BaseButton>
           <p>
-            Vous n'avez pas de compte ?{" "}
-            <LinkStyled onClick={onToggleModalContent}>
-              Créer un compte
-            </LinkStyled>
+            Vous avez déjà un compte ?{" "}
+            <LinkStyled onClick={onToggleModalContent}>Se connecter</LinkStyled>
           </p>
         </Form>
       </CenteredContainerStyled>

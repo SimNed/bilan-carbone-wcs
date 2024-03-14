@@ -4,19 +4,19 @@ import {
   Entity,
   ManyToOne,
   PrimaryGeneratedColumn,
-} from 'typeorm';
-import { ObjectType, Field, ID, Float } from 'type-graphql';
+} from "typeorm";
+import { ObjectType, Field, ID, Float } from "type-graphql";
 
-import { CreateOrUpdateRide } from './ride.args';
-import Transportation from './transportation';
-import User from './user';
+import { CreateOrUpdateRide } from "./ride.args";
+import Transportation from "./transportation";
+import User from "./user";
 
 type RideArgs = CreateOrUpdateRide & {};
 
 @Entity()
 @ObjectType()
 class Ride extends BaseEntity {
-  @PrimaryGeneratedColumn('uuid')
+  @PrimaryGeneratedColumn("uuid")
   @Field(() => ID)
   id!: string;
 

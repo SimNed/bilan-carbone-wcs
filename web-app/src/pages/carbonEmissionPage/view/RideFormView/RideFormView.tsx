@@ -1,5 +1,6 @@
 import BaseButton from '@/components/Buttons/BaseButton/BaseButton';
-import Form from '@/components/FormElements/Form/Form';
+import { Form } from '@/components/FormElements/Form/Form.styled';
+// import Form from '@/components/FormElements/Form/Form';
 import {
   FormTitle,
   FormViewStyled,
@@ -9,35 +10,124 @@ import {
   FormSelect,
   FormTextField,
 } from '@/components/FormElements/Inputs/FormInputs';
+import { CreateRideFormMutation, CreateRideFormMutationVariables, GetTransportationsQuery, MutationCreateRideArgs } from '@/gql/graphql';
+import { capitalizeFirstLetter } from '@/utils';
+import { gql, useMutation, useQuery } from '@apollo/client';
+import { useState } from 'react';
+
+const CREATE_RIDE = gql`
+  mutation CreateRideForm(
+    $label: String!
+    $distance: Float!
+    $date: DateTimeISO!
+    $transportationId: Int!
+  ) {
+    createRide(
+      label: $label
+      distance: $distance
+      date: $date
+      transportationId: $transportationId
+    ) {
+      id
+    }
+  }
+`;
+
+const GET_TRANSPORTATIONS = gql`
+  query GetTransportations {
+    transportations {
+      label
+      id
+      carboneEmission
+    }
+  }
+`
 
 export default function RideFormView() {
+  const [formData, setFormData] = useState<CreateRideFormMutationVariables>({
+    label: '',
+    distance: 0,
+    date: '',
+    transportationId: 1,
+  });
+
+  const { data } = useQuery<GetTransportationsQuery>(GET_TRANSPORTATIONS)
+
+  const updateFormData = (partialFormData: Partial<CreateRideFormMutationVariables>) => {
+    setFormData({ ...formData, ...partialFormData });
+  };
+
+  const [createRideMutation] = useMutation<CreateRideFormMutation, CreateRideFormMutationVariables>(CREATE_RIDE);
+
+  const createRide = async () => {
+    await createRideMutation({
+      variables: {
+        label: formData.label,
+        distance: formData.distance,
+        date: formData.date,
+        transportationId: formData.transportationId,
+      },
+    });
+  };
+
   return (
     <>
       <FormViewStyled>
         <FormTitle>Nouveau trajet :</FormTitle>
-        <Form>
+        <Form
+          aria-label='form'
+          onSubmit={(event) => {
+            event.preventDefault();
+            console.log(formData)
+            createRide();
+          }}
+        >
           <FormLabelWithField>
             Nom du trajet:
-            <FormTextField type='text' />
+            <FormTextField
+              type='text'
+              required
+              minLength={2}
+              onChange={(event) => {
+                updateFormData({ label: event.target.value });
+              }}
+            />
           </FormLabelWithField>
           <FormLabelWithField>
             Distance en km:
-            <FormTextField type='text' />
+            <FormTextField
+              type='number'
+              required
+              onChange={(event) => {
+                updateFormData({ distance: parseInt(event.target.value) });
+              }}
+            />
           </FormLabelWithField>
           <FormLabelWithField>
             Date:
-            <FormTextField type='date' />
+            <FormTextField
+              type='date'
+              required
+              onChange={(event) => {
+                updateFormData({ date: new Date(event.target.value).toISOString() });
+              }}
+            />
           </FormLabelWithField>
           <FormLabelWithField>
             Moyen de transport:
-            <FormSelect>
-              <option value=''>Select</option>
-              <option value='car'>Voiture</option>
-              <option value='bike'>Bus</option>
-              <option value='publicTransport'>Avion</option>
+            <FormSelect
+              required
+              placeholder='Sélectionner'
+              onChange={(event) => {
+                updateFormData({
+                  transportationId: parseInt(event.target.value),
+                });
+              }}
+            >
+              {data?.transportations.map((transportation) =>  <option value={transportation.id}>{capitalizeFirstLetter(transportation.label)}</option>)}
             </FormSelect>
           </FormLabelWithField>
-          <BaseButton onClick={() => {}}>Ajouter mon trajet</BaseButton>
+          <BaseButton>Ajouter mon trajet</BaseButton>
         </Form>
       </FormViewStyled>
     </>

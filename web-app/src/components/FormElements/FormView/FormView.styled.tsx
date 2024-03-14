@@ -1,5 +1,5 @@
-import { SECONDARY_COLOR } from '@/styles/constants';
-import styled from 'styled-components';
+import { SECONDARY_COLOR } from "@/styles/constants";
+import styled from "styled-components";
 
 export const FormViewStyled = styled.div`
   display: flex;
@@ -16,4 +16,7 @@ export const FormViewStyled = styled.div`
 
 export const FormTitle = styled.h1`
   //TODO: add styles
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
