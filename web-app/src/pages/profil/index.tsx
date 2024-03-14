@@ -3,6 +3,7 @@ import {
   ProfilContentStyled,
   ProfilHeaderStyled,
   RidesContainerStyled,
+  TitleCounter,
 } from './profil.styled';
 import BaseButton from '@/components/Buttons/BaseButton/BaseButton';
 import { CenteredContainerStyled } from '@/components/Containers/CenteredContainer.styled';
@@ -13,26 +14,39 @@ import { GetRidesQuery } from '@/gql/graphql';
 import RideDetails from './components/RideDetails';
 
 export default function ProfilPage() {
-  const defaultUser = getDefaultUser()
-  
+  const defaultUser = getDefaultUser();
+
   const GET_RIDES = gql`
-  query GetRides {
-    rides {
-      id
-      label
-      distance
-      date
-      transportation {
+    query GetRides {
+      rides {
+        id
         label
+        distance
+        date
+        transportation {
+          id
+          label
+          carboneEmission
+        }
       }
     }
-  }
-  `
-  const { data } = useQuery<GetRidesQuery>(GET_RIDES)
+  `;
+  const { data } = useQuery<GetRidesQuery>(GET_RIDES);
 
   useEffect(() => {
-    console.log("Data", data);
+    console.log('Data', data);
   }, []);
+
+  // Calcul de la dépense totale en CO2
+  let totalCO2 = 0;
+  if (data && data.rides.length > 0) {
+    totalCO2 = data.rides.reduce(
+      (accumulator, ride) =>
+        accumulator +
+        (ride.distance * ride.transportation.carboneEmission) / 1000,
+      0
+    );
+  }
 
   return (
     <CenteredContainerStyled $width='50%'>
@@ -45,16 +59,19 @@ export default function ProfilPage() {
           <h1>{`${defaultUser.firstName} ${defaultUser.lastName}`}</h1>
           <h2>{`${defaultUser.email}`}</h2>
         </div>
-        <BaseButton onClick={() => {}}>
-          éditer mon profil
-        </BaseButton>
+        <BaseButton onClick={() => {}}>éditer mon profil</BaseButton>
       </ProfilHeaderStyled>
       <ProfilContentStyled>
         <Input type='text' label='Filtres' />
-        { data && data.rides.length > 0 ? (
+        {data && data.rides.length > 0 ? (
           <>
-            <h3>Nombre d'empreinte carbone réalisé: {data.rides.length}</h3>
-            <h3>Nombre de dépenses réalisées (CO2/Kg): ???</h3>
+            <TitleCounter>
+              Nombre de trajet{data.rides.length > 1 ? 's' : ''} réalisé
+              {data.rides.length > 1 ? 's' : ''}: {data.rides.length}
+            </TitleCounter>
+            <TitleCounter>
+              Total émission carbone : {totalCO2.toFixed(2)} Kg de CO2
+            </TitleCounter>
             <RidesContainerStyled>
               {data.rides.map(
                 (ride: {
@@ -62,7 +79,7 @@ export default function ProfilPage() {
                   label: string;
                   distance: number;
                   date: string;
-                  transportation: { label: string};
+                  transportation: { label: string; carboneEmission: number };
                 }) => {
                   return (
                     <RideDetails key={ride.label + ride.date} ride={ride} />
@@ -70,8 +87,10 @@ export default function ProfilPage() {
                 }
               )}
             </RidesContainerStyled>
-          </>) : (<p>Pas de dépenses carbone enregistrées</p>)}
-        
+          </>
+        ) : (
+          <TitleCounter>Pas de dépenses carbone enregistrées</TitleCounter>
+        )}
       </ProfilContentStyled>
     </CenteredContainerStyled>
   );
