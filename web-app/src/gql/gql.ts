@@ -15,7 +15,7 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
 const documents = {
     "\n  mutation CreateRideForm(\n    $label: String!\n    $distance: Float!\n    $date: DateTimeISO!\n    $transportationId: Int!\n  ) {\n    createRide(\n      label: $label\n      distance: $distance\n      date: $date\n      transportationId: $transportationId\n    ) {\n      id\n    }\n  }\n": types.CreateRideFormDocument,
     "\n  query GetTransportations {\n    transportations {\n      label\n      id\n      carboneEmission\n    }\n  }\n": types.GetTransportationsDocument,
-    "\n  query GetRides {\n    rides {\n      id\n      label\n      distance\n      date\n      transportation {\n        label\n      }\n    }\n  }\n  ": types.GetRidesDocument,
+    "\n    query GetRides {\n      rides {\n        id\n        label\n        distance\n        date\n        transportation {\n          id\n          label\n          carboneEmission\n        }\n      }\n    }\n  ": types.GetRidesDocument,
 };
 
 /**
@@ -43,7 +43,7 @@ export function graphql(source: "\n  query GetTransportations {\n    transportat
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "\n  query GetRides {\n    rides {\n      id\n      label\n      distance\n      date\n      transportation {\n        label\n      }\n    }\n  }\n  "): (typeof documents)["\n  query GetRides {\n    rides {\n      id\n      label\n      distance\n      date\n      transportation {\n        label\n      }\n    }\n  }\n  "];
+export function graphql(source: "\n    query GetRides {\n      rides {\n        id\n        label\n        distance\n        date\n        transportation {\n          id\n          label\n          carboneEmission\n        }\n      }\n    }\n  "): (typeof documents)["\n    query GetRides {\n      rides {\n        id\n        label\n        distance\n        date\n        transportation {\n          id\n          label\n          carboneEmission\n        }\n      }\n    }\n  "];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};
