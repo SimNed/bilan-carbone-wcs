@@ -31,10 +31,10 @@ export default function ProfilPage() {
       }
     }
   `;
-  const { data } = useQuery<GetRidesQuery>(GET_RIDES);
+  const { data, refetch } = useQuery<GetRidesQuery>(GET_RIDES);
 
   useEffect(() => {
-    console.log('Data', data);
+    refetch();
   }, []);
 
   // Calcul du nombre de trajets
