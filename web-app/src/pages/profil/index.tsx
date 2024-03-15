@@ -37,6 +37,12 @@ export default function ProfilPage() {
     console.log('Data', data);
   }, []);
 
+  // Calcul du nombre de trajets
+  let NbRides = 0;
+  if (data && data.rides.length > 0) {
+    NbRides = data.rides.length;
+  }
+
   // Calcul de la dépense totale en CO2
   let totalCO2 = 0;
   if (data && data.rides.length > 0) {
@@ -66,11 +72,11 @@ export default function ProfilPage() {
         {data && data.rides.length > 0 ? (
           <>
             <TitleCounter>
-              Nombre de trajet{data.rides.length > 1 ? 's' : ''} réalisé
-              {data.rides.length > 1 ? 's' : ''}: {data.rides.length}
+              Nombre de trajet{NbRides > 1 ? 's' : ''} réalisé
+              {NbRides > 1 ? 's' : ''}: {NbRides}
             </TitleCounter>
             <TitleCounter>
-              Total émission carbone : {totalCO2.toFixed(2)} Kg de CO2
+              Total émission carbone : {totalCO2} Kg de CO2
             </TitleCounter>
             <RidesContainerStyled>
               {data.rides.map(

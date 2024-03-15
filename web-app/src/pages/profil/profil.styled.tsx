@@ -1,4 +1,3 @@
-import { SECONDARY_COLOR } from '@/styles/constants';
 import styled from 'styled-components';
 
 export const ProfilHeaderStyled = styled.header`

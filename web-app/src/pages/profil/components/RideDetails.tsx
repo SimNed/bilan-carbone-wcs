@@ -19,6 +19,12 @@ const RideDetails = ({
     transportation: { label: string; carboneEmission: number };
   };
 }) => {
+  //calcul de l'empreinte carbone pour un trajet
+  let RideCO2 = 0;
+  if (ride) {
+    RideCO2 = (ride.distance * ride.transportation.carboneEmission) / 1000;
+  }
+
   return (
     <RideCard>
       <CardTitle>trajet : {ride.label}</CardTitle>
@@ -27,13 +33,7 @@ const RideDetails = ({
         moyen de transport : {ride.transportation.label}
       </RideTransportation>
       <RideDistance>distance parcourue: {ride.distance} km</RideDistance>
-      <RideCO2Emission>
-        Emission :{' '}
-        {((ride.distance * ride.transportation.carboneEmission) / 1000).toFixed(
-          2
-        )}{' '}
-        Kg de CO2
-      </RideCO2Emission>
+      <RideCO2Emission>Emission : {RideCO2} Kg de CO2</RideCO2Emission>
     </RideCard>
   );
 };
