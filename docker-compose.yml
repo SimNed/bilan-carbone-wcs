@@ -19,7 +19,9 @@ services:
           path: back-end/package.json
 
   web-app:
-    build: ./web-app
+    build:
+      context: ./web-app
+      target: dev
     ports:
       - 3000:3000
     develop:
