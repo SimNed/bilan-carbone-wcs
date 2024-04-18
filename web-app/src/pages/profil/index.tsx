@@ -4,7 +4,7 @@ import {
   ProfilHeaderStyled,
   RidesContainerStyled,
   TitleCounter,
-} from './profil.styled';
+} from '../../components/Profil/profil.styled';
 import BaseButton from '@/components/Buttons/BaseButton/BaseButton';
 import { CenteredContainerStyled } from '@/components/Containers/CenteredContainer.styled';
 import { useEffect } from 'react';

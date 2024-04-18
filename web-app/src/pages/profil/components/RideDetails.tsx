@@ -6,7 +6,7 @@ import {
   RideDate,
   RideDistance,
   RideTransportation,
-} from '../profil.styled';
+} from '../../../components/Profil/profil.styled';
 
 const RideDetails = ({
   ride,
@@ -25,6 +25,7 @@ const RideDetails = ({
     RideCO2 = (ride.distance * ride.transportation.carboneEmission) / 1000;
   }
 
+  if(!ride) return 
   return (
     <RideCard>
       <CardTitle>trajet : {ride.label}</CardTitle>
