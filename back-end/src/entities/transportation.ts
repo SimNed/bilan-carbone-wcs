@@ -45,24 +45,21 @@ class Transportation extends BaseEntity {
 
   static async initializeTransportations(): Promise<void> {
     await Transportation.createTransportationIfNotExisting({
-      id: 1,
       label: 'voiture',
       carboneEmission: 200,
     });
     await Transportation.createTransportationIfNotExisting({
-      id: 2,
       label: 'bus',
       carboneEmission: 100,
     });
     await Transportation.createTransportationIfNotExisting({
-      id: 4,
       label: 'train',
-      carboneEmission: 10,
+      carboneEmission: 50,
     });
     await Transportation.createTransportationIfNotExisting({
       id: 5,
-      label: 'avion',
-      carboneEmission: 285,
+      label: 'train',
+      carboneEmission: 500,
     });
   }
 

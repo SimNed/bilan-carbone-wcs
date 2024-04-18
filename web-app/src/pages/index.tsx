@@ -1,14 +1,16 @@
-import CarbonEmissionButton from "@/components/Buttons/CarbonEmissionButton/CarbonEmissionButton";
-import { FlexCenteredContainerStyled } from "@/components/Containers/FlexCenteredContainer.styled";
-import Link from "next/link";
+import { PageLayout } from '@/components/Layout/Layout.styled';
+import { TitleView } from '@/components/TitleView/TitleView';
+import BaselineView from '@/components/Baseline/Baseline';
+import ContentView from './home_page/view/ContentView';
 
 export default function HomePage() {
   return (
-    <FlexCenteredContainerStyled $isColumn>
-      <h1>Home</h1>
-      <Link href={"./sign-in"}>s'inscrire</Link>
-      <Link href={"./Welcome"}>Accueil</Link>
-      <CarbonEmissionButton />
-    </FlexCenteredContainerStyled>
+    <>
+      <PageLayout>
+        <TitleView>Wild Carbon</TitleView>
+        <BaselineView />
+        <ContentView />
+      </PageLayout>
+    </>
   );
 }
