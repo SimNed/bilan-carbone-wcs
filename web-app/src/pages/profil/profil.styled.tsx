@@ -46,6 +46,14 @@ export const RideCard = styled.div`
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 `;
 
+export const DeleteButtonDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
+  padding-right: 10px;
+  padding-top: 10px;
+`;
+
 export const CardTitle = styled.h1`
   font-size: 20px;
   font-weight: bold;

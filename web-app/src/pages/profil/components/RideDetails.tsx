@@ -1,12 +1,14 @@
 import { formatDateToDisplay } from '@/utils';
 import {
   CardTitle,
+  DeleteButtonDiv,
   RideCO2Emission,
   RideCard,
   RideDate,
   RideDistance,
   RideTransportation,
 } from '../profil.styled';
+import DeleteButton from '@/components/Buttons/deleteButton/DeleteButton';
 
 const RideDetails = ({
   ride,
@@ -25,8 +27,15 @@ const RideDetails = ({
     RideCO2 = (ride.distance * ride.transportation.carboneEmission) / 1000;
   }
 
+  const deleteRide = () => {
+    // Add code here to delete the ride
+  };
+
   return (
     <RideCard>
+      <DeleteButtonDiv>
+        <DeleteButton onClick={deleteRide} />
+      </DeleteButtonDiv>
       <CardTitle>trajet : {ride.label}</CardTitle>
       <RideDate>date : {formatDateToDisplay(ride.date)}</RideDate>
       <RideTransportation>
