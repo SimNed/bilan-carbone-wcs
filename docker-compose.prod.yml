@@ -12,6 +12,7 @@ services:
       - database
     expose:
       - 4000
+    restart: always
 
   web-app:
     build:
@@ -21,13 +22,15 @@ services:
       - NODE_ENV=production
     expose:
       - 3000
-
+    restart: always
+  
   database:
     image: postgres:15
     volumes:
       - database-data:/var/lib/postgresql/data
     environment:
       - POSTGRES_PASSWORD=password
+    restart: always
 
   gateway:
     image: nginx
@@ -38,6 +41,7 @@ services:
       - ${GATEWAY_PORT}:80
     volumes:
       - ./gateway/nginx.conf:/etc/nginx/nginx.conf
+    restart: always
 
 volumes:
   database-data:
