@@ -163,26 +163,13 @@ export type GetRidesQuery = {
     label: string;
     distance: number;
     date: any;
-    transportation: { __typename?: "Transportation"; label: string };
+    transportation: {
+      __typename?: "Transportation";
+      id: number;
+      label: string;
+      carboneEmission: number;
+    };
   }>;
-};
-
-export type SignUpFormMutationVariables = Exact<{
-  email: Scalars["String"]["input"];
-  firstName: Scalars["String"]["input"];
-  lastName: Scalars["String"]["input"];
-  password: Scalars["String"]["input"];
-}>;
-
-export type SignUpFormMutation = {
-  __typename?: "Mutation";
-  signUp: {
-    __typename?: "User";
-    id: string;
-    email: string;
-    firstName: string;
-    lastName: string;
-  };
 };
 
 export const CreateRideFormDocument = {
@@ -355,7 +342,12 @@ export const GetRidesDocument = {
                   selectionSet: {
                     kind: "SelectionSet",
                     selections: [
+                      { kind: "Field", name: { kind: "Name", value: "id" } },
                       { kind: "Field", name: { kind: "Name", value: "label" } },
+                      {
+                        kind: "Field",
+                        name: { kind: "Name", value: "carboneEmission" },
+                      },
                     ],
                   },
                 },
@@ -366,124 +358,4 @@ export const GetRidesDocument = {
       },
     },
   ],
-} as unknown as DocumentNode<GetRidesQuery>;
-export const SignUpFormDocument = {
-  kind: "Document",
-  definitions: [
-    {
-      kind: "OperationDefinition",
-      operation: "mutation",
-      name: { kind: "Name", value: "SignUpForm" },
-      variableDefinitions: [
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "email" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "firstName" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "lastName" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
-        {
-          kind: "VariableDefinition",
-          variable: {
-            kind: "Variable",
-            name: { kind: "Name", value: "password" },
-          },
-          type: {
-            kind: "NonNullType",
-            type: {
-              kind: "NamedType",
-              name: { kind: "Name", value: "String" },
-            },
-          },
-        },
-      ],
-      selectionSet: {
-        kind: "SelectionSet",
-        selections: [
-          {
-            kind: "Field",
-            name: { kind: "Name", value: "signUp" },
-            arguments: [
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "email" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "email" },
-                },
-              },
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "firstName" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "firstName" },
-                },
-              },
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "lastName" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "lastName" },
-                },
-              },
-              {
-                kind: "Argument",
-                name: { kind: "Name", value: "password" },
-                value: {
-                  kind: "Variable",
-                  name: { kind: "Name", value: "password" },
-                },
-              },
-            ],
-            selectionSet: {
-              kind: "SelectionSet",
-              selections: [
-                { kind: "Field", name: { kind: "Name", value: "id" } },
-                { kind: "Field", name: { kind: "Name", value: "email" } },
-                { kind: "Field", name: { kind: "Name", value: "firstName" } },
-                { kind: "Field", name: { kind: "Name", value: "lastName" } },
-              ],
-            },
-          },
-        ],
-      },
-    },
-  ],
-} as unknown as DocumentNode<SignUpFormMutation, SignUpFormMutationVariables>;
+} as unknown as DocumentNode<GetRidesQuery, GetRidesQueryVariables>;
