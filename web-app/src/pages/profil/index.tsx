@@ -1,4 +1,4 @@
-import { capitalizeFirstLetter, getDefaultUser } from "@/utils";
+import { getDefaultUser } from "@/utils";
 import {
   ProfilContentStyled,
   ProfilHeaderStyled,
@@ -7,15 +7,11 @@ import {
 } from "../../components/Profil/profil.styled";
 import BaseButton from "@/components/Buttons/BaseButton/BaseButton";
 import { CenteredContainerStyled } from "@/components/Containers/CenteredContainer.styled";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { gql, useQuery } from "@apollo/client";
-import { GetRidesQuery, GetTransportationsQuery } from "@/gql/graphql";
+import { GetRidesQuery } from "@/gql/graphql";
 import RideDetails from "./components/RideDetails";
-import {
-  FormLabelWithField,
-  FormSelect,
-  FormTextField,
-} from "@/components/FormElements/Inputs/FormInputs";
+import RideFilters from "./components/RideFilters";
 
 export default function ProfilPage() {
   const defaultUser = getDefaultUser();
@@ -36,30 +32,7 @@ export default function ProfilPage() {
     }
   `;
 
-  const GET_TRANSPORTATIONS = gql`
-    query GetTransportations {
-      transportations {
-        label
-        id
-        carboneEmission
-      }
-    }
-  `;
-
   const { data: rideData, refetch } = useQuery<GetRidesQuery>(GET_RIDES);
-  const { data: transportationData } =
-    useQuery<GetTransportationsQuery>(GET_TRANSPORTATIONS);
-
-  const [filterData, setFilterData] = useState({
-    label: "",
-    transportation: "",
-    startDate: "",
-    endDate: "",
-    minEmission: 0,
-    maxEmission: 0,
-    minDistance: 0,
-    maxDistance: 0,
-  });
 
   useEffect(() => {
     refetch();
@@ -96,54 +69,7 @@ export default function ProfilPage() {
         <BaseButton onClick={() => {}}>éditer mon profil</BaseButton>
       </ProfilHeaderStyled>
       <ProfilContentStyled>
-        <FormLabelWithField>
-          <FormTextField
-            placeholder="Nom du trajet"
-            onChange={(e) =>
-              setFilterData({ ...filterData, label: e.target.value })
-            }
-          />
-        </FormLabelWithField>
-        <FormLabelWithField>
-          Moyen de transport:
-          <FormSelect
-            onChange={(e) =>
-              setFilterData({ ...filterData, transportation: e.target.value })
-            }
-          >
-            {transportationData?.transportations.map((transportation) => (
-              <option value={transportation.id}>
-                {capitalizeFirstLetter(transportation.label)}
-              </option>
-            ))}
-          </FormSelect>
-        </FormLabelWithField>
-        <FormLabelWithField>
-          Du :
-          <FormTextField
-            type="date"
-            required
-            onChange={(event) => {
-              setFilterData({
-                ...filterData,
-                startDate: new Date(event.target.value).toISOString(),
-              });
-            }}
-          />
-        </FormLabelWithField>
-        <FormLabelWithField>
-          Jusqu'au :
-          <FormTextField
-            type="date"
-            required
-            onChange={(event) => {
-              setFilterData({
-                ...filterData,
-                endDate: new Date(event.target.value).toISOString(),
-              });
-            }}
-          />
-        </FormLabelWithField>
+        <RideFilters />
         {rideData && rideData.rides.length > 0 ? (
           <>
             <TitleCounter>
