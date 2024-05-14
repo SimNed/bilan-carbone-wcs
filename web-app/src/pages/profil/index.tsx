@@ -55,6 +55,10 @@ export default function ProfilPage() {
     transportation: "",
     startDate: "",
     endDate: "",
+    minEmission: 0,
+    maxEmission: 0,
+    minDistance: 0,
+    maxDistance: 0,
   });
 
   useEffect(() => {
