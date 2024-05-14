@@ -15,11 +15,13 @@ export class RideResolver {
     return Ride.getRideById(id);
   }
 
+  // add user context
   @Mutation(() => Ride)
   createRide(@Args() args: CreateOrUpdateRide) {
     return Ride.createRide({ ...args });
   }
 
+  // add user context
   @Mutation(() => Ride)
   updateRide(
     @Arg('id', () => ID) id: string,
@@ -28,6 +30,7 @@ export class RideResolver {
     return Ride.updateRide(id, args);
   }
 
+  // add user context
   @Mutation(() => Ride)
   async deleteRide(@Arg('id', () => ID) id: string) {
     return Ride.deleteRide(id);

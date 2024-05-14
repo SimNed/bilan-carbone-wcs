@@ -15,11 +15,13 @@ export class TransportationResolver {
     return Transportation.getTransportationById(id);
   }
 
+  //add user context and/or admin role
   @Mutation(() => Transportation)
   createTransportation(@Args() args: CreateOrUpdateTransportation) {
     return Transportation.createTransportationIfNotExisting({ ...args });
   }
 
+  //add user context and/or admin role
   @Mutation(() => Transportation)
   updateTransportation(
     @Arg('id', () => ID) id: number,
@@ -28,6 +30,7 @@ export class TransportationResolver {
     return Transportation.updateTransportation(id, args);
   }
 
+  //add user context and/or admin role
   @Mutation(() => Transportation)
   async deleteTransportation(@Arg('id', () => ID) id: number) {
     return Transportation.deleteTransportation(id);
