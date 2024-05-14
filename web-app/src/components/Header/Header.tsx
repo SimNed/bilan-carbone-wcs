@@ -40,7 +40,10 @@ export default function Header() {
       {isModalOpen && (
         <Modal onClose={closeModal}>
           {modalContent === "signIn" ? (
-            <SignInPage onToggleModalContent={toggleModalContent} />
+            <SignInPage
+              onToggleModalContent={toggleModalContent}
+              closeModal={closeModal}
+            />
           ) : (
             <SignUpPage onToggleModalContent={toggleModalContent} />
           )}
