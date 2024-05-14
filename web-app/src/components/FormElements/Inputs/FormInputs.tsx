@@ -1,9 +1,4 @@
-import styled from 'styled-components';
-
-export const InputStyled = styled.input`
-  margin: 0.25rem;
-  padding: 0.25rem;
-`;
+import styled from "styled-components";
 
 export const FormLabelWithField = styled.label`
   display: grid;
