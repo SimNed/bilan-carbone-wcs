@@ -1,8 +1,8 @@
 import { Args, Ctx, Mutation, Resolver } from "type-graphql";
 import User from "../entities/user";
 import { CreateOrUpdateUser, SignInUser } from "../entities/user.args";
-import { setUserSessionIdInCookie } from "../utils/cookie";
 import { Context } from "..";
+import { setUserSessionIdInCookie } from "../utils/cookie";
 
 @Resolver()
 export class UserResolver {

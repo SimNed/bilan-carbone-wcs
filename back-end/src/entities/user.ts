@@ -8,8 +8,8 @@ import {
 } from "typeorm";
 import { compare, hash } from "bcrypt";
 import { CreateOrUpdateUser, SignInUser } from "./user.args";
-import UserSession from "./userSession";
 import Ride from "./ride";
+import UserSession from "./userSession";
 import { sendEmail } from "../utils/email";
 
 @Entity("AppUser")
