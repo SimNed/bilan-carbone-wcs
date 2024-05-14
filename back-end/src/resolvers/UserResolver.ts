@@ -1,29 +1,29 @@
-// import { Args, Authorized, Ctx, Mutation, Query, Resolver } from "type-graphql";
-// import User from "../entities/user";
-// import { CreateOrUpdateUser, SignInUser } from "../entities/user.args";
-// import { Context } from "..";
-// import { setUserSessionIdInCookie } from "../utils/cookie";
+import { Args, Ctx, Mutation, Resolver } from "type-graphql";
+import User from "../entities/user";
+import { CreateOrUpdateUser, SignInUser } from "../entities/user.args";
+import { setUserSessionIdInCookie } from "../utils/cookie";
+import { Context } from "..";
 
-// @Resolver()
-// export class UserResolver {
-//   @Mutation(() => User)
-//   signUp(@Args() args: CreateOrUpdateUser) {
-//     return User.saveNewUser(args);
-//   }
+@Resolver()
+export class UserResolver {
+  @Mutation(() => User)
+  signUp(@Args() args: CreateOrUpdateUser) {
+    return User.saveNewUser(args);
+  }
 
-//   @Mutation(() => User)
-//   async signIn(
-//     @Args() args: SignInUser,
-//     @Ctx() context: Context
-//   ): Promise<User> {
-//     const { user, session } = await User.signIn(args);
-//     setUserSessionIdInCookie(context.res, session);
-//     return user;
-//   }
+  @Mutation(() => User)
+  async signIn(
+    @Args() args: SignInUser,
+    @Ctx() context: Context
+  ): Promise<User> {
+    const { user, session } = await User.signIn(args);
+    setUserSessionIdInCookie(context.res, session);
+    return user;
+  }
 
-//   @Authorized()
-//   @Query(() => User)
-//   async myProfile(@Ctx() { user }: Context): Promise<User> {
-//     return user as User;
-//   }
-// }
+  //   @Authorized()
+  //   @Query(() => User)
+  //   async myProfile(@Ctx() { user }: Context): Promise<User> {
+  //     return user as User;
+  //   }
+}
