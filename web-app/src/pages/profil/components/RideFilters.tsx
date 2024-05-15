@@ -4,11 +4,16 @@ import {
   FormTextField,
 } from "@/components/FormElements/Inputs/FormInputs";
 import { GetTransportationsQuery } from "@/gql/graphql";
+import { RideFilterData } from "@/types/RideFilterData.type";
 import { capitalizeFirstLetter } from "@/utils";
 import { gql, useQuery } from "@apollo/client";
 import { useState } from "react";
 
-const RideFilters = () => {
+const RideFilters = ({
+  handleRideFilter,
+}: {
+  handleRideFilter: (filterData: RideFilterData) => void;
+}) => {
   const GET_TRANSPORTATIONS = gql`
     query GetTransportations {
       transportations {
@@ -19,16 +24,7 @@ const RideFilters = () => {
     }
   `;
 
-  const [filterData, setFilterData] = useState({
-    label: "",
-    transportation: "",
-    startDate: "",
-    endDate: "",
-    minEmission: 0,
-    maxEmission: 0,
-    minDistance: 0,
-    maxDistance: 0,
-  });
+  const [filterData, setFilterData] = useState<RideFilterData>({});
 
   const { data } = useQuery<GetTransportationsQuery>(GET_TRANSPORTATIONS);
 
@@ -46,7 +42,10 @@ const RideFilters = () => {
         Moyen de transport:
         <FormSelect
           onChange={(e) =>
-            setFilterData({ ...filterData, transportation: e.target.value })
+            setFilterData({
+              ...filterData,
+              transportationId: parseInt(e.target.value),
+            })
           }
         >
           {data?.transportations.map((transportation) => (
@@ -64,7 +63,7 @@ const RideFilters = () => {
           onChange={(event) => {
             setFilterData({
               ...filterData,
-              startDate: new Date(event.target.value).toISOString(),
+              startDate: new Date(event.target.value),
             });
           }}
         />
@@ -77,33 +76,7 @@ const RideFilters = () => {
           onChange={(event) => {
             setFilterData({
               ...filterData,
-              endDate: new Date(event.target.value).toISOString(),
-            });
-          }}
-        />
-      </FormLabelWithField>
-      <FormLabelWithField>
-        Emission minimum :
-        <FormTextField
-          type="number"
-          required
-          onChange={(event) => {
-            setFilterData({
-              ...filterData,
-              minEmission: parseInt(event.target.value),
-            });
-          }}
-        />
-      </FormLabelWithField>
-      <FormLabelWithField>
-        Emission maximum :
-        <FormTextField
-          type="number"
-          required
-          onChange={(event) => {
-            setFilterData({
-              ...filterData,
-              maxEmission: parseInt(event.target.value),
+              endDate: new Date(event.target.value),
             });
           }}
         />
@@ -134,6 +107,9 @@ const RideFilters = () => {
           }}
         />
       </FormLabelWithField>
+      <div style={{ width: "500px", height: "500px", background: "red" }}>
+        <button onClick={() => handleRideFilter(filterData)}>Rechercher</button>
+      </div>
     </>
   );
 };

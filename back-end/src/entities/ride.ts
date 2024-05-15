@@ -1,13 +1,18 @@
 import {
   BaseEntity,
+  Between,
   Column,
   Entity,
+  FindOptionsWhere,
+  LessThanOrEqual,
+  Like,
   ManyToOne,
+  MoreThanOrEqual,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { ObjectType, Field, ID, Float } from "type-graphql";
 
-import { CreateOrUpdateRide } from "./ride.args";
+import { CreateOrUpdateRide, FilterRide } from "./ride.args";
 import Transportation from "./transportation";
 import User from "./user";
 
@@ -52,8 +57,50 @@ class Ride extends BaseEntity {
     }
   }
 
-  static async getRides(): Promise<Ride[]> {
-    const rides = await Ride.find();
+  static async getRides(filterData: FilterRide): Promise<Ride[]> {
+    const whereConditions: FindOptionsWhere<Ride>[] = [];
+    if (filterData.label) {
+      console.log("LABEL OK", filterData.label);
+      whereConditions.push({ label: Like(`${filterData.label}`) });
+    }
+
+    if (filterData.transportationId)
+      whereConditions.push({
+        transportation: { id: filterData.transportationId },
+      });
+
+    if (filterData.minDistance && filterData.maxDistance)
+      whereConditions.push({
+        distance: Between(filterData.minDistance, filterData.maxDistance),
+      });
+    else {
+      if (filterData.minDistance)
+        whereConditions.push({
+          distance: MoreThanOrEqual(filterData.minDistance),
+        });
+      if (filterData.maxDistance)
+        whereConditions.push({
+          distance: LessThanOrEqual(filterData.maxDistance),
+        });
+    }
+
+    if (filterData.startDate && filterData.endDate)
+      whereConditions.push({
+        date: Between(filterData.startDate, filterData.endDate),
+      });
+    else {
+      if (filterData.startDate)
+        whereConditions.push({ date: MoreThanOrEqual(filterData.startDate) });
+      if (filterData.endDate)
+        whereConditions.push({ date: LessThanOrEqual(filterData.endDate) });
+    }
+
+    console.log("WHERE CONDITION", whereConditions);
+
+    const rides = await Ride.find({
+      where: whereConditions,
+    });
+
     return rides;
   }
 
