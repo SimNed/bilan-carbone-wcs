@@ -1,59 +1,31 @@
-import BaseButton from '@/components/Buttons/BaseButton/BaseButton';
-import { Form } from '@/components/FormElements/Form/Form.styled';
-import { enqueueSnackbar } from 'notistack';
+import BaseButton from "@/components/Buttons/BaseButton/BaseButton";
+import { Form } from "@/components/FormElements/Form/Form.styled";
+import { enqueueSnackbar } from "notistack";
 import {
   FormTitle,
   FormViewStyled,
-} from '@/components/FormElements/FormView/FormView.styled';
+} from "@/components/FormElements/FormView/FormView.styled";
 import {
   FormLabelWithField,
   FormSelect,
   FormTextField,
-} from '@/components/FormElements/Inputs/FormInputs';
+} from "@/components/FormElements/Inputs/FormInputs";
 import {
   CreateRideFormMutation,
   CreateRideFormMutationVariables,
   GetTransportationsQuery,
-  MutationCreateRideArgs,
-} from '@/gql/graphql';
-import { capitalizeFirstLetter } from '@/utils';
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { useRef, useState } from 'react';
-import { useRouter } from 'next/router';
-
-const CREATE_RIDE = gql`
-  mutation CreateRideForm(
-    $label: String!
-    $distance: Float!
-    $date: DateTimeISO!
-    $transportationId: Int!
-  ) {
-    createRide(
-      label: $label
-      distance: $distance
-      date: $date
-      transportationId: $transportationId
-    ) {
-      id
-    }
-  }
-`;
-
-const GET_TRANSPORTATIONS = gql`
-  query GetTransportations {
-    transportations {
-      label
-      id
-      carboneEmission
-    }
-  }
-`;
+} from "@/gql/graphql";
+import { capitalizeFirstLetter } from "@/utils";
+import { useMutation, useQuery } from "@apollo/client";
+import { useRef, useState } from "react";
+import { CREATE_RIDE } from "@/api-gql/mutations/ride.mutations";
+import { GET_TRANSPORTATIONS } from "@/api-gql/queries/transportation.queries";
 
 export default function RideFormView() {
   const [formData, setFormData] = useState<CreateRideFormMutationVariables>({
-    label: '',
+    label: "",
     distance: 0,
-    date: '',
+    date: "",
     transportationId: 1,
   });
 
@@ -82,10 +54,10 @@ export default function RideFormView() {
     });
 
     if (data) {
-      enqueueSnackbar('trajet enregistré !', { variant: 'success' });
+      enqueueSnackbar("trajet enregistré !", { variant: "success" });
       if (formRef.current) formRef.current.reset();
     } else {
-      enqueueSnackbar("erreur d'enregistrement", { variant: 'error' });
+      enqueueSnackbar("erreur d'enregistrement", { variant: "error" });
     }
   };
 
@@ -95,7 +67,7 @@ export default function RideFormView() {
         <FormTitle>Nouveau trajet :</FormTitle>
         <Form
           ref={formRef}
-          aria-label='form'
+          aria-label="form"
           onSubmit={(event) => {
             event.preventDefault();
             createRide();
@@ -104,7 +76,7 @@ export default function RideFormView() {
           <FormLabelWithField>
             Nom du trajet:
             <FormTextField
-              type='text'
+              type="text"
               required
               minLength={2}
               onChange={(event) => {
@@ -115,7 +87,7 @@ export default function RideFormView() {
           <FormLabelWithField>
             Distance en km:
             <FormTextField
-              type='number'
+              type="number"
               min={0}
               required
               onChange={(event) => {
@@ -126,7 +98,7 @@ export default function RideFormView() {
           <FormLabelWithField>
             Date:
             <FormTextField
-              type='date'
+              type="date"
               required
               onChange={(event) => {
                 updateFormData({

@@ -6,24 +6,14 @@ import BaseButton from "@/components/Buttons/BaseButton/BaseButton";
 import { LinkStyled } from "@/components/Link/StyledLink";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { SignInFormMutation, SignInFormMutationVariables } from "@/gql/graphql";
+import { SIGN_IN_FORM } from "@/api-gql/mutations/user.mutations";
 
 interface SignInPageProps {
   onToggleModalContent: () => void;
   closeModal: () => void;
 }
-
-const SIGN_IN_FORM = gql`
-  mutation SignInForm($email: String!, $password: String!) {
-    signIn(email: $email, password: $password) {
-      id
-      email
-      firstName
-      lastName
-    }
-  }
-`;
 
 // const GET_MY_PROFILE_SIGN_IN = gql`
 //   query GetMyProfileSignIn {

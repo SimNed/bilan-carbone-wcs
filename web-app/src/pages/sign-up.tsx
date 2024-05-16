@@ -1,3 +1,4 @@
+import { SIGN_UP_FORM } from "@/api-gql/mutations/user.mutations";
 import BaseButton from "@/components/Buttons/BaseButton/BaseButton";
 import { CenteredContainerStyled } from "@/components/Containers/CenteredContainer.styled";
 import { Form } from "@/components/FormElements/Form/Form.styled";
@@ -5,34 +6,13 @@ import { FormTitle } from "@/components/FormElements/FormView/FormView.styled";
 import { FormLabelWithField, TextField } from "@/components/Input/Input";
 import { LinkStyled } from "@/components/Link/StyledLink";
 import { SignUpMutation, SignUpMutationVariables } from "@/gql/graphql";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import { useState } from "react";
 
 interface SignUpPageProps {
   onToggleModalContent: () => void;
 }
-
-const SIGN_UP_FORM = gql`
-  mutation SignUp(
-    $email: String!
-    $firstName: String!
-    $lastName: String!
-    $password: String!
-  ) {
-    signUp(
-      email: $email
-      firstName: $firstName
-      lastName: $lastName
-      password: $password
-    ) {
-      id
-      email
-      firstName
-      lastName
-    }
-  }
-`;
 
 export default function SignUpPage({ onToggleModalContent }: SignUpPageProps) {
   const [formData, setFormData] = useState<SignUpMutationVariables>({

@@ -1,3 +1,4 @@
+import { GET_TRANSPORTATIONS } from "@/api-gql/queries/transportation.queries";
 import {
   FormLabelWithField,
   FormSelect,
@@ -6,7 +7,7 @@ import {
 import { GetTransportationsQuery } from "@/gql/graphql";
 import { RideFilterData } from "@/types/RideFilterData.type";
 import { capitalizeFirstLetter } from "@/utils";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { useState } from "react";
 
 const RideFilters = ({
@@ -14,16 +15,6 @@ const RideFilters = ({
 }: {
   handleRideFilter: (filterData: RideFilterData) => void;
 }) => {
-  const GET_TRANSPORTATIONS = gql`
-    query GetTransportations {
-      transportations {
-        label
-        id
-        carboneEmission
-      }
-    }
-  `;
-
   const [filterData, setFilterData] = useState<RideFilterData>({});
 
   const { data } = useQuery<GetTransportationsQuery>(GET_TRANSPORTATIONS);

@@ -12,45 +12,10 @@ import RideDetails from "./components/RideDetails";
 import RideFilters from "./components/RideFilters";
 import type { RideFilterData } from "@/types/RideFilterData.type";
 import { GetUserProfileQuery, SearchRidesQuery } from "@/gql/graphql";
+import { SEARCH_RIDES } from "../../api-gql/queries/ride.queries";
+import { GET_USER_PROFIL } from "@/api-gql/queries/user.queries";
 
 export default function ProfilPage() {
-  const GET_USER_PROFIL = gql`
-    query GetUserProfile {
-      getUserProfile {
-        id
-        firstName
-        lastName
-        email
-      }
-    }
-  `;
-
-  const SEARCH_RIDES = gql`
-    query SearchRides(
-      $label: String
-      $transportationId: Int
-      $minDistance: Float
-      $maxDistance: Float
-    ) {
-      searchRides(
-        label: $label
-        transportationId: $transportationId
-        minDistance: $minDistance
-        maxDistance: $maxDistance
-      ) {
-        id
-        label
-        distance
-        date
-        transportation {
-          id
-          label
-          carboneEmission
-        }
-      }
-    }
-  `;
-
   const { loading, error, data, refetch } =
     useQuery<SearchRidesQuery>(SEARCH_RIDES);
 

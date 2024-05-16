@@ -1,4 +1,6 @@
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+import { SEARCH_RIDES } from "../../api-gql/queries/ride.queries";
+import { DELETE_RIDE } from "@/api-gql/mutations/ride.mutations";
 
 interface DeleteRideProps {
   rideId: string;
@@ -6,20 +8,12 @@ interface DeleteRideProps {
 }
 
 const DeleteRide = ({ rideId, closeModal }: DeleteRideProps) => {
-  const DELETE_RIDE = gql`
-    mutation DeleteRide($id: ID!) {
-      deleteRide(id: $id) {
-        id
-        label
-      }
-    }
-  `;
-
   const [deleteRideMutation] = useMutation(DELETE_RIDE, {
     variables: { id: rideId },
     onCompleted: () => {
       closeModal();
     },
+    refetchQueries: [{ query: SEARCH_RIDES }],
   });
 
   const handleDeleteRide = () => {
