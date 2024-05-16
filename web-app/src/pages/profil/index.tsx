@@ -1,4 +1,3 @@
-import { getDefaultUser } from "@/utils";
 import {
   ProfilContentStyled,
   ProfilHeaderStyled,
@@ -12,19 +11,28 @@ import { gql, useQuery } from "@apollo/client";
 import RideDetails from "./components/RideDetails";
 import RideFilters from "./components/RideFilters";
 import type { RideFilterData } from "@/types/RideFilterData.type";
-import { GetRidesQuery } from "@/gql/graphql";
+import { GetUserProfileQuery, SearchRidesQuery } from "@/gql/graphql";
 
 export default function ProfilPage() {
-  const defaultUser = getDefaultUser();
+  const GET_USER_PROFIL = gql`
+    query GetUserProfile {
+      getUserProfile {
+        id
+        firstName
+        lastName
+        email
+      }
+    }
+  `;
 
-  const GET_RIDES = gql`
-    query GetRides(
+  const SEARCH_RIDES = gql`
+    query SearchRides(
       $label: String
       $transportationId: Int
       $minDistance: Float
       $maxDistance: Float
     ) {
-      rides(
+      searchRides(
         label: $label
         transportationId: $transportationId
         minDistance: $minDistance
@@ -43,21 +51,17 @@ export default function ProfilPage() {
     }
   `;
 
-  const { loading, error, data, refetch } = useQuery<GetRidesQuery>(GET_RIDES, {
-    variables: {
-      label: undefined,
-      transportationId: undefined,
-      minDistance: undefined,
-      maxDistance: undefined,
-    },
-  });
+  const { loading, error, data, refetch } =
+    useQuery<SearchRidesQuery>(SEARCH_RIDES);
+
+  const { data: userData } = useQuery<GetUserProfileQuery>(GET_USER_PROFIL);
 
   useEffect(() => {
     refetch();
   }, []);
 
   const handleRideFilter = (filterData: RideFilterData) => {
-    refetch({ ...filterData });
+    refetch(filterData);
   };
 
   if (loading) return <p>Loading...</p>;
@@ -65,14 +69,14 @@ export default function ProfilPage() {
 
   // Calcul du nombre de trajets
   let NbRides = 0;
-  if (data && data.rides.length > 0) {
-    NbRides = data.rides.length;
+  if (data && data.searchRides.length > 0) {
+    NbRides = data.searchRides.length;
   }
 
   // Calcul de la dépense totale en CO2
   let totalCO2 = 0;
-  if (data && data.rides.length > 0) {
-    totalCO2 = data.rides.reduce(
+  if (data && data.searchRides.length > 0) {
+    totalCO2 = data.searchRides.reduce(
       (accumulator, ride) =>
         accumulator +
         (ride.distance * ride.transportation.carboneEmission) / 1000,
@@ -87,15 +91,17 @@ export default function ProfilPage() {
           src="https://www.volaille-francaise.fr/wp-content/uploads/2021/05/nouveau-projet-21.jpg"
           style={{ height: "50px" }}
         ></img>
-        <div>
-          <h1>{`${defaultUser.firstName} ${defaultUser.lastName}`}</h1>
-          <h2>{`${defaultUser.email}`}</h2>
-        </div>
+        {userData && (
+          <div>
+            <h1>{`${userData.getUserProfile.firstName} ${userData.getUserProfile.lastName}`}</h1>
+            <h2>{`${userData.getUserProfile.email}`}</h2>
+          </div>
+        )}
         <BaseButton onClick={() => {}}>éditer mon profil</BaseButton>
       </ProfilHeaderStyled>
       <ProfilContentStyled>
         <RideFilters handleRideFilter={handleRideFilter} />
-        {data && data.rides.length > 0 ? (
+        {data && data.searchRides.length > 0 ? (
           <>
             <TitleCounter>
               Nombre de trajet{NbRides > 1 ? "s" : ""} réalisé
@@ -105,7 +111,7 @@ export default function ProfilPage() {
               Total émission carbone : {totalCO2} Kg de CO2
             </TitleCounter>
             <RidesContainerStyled>
-              {data.rides.map(
+              {data.searchRides.map(
                 (ride: {
                   id: string;
                   label: string;

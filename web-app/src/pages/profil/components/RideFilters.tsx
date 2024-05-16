@@ -107,7 +107,7 @@ const RideFilters = ({
           }}
         />
       </FormLabelWithField>
-      <div style={{ width: "500px", height: "500px", background: "red" }}>
+      <div>
         <button onClick={() => handleRideFilter(filterData)}>Rechercher</button>
       </div>
     </>

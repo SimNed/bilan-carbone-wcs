@@ -1,6 +1,7 @@
 import { getDataSource } from "../database";
 import Ride from "./ride";
 import Transportation from "./transportation";
+import User from "./user";
 
 // TODO: a retirer (Pour tester les commandes et le fonctionnement)
 // test("test", () => {
@@ -43,6 +44,7 @@ describe("Ride", () => {
         label: "Test ride",
         distance: 100,
         date: new Date(),
+        owner: new User(), // CHECK THIS LINE
         //transportationId: 1,
       };
       const returnedRide = await Ride.createRide({
@@ -67,6 +69,7 @@ describe("Ride", () => {
         label: "Test first ride",
         distance: 120,
         date: new Date(),
+        owner: new User(), // CHECK THIS LINE
         transportationId: Transportation.id,
       };
       const createdRide = await Ride.createRide(rideToCreate);
