@@ -1,5 +1,5 @@
-import { SECONDARY_COLOR } from "@/styles/constants";
-import styled from "styled-components";
+import { SECONDARY_COLOR } from '@/styles/constants';
+import styled from 'styled-components';
 
 export const FormViewStyled = styled.div`
   display: flex;

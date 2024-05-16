@@ -1,16 +1,12 @@
-import { PageLayout } from '@/components/Layout/Layout.styled';
-import { TitleView } from '@/components/TitleView/TitleView';
-import BaselineView from '@/components/Baseline/Baseline';
-import ContentView from './home_page/view/ContentView';
+import Layout from '@/components/Layout/Layout';
+import BaselineMUI from '@/pages/home_page/components/Baseline/BaselineMUI';
 
 export default function HomePage() {
   return (
     <>
-      <PageLayout>
-        <TitleView>Wild Carbon</TitleView>
-        <BaselineView />
-        <ContentView />
-      </PageLayout>
+      <Layout>
+        <BaselineMUI />
+      </Layout>
     </>
   );
 }
