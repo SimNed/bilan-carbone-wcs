@@ -11,6 +11,9 @@
   },
   "dependencies": {
     "@apollo/client": "^3.8.7",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
+    "@mui/material": "^5.15.17",
     "graphql": "^16.8.1",
     "next": "latest",
     "notistack": "^3.0.1",

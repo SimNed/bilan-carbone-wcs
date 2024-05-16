@@ -1,12 +1,12 @@
-import RideFormView from './view/RideFormView/RideFormView';
-import { TitleView } from '../../components/TitleView/TitleView';
-import { PageLayout } from '@/components/Layout/Layout.styled';
+import Layout from '@/components/Layout/Layout';
+import CreateRideForm from './components/CreateRideForm';
 
 export default function CarbonEmissionPage() {
   return (
-    <PageLayout>
-      <TitleView>Je calcule mon empreinte carbone</TitleView>
-      <RideFormView />
-    </PageLayout>
+    <>
+      <Layout>
+        <CreateRideForm />
+      </Layout>
+    </>
   );
 }
