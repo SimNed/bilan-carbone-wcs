@@ -9,7 +9,7 @@ import {
 } from "../../../components/Profil/profil.styled";
 import Modal from "@/components/Modal/Modal";
 import { useState } from "react";
-import DeleteRide from "../DeleteRide";
+import DeleteRide from "./DeleteRide";
 
 const RideDetails = ({
   ride,

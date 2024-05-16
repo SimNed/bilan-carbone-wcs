@@ -7,7 +7,7 @@ import {
 import BaseButton from "@/components/Buttons/BaseButton/BaseButton";
 import { CenteredContainerStyled } from "@/components/Containers/CenteredContainer.styled";
 import { useEffect } from "react";
-import { gql, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import RideDetails from "./components/RideDetails";
 import RideFilters from "./components/RideFilters";
 import type { RideFilterData } from "@/types/RideFilterData.type";

@@ -99,7 +99,14 @@ const RideFilters = ({
         />
       </FormLabelWithField>
       <div>
-        <button onClick={() => handleRideFilter(filterData)}>Rechercher</button>
+        <button
+          onClick={() => {
+            handleRideFilter(filterData);
+            setFilterData({});
+          }}
+        >
+          Rechercher
+        </button>
       </div>
     </>
   );

@@ -6,12 +6,16 @@ export const SEARCH_RIDES = gql`
     $transportationId: Int
     $minDistance: Float
     $maxDistance: Float
+    $startDate: DateTimeISO
+    $endDate: DateTimeISO
   ) {
     searchRides(
       label: $label
       transportationId: $transportationId
       minDistance: $minDistance
       maxDistance: $maxDistance
+      startDate: $startDate
+      endDate: $endDate
     ) {
       id
       label
