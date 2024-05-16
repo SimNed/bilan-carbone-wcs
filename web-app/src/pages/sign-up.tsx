@@ -1,13 +1,9 @@
-import BaseButton from "@/components/Buttons/BaseButton/BaseButton";
-import { CenteredContainerStyled } from "@/components/Containers/CenteredContainer.styled";
-import { Form } from "@/components/FormElements/Form/Form.styled";
-import { FormTitle } from "@/components/FormElements/FormView/FormView.styled";
-import { FormLabelWithField, TextField } from "@/components/Input/Input";
-import { LinkStyled } from "@/components/Link/StyledLink";
-import { SignUpMutation, SignUpMutationVariables } from "@/gql/graphql";
-import { gql, useMutation } from "@apollo/client";
-import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { SignUpMutation, SignUpMutationVariables } from '@/gql/graphql';
+import { gql, useMutation } from '@apollo/client';
+import { TextField } from '@/components/Input/Input';
+import { Button, Container, Link, Typography } from '@mui/material';
 
 interface SignUpPageProps {
   onToggleModalContent: () => void;
@@ -36,10 +32,10 @@ const SIGN_UP_FORM = gql`
 
 export default function SignUpPage({ onToggleModalContent }: SignUpPageProps) {
   const [formData, setFormData] = useState<SignUpMutationVariables>({
-    email: "",
-    firstName: "",
-    lastName: "",
-    password: "",
+    email: '',
+    firstName: '',
+    lastName: '',
+    password: '',
   });
   const updateFormData = (
     partialFormData: Partial<SignUpMutationVariables>
@@ -58,72 +54,78 @@ export default function SignUpPage({ onToggleModalContent }: SignUpPageProps) {
     if (data && data.signUp) {
       setTimeout(() => {
         onToggleModalContent();
-        router.push("/sign-in");
+        router.push('/sign-in');
       }, 300);
     }
   };
 
   return (
     <>
-      <CenteredContainerStyled $width="80%">
-        <FormTitle>Créer un compte</FormTitle>
-        <Form
+      <Container
+        component='main'
+        maxWidth='xs'
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '32px',
+        }}
+      >
+        <Typography variant='h5'>Créer un compte</Typography>
+        <form
+          style={{ width: '100%', marginTop: '1rem' }}
           onSubmit={(event) => {
             event.preventDefault();
             signUp();
           }}
         >
-          <FormLabelWithField>
-            Adresse email
-            <TextField
-              type="email"
-              autoComplete="username"
-              required
-              onChange={(event) => {
-                updateFormData({ email: event.target.value });
-              }}
-            />
-          </FormLabelWithField>
-          <FormLabelWithField>
-            Prénom
-            <TextField
-              type="text"
-              required
-              onChange={(event) => {
-                updateFormData({ firstName: event.target.value });
-              }}
-            />
-          </FormLabelWithField>
-          <FormLabelWithField>
-            Nom
-            <TextField
-              type="text"
-              required
-              onChange={(event) => {
-                updateFormData({ lastName: event.target.value });
-              }}
-            />
-          </FormLabelWithField>
-          <FormLabelWithField>
-            Mot de passe
-            <TextField
-              type="password"
-              minLength={12}
-              autoComplete="new-password"
-              required
-              onChange={(event) => {
-                updateFormData({ password: event.target.value });
-              }}
-            />
-          </FormLabelWithField>
-          <BaseButton>Créer un compte</BaseButton>
-          <p>
-            Vous avez déjà un compte ?{" "}
-            <LinkStyled onClick={onToggleModalContent}>Se connecter</LinkStyled>
-          </p>
-          {error && error.message}
-        </Form>
-      </CenteredContainerStyled>
+          <Typography variant='body1'>Prénom :</Typography>
+          <TextField
+            style={{ marginBottom: '1rem', width: '100%' }}
+            onChange={(event) => {
+              updateFormData({ firstName: event.target.value });
+            }}
+          />
+          <Typography variant='body1'>Nom :</Typography>
+          <TextField
+            style={{ marginBottom: '1rem', width: '100%' }}
+            onChange={(event) => {
+              updateFormData({ lastName: event.target.value });
+            }}
+          />
+          <Typography variant='body1'>Adresse email :</Typography>
+          <TextField
+            style={{ marginBottom: '1rem', width: '100%' }}
+            onChange={(event) => {
+              updateFormData({ email: event.target.value });
+            }}
+          />
+          <Typography variant='body1'>Mot de passe :</Typography>
+          <TextField
+            type='password'
+            style={{ marginBottom: '1rem', width: '100%' }}
+            onChange={(event) => {
+              updateFormData({ password: event.target.value });
+            }}
+          />
+          <div style={{ marginTop: '16px' }}>
+            <Button
+              variant='contained'
+              color='primary'
+              type='submit'
+              style={{ width: '100%' }}
+            >
+              Créer un compte
+            </Button>
+          </div>
+        </form>
+        <Typography>
+          Vous avez déjà un compte ?{' '}
+          <Link href='#' onClick={onToggleModalContent}>
+            cliquez ici
+          </Link>
+        </Typography>
+      </Container>
     </>
   );
 }
