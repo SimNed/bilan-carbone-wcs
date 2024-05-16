@@ -1,4 +1,4 @@
-import { formatDateToDisplay } from '@/utils';
+import { formatDateToDisplay } from "@/utils";
 import {
   CardTitle,
   RideCO2Emission,
@@ -6,7 +6,10 @@ import {
   RideDate,
   RideDistance,
   RideTransportation,
-} from '../../../components/Profil/profil.styled';
+} from "../../../components/Profil/profil.styled";
+import Modal from "@/components/Modal/Modal";
+import { useState } from "react";
+import DeleteRide from "../DeleteRide";
 
 const RideDetails = ({
   ride,
@@ -19,15 +22,30 @@ const RideDetails = ({
     transportation: { label: string; carboneEmission: number };
   };
 }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const handleOpenModal = () => {
+    openModal();
+  };
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+  const closeModal = () => setIsModalOpen(false);
+
   //calcul de l'empreinte carbone pour un trajet
   let RideCO2 = 0;
   if (ride) {
     RideCO2 = (ride.distance * ride.transportation.carboneEmission) / 1000;
   }
 
-  if(!ride) return 
+  if (!ride) return;
   return (
     <RideCard>
+      <button onClick={handleOpenModal}>supprimer le trajet</button>
+      {isModalOpen && (
+        <Modal onClose={closeModal}>
+          <DeleteRide rideId={ride.id} closeModal={closeModal} />
+        </Modal>
+      )}
       <CardTitle>trajet : {ride.label}</CardTitle>
       <RideDate>date : {formatDateToDisplay(ride.date)}</RideDate>
       <RideTransportation>

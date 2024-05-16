@@ -14,6 +14,7 @@ export default function Header() {
   const toggleModalContent = () => {
     setModalContent(modalContent === "signIn" ? "signUp" : "signIn");
   };
+
   const handleOpenModal = () => {
     openModal();
   };
