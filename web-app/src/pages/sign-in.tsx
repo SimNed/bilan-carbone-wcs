@@ -1,13 +1,9 @@
-import { CenteredContainerStyled } from "@/components/Containers/CenteredContainer.styled";
-import { Form } from "@/components/FormElements/Form/Form.styled";
-import { FormTitle } from "@/components/FormElements/FormView/FormView.styled";
-import { FormLabelWithField, TextField } from "@/components/Input/Input";
-import BaseButton from "@/components/Buttons/BaseButton/BaseButton";
-import { LinkStyled } from "@/components/Link/StyledLink";
-import { useRouter } from "next/router";
-import { useState } from "react";
-import { gql, useMutation } from "@apollo/client";
-import { SignInFormMutation, SignInFormMutationVariables } from "@/gql/graphql";
+import { useState } from 'react';
+import { useRouter } from 'next/router';
+import { gql, useMutation } from '@apollo/client';
+import { TextField } from '@/components/Input/Input';
+import { SignInFormMutation, SignInFormMutationVariables } from '@/gql/graphql';
+import { Button, Container, Link, Typography } from '@mui/material';
 
 interface SignInPageProps {
   onToggleModalContent: () => void;
@@ -50,8 +46,8 @@ export default function SignInPage({
   // }, [data]);
 
   const [formData, setFormData] = useState<SignInFormMutationVariables>({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
 
   const updateFormData = (
@@ -72,53 +68,63 @@ export default function SignInPage({
 
     if (data && data.signIn) {
       // refetch();
-      router.push("/");
+      router.push('/');
       closeModal();
     }
   };
   return (
     <>
-      <CenteredContainerStyled $width="80%">
-        <FormTitle>Se connecter</FormTitle>
-        <Form
+      <Container
+        component='main'
+        maxWidth='xs'
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          padding: '32px',
+        }}
+      >
+        <Typography variant='h5'>Se connecter</Typography>
+        <form
           onSubmit={(event) => {
             event.preventDefault();
             signIn();
           }}
+          style={{ width: '100%', marginTop: '1rem' }}
         >
-          <FormLabelWithField>
-            Adresse email
-            <TextField
-              type="email"
-              autoComplete="username"
-              required
-              onChange={(event) => {
-                updateFormData({ email: event.target.value });
-              }}
-            />
-          </FormLabelWithField>
-          <FormLabelWithField>
-            Mot de passe
-            <TextField
-              type="password"
-              minLength={12}
-              autoComplete="current-password"
-              required
-              onChange={(event) => {
-                updateFormData({ password: event.target.value });
-              }}
-            />
-          </FormLabelWithField>
-          <BaseButton>Se connecter</BaseButton>
-          <p>
-            Vous n'avez pas de compte ?{" "}
-            <LinkStyled onClick={onToggleModalContent}>
-              Créer un compte
-            </LinkStyled>
-          </p>
-          {error && error.message}
-        </Form>
-      </CenteredContainerStyled>
+          <Typography variant='body1'>Adresse email :</Typography>
+          <TextField
+            style={{ marginBottom: '1rem', width: '100%' }}
+            onChange={(event) => {
+              updateFormData({ email: event.target.value });
+            }}
+          />
+          <Typography variant='body1'>Mot de passe :</Typography>
+          <TextField
+            type='password'
+            style={{ marginBottom: '1rem', width: '100%' }}
+            onChange={(event) => {
+              updateFormData({ password: event.target.value });
+            }}
+          />
+          <div style={{ marginTop: '16px' }}>
+            <Button
+              variant='contained'
+              color='primary'
+              type='submit'
+              style={{ width: '100%' }}
+            >
+              Se connecter
+            </Button>
+          </div>
+        </form>
+        <Typography>
+          Si vous n'avez pas encore de compte,{' '}
+          <Link href='#' onClick={onToggleModalContent}>
+            cliquez ici
+          </Link>
+        </Typography>
+      </Container>
     </>
   );
 }
