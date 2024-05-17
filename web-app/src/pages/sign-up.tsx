@@ -1,41 +1,21 @@
-import { useState } from 'react';
-import { useRouter } from 'next/router';
-import { SignUpMutation, SignUpMutationVariables } from '@/gql/graphql';
-import { gql, useMutation } from '@apollo/client';
-import { TextField } from '@/components/Input/Input';
-import { Button, Container, Link, Typography } from '@mui/material';
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { SignUpMutation, SignUpMutationVariables } from "@/gql/graphql";
+import { gql, useMutation } from "@apollo/client";
+import { TextField } from "@/components/Input/Input";
+import { Button, Container, Link, Typography } from "@mui/material";
+import { SIGN_UP_FORM } from "@/api-gql/mutations/user.mutations";
 
 interface SignUpPageProps {
   onToggleModalContent: () => void;
 }
 
-const SIGN_UP_FORM = gql`
-  mutation SignUp(
-    $email: String!
-    $firstName: String!
-    $lastName: String!
-    $password: String!
-  ) {
-    signUp(
-      email: $email
-      firstName: $firstName
-      lastName: $lastName
-      password: $password
-    ) {
-      id
-      email
-      firstName
-      lastName
-    }
-  }
-`;
-
 export default function SignUpPage({ onToggleModalContent }: SignUpPageProps) {
   const [formData, setFormData] = useState<SignUpMutationVariables>({
-    email: '',
-    firstName: '',
-    lastName: '',
-    password: '',
+    email: "",
+    firstName: "",
+    lastName: "",
+    password: "",
   });
   const updateFormData = (
     partialFormData: Partial<SignUpMutationVariables>
@@ -54,7 +34,7 @@ export default function SignUpPage({ onToggleModalContent }: SignUpPageProps) {
     if (data && data.signUp) {
       setTimeout(() => {
         onToggleModalContent();
-        router.push('/sign-in');
+        router.push("/sign-in");
       }, 300);
     }
   };
@@ -62,66 +42,66 @@ export default function SignUpPage({ onToggleModalContent }: SignUpPageProps) {
   return (
     <>
       <Container
-        component='main'
-        maxWidth='xs'
+        component="main"
+        maxWidth="xs"
         style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          padding: '32px',
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          padding: "32px",
         }}
       >
-        <Typography variant='h5'>Créer un compte</Typography>
+        <Typography variant="h5">Créer un compte</Typography>
         <form
-          style={{ width: '100%', marginTop: '1rem' }}
+          style={{ width: "100%", marginTop: "1rem" }}
           onSubmit={(event) => {
             event.preventDefault();
             signUp();
           }}
         >
-          <Typography variant='body1'>Prénom :</Typography>
+          <Typography variant="body1">Prénom :</Typography>
           <TextField
-            style={{ marginBottom: '1rem', width: '100%' }}
+            style={{ marginBottom: "1rem", width: "100%" }}
             onChange={(event) => {
               updateFormData({ firstName: event.target.value });
             }}
           />
-          <Typography variant='body1'>Nom :</Typography>
+          <Typography variant="body1">Nom :</Typography>
           <TextField
-            style={{ marginBottom: '1rem', width: '100%' }}
+            style={{ marginBottom: "1rem", width: "100%" }}
             onChange={(event) => {
               updateFormData({ lastName: event.target.value });
             }}
           />
-          <Typography variant='body1'>Adresse email :</Typography>
+          <Typography variant="body1">Adresse email :</Typography>
           <TextField
-            style={{ marginBottom: '1rem', width: '100%' }}
+            style={{ marginBottom: "1rem", width: "100%" }}
             onChange={(event) => {
               updateFormData({ email: event.target.value });
             }}
           />
-          <Typography variant='body1'>Mot de passe :</Typography>
+          <Typography variant="body1">Mot de passe :</Typography>
           <TextField
-            type='password'
-            style={{ marginBottom: '1rem', width: '100%' }}
+            type="password"
+            style={{ marginBottom: "1rem", width: "100%" }}
             onChange={(event) => {
               updateFormData({ password: event.target.value });
             }}
           />
-          <div style={{ marginTop: '16px' }}>
+          <div style={{ marginTop: "16px" }}>
             <Button
-              variant='contained'
-              color='primary'
-              type='submit'
-              style={{ width: '100%' }}
+              variant="contained"
+              color="primary"
+              type="submit"
+              style={{ width: "100%" }}
             >
               Créer un compte
             </Button>
           </div>
         </form>
         <Typography>
-          Vous avez déjà un compte ?{' '}
-          <Link href='#' onClick={onToggleModalContent}>
+          Vous avez déjà un compte ?{" "}
+          <Link href="#" onClick={onToggleModalContent}>
             cliquez ici
           </Link>
         </Typography>

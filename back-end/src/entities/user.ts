@@ -96,6 +96,15 @@ class User extends BaseEntity {
     }
     return session.user;
   }
+
+  async isRideOwner(rideId: string): Promise<boolean> {
+    try {
+      const ride = await Ride.getRideById(rideId);
+      return this.id === ride.owner.id;
+    } catch (error) {
+      return false;
+    }
+  }
 }
 
 export default User;
