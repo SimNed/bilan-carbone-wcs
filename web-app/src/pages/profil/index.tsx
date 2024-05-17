@@ -9,6 +9,7 @@ import { RideFilterData } from "@/type/RideFilterData.type";
 import DeleteRide from "./components/DeleteRide";
 import { GetUserProfileQuery, SearchRidesQuery } from "@/gql/graphql";
 import RideFilters from "./components/RideFilters";
+import Modal from "@/components/Modal/Modal";
 
 export default function ProfilPage() {
   const { loading, error, data, refetch } =
@@ -103,7 +104,14 @@ export default function ProfilPage() {
                       marginTop: "2rem",
                     }}
                   >
-                    <DeleteRide closeModal={closeModal} rideId={ride.id} />
+                    <button onClick={handleOpenModal}>
+                      supprimer le trajet
+                    </button>
+                    {isModalOpen && (
+                      <Modal onClose={closeModal}>
+                        <DeleteRide rideId={ride.id} closeModal={closeModal} />
+                      </Modal>
+                    )}
                     <CardContent style={{ padding: "1rem" }}>
                       <Typography
                         variant="h6"
