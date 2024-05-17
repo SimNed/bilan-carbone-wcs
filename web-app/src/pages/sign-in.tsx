@@ -54,13 +54,10 @@ export default function SignInPage({
   const signIn = async () => {
     const { data } = await signInMutation({
       variables: formData,
+      onCompleted(data) {
+        router.push("/");
+      },
     });
-
-    if (data && data.signIn) {
-      // refetch();
-      router.push("/");
-      closeModal();
-    }
   };
   return (
     <>
