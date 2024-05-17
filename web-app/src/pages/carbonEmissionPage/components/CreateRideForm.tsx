@@ -131,6 +131,7 @@ export default function CreateRideForm() {
               date: new Date(event.target.value).toISOString(),
             });
           }}
+          type='date'
           variant='outlined'
           required
           style={{ marginBottom: '1rem', width: '100%' }}
