@@ -26,10 +26,10 @@ export default function Layout({ children }: { children: ReactNode }) {
         <AppBar position="static">
           <Toolbar>
             <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, cursor: "pointer" }}
-              onClick={() => (window.location.href = "/")}
+              variant='h6'
+              component='div'
+              sx={{ flexGrow: 1, cursor: 'pointer' }}
+              onClick={() => (window.location.href = '/')}
             >
               Bilan carbone
             </Typography>
