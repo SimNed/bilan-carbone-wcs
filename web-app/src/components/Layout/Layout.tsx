@@ -43,7 +43,7 @@ export default function Layout({ children }: { children: ReactNode }) {
             display: "flex",
             justifyContent: "center",
             alignItems: "center",
-            height: "80vh",
+            // height: "80vh",
           }}
         >
           {children}

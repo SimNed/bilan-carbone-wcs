@@ -25,7 +25,6 @@ const RideFilters = ({
     <Container
       component="main"
       maxWidth="xs"
-      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <form
         onSubmit={(event) => {
@@ -33,15 +32,18 @@ const RideFilters = ({
           handleRideFilter(filterData);
           setFilterData({});
         }}
-        style={{ width: "100%", marginTop: "1rem" }}
       >
+        <div style={{ width: "100%", marginTop: "1rem", display: "flex", gap: "1rem" }}>
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+
+        <Typography variant="body1">Nom du trajet:</Typography>  
         <TextField
-          placeholder="Nom du trajet"
+          placeholder="Rechercher"
           onChange={(e) =>
             setFilterData({ ...filterData, label: e.target.value })
           }
           sx={{ marginBottom: "1rem", width: "100%" }}
-        />
+          />
         <Typography variant="body1">Moyen de transport:</Typography>
         <Select
           onChange={(e) =>
@@ -51,13 +53,14 @@ const RideFilters = ({
             })
           }
           sx={{ width: "100%", marginBottom: "1rem" }}
-        >
+          >
           {data?.transportations.map((transportation) => (
             <option value={transportation.id}>
               {capitalizeFirstLetter(transportation.label)}
             </option>
           ))}
         </Select>
+
         <Typography variant="body1">A partir du :</Typography>
         <TextField
           type="date"
@@ -68,7 +71,7 @@ const RideFilters = ({
             });
           }}
           sx={{ marginBottom: "1rem", width: "100%" }}
-        />
+          />
         <Typography variant="body1">Jusqu'au :</Typography>
         <TextField
           type="date"
@@ -79,7 +82,9 @@ const RideFilters = ({
             });
           }}
           sx={{ marginBottom: "1rem", width: "100%" }}
-        />
+          />
+              </div>
+              <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
         <Typography variant="body1">Distance minimum :</Typography>
         <TextField
           type="number"
@@ -90,7 +95,7 @@ const RideFilters = ({
             });
           }}
           sx={{ marginBottom: "1rem", width: "100%" }}
-        />
+          />
         <Typography variant="body1">Distance maximum :</Typography>
         <TextField
           type="number"
@@ -101,14 +106,16 @@ const RideFilters = ({
             });
           }}
           sx={{ marginBottom: "1rem", width: "100%" }}
-        />
+          />
+          </div>
+        </div>
         <div style={{ marginTop: "16px" }}>
           <Button
             variant="contained"
             color="primary"
             type="submit"
             sx={{ width: "100%" }}
-          >
+            >
             Rechercher
           </Button>
         </div>
