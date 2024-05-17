@@ -1,17 +1,28 @@
 import {
   BaseEntity,
+  Between,
   Column,
   Entity,
+  FindOptionsWhere,
+  LessThanOrEqual,
+  ILike,
   ManyToOne,
+  MoreThanOrEqual,
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { ObjectType, Field, ID, Float } from "type-graphql";
 
-import { CreateOrUpdateRide } from "./ride.args";
+import { CreateOrUpdateRide, FilterRide } from "./ride.args";
 import Transportation from "./transportation";
 import User from "./user";
 
-type RideArgs = CreateOrUpdateRide & {};
+type RideArgs = CreateOrUpdateRide & {
+  owner: User;
+};
+
+type FilterRideArgs = FilterRide & {
+  owner: User;
+};
 
 @Entity()
 @ObjectType()
@@ -49,11 +60,56 @@ class Ride extends BaseEntity {
       this.label = ride.label;
       this.distance = ride.distance;
       this.date = ride.date;
+      this.owner = ride.owner;
     }
   }
 
   static async getRides(): Promise<Ride[]> {
     const rides = await Ride.find();
+    return rides;
+  }
+
+  static async searchRides(filterData: FilterRideArgs): Promise<Ride[]> {
+    const whereConditions: FindOptionsWhere<Ride> = {
+      owner: { id: filterData.owner.id },
+    };
+    if (filterData.label) {
+      whereConditions.label = ILike(`%${filterData.label}%`);
+    }
+
+    if (filterData.transportationId) {
+      whereConditions.transportation = { id: filterData.transportationId };
+    }
+
+    if (filterData.minDistance && filterData.maxDistance) {
+      whereConditions.distance = Between(
+        filterData.minDistance,
+        filterData.maxDistance
+      );
+    } else {
+      if (filterData.minDistance) {
+        whereConditions.distance = MoreThanOrEqual(filterData.minDistance);
+      }
+      if (filterData.maxDistance) {
+        whereConditions.distance = LessThanOrEqual(filterData.maxDistance);
+      }
+    }
+
+    if (filterData.startDate && filterData.endDate) {
+      whereConditions.date = Between(filterData.startDate, filterData.endDate);
+    } else {
+      if (filterData.startDate) {
+        whereConditions.date = MoreThanOrEqual(filterData.startDate);
+      }
+      if (filterData.endDate) {
+        whereConditions.date = LessThanOrEqual(filterData.endDate);
+      }
+    }
+
+    const rides = await Ride.find({
+      where: whereConditions,
+    });
+
     return rides;
   }
 

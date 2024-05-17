@@ -1,57 +1,28 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState } from "react";
 import {
   TextField,
   Button,
   Typography,
   Container,
-  makeStyles,
-  FormControl,
-  InputLabel,
   MenuItem,
   Select,
-} from '@mui/material';
+} from "@mui/material";
 import {
   CreateRideFormMutation,
   CreateRideFormMutationVariables,
   GetTransportationsQuery,
-} from '@/gql/graphql';
-import { enqueueSnackbar } from 'notistack';
-import { gql, useMutation, useQuery } from '@apollo/client';
-import { capitalizeFirstLetter } from '@/utils';
-
-const CREATE_RIDE = gql`
-  mutation CreateRideForm(
-    $label: String!
-    $distance: Float!
-    $date: DateTimeISO!
-    $transportationId: Int!
-  ) {
-    createRide(
-      label: $label
-      distance: $distance
-      date: $date
-      transportationId: $transportationId
-    ) {
-      id
-    }
-  }
-`;
-
-const GET_TRANSPORTATIONS = gql`
-  query GetTransportations {
-    transportations {
-      label
-      id
-      carboneEmission
-    }
-  }
-`;
+} from "@/gql/graphql";
+import { enqueueSnackbar } from "notistack";
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { capitalizeFirstLetter } from "@/utils";
+import { GET_TRANSPORTATIONS } from "@/api-gql/queries/transportation.queries";
+import { CREATE_RIDE } from "@/api-gql/mutations/ride.mutations";
 
 export default function CreateRideForm() {
   const [formData, setFormData] = useState<CreateRideFormMutationVariables>({
-    label: '',
+    label: "",
     distance: 0,
-    date: '',
+    date: "",
     transportationId: 1,
   });
 
@@ -80,51 +51,51 @@ export default function CreateRideForm() {
     });
 
     if (data) {
-      enqueueSnackbar('trajet enregistré !', { variant: 'success' });
+      enqueueSnackbar("trajet enregistré !", { variant: "success" });
       if (formRef.current) formRef.current.reset();
     } else {
-      enqueueSnackbar("erreur d'enregistrement", { variant: 'error' });
+      enqueueSnackbar("erreur d'enregistrement", { variant: "error" });
     }
   };
 
   const handleSubmit = () => {
     // event.preventDefault();
     // Place your authentication logic here
-    console.log('Email:');
-    console.log('Password:');
+    console.log("Email:");
+    console.log("Password:");
   };
 
   return (
     <Container
-      component='main'
-      maxWidth='xs'
-      style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}
+      component="main"
+      maxWidth="xs"
+      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
-      <Typography variant='h5'>Nouveau trajet :</Typography>
+      <Typography variant="h5">Nouveau trajet :</Typography>
       <form
         onSubmit={(event) => {
           event.preventDefault();
           createRide();
         }}
-        style={{ width: '100%', marginTop: '1rem' }}
+        style={{ width: "100%", marginTop: "1rem" }}
       >
-        <Typography variant='body1'>Nom du trajet:</Typography>
+        <Typography variant="body1">Nom du trajet:</Typography>
         <TextField
-          variant='outlined'
+          variant="outlined"
           onChange={(event) => {
             updateFormData({ label: event.target.value });
           }}
-          style={{ marginBottom: '1rem', width: '100%' }}
+          style={{ marginBottom: "1rem", width: "100%" }}
         />
-        <Typography variant='body1'>Distance en km:</Typography>
+        <Typography variant="body1">Distance en km:</Typography>
         <TextField
           onChange={(event) => {
             updateFormData({ distance: parseInt(event.target.value) });
           }}
-          variant='outlined'
-          style={{ marginBottom: '1rem', width: '100%' }}
+          variant="outlined"
+          style={{ marginBottom: "1rem", width: "100%" }}
         />
-        <Typography variant='body1'>Date:</Typography>
+        <Typography variant="body1">Date:</Typography>
         <TextField
           onChange={(event) => {
             updateFormData({
@@ -134,16 +105,16 @@ export default function CreateRideForm() {
           type='date'
           variant='outlined'
           required
-          style={{ marginBottom: '1rem', width: '100%' }}
+          style={{ marginBottom: "1rem", width: "100%" }}
         />
-        <Typography variant='body1'>Moyen de transport:</Typography>
+        <Typography variant="body1">Moyen de transport:</Typography>
         <Select
           onChange={(event) => {
             updateFormData({
               transportationId: parseInt(event.target.value as string),
             });
           }}
-          style={{ width: '100%' }}
+          style={{ width: "100%" }}
         >
           {data?.transportations.map((transportation) => (
             <MenuItem key={transportation.id} value={transportation.id}>
@@ -151,12 +122,12 @@ export default function CreateRideForm() {
             </MenuItem>
           ))}
         </Select>
-        <div style={{ marginTop: '16px' }}>
+        <div style={{ marginTop: "16px" }}>
           <Button
-            variant='contained'
-            color='primary'
-            type='submit'
-            style={{ width: '100%' }}
+            variant="contained"
+            color="primary"
+            type="submit"
+            style={{ width: "100%" }}
           >
             Ajouter mon trajet
           </Button>

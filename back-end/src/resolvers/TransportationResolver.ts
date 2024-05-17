@@ -1,7 +1,7 @@
-import { Arg, Args, ID, Mutation, Query, Resolver } from 'type-graphql';
+import { Arg, Args, ID, Mutation, Query, Resolver } from "type-graphql";
 
-import Transportation from '../entities/transportation';
-import { CreateOrUpdateTransportation } from '../entities/transportation.args';
+import Transportation from "../entities/transportation";
+import { CreateOrUpdateTransportation } from "../entities/transportation.args";
 
 @Resolver()
 export class TransportationResolver {
@@ -11,7 +11,7 @@ export class TransportationResolver {
   }
 
   @Query(() => Transportation)
-  transportation(@Arg('id', () => ID) id: number) {
+  transportation(@Arg("id", () => ID) id: number) {
     return Transportation.getTransportationById(id);
   }
 
@@ -22,14 +22,14 @@ export class TransportationResolver {
 
   @Mutation(() => Transportation)
   updateTransportation(
-    @Arg('id', () => ID) id: number,
+    @Arg("id", () => ID) id: number,
     @Args() args: CreateOrUpdateTransportation
   ) {
     return Transportation.updateTransportation(id, args);
   }
 
   @Mutation(() => Transportation)
-  async deleteTransportation(@Arg('id', () => ID) id: number) {
+  async deleteTransportation(@Arg("id", () => ID) id: number) {
     return Transportation.deleteTransportation(id);
   }
 }
