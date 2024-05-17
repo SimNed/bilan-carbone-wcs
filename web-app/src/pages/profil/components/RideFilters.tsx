@@ -25,7 +25,7 @@ const RideFilters = ({
     <Container
       component="main"
       maxWidth="xs"
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
     >
       <form
         onSubmit={(event) => {
@@ -40,7 +40,7 @@ const RideFilters = ({
           onChange={(e) =>
             setFilterData({ ...filterData, label: e.target.value })
           }
-          style={{ marginBottom: "1rem", width: "100%" }}
+          sx={{ marginBottom: "1rem", width: "100%" }}
         />
         <Typography variant="body1">Moyen de transport:</Typography>
         <Select
@@ -50,7 +50,7 @@ const RideFilters = ({
               transportationId: parseInt(e.target.value as string),
             })
           }
-          style={{ width: "100%" }}
+          sx={{ width: "100%", marginBottom: "1rem" }}
         >
           {data?.transportations.map((transportation) => (
             <option value={transportation.id}>
@@ -67,7 +67,7 @@ const RideFilters = ({
               startDate: new Date(event.target.value),
             });
           }}
-          style={{ marginBottom: "1rem", width: "100%" }}
+          sx={{ marginBottom: "1rem", width: "100%" }}
         />
         <Typography variant="body1">Jusqu'au :</Typography>
         <TextField
@@ -78,7 +78,7 @@ const RideFilters = ({
               endDate: new Date(event.target.value),
             });
           }}
-          style={{ marginBottom: "1rem", width: "100%" }}
+          sx={{ marginBottom: "1rem", width: "100%" }}
         />
         <Typography variant="body1">Distance minimum :</Typography>
         <TextField
