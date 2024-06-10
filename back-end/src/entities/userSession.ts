@@ -25,6 +25,10 @@ class UserSession extends BaseEntity {
     const savedSession = await newSession.save();
     return savedSession;
   }
+
+  static async deleteSession(userSessionId: string): Promise<void> {
+    await UserSession.delete({ id: userSessionId });
+  }
 }
 
 export default UserSession;

@@ -31,3 +31,9 @@ export const SIGN_UP_FORM = gql`
     }
   }
 `;
+
+export const LOGOUT_USER = gql`
+  mutation Logout {
+    logout
+  }
+`;
