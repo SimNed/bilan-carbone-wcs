@@ -5,4 +5,5 @@ export type RideFilterData = {
   maxDistance?: number;
   startDate?: Date;
   endDate?: Date;
+  transportationMode?: string;
 };
