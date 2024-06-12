@@ -1,6 +1,7 @@
 {
   "name": "web-app",
   "version": "0.1.0",
+  "license": "MIT",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -13,12 +14,15 @@
     "@apollo/client": "^3.8.7",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
+    "@mui/icons-material": "^5.15.19",
     "@mui/material": "^5.15.17",
+    "@mui/styles": "^5.15.20",
     "graphql": "^16.8.1",
     "next": "latest",
     "notistack": "^3.0.1",
     "react": "latest",
     "react-dom": "latest",
+    "react-simple-maps": "^3.0.0",
     "styled-components": "^6.0.8"
   },
   "devDependencies": {
@@ -27,6 +31,7 @@
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@types/react-simple-maps": "^3.0.4",
     "babel-plugin-styled-components": "^2.1.4",
     "typescript": "latest"
   }

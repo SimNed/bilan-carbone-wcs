@@ -1,8 +1,8 @@
-import { GET_TRANSPORTATIONS } from '@/api-gql/queries/transportation.queries';
-import { GetTransportationsQuery } from '@/gql/graphql';
-import { RideFilterData } from '@/type/RideFilterData.type';
-import { capitalizeFirstLetter } from '@/utils';
-import { useQuery } from '@apollo/client';
+import { GET_TRANSPORTATIONS } from "@/api-gql/queries/transportation.queries";
+import { GetTransportationsQuery } from "@/gql/graphql";
+import { RideFilterData } from "@/type/RideFilterData.type";
+import { capitalizeFirstLetter } from "@/utils";
+import { useQuery } from "@apollo/client";
 import {
   Container,
   Button,
@@ -10,8 +10,8 @@ import {
   TextField,
   Typography,
   MenuItem,
-} from '@mui/material';
-import { useState } from 'react';
+} from "@mui/material";
+import { useState } from "react";
 
 const RideFilters = ({
   handleRideFilter,
@@ -22,7 +22,7 @@ const RideFilters = ({
 
   const { data } = useQuery<GetTransportationsQuery>(GET_TRANSPORTATIONS);
   return (
-    <Container component='main' maxWidth='md'>
+    <Container component="main">
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -32,100 +32,100 @@ const RideFilters = ({
       >
         <div
           style={{
-            width: '100%',
-            marginTop: '1rem',
-            display: 'grid',
-            gridTemplateColumns: 'repeat(3, 1fr)',
-            gap: '1rem',
+            width: "100%",
+            marginTop: "1rem",
+            display: "grid",
+            gridTemplateColumns: "repeat(3, 1fr)",
+            gap: "1rem",
           }}
         >
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography variant='body1'>Nom du trajet:</Typography>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Typography variant="body1">Nom du trajet:</Typography>
             <TextField
-              placeholder='Rechercher'
+              placeholder="Rechercher"
               onChange={(e) =>
                 setFilterData({ ...filterData, label: e.target.value })
               }
-              sx={{ marginBottom: '1rem', width: '100%' }}
+              sx={{ marginBottom: "1rem", width: "100%" }}
             />
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography variant='body1'>A partir du :</Typography>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Typography variant="body1">A partir du :</Typography>
             <TextField
-              type='date'
+              type="date"
               onChange={(event) => {
                 setFilterData({
                   ...filterData,
                   startDate: new Date(event.target.value),
                 });
               }}
-              sx={{ marginBottom: '1rem', width: '100%' }}
+              sx={{ marginBottom: "1rem", width: "100%" }}
             />
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography variant='body1'>Jusqu'au :</Typography>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Typography variant="body1">Jusqu'au :</Typography>
             <TextField
-              type='date'
+              type="date"
               onChange={(event) => {
                 setFilterData({
                   ...filterData,
                   endDate: new Date(event.target.value),
                 });
               }}
-              sx={{ marginBottom: '1rem', width: '100%' }}
+              sx={{ marginBottom: "1rem", width: "100%" }}
             />
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography variant='body1'>A partir du :</Typography>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Typography variant="body1">A partir du :</Typography>
             <TextField
-              type='date'
+              type="date"
               onChange={(event) => {
                 setFilterData({
                   ...filterData,
                   startDate: new Date(event.target.value),
                 });
               }}
-              sx={{ marginBottom: '1rem', width: '100%' }}
+              sx={{ marginBottom: "1rem", width: "100%" }}
             />
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography variant='body1'>Distance minimum :</Typography>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Typography variant="body1">Distance minimum :</Typography>
             <TextField
-              type='number'
+              type="number"
               onChange={(event) => {
                 setFilterData({
                   ...filterData,
                   minDistance: parseInt(event.target.value),
                 });
               }}
-              sx={{ marginBottom: '1rem', width: '100%' }}
+              sx={{ marginBottom: "1rem", width: "100%" }}
             />
           </div>
 
-          <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <Typography variant='body1'>Distance maximum :</Typography>
+          <div style={{ display: "flex", flexDirection: "column" }}>
+            <Typography variant="body1">Distance maximum :</Typography>
             <TextField
-              type='number'
+              type="number"
               onChange={(event) => {
                 setFilterData({
                   ...filterData,
                   maxDistance: parseInt(event.target.value),
                 });
               }}
-              sx={{ marginBottom: '1rem', width: '100%' }}
+              sx={{ marginBottom: "1rem", width: "100%" }}
             />
           </div>
         </div>
-        <div style={{ marginTop: '16px' }}>
+        <div style={{ marginTop: "16px" }}>
           <Button
-            variant='contained'
-            color='primary'
-            type='submit'
-            sx={{ width: '100%' }}
+            variant="contained"
+            color="primary"
+            type="submit"
+            sx={{ width: "100%" }}
           >
             Rechercher
           </Button>

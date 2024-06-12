@@ -4,6 +4,7 @@ import { AppBar, Button, Container, Toolbar, Typography } from "@mui/material";
 import Modal from "../Modal/Modal";
 import SignInPage from "@/pages/sign-in";
 import SignUpPage from "@/pages/sign-up";
+import { relative } from "path";
 
 export default function Layout({ children }: { children: ReactNode }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,47 +22,17 @@ export default function Layout({ children }: { children: ReactNode }) {
   const closeModal = () => setIsModalOpen(false);
 
   return (
-    <>
-      <div>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography
-              variant='h6'
-              component='div'
-              sx={{ flexGrow: 1, cursor: 'pointer' }}
-              onClick={() => (window.location.href = '/')}
-            >
-              Bilan carbone
-            </Typography>
-            <Button color="inherit" onClick={handleOpenModal}>
-              Connexion
-            </Button>
-          </Toolbar>
-        </AppBar>
-        <Container
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            // height: "80vh",
-          }}
-        >
-          {children}
-        </Container>
-
-        {isModalOpen && (
-          <Modal onClose={closeModal}>
-            {modalContent === "signIn" ? (
-              <SignInPage
-                onToggleModalContent={toggleModalContent}
-                closeModal={closeModal}
-              />
-            ) : (
-              <SignUpPage onToggleModalContent={toggleModalContent} />
-            )}
-          </Modal>
-        )}
-      </div>
-    </>
+    <div
+      style={{
+        position: "relative",
+        background: "green",
+        width: "100vw",
+        left: 0,
+        padding: 0,
+        margin: 0,
+      }}
+    >
+      {children}
+    </div>
   );
 }

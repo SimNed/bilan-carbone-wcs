@@ -1,19 +1,22 @@
-import '@/styles/globals.css';
-import type { AppProps } from 'next/app';
-import { ApolloProvider } from '@apollo/client';
-import createApolloClient from '../apollo-client';
-import { SnackbarProvider } from 'notistack';
-import { Container } from '@mui/material';
+import "@/styles/globals.css";
+import type { AppProps } from "next/app";
+import { ApolloProvider } from "@apollo/client";
+import createApolloClient from "../apollo-client";
+import { SnackbarProvider } from "notistack";
+import { Container, ThemeProvider } from "@mui/material";
+import Header from "@/components/Header/Header";
+import theme from "@/styles/theme";
 
 export default function App({ Component, pageProps }: AppProps) {
   const apolloClient = createApolloClient();
 
   return (
     <ApolloProvider client={apolloClient}>
-      <SnackbarProvider />
-      <Container>
+      <ThemeProvider theme={theme}>
+        <SnackbarProvider />
+        <Header />
         <Component {...pageProps} />
-      </Container>
+      </ThemeProvider>
     </ApolloProvider>
   );
 }
