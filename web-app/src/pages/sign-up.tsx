@@ -35,11 +35,23 @@ export default function SignUpPage({ onToggleModalContent }: SignUpPageProps) {
       return;
     }
     setError(null);
-    const { data } = await signUpMutation({ variables: formData });
-    if (data && data.signUp) {
-      setTimeout(() => {
-        onToggleModalContent();
-      }, 300);
+    try {
+      const { data } = await signUpMutation({ variables: formData });
+      if (data && data.signUp) {
+        setTimeout(() => {
+          onToggleModalContent();
+        }, 300);
+      }
+    } catch (error: any) {
+      if (
+        error.graphQLErrors.some((e: any) =>
+          e.message.includes('duplicate key value violates unique constraint')
+        )
+      ) {
+        setError("L'adresse email est déjà utilisée.");
+      } else {
+        setError("Une erreur s'est produite. Veuillez réessayer.");
+      }
     }
   };
 
