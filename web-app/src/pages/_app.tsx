@@ -3,7 +3,9 @@ import type { AppProps } from "next/app";
 import { ApolloProvider } from "@apollo/client";
 import createApolloClient from "../apollo-client";
 import { SnackbarProvider } from "notistack";
-import { Container } from "@mui/material";
+import { Container, ThemeProvider } from "@mui/material";
+import Header from "@/components/Header/Header";
+import theme from "@/styles/mui-theme";
 import { AuthProvider } from "@/AuthProvider";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -11,13 +13,13 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <ApolloProvider client={apolloClient}>
-      <SnackbarProvider>
+      <ThemeProvider theme={theme}>
         <AuthProvider>
-          <Container>
-            <Component {...pageProps} />
-          </Container>
+          <SnackbarProvider />
+          <Header />
+          <Component {...pageProps} />
         </AuthProvider>
-      </SnackbarProvider>
+      </ThemeProvider>
     </ApolloProvider>
   );
 }
