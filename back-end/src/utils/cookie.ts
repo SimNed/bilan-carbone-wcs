@@ -1,7 +1,5 @@
-import { Response } from "express";
+import { Response, Request } from "express";
 import UserSession from "../entities/userSession";
-import { parse } from "cookie";
-import { IncomingMessage } from "node:http";
 
 export function setUserSessionIdInCookie(
   expressResponse: Response,
@@ -14,7 +12,14 @@ export function setUserSessionIdInCookie(
   });
 }
 
-export function getUserSessionIdFromCookie(req: IncomingMessage) {
-  const userSessionId = parse(req.headers.cookie || "").userSessionId;
-  return userSessionId || undefined;
+export function getUserSessionIdFromCookie(req: Request): string | undefined {
+  const userSessionId = req.cookies ? req.cookies.userSessionId : undefined;
+  return userSessionId;
+}
+
+export function clearUserSessionIdInCookie(expressResponse: Response) {
+  expressResponse.clearCookie("userSessionId", {
+    secure: true,
+    httpOnly: true,
+  });
 }

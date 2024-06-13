@@ -17,6 +17,7 @@ const documents = {
     "\n  mutation DeleteRide($id: ID!) {\n    deleteRide(id: $id) {\n      id\n      label\n    }\n  }\n": types.DeleteRideDocument,
     "\n  mutation SignInForm($email: String!, $password: String!) {\n    signIn(email: $email, password: $password) {\n      id\n      email\n      firstName\n      lastName\n    }\n  }\n": types.SignInFormDocument,
     "\n  mutation SignUp(\n    $email: String!\n    $firstName: String!\n    $lastName: String!\n    $password: String!\n  ) {\n    signUp(\n      email: $email\n      firstName: $firstName\n      lastName: $lastName\n      password: $password\n    ) {\n      id\n      email\n      firstName\n      lastName\n    }\n  }\n": types.SignUpDocument,
+    "\n  mutation Logout {\n    logout\n  }\n": types.LogoutDocument,
     "\n  query SearchRides(\n    $label: String\n    $transportationId: Int\n    $minDistance: Float\n    $maxDistance: Float\n    $startDate: DateTimeISO\n    $endDate: DateTimeISO\n  ) {\n    searchRides(\n      label: $label\n      transportationId: $transportationId\n      minDistance: $minDistance\n      maxDistance: $maxDistance\n      startDate: $startDate\n      endDate: $endDate\n    ) {\n      id\n      label\n      distance\n      date\n      transportation {\n        id\n        label\n        carboneEmission\n      }\n    }\n  }\n": types.SearchRidesDocument,
     "\n  query GetTransportations {\n    transportations {\n      label\n      id\n      carboneEmission\n    }\n  }\n": types.GetTransportationsDocument,
     "\n  query GetUserProfile {\n    getUserProfile {\n      id\n      firstName\n      lastName\n      email\n    }\n  }\n": types.GetUserProfileDocument,
@@ -52,6 +53,10 @@ export function graphql(source: "\n  mutation SignInForm($email: String!, $passw
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
 export function graphql(source: "\n  mutation SignUp(\n    $email: String!\n    $firstName: String!\n    $lastName: String!\n    $password: String!\n  ) {\n    signUp(\n      email: $email\n      firstName: $firstName\n      lastName: $lastName\n      password: $password\n    ) {\n      id\n      email\n      firstName\n      lastName\n    }\n  }\n"): (typeof documents)["\n  mutation SignUp(\n    $email: String!\n    $firstName: String!\n    $lastName: String!\n    $password: String!\n  ) {\n    signUp(\n      email: $email\n      firstName: $firstName\n      lastName: $lastName\n      password: $password\n    ) {\n      id\n      email\n      firstName\n      lastName\n    }\n  }\n"];
+/**
+ * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
+ */
+export function graphql(source: "\n  mutation Logout {\n    logout\n  }\n"): (typeof documents)["\n  mutation Logout {\n    logout\n  }\n"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */

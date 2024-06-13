@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { useRouter } from "next/router";
 import { SignUpMutation, SignUpMutationVariables } from "@/gql/graphql";
-import { gql, useMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { TextField } from "@/components/Input/Input";
 import { Button, Container, Link, Typography } from "@mui/material";
 import { SIGN_UP_FORM } from "@/api-gql/mutations/user.mutations";
@@ -27,14 +26,11 @@ export default function SignUpPage({ onToggleModalContent }: SignUpPageProps) {
     SignUpMutationVariables
   >(SIGN_UP_FORM);
 
-  const router = useRouter();
-
   const signUp = async () => {
     const { data } = await signUpMutation({ variables: formData });
     if (data && data.signUp) {
       setTimeout(() => {
         onToggleModalContent();
-        router.push("/sign-in");
       }, 300);
     }
   };
