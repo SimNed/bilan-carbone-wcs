@@ -59,7 +59,7 @@ export default function ProfilPage() {
       <Layout>
         <div style={{ padding: '1.5rem' }}>
           <Typography variant='h4' style={{ marginBottom: '1.5rem' }}>
-            Mon Profil :
+            {userData?.getUserProfile.firstName}, voici votre profil :
           </Typography>
 
           <RideFilters handleRideFilter={handleRideFilter} />
