@@ -29,7 +29,17 @@ export default function SignUpPage({ onToggleModalContent }: SignUpPageProps) {
     SIGN_UP_FORM
   );
 
+  const isEmailValid = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const signUp = async () => {
+    if (!isEmailValid(formData.email)) {
+      setError("L'adresse email n'est pas valide.");
+      return;
+    }
+
     if (formData.password.length < 12) {
       setError('Le mot de passe doit comporter au moins 12 caractères.');
       return;
