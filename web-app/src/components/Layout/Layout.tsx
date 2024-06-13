@@ -1,5 +1,6 @@
 import { ReactNode, useState } from "react";
 import { AppBar, Button, Container, Toolbar, Typography } from "@mui/material";
+import { useAuth } from "@/AuthProvider";
 
 import Modal from "../Modal/Modal";
 import SignInPage from "@/pages/sign-in";
@@ -8,6 +9,7 @@ import SignUpPage from "@/pages/sign-up";
 export default function Layout({ children }: { children: ReactNode }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalContent, setModalContent] = useState("signIn");
+  const { user, logout } = useAuth();
 
   const toggleModalContent = () => {
     setModalContent(modalContent === "signIn" ? "signUp" : "signIn");
@@ -26,16 +28,22 @@ export default function Layout({ children }: { children: ReactNode }) {
         <AppBar position="static">
           <Toolbar>
             <Typography
-              variant='h6'
-              component='div'
-              sx={{ flexGrow: 1, cursor: 'pointer' }}
-              onClick={() => (window.location.href = '/')}
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, cursor: "pointer" }}
+              onClick={() => (window.location.href = "/")}
             >
               Bilan carbone
             </Typography>
-            <Button color="inherit" onClick={handleOpenModal}>
-              Connexion
-            </Button>
+            {user ? (
+              <Button color="inherit" onClick={logout}>
+                Déconnexion
+              </Button>
+            ) : (
+              <Button color="inherit" onClick={handleOpenModal}>
+                Connexion
+              </Button>
+            )}
           </Toolbar>
         </AppBar>
         <Container
