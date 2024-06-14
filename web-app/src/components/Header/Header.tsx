@@ -1,30 +1,12 @@
 import { AppBar, Button, Stack, Toolbar } from "@mui/material";
-import { useState } from "react";
-import Modal from "../Modal/Modal";
-import SignInPage from "@/pages/sign-in";
-import SignUpPage from "@/pages/sign-up";
 import PublicIcon from "@mui/icons-material/Public";
-import Link from "next/link";
-import { Link as MUILink } from "@mui/material";
 import { AppBarLink } from "@/styles/mui-classes";
 import { useAuth } from "@/AuthProvider";
+import { useModal } from "../Layout/Layout";
 
 const Header = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState("signIn");
   const { user, logout } = useAuth();
-
-  const toggleModalContent = () => {
-    setModalContent(modalContent === "signIn" ? "signUp" : "signIn");
-  };
-  const handleOpenModal = () => {
-    openModal();
-  };
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-  const closeModal = () => setIsModalOpen(false);
-
+  const { handleModalParams } = useModal();
   return (
     <AppBar position="static">
       <Toolbar
@@ -53,14 +35,14 @@ const Header = () => {
               <Button
                 color="primary"
                 variant="outlined"
-                onClick={handleOpenModal}
+                onClick={() => handleModalParams({ content: "signIn" })}
               >
                 Sign In
               </Button>
               <Button
                 color="primary"
                 variant="contained"
-                onClick={handleOpenModal}
+                onClick={() => handleModalParams({ content: "signUp" })}
               >
                 Sign Up
               </Button>
@@ -68,19 +50,6 @@ const Header = () => {
           )}
         </Stack>
       </Toolbar>
-
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          {modalContent === "signIn" ? (
-            <SignInPage
-              onToggleModalContent={toggleModalContent}
-              closeModal={closeModal}
-            />
-          ) : (
-            <SignUpPage onToggleModalContent={toggleModalContent} />
-          )}
-        </Modal>
-      )}
     </AppBar>
   );
 };
