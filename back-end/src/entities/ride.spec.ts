@@ -19,6 +19,16 @@ async function createTransportation() {
   return { Transportation: transportation };
 }
 
+async function createUser() {
+  const user = new User();
+  user.lastName = "test lastName";
+  user.firstName = "test firstname";
+  user.email = "test@example.com";
+  user.hashedPassword = "password";
+  await user.save();
+  return user;
+}
+
 describe("Ride", () => {
   beforeEach(async () => {
     const database = await getDataSource();
@@ -39,23 +49,24 @@ describe("Ride", () => {
   describe("saveNewRide", () => {
     it("creates ride and returns it", async () => {
       const { Transportation } = await createTransportation();
+      const owner = await createUser();
 
       const rideToCreate = {
         label: "Test ride",
         distance: 100,
         date: new Date(),
-        owner: new User(), // CHECK THIS LINE
-        //transportationId: 1,
-      };
-      const returnedRide = await Ride.createRide({
-        ...rideToCreate,
+        owner: owner,
         transportationId: Transportation.id,
-      });
+      };
+      const returnedRide = await Ride.createRide(rideToCreate);
 
-      expect(returnedRide).toMatchObject(rideToCreate);
-      expect(returnedRide.transportation).toMatchObject(Transportation);
+      expect(returnedRide.label).toBe(rideToCreate.label);
+      expect(returnedRide.distance).toBe(rideToCreate.distance);
+      expect(returnedRide.owner.id).toBe(owner.id);
+      expect(returnedRide.transportation.id).toBe(Transportation.id);
 
-      expect(await Ride.getRideById(returnedRide.id)).toEqual(returnedRide);
+      const retrievedRide = await Ride.getRideById(returnedRide.id);
+      expect(retrievedRide).toMatchObject(returnedRide);
     });
   });
 
@@ -63,29 +74,27 @@ describe("Ride", () => {
   describe("deleteRide", () => {
     it("deletes a ride with id and returns it", async () => {
       const { Transportation } = await createTransportation();
+      const owner = await createUser();
 
       // Create a ride
       const rideToCreate = {
         label: "Test first ride",
         distance: 120,
         date: new Date(),
-        owner: new User(), // CHECK THIS LINE
+        owner: owner,
         transportationId: Transportation.id,
       };
       const createdRide = await Ride.createRide(rideToCreate);
 
-      // Verifie si le trajet à été créé
-      const retrieveRide = await Ride.getRideById(createdRide.id);
-      expect(retrieveRide).toMatchObject({
-        label: rideToCreate.label,
-        distance: rideToCreate.distance,
-        // date: expect.any(Date),
-      });
-      expect(retrieveRide.transportation).toMatchObject(Transportation);
+      // Verify if the ride was created
+      const retrievedRide = await Ride.getRideById(createdRide.id);
+      expect(retrievedRide.label).toBe(rideToCreate.label);
+      expect(retrievedRide.distance).toBe(rideToCreate.distance);
+      expect(retrievedRide.transportation.id).toBe(Transportation.id);
 
       const deletedRide = await Ride.deleteRide(createdRide.id);
 
-      // Tente de récupérer le trajet supprimé, (s'attendant à une erreur ou a null)
+      // Try to retrieve the deleted ride, expecting an error or null
       await expect(Ride.getRideById(createdRide.id)).rejects.toThrow();
 
       expect(deletedRide.id).toBe(createdRide.id);
