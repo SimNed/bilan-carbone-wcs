@@ -15,8 +15,10 @@ import { useState } from 'react';
 
 const RideFilters = ({
   handleRideFilter,
+  closeModal,
 }: {
   handleRideFilter: (filterData: RideFilterData) => void;
+  closeModal: () => void;
 }) => {
   const [filterData, setFilterData] = useState<RideFilterData>({});
 
@@ -26,6 +28,7 @@ const RideFilters = ({
     const clearedFilterData: RideFilterData = {};
     setFilterData(clearedFilterData);
     handleRideFilter(clearedFilterData);
+    closeModal();
   };
 
   return (
