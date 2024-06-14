@@ -6,7 +6,7 @@ export const BLACK_COLOR = "#264653";
 export const WHITE_COLOR = "#f5f5f5";
 export const SUCCESS_COLOR = "#2a9d8f";
 export const WARNING_COLOR = "#e9c46a";
-export const ERROR_COLOR = "#2a9d8f";
+export const ERROR_COLOR = "#e76f51";
 export const INFO_COLOR = "#8ecae6";
 
 export const TITLE_FONT_FAMILY = "Nunito Sans";
