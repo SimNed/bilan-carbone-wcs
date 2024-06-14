@@ -1,4 +1,5 @@
 import { useAuth } from "@/AuthProvider";
+import SignInForm from "@/components/Auth/SignInForm";
 import { useModal } from "@/components/Layout/Layout";
 import { HEADER_HEIGHT, WHITE_COLOR } from "@/styles/constants";
 import { Box, Button, Typography } from "@mui/material";
@@ -6,7 +7,7 @@ import { useRouter } from "next/router";
 
 export default function HomePage() {
   const { user } = useAuth();
-  const { handleModalParams } = useModal();
+  const { handleModalComponent } = useModal();
   const router = useRouter();
   return (
     <>
@@ -49,12 +50,12 @@ export default function HomePage() {
               onClick={() =>
                 user
                   ? router.push("./carbonEmissionPage")
-                  : handleModalParams({
-                      content: "signIn",
-                      redirectionPath: "./carbonEmissionPage",
-                      subtitle:
-                        "Pour ajouter une empreinte carbone vous devez d'abord vous connecter",
-                    })
+                  : handleModalComponent(
+                      <SignInForm
+                        onValidationRedirectionPath="./carbonEmissionPage"
+                        subtitle="Pour ajouter une empreinte carbone vous devez d'abord vous connecter"
+                      />
+                    )
               }
             >
               Ajouter une dépense carbone
@@ -65,13 +66,13 @@ export default function HomePage() {
               color="success"
               onClick={() =>
                 user
-                  ? router.push("./profil")
-                  : handleModalParams({
-                      content: "signIn",
-                      redirectionPath: "./profil",
-                      subtitle:
-                        "Pour voir vos empreintes carbone vous devez d'abord vous connecter",
-                    })
+                  ? router.push("./carbonEmissionPage")
+                  : handleModalComponent(
+                      <SignInForm
+                        onValidationRedirectionPath="./carbonEmissionPage"
+                        subtitle="Pour votre votre empreinte carbone vous devez d'abord vous connecter"
+                      />
+                    )
               }
             >
               Voir mes dépenses carbone

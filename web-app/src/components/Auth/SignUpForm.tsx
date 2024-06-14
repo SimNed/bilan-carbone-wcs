@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { SignUpMutation, SignUpMutationVariables } from '@/gql/graphql';
-import { useMutation } from '@apollo/client';
+import { useState } from "react";
+import { SignUpMutation, SignUpMutationVariables } from "@/gql/graphql";
+import { useMutation } from "@apollo/client";
 import {
   Button,
   Container,
@@ -8,26 +8,27 @@ import {
   Stack,
   TextField,
   Typography,
-} from '@mui/material';
-import { SIGN_UP_FORM } from '@/api-gql/mutations/user.mutations';
-import { useModal } from '@/components/Layout/Layout';
+} from "@mui/material";
+import { SIGN_UP_FORM } from "@/api-gql/mutations/user.mutations";
+import { useModal } from "@/components/Layout/Layout";
+import SignInForm from "./SignInForm";
 
-export default function SignUpPage() {
+export default function SignUpForm() {
   const [formData, setFormData] = useState<SignUpMutationVariables>({
-    email: '',
-    firstName: '',
-    lastName: '',
-    password: '',
+    email: "",
+    firstName: "",
+    lastName: "",
+    password: "",
   });
 
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    password: '',
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
   });
-  const { handleModalParams } = useModal();
+  const { handleModalComponent } = useModal();
 
   const updateFormData = (
     partialFormData: Partial<SignUpMutationVariables>
@@ -46,15 +47,15 @@ export default function SignUpPage() {
 
   const signUp = async () => {
     const newFieldErrors = {
-      firstName: formData.firstName ? '' : 'Le prénom est obligatoire.',
-      lastName: formData.lastName ? '' : 'Le nom de famille est obligatoire.',
-      email: formData.email ? '' : "L'adresse email est obligatoire.",
-      password: formData.password ? '' : 'Le mot de passe est obligatoire.',
+      firstName: formData.firstName ? "" : "Le prénom est obligatoire.",
+      lastName: formData.lastName ? "" : "Le nom de famille est obligatoire.",
+      email: formData.email ? "" : "L'adresse email est obligatoire.",
+      password: formData.password ? "" : "Le mot de passe est obligatoire.",
     };
     setFieldErrors(newFieldErrors);
 
-    if (Object.values(newFieldErrors).some((error) => error !== '')) {
-      setError('Veuillez remplir tous les champs obligatoires.');
+    if (Object.values(newFieldErrors).some((error) => error !== "")) {
+      setError("Veuillez remplir tous les champs obligatoires.");
       return;
     }
 
@@ -64,7 +65,7 @@ export default function SignUpPage() {
     }
 
     if (formData.password.length < 12) {
-      setError('Le mot de passe doit comporter au moins 12 caractères.');
+      setError("Le mot de passe doit comporter au moins 12 caractères.");
       return;
     }
     setError(null);
@@ -72,13 +73,13 @@ export default function SignUpPage() {
       const { data } = await signUpMutation({ variables: formData });
       if (data && data.signUp) {
         setTimeout(() => {
-          handleModalParams({ content: 'signIn' });
+          handleModalComponent(<SignInForm />);
         }, 300);
       }
     } catch (error: any) {
       if (
         error.graphQLErrors.some((e: any) =>
-          e.message.includes('duplicate key value violates unique constraint')
+          e.message.includes("duplicate key value violates unique constraint")
         )
       ) {
         setError("L'adresse email est déjà utilisée.");
@@ -90,80 +91,80 @@ export default function SignUpPage() {
 
   return (
     <Container
-      component='main'
-      maxWidth='xs'
+      component="main"
+      maxWidth="xs"
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
         margin: 0,
         p: 6,
       }}
     >
-      <Typography variant='h5'>S'inscrire</Typography>
+      <Typography variant="h5">S'inscrire</Typography>
       <form
         onSubmit={(event) => {
           event.preventDefault();
           signUp();
         }}
-        style={{ width: '100%', marginTop: '1rem' }}
+        style={{ width: "100%", marginTop: "1rem" }}
       >
         <Stack spacing={2} my={6}>
           <TextField
-            label='Prénom'
-            size='small'
+            label="Prénom"
+            size="small"
             InputLabelProps={{ shrink: true }}
             onChange={(event) => {
               updateFormData({ firstName: event.target.value });
-              setFieldErrors({ ...fieldErrors, firstName: '' });
+              setFieldErrors({ ...fieldErrors, firstName: "" });
             }}
             error={!!fieldErrors.firstName}
             helperText={fieldErrors.firstName}
           />
           <TextField
-            label='Nom de famille'
-            size='small'
+            label="Nom de famille"
+            size="small"
             InputLabelProps={{ shrink: true }}
             onChange={(event) => {
               updateFormData({ lastName: event.target.value });
-              setFieldErrors({ ...fieldErrors, lastName: '' });
+              setFieldErrors({ ...fieldErrors, lastName: "" });
             }}
             error={!!fieldErrors.lastName}
             helperText={fieldErrors.lastName}
           />
           <TextField
-            label='Adresse Mail'
-            size='small'
+            label="Adresse Mail"
+            size="small"
             InputLabelProps={{ shrink: true }}
             onChange={(event) => {
               updateFormData({ email: event.target.value });
-              setFieldErrors({ ...fieldErrors, email: '' });
+              setFieldErrors({ ...fieldErrors, email: "" });
             }}
             error={!!fieldErrors.email}
             helperText={fieldErrors.email}
           />
           <TextField
-            label='Mot de passe'
-            size='small'
-            type='password'
+            label="Mot de passe"
+            size="small"
+            type="password"
             InputLabelProps={{ shrink: true }}
             onChange={(event) => {
               updateFormData({ password: event.target.value });
-              setFieldErrors({ ...fieldErrors, password: '' });
+              setFieldErrors({ ...fieldErrors, password: "" });
             }}
             error={!!fieldErrors.password}
             helperText={fieldErrors.password}
           />
           {error && (
-            <Typography color='error' style={{ marginBottom: '1rem' }}>
+            <Typography color="error" style={{ marginBottom: "1rem" }}>
               {error}
             </Typography>
           )}
         </Stack>
         <Button
-          variant='contained'
-          color='success'
-          type='submit'
+          variant="contained"
+          color="success"
+          type="submit"
           sx={{ mb: 4 }}
           fullWidth
         >
@@ -171,8 +172,8 @@ export default function SignUpPage() {
         </Button>
       </form>
       <p style={{ padding: 0, margin: 0 }}>
-        Vous avez déjà un compte ?{' '}
-        <Link href='#' onClick={() => handleModalParams({ content: 'signIn' })}>
+        Vous avez déjà un compte ?{" "}
+        <Link href="#" onClick={() => handleModalComponent(<SignInForm />)}>
           cliquez ici
         </Link>
       </p>

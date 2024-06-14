@@ -2,10 +2,7 @@ import { SnackbarProvider } from "notistack";
 import { Container } from "@mui/material";
 import Header from "@/components/Header/Header";
 import { ReactNode, createContext, useContext, useState } from "react";
-import { useAuth } from "@/AuthProvider";
-import SignInPage from "@/pages/sign-in";
 import Modal from "../Modal/Modal";
-import SignUpPage from "@/pages/sign-up";
 import { ModalParams } from "@/type/ModalParams.type";
 
 interface LayoutProps {
@@ -15,27 +12,15 @@ interface LayoutProps {
 const ModalContext = createContext({
   handleOpenModal: () => {},
   handleCloseModal: () => {},
-  handleModalParams: ({
-    content,
-    redirectionPath,
-    subtitle,
-  }: ModalParams) => {},
+  handleModalComponent: (_component: ReactNode) => {},
 });
 
 const Layout = ({ children }: LayoutProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalParams, setModalParams] = useState<ModalParams>({
-    content: "",
-    redirectionPath: "",
-    subtitle: "",
-  });
+  const [modalComponent, setModalComponent] = useState<ReactNode | null>(null);
 
-  const handleModalParams = (params: {
-    content: string;
-    redirectionpath?: string;
-    subtitle?: string;
-  }) => {
-    setModalParams(params);
+  const handleModalComponent = (component: ReactNode) => {
+    setModalComponent(component);
     handleOpenModal();
   };
   const handleOpenModal = () => {
@@ -47,7 +32,7 @@ const Layout = ({ children }: LayoutProps) => {
   const modalContextValue = {
     handleOpenModal,
     handleCloseModal,
-    handleModalParams,
+    handleModalComponent,
   };
 
   return (
@@ -55,14 +40,8 @@ const Layout = ({ children }: LayoutProps) => {
       <SnackbarProvider>
         <Header />
         <Container>{children}</Container>
-        {isModalOpen && (
-          <Modal onClose={handleCloseModal}>
-            {modalParams.content === "signIn" ? (
-              <SignInPage modalParams={modalParams} />
-            ) : (
-              <SignUpPage />
-            )}
-          </Modal>
+        {isModalOpen && modalComponent && (
+          <Modal onClose={handleCloseModal}>{modalComponent}</Modal>
         )}
       </SnackbarProvider>
     </ModalContext.Provider>

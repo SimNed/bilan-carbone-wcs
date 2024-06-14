@@ -18,15 +18,20 @@ import { SIGN_IN_FORM } from "@/api-gql/mutations/user.mutations";
 import { useAuth } from "@/AuthProvider";
 import { useModal } from "@/components/Layout/Layout";
 import { ModalParams } from "@/type/ModalParams.type";
+import SignUpForm from "./SignUpForm";
 
 interface SignInPageProps {
-  modalParams: ModalParams;
+  subtitle?: string;
+  onValidationRedirectionPath?: string;
 }
 
-export default function SignInPage({ modalParams }: SignInPageProps) {
+export default function SignInForm({
+  subtitle,
+  onValidationRedirectionPath,
+}: SignInPageProps) {
   const router = useRouter();
   const { setUser } = useAuth();
-  const { handleCloseModal, handleModalParams } = useModal();
+  const { handleCloseModal, handleModalComponent } = useModal();
   const [formData, setFormData] = useState<SignInFormMutationVariables>({
     email: "",
     password: "",
@@ -52,7 +57,7 @@ export default function SignInPage({ modalParams }: SignInPageProps) {
             const user: User = data.signIn;
             setUser(user);
             handleCloseModal();
-            router.push(modalParams.redirectionPath || "/");
+            router.push(onValidationRedirectionPath || "/");
           }
         },
       });
@@ -74,9 +79,7 @@ export default function SignInPage({ modalParams }: SignInPageProps) {
       }}
     >
       <Typography variant="h5">Se connecter</Typography>
-      {modalParams.subtitle && (
-        <Typography variant="h6">{modalParams.subtitle}</Typography>
-      )}
+      {subtitle && <Typography variant="h6">{subtitle}</Typography>}
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -117,7 +120,7 @@ export default function SignInPage({ modalParams }: SignInPageProps) {
       </form>
       <p style={{ padding: 0, margin: 0 }}>
         Si vous n'avez pas encore de compte,{" "}
-        <Link href="#" onClick={() => handleModalParams({ content: "signUp" })}>
+        <Link href="#" onClick={() => handleModalComponent(<SignUpForm />)}>
           cliquez ici
         </Link>
       </p>
