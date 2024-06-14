@@ -21,6 +21,7 @@
     "notistack": "^3.0.1",
     "react": "latest",
     "react-dom": "latest",
+    "react-simple-maps": "^3.0.0",
     "styled-components": "^6.0.8"
   },
   "devDependencies": {
@@ -29,6 +30,7 @@
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
+    "@types/react-simple-maps": "^3.0.4",
     "babel-plugin-styled-components": "^2.1.4",
     "typescript": "latest"
   }

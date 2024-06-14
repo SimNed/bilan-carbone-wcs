@@ -21,7 +21,7 @@ const Header = () => {
           <AppBarLink href="/">
             <PublicIcon sx={{ mr: 1 }} /> Bilan Carbone
           </AppBarLink>
-          <AppBarLink href="/">Données monde</AppBarLink>
+          <AppBarLink href="/world-footprint-map">Données monde</AppBarLink>
           <AppBarLink href="/">Données france</AppBarLink>
         </Stack>
 
