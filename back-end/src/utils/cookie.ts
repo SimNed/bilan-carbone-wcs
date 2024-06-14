@@ -14,7 +14,7 @@ export function setUserSessionIdInCookie(
 
 export function getUserSessionIdFromCookie(req: Request): string | undefined {
   const userSessionId = req.cookies ? req.cookies.userSessionId : undefined;
-  return userSessionId;
+  return userSessionId || undefined;
 }
 
 export function clearUserSessionIdInCookie(expressResponse: Response) {
