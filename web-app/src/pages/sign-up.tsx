@@ -1,23 +1,27 @@
-import { useState } from 'react';
-import { SignUpMutation, SignUpMutationVariables } from '@/gql/graphql';
-import { useMutation } from '@apollo/client';
-import { TextField } from '@/components/Input/Input';
-import { Button, Container, Link, Typography } from '@mui/material';
-import { SIGN_UP_FORM } from '@/api-gql/mutations/user.mutations';
+import { useState } from "react";
+import { SignUpMutation, SignUpMutationVariables } from "@/gql/graphql";
+import { useMutation } from "@apollo/client";
+import {
+  Button,
+  Container,
+  Link,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
+import { SIGN_UP_FORM } from "@/api-gql/mutations/user.mutations";
+import { useModal } from "@/components/Layout/Layout";
 
-interface SignUpPageProps {
-  onToggleModalContent: () => void;
-}
-
-export default function SignUpPage({ onToggleModalContent }: SignUpPageProps) {
+export default function SignUpPage() {
   const [formData, setFormData] = useState<SignUpMutationVariables>({
-    email: '',
-    firstName: '',
-    lastName: '',
-    password: '',
+    email: "",
+    firstName: "",
+    lastName: "",
+    password: "",
   });
 
   const [error, setError] = useState<string | null>(null);
+  const { handleModalParams } = useModal();
 
   const updateFormData = (
     partialFormData: Partial<SignUpMutationVariables>
@@ -41,7 +45,7 @@ export default function SignUpPage({ onToggleModalContent }: SignUpPageProps) {
     }
 
     if (formData.password.length < 12) {
-      setError('Le mot de passe doit comporter au moins 12 caractères.');
+      setError("Le mot de passe doit comporter au moins 12 caractères.");
       return;
     }
     setError(null);
@@ -49,13 +53,13 @@ export default function SignUpPage({ onToggleModalContent }: SignUpPageProps) {
       const { data } = await signUpMutation({ variables: formData });
       if (data && data.signUp) {
         setTimeout(() => {
-          onToggleModalContent();
+          handleModalParams({ content: "signIn" });
         }, 300);
       }
     } catch (error: any) {
       if (
         error.graphQLErrors.some((e: any) =>
-          e.message.includes('duplicate key value violates unique constraint')
+          e.message.includes("duplicate key value violates unique constraint")
         )
       ) {
         setError("L'adresse email est déjà utilisée.");
@@ -66,77 +70,84 @@ export default function SignUpPage({ onToggleModalContent }: SignUpPageProps) {
   };
 
   return (
-    <>
-      <Container
-        component='main'
-        maxWidth='xs'
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          padding: '32px',
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        margin: 0,
+        p: 6,
+      }}
+    >
+      <Typography variant="h5">S'inscrire</Typography>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          signUp();
         }}
+        style={{ width: "100%", marginTop: "1rem" }}
       >
-        <Typography variant='h5'>Créer un compte</Typography>
-        <form
-          style={{ width: '100%', marginTop: '1rem' }}
-          onSubmit={(event) => {
-            event.preventDefault();
-            signUp();
-          }}
-        >
-          <Typography variant='body1'>Prénom :</Typography>
+        <Stack spacing={2} my={6}>
           <TextField
-            style={{ marginBottom: '1rem', width: '100%' }}
+            label="Prénom"
+            size="small"
+            InputLabelProps={{ shrink: true }}
             onChange={(event) => {
               updateFormData({ firstName: event.target.value });
             }}
           />
-          <Typography variant='body1'>Nom :</Typography>
           <TextField
-            style={{ marginBottom: '1rem', width: '100%' }}
+            label="Password"
+            size="small"
+            type="password"
+            InputLabelProps={{ shrink: true }}
             onChange={(event) => {
               updateFormData({ lastName: event.target.value });
             }}
           />
-          <Typography variant='body1'>Adresse email :</Typography>
           <TextField
-            style={{ marginBottom: '1rem', width: '100%' }}
+            label="Adresse Mail"
+            size="small"
+            InputLabelProps={{ shrink: true }}
             onChange={(event) => {
               updateFormData({ email: event.target.value });
             }}
           />
-          <Typography variant='body1'>Mot de passe :</Typography>
           <TextField
-            type='password'
-            style={{ marginBottom: '1rem', width: '100%' }}
+            label="Password"
+            size="small"
+            type="password"
+            InputLabelProps={{ shrink: true }}
             onChange={(event) => {
               updateFormData({ password: event.target.value });
             }}
           />
           {error && (
-            <Typography color='error' style={{ marginBottom: '1rem' }}>
+            <Typography color="error" style={{ marginBottom: "1rem" }}>
               {error}
             </Typography>
           )}
-          <div style={{ marginTop: '16px' }}>
-            <Button
-              variant='contained'
-              color='primary'
-              type='submit'
-              style={{ width: '100%' }}
-            >
-              Créer un compte
-            </Button>
-          </div>
-        </form>
-        <Typography>
-          Vous avez déjà un compte ?{' '}
-          <Link href='#' onClick={onToggleModalContent}>
-            cliquez ici
-          </Link>
-        </Typography>
-      </Container>
-    </>
+        </Stack>
+        <Button
+          variant="contained"
+          color="success"
+          type="submit"
+          sx={{ mb: 4 }}
+          fullWidth
+        >
+          S'inscrire
+        </Button>
+      </form>
+      <p style={{ padding: 0, margin: 0 }}>
+        Vous avez déjà un compte ?{" "}
+        <Link href="#" onClick={() => handleModalParams({ content: "signIn" })}>
+          cliquez ici
+        </Link>
+      </p>
+    </Container>
   );
+}
+{
 }

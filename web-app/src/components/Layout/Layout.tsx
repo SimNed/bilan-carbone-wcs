@@ -1,75 +1,74 @@
-import { ReactNode, useState } from "react";
-import { AppBar, Button, Container, Toolbar, Typography } from "@mui/material";
+import { SnackbarProvider } from "notistack";
+import { Container } from "@mui/material";
+import Header from "@/components/Header/Header";
+import { ReactNode, createContext, useContext, useState } from "react";
 import { useAuth } from "@/AuthProvider";
-
-import Modal from "../Modal/Modal";
 import SignInPage from "@/pages/sign-in";
+import Modal from "../Modal/Modal";
 import SignUpPage from "@/pages/sign-up";
+import { ModalParams } from "@/type/ModalParams.type";
 
-export default function Layout({ children }: { children: ReactNode }) {
+interface LayoutProps {
+  children: ReactNode;
+}
+
+const ModalContext = createContext({
+  handleOpenModal: () => {},
+  handleCloseModal: () => {},
+  handleModalParams: ({
+    content,
+    redirectionPath,
+    subtitle,
+  }: ModalParams) => {},
+});
+
+const Layout = ({ children }: LayoutProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalContent, setModalContent] = useState("signIn");
-  const { user, logout } = useAuth();
+  const [modalParams, setModalParams] = useState<ModalParams>({
+    content: "",
+    redirectionPath: "",
+    subtitle: "",
+  });
 
-  const toggleModalContent = () => {
-    setModalContent(modalContent === "signIn" ? "signUp" : "signIn");
+  const handleModalParams = (params: {
+    content: string;
+    redirectionpath?: string;
+    subtitle?: string;
+  }) => {
+    setModalParams(params);
+    handleOpenModal();
   };
   const handleOpenModal = () => {
-    openModal();
-  };
-  const openModal = () => {
     setIsModalOpen(true);
   };
-  const closeModal = () => setIsModalOpen(false);
+
+  const handleCloseModal = () => setIsModalOpen(false);
+
+  const modalContextValue = {
+    handleOpenModal,
+    handleCloseModal,
+    handleModalParams,
+  };
 
   return (
-    <>
-      <div>
-        <AppBar position="static">
-          <Toolbar>
-            <Typography
-              variant="h6"
-              component="div"
-              sx={{ flexGrow: 1, cursor: "pointer" }}
-              onClick={() => (window.location.href = "/")}
-            >
-              Bilan carbone
-            </Typography>
-            {user ? (
-              <Button color="inherit" onClick={logout}>
-                Déconnexion
-              </Button>
-            ) : (
-              <Button color="inherit" onClick={handleOpenModal}>
-                Connexion
-              </Button>
-            )}
-          </Toolbar>
-        </AppBar>
-        <Container
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            // height: "80vh",
-          }}
-        >
-          {children}
-        </Container>
-
+    <ModalContext.Provider value={modalContextValue}>
+      <SnackbarProvider>
+        <Header />
+        <Container>{children}</Container>
         {isModalOpen && (
-          <Modal onClose={closeModal}>
-            {modalContent === "signIn" ? (
-              <SignInPage
-                onToggleModalContent={toggleModalContent}
-                closeModal={closeModal}
-              />
+          <Modal onClose={handleCloseModal}>
+            {modalParams.content === "signIn" ? (
+              <SignInPage modalParams={modalParams} />
             ) : (
-              <SignUpPage onToggleModalContent={toggleModalContent} />
+              <SignUpPage />
             )}
           </Modal>
         )}
-      </div>
-    </>
+      </SnackbarProvider>
+    </ModalContext.Provider>
   );
-}
+};
+
+export default Layout;
+
+export const useModal = () => useContext(ModalContext);

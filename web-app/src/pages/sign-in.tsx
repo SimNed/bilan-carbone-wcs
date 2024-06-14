@@ -1,27 +1,32 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "@apollo/client";
-import { TextField } from "@/components/Input/Input";
 import {
   SignInFormMutation,
   SignInFormMutationVariables,
   User,
 } from "@/gql/graphql";
-import { Button, Container, Link, Typography } from "@mui/material";
+import {
+  Button,
+  Container,
+  Link,
+  Stack,
+  Typography,
+  TextField,
+} from "@mui/material";
 import { SIGN_IN_FORM } from "@/api-gql/mutations/user.mutations";
 import { useAuth } from "@/AuthProvider";
+import { useModal } from "@/components/Layout/Layout";
+import { ModalParams } from "@/type/ModalParams.type";
 
 interface SignInPageProps {
-  onToggleModalContent: () => void;
-  closeModal: () => void;
+  modalParams: ModalParams;
 }
 
-export default function SignInPage({
-  onToggleModalContent,
-  closeModal,
-}: SignInPageProps) {
+export default function SignInPage({ modalParams }: SignInPageProps) {
   const router = useRouter();
   const { setUser } = useAuth();
+  const { handleCloseModal, handleModalParams } = useModal();
   const [formData, setFormData] = useState<SignInFormMutationVariables>({
     email: "",
     password: "",
@@ -46,8 +51,8 @@ export default function SignInPage({
           if (data?.signIn) {
             const user: User = data.signIn;
             setUser(user);
-            closeModal();
-            router.push("/");
+            handleCloseModal();
+            router.push(modalParams.redirectionPath || "/");
           }
         },
       });
@@ -60,14 +65,18 @@ export default function SignInPage({
     <Container
       component="main"
       maxWidth="xs"
-      style={{
+      sx={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        padding: "32px",
+        margin: 0,
+        p: 6,
       }}
     >
       <Typography variant="h5">Se connecter</Typography>
+      {modalParams.subtitle && (
+        <Typography variant="h6">{modalParams.subtitle}</Typography>
+      )}
       <form
         onSubmit={(event) => {
           event.preventDefault();
@@ -75,38 +84,43 @@ export default function SignInPage({
         }}
         style={{ width: "100%", marginTop: "1rem" }}
       >
-        <Typography variant="body1">Adresse email :</Typography>
-        <TextField
-          style={{ marginBottom: "1rem", width: "100%" }}
-          onChange={(event) => {
-            updateFormData({ email: event.target.value });
-          }}
-        />
-        <Typography variant="body1">Mot de passe :</Typography>
-        <TextField
-          type="password"
-          style={{ marginBottom: "1rem", width: "100%" }}
-          onChange={(event) => {
-            updateFormData({ password: event.target.value });
-          }}
-        />
-        <div style={{ marginTop: "16px" }}>
-          <Button
-            variant="contained"
-            color="primary"
-            type="submit"
-            style={{ width: "100%" }}
-          >
-            Se connecter
-          </Button>
-        </div>
+        <Stack spacing={2} my={6}>
+          <TextField
+            required
+            label="Adresse mail"
+            size="small"
+            InputLabelProps={{ shrink: true }}
+            onChange={(event) => {
+              updateFormData({ email: event.target.value });
+            }}
+          />
+          <TextField
+            required
+            label="Password"
+            size="small"
+            type="password"
+            InputLabelProps={{ shrink: true }}
+            onChange={(event) => {
+              updateFormData({ password: event.target.value });
+            }}
+          />
+        </Stack>
+        <Button
+          variant="contained"
+          color="success"
+          type="submit"
+          sx={{ mb: 4 }}
+          fullWidth
+        >
+          Se connecter
+        </Button>
       </form>
-      <Typography>
+      <p style={{ padding: 0, margin: 0 }}>
         Si vous n'avez pas encore de compte,{" "}
-        <Link href="#" onClick={onToggleModalContent}>
+        <Link href="#" onClick={() => handleModalParams({ content: "signUp" })}>
           cliquez ici
         </Link>
-      </Typography>
+      </p>
     </Container>
   );
 }
