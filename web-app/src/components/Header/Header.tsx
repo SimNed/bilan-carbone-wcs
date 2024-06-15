@@ -3,10 +3,12 @@ import PublicIcon from "@mui/icons-material/Public";
 import { AppBarLink } from "@/styles/mui-classes";
 import { useAuth } from "@/AuthProvider";
 import { useModal } from "../Layout/Layout";
+import SignUpForm from "../Auth/SignUpForm";
+import SignInForm from "../Auth/SignInForm";
 
 const Header = () => {
   const { user, logout } = useAuth();
-  const { handleModalParams } = useModal();
+  const { handleModalComponent } = useModal();
   return (
     <AppBar position="static">
       <Toolbar
@@ -35,14 +37,14 @@ const Header = () => {
               <Button
                 color="primary"
                 variant="outlined"
-                onClick={() => handleModalParams({ content: "signIn" })}
+                onClick={() => handleModalComponent(<SignInForm />)}
               >
                 Sign In
               </Button>
               <Button
                 color="primary"
                 variant="contained"
-                onClick={() => handleModalParams({ content: "signUp" })}
+                onClick={() => handleModalComponent(<SignUpForm />)}
               >
                 Sign Up
               </Button>

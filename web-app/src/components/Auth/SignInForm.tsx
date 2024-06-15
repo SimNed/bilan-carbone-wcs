@@ -17,7 +17,6 @@ import {
 import { SIGN_IN_FORM } from "@/api-gql/mutations/user.mutations";
 import { useAuth } from "@/AuthProvider";
 import { useModal } from "@/components/Layout/Layout";
-import { ModalParams } from "@/type/ModalParams.type";
 import SignUpForm from "./SignUpForm";
 
 interface SignInPageProps {

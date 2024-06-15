@@ -3,7 +3,7 @@ import { Container } from "@mui/material";
 import Header from "@/components/Header/Header";
 import { ReactNode, createContext, useContext, useState } from "react";
 import Modal from "../Modal/Modal";
-import { ModalParams } from "@/type/ModalParams.type";
+import { HEADER_HEIGHT } from "@/styles/constants";
 
 interface LayoutProps {
   children: ReactNode;
@@ -39,7 +39,13 @@ const Layout = ({ children }: LayoutProps) => {
     <ModalContext.Provider value={modalContextValue}>
       <SnackbarProvider>
         <Header />
-        <Container>{children}</Container>
+        <Container
+          sx={{ height: `calc(100vh - ${HEADER_HEIGHT})` }}
+          maxWidth={false}
+          disableGutters
+        >
+          {children}
+        </Container>
         {isModalOpen && modalComponent && (
           <Modal onClose={handleCloseModal}>{modalComponent}</Modal>
         )}
