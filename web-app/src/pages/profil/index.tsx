@@ -1,14 +1,17 @@
-import { formatDateToDisplay, getDefaultUser } from "@/utils";
+import { formatDateToDisplay, getDateInJson } from "@/utils";
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { Card, CardContent, Grid, Typography, Button } from "@mui/material";
 import { GET_USER_PROFIL } from "@/api-gql/queries/user.queries";
 import { SEARCH_RIDES } from "@/api-gql/queries/ride.queries";
 import { RideFilterData } from "@/type/RideFilterData.type";
-import { GetUserProfileQuery, SearchRidesQuery } from "@/gql/graphql";
+import { GetUserProfileQuery, Ride, SearchRidesQuery } from "@/gql/graphql";
 import RideFilters from "./components/RideFilters";
 import { useModal } from "@/components/Layout/Layout";
 import DeleteRide from "./components/DeleteRide";
+import LineChartMonthEmissions from "./components/LineChartMonthEmissions";
+import { PieChart } from "@mui/x-charts";
+import PieChartRidesByTypeCounter from "./components/PieChartRidesByTypeCounter";
 
 export default function ProfilPage() {
   const { loading, error, data, refetch } =
@@ -67,100 +70,93 @@ export default function ProfilPage() {
           flex: 3,
         }}
       >
-        <div style={{ backgroundColor: "#FFF" }}>
-          <Typography variant="h4" style={{ marginBottom: "1.5rem" }}>
-            Bienvenue {userData?.getUserProfile.firstName}!
-          </Typography>
+        <div style={{ backgroundColor: "#FFF", display: "flex" }}>
+          <div
+            style={{
+              backgroundColor: "blue",
+              flex: 1,
+              display: "flex",
+              flexDirection: "column",
+              padding: "2rem",
+            }}
+          >
+            <div style={{ flex: 1 }}>
+              <Typography variant="h6">
+                Bienvenue {userData?.getUserProfile.firstName}!
+              </Typography>
 
-          <Typography variant="h6" gutterBottom>
-            Nombre de trajets réalisés : {NbRides}
-          </Typography>
+              <p>Nombre de trajets réalisés : {NbRides}</p>
 
-          <Typography variant="h6" gutterBottom>
-            Total émission de CO2 : {totalCO2}
-          </Typography>
+              <p>Total émission de CO2 : {totalCO2}</p>
+            </div>
+            <div style={{ flex: 1 }}>
+              <PieChartRidesByTypeCounter data={data} />
+            </div>
+          </div>
+          <div style={{ flex: 3, padding: "3rem", height: "500px" }}>
+            <LineChartMonthEmissions data={data} />
+          </div>
         </div>
         <div>
           <Typography variant="h5" gutterBottom>
             Trajets effectués :
           </Typography>
 
-          <Grid container spacing={3}>
-            {data &&
-              data.searchRides.map((ride) => (
-                <Grid item xs={12} sm={6} md={4} key={ride.id}>
-                  <Card
-                    style={{
-                      width: "110%",
-                      marginBottom: "2rem",
-                      marginTop: "2rem",
-                      position: "relative",
-                    }}
-                  >
-                    <Button
-                      onClick={() =>
-                        handleModalComponent(
-                          <DeleteRide
-                            rideId={ride.id}
-                            handleCloseModal={handleCloseModal}
-                          />
-                        )
-                      }
-                      style={{
-                        position: "absolute",
-                        top: "0",
-                        right: "0",
-                        margin: "0.5rem",
-                      }}
-                    >
-                      X
-                    </Button>
+          {data &&
+            data.searchRides.map((ride) => (
+              <Card style={{}}>
+                <Button
+                  onClick={() =>
+                    handleModalComponent(
+                      <DeleteRide
+                        rideId={ride.id}
+                        handleCloseModal={handleCloseModal}
+                      />
+                    )
+                  }
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    right: "0",
+                    margin: "0.5rem",
+                  }}
+                >
+                  X
+                </Button>
 
-                    <CardContent style={{ padding: "1rem" }}>
-                      <Typography
-                        variant="h6"
-                        gutterBottom
-                        style={{ marginBottom: "0.5rem" }}
-                      >
-                        {ride.label}
-                      </Typography>
-                      <div style={{ marginBottom: "0.5rem" }}>
-                        <Typography variant="body1">
-                          <strong>Date:</strong>{" "}
-                          {formatDateToDisplay(ride.date)}
-                        </Typography>
-                        <Typography variant="body1">
-                          <strong>Moyen de transport:</strong>{" "}
-                          {ride.transportation.label}
-                        </Typography>
-                        <Typography variant="body1">
-                          <strong>Distance:</strong> {ride.distance} km
-                        </Typography>
-                        <Typography variant="body1">
-                          <strong>Émission CO2:</strong>{" "}
-                          {(ride.distance *
-                            ride.transportation.carboneEmission) /
-                            1000}{" "}
-                          kg
-                        </Typography>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              ))}
-          </Grid>
+                <CardContent style={{ padding: "1rem" }}>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    style={{ marginBottom: "0.5rem" }}
+                  >
+                    {ride.label}
+                  </Typography>
+                  <div style={{ marginBottom: "0.5rem" }}>
+                    <Typography variant="body1">
+                      <strong>Date:</strong> {formatDateToDisplay(ride.date)}
+                    </Typography>
+                    <Typography variant="body1">
+                      <strong>Moyen de transport:</strong>{" "}
+                      {ride.transportation.label}
+                    </Typography>
+                    <Typography variant="body1">
+                      <strong>Distance:</strong> {ride.distance} km
+                    </Typography>
+                    <Typography variant="body1">
+                      <strong>Émission CO2:</strong>{" "}
+                      {(ride.distance * ride.transportation.carboneEmission) /
+                        1000}{" "}
+                      kg
+                    </Typography>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
         </div>
       </div>
     </div>
   );
-}
-
-{
-  /* 
-<RideFilters
-  handleRideFilter={handleRideFilter}
-  closeModal={closeFilterModal}
-/>; */
 }
 
 {

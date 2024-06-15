@@ -126,9 +126,7 @@ const RideFilters = ({
             </MenuItem>
           ))}
         </Select>
-      </div>
 
-      <div style={{ marginTop: "16px", display: "flex", gap: "1rem" }}>
         <Button
           variant="contained"
           color="primary"

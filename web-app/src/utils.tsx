@@ -27,45 +27,17 @@ export function formatDateToDisplay(date: string) {
   }/${formatedDate.getFullYear()} `;
 }
 
+export function getDateInJson(date = new Date()) {
+  return {
+    day: date.getDate(),
+    month: date.getMonth(),
+    year: date.getFullYear(),
+  };
+}
+
 export function capitalizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
-
-export const getDefaultUser = (): Record<string, any> => {
-  return {
-    id: "un_uuid_par_defaut",
-    firstName: "John",
-    lastName: "Doe",
-    email: "john.doe@mail.com",
-    password: "secret.password",
-    rides: [
-      {
-        label: "Voyage en Italie",
-        distance: 807,
-        date: "2017-11-20T16:30:15+05:30",
-        transportationId: 1,
-      },
-      {
-        label: "Voyage en Ardèche",
-        distance: 556,
-        date: "2016-01-20T07:30:15+05:30",
-        transportationId: 2,
-      },
-      {
-        label: "Voyage en Chine",
-        distance: 5783,
-        date: "2018-02-20T11:30:15+05:30",
-        transportationId: 3,
-      },
-      {
-        label: "Voyage en Corse",
-        distance: 739,
-        date: "2020-05-20T05:30:15+05:30",
-        transportationId: 4,
-      },
-    ],
-  };
-};
 
 export const getCarboneEmissionColorCode = (carboneEmission: number) => {
   if (carboneEmission > 0 && carboneEmission <= 0.1) {
