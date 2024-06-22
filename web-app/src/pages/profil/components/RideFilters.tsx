@@ -34,7 +34,6 @@ const RideFilters = ({
 
   return (
     <form
-      style={{ height: "100%" }}
       onSubmit={(event) => {
         event.preventDefault();
         handleRideFilter(filterData);
@@ -46,7 +45,6 @@ const RideFilters = ({
           display: "flex",
           flexDirection: "column",
           gap: "1rem",
-          padding: "4rem",
         }}
       >
         <TextField

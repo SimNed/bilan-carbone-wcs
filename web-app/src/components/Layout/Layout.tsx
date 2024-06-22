@@ -40,7 +40,11 @@ const Layout = ({ children }: LayoutProps) => {
       <SnackbarProvider>
         <Header />
         <Container
-          sx={{ height: `calc(100vh - ${HEADER_HEIGHT})` }}
+          sx={{
+            height: `calc(100vh - ${HEADER_HEIGHT})`,
+            position: "relative",
+            top: HEADER_HEIGHT,
+          }}
           maxWidth={false}
           disableGutters
         >

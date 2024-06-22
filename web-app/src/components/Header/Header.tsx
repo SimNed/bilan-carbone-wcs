@@ -10,7 +10,7 @@ const Header = () => {
   const { user, logout } = useAuth();
   const { handleModalComponent } = useModal();
   return (
-    <AppBar position="static">
+    <AppBar position="fixed">
       <Toolbar
         disableGutters
         sx={{

@@ -18,19 +18,19 @@ services:
         - action: rebuild
           path: back-end/package.json
 
-  web-app:
-    build:
-      context: ./web-app
-      target: dev
-    ports:
-      - 3000:3000
-    develop:
-      watch:
-        - action: sync
-          path: ./web-app
-          target: /app
-        - action: rebuild
-          path: web-app/package.json
+  # web-app:
+  #   build:
+  #     context: ./web-app
+  #     target: dev
+  #   ports:
+  #     - 3000:3000
+  #   develop:
+  #     watch:
+  #       - action: sync
+  #         path: ./web-app
+  #         target: /app
+  #       - action: rebuild
+  #         path: web-app/package.json
 
   database:
     image: postgres:15

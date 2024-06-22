@@ -5,8 +5,13 @@ const PieChartRidesByTypeCounter = ({ data }: ChartData) => {
   return (
     data && (
       <PieChart
-        sx={{ width: "50%", height: "50%" }} // Ajuster la taille du PieChart ici
-        customize={{ radius: "50%" }} // Réduire le rayon du graphique circulaire
+        margin={{ top: 0, bottom: 0, left: 0, right: 0 }}
+        sx={{ backgroundColor: "blue", flex: 1 }}
+        slotProps={{
+          legend: {
+            hidden: true,
+          },
+        }}
         series={[
           {
             data: [
@@ -40,6 +45,12 @@ const PieChartRidesByTypeCounter = ({ data }: ChartData) => {
                 label: "avion",
               },
             ],
+            innerRadius: 20,
+            outerRadius: 60,
+            paddingAngle: 2,
+            cornerRadius: 4,
+            startAngle: 0,
+            endAngle: 360,
           },
         ]}
       />
