@@ -18,6 +18,8 @@ export function removeQueryParameter(parameterToRemove: string) {
   window.history.replaceState({}, "", newUrl);
 }
 
+// DATE
+
 export function formatDateToDisplay(date: string) {
   let formatedDate = new Date(date);
   return `${formatedDate.getDate()}/${
@@ -27,12 +29,22 @@ export function formatDateToDisplay(date: string) {
   }/${formatedDate.getFullYear()} `;
 }
 
-export function getDateInJson(date = new Date()) {
-  return {
-    day: date.getDate(),
-    month: date.getMonth(),
-    year: date.getFullYear(),
-  };
+export function getMonthWithId(id: number) {
+  const months = [
+    "janvier",
+    "février",
+    "mars",
+    "avril",
+    "mai",
+    "juin",
+    "juillet",
+    "août",
+    "septembre",
+    "octobre",
+    "novembre",
+    "décembre",
+  ];
+  return months[id];
 }
 
 export function capitalizeFirstLetter(str: string) {

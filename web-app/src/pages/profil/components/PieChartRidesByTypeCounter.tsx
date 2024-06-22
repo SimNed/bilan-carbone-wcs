@@ -6,7 +6,7 @@ const PieChartRidesByTypeCounter = ({ data }: ChartData) => {
     data && (
       <PieChart
         margin={{ top: 0, bottom: 0, left: 0, right: 0 }}
-        sx={{ backgroundColor: "blue", flex: 1 }}
+        sx={{ flex: 1, height: "100%" }}
         slotProps={{
           legend: {
             hidden: true,

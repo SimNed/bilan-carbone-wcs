@@ -1,25 +1,28 @@
-import { SearchRidesQuery } from "@/gql/graphql";
 import { BarChartDayEmissionData, ChartData } from "@/type/ChartData.type";
 
-import { getDateInJson } from "@/utils";
-import { IconButton } from "@mui/material";
 import { Stack } from "@mui/system";
 import { BarChart } from "@mui/x-charts";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { useEffect, useState } from "react";
+import BartCharMonthEmissionNavigation from "./BartCharMonthEmissionNavigation";
+import { WHITE_COLOR } from "@/styles/constants";
 
 const BarChartMonthEmissions = ({ data }: ChartData) => {
-  function getEmissionsInMonth(
-    rides: SearchRidesQuery,
-    date: { day: number; month: number; year: number }
-  ) {
+  const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
+  const [numberOfDaysInMonth, setNumberOfDaysInMonth] = useState(0);
+
+  useEffect(() => {
+    const numberOfDays = new Date(selectedYear, selectedMonth + 1, 0).getDate();
+
+    setNumberOfDaysInMonth(numberOfDays);
+  }, [selectedYear, selectedMonth]);
+
+  function getEmissionsInMonth() {
     if (!data) return;
 
     let chartData: BarChartDayEmissionData[] = [];
 
-    const numberOfDaysInMonth = new Date(date.year, date.month, 0).getDate();
-
-    for (let i = 1; i < numberOfDaysInMonth; i++) {
+    for (let i = 1; i < numberOfDaysInMonth + 1; i++) {
       const rides = data.searchRides.filter(
         (ride) => i === new Date(ride.date).getDate()
       );
@@ -52,22 +55,23 @@ const BarChartMonthEmissions = ({ data }: ChartData) => {
   const valueFormatter = (value: number | null) => `${value} kg`;
 
   return (
-    <Stack width="100%" height="100%" direction="column" spacing={2}>
-      <Stack direction="row" p={2} sx={{ backgroundColor: "aliceblue" }}>
-        <IconButton>
-          <ArrowBackIosIcon />
-        </IconButton>
-        <IconButton>
-          <ArrowForwardIosIcon />
-        </IconButton>
-      </Stack>
+    <Stack
+      width="100%"
+      height="100%"
+      direction="column"
+      justifyContent="space-between"
+      gap={2}
+      sx={{ backgroundColor: WHITE_COLOR }}
+    >
+      <BartCharMonthEmissionNavigation
+        year={selectedYear}
+        month={selectedMonth}
+        handleUpdateYear={(year: number) => setSelectedYear(year)}
+        handleUpdateMonth={(month: number) => setSelectedMonth(month)}
+      />
       <BarChart
         sx={{ backgroundColor: "aliceblue" }}
-        dataset={
-          data && data.searchRides
-            ? getEmissionsInMonth(data, getDateInJson())
-            : []
-        }
+        dataset={data && data.searchRides ? getEmissionsInMonth() : []}
         xAxis={[
           {
             scaleType: "band",
@@ -89,6 +93,7 @@ const BarChartMonthEmissions = ({ data }: ChartData) => {
       <Stack
         direction="row"
         justifyContent="space-around"
+        p={2}
         sx={{ backgroundColor: "aliceblue" }}
       >
         <p>voiture</p>

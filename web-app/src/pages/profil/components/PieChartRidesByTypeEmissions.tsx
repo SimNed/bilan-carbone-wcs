@@ -1,5 +1,4 @@
 import { ChartData } from "@/type/ChartData.type";
-import { Typography } from "@mui/material";
 import { PieChart } from "@mui/x-charts";
 
 const PieChartRidesByTypeEmissions = ({ data }: ChartData) => {

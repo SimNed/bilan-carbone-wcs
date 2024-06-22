@@ -15,6 +15,7 @@ import { HEADER_HEIGHT } from "@/styles/constants";
 import RideCard from "./components/RideCard";
 import PieChartRidesByTypeEmissions from "./components/PieChartRidesByTypeEmissions";
 import { PiePlot, ResponsiveChartContainer } from "@mui/x-charts";
+import PieChartCard from "./components/PieChartCard";
 
 export default function ProfilPage() {
   const { loading, error, data, refetch } =
@@ -53,11 +54,8 @@ export default function ProfilPage() {
   }
 
   return (
-    <Stack
-      direction="row"
-      sx={{ background: "tomato", width: "100%", height: "100%" }}
-    >
-      <Box width="30%" height="100%" sx={{ background: "blue" }}>
+    <Stack direction="row" sx={{ width: "100%", height: "100%" }}>
+      <Box width="30%" height="100%" sx={{ background: "aliceblue" }}>
         <Stack
           position="fixed"
           width="inherit"
@@ -65,7 +63,6 @@ export default function ProfilPage() {
           direction="column"
           spacing={4}
           p={8}
-          sx={{ background: "aliceblue" }}
         >
           <Typography variant="h6">
             {`${userData?.getUserProfile.firstName} ${userData?.getUserProfile.lastName}`}
@@ -78,7 +75,7 @@ export default function ProfilPage() {
       </Box>
       <Stack
         width="70%"
-        height="80%"
+        height="60%"
         direction="row"
         justifyContent="space-between"
         p={6}
@@ -87,26 +84,117 @@ export default function ProfilPage() {
           width="30%"
           height="100%"
           direction="column"
-          justifyContent="space-around"
-          sx={{ backgroundColor: "salmon" }}
+          justifyContent="space-between"
+          gap={1}
         >
-          <Stack
-            width="100%"
-            height="40%"
-            direction="row"
-            justifyContent="center"
-            alignItems="center"
-            sx={{ backgroundColor: "aliceblue" }}
-          >
-            <PieChartRidesByTypeCounter data={data} />
-
-            <Box flex={1} sx={{ backgroundColor: "yellow" }} textAlign="center">
-              <Typography variant="h1">{NbRides}</Typography>
-            </Box>
-          </Stack>
-          <Box width="100%" height="40%" sx={{ backgroundColor: "aliceblue" }}>
-            <PieChartRidesByTypeEmissions data={data} />
-          </Box>
+          <PieChartCard
+            data={data}
+            pieSeriesData={[
+              {
+                id: 0,
+                value: data.searchRides.filter(
+                  (ride) =>
+                    ride.transportation.label.toLowerCase() === "voiture"
+                ).length,
+                label: "voiture",
+              },
+              {
+                id: 1,
+                value: data.searchRides.filter(
+                  (ride) => ride.transportation.label.toLowerCase() === "bus"
+                ).length,
+                label: "bus",
+              },
+              {
+                id: 2,
+                value: data.searchRides.filter(
+                  (ride) => ride.transportation.label.toLowerCase() === "train"
+                ).length,
+                label: "train",
+              },
+              {
+                id: 3,
+                value: data.searchRides.filter(
+                  (ride) => ride.transportation.label.toLowerCase() === "avion"
+                ).length,
+                label: "avion",
+              },
+            ]}
+            total={NbRides}
+            cardLabel="trajets totaux"
+            unit=""
+          />
+          <PieChartCard
+            data={data}
+            pieSeriesData={[
+              {
+                id: 0,
+                value: data.searchRides
+                  .filter(
+                    (ride) =>
+                      ride.transportation.label.toLowerCase() === "voiture"
+                  )
+                  .reduce(
+                    (accumulator, ride) =>
+                      accumulator +
+                      (ride.distance * ride.transportation.carboneEmission) /
+                        1000,
+                    0
+                  ),
+                label: "voiture",
+              },
+              {
+                id: 1,
+                value: data.searchRides
+                  .filter(
+                    (ride) => ride.transportation.label.toLowerCase() === "bus"
+                  )
+                  .reduce(
+                    (accumulator, ride) =>
+                      accumulator +
+                      (ride.distance * ride.transportation.carboneEmission) /
+                        1000,
+                    0
+                  ),
+                label: "bus",
+              },
+              {
+                id: 2,
+                value: data.searchRides
+                  .filter(
+                    (ride) =>
+                      ride.transportation.label.toLowerCase() === "train"
+                  )
+                  .reduce(
+                    (accumulator, ride) =>
+                      accumulator +
+                      (ride.distance * ride.transportation.carboneEmission) /
+                        1000,
+                    0
+                  ),
+                label: "train",
+              },
+              {
+                id: 3,
+                value: data.searchRides
+                  .filter(
+                    (ride) =>
+                      ride.transportation.label.toLowerCase() === "avion"
+                  )
+                  .reduce(
+                    (accumulator, ride) =>
+                      accumulator +
+                      (ride.distance * ride.transportation.carboneEmission) /
+                        1000,
+                    0
+                  ),
+                label: "avion",
+              },
+            ]}
+            total={totalCO2}
+            cardLabel="émissions totales"
+            unit="kg"
+          />
         </Stack>
         <Stack
           direction="column"
@@ -114,12 +202,6 @@ export default function ProfilPage() {
           height="100%"
           sx={{ backgroundColor: "aliceblue" }}
         >
-          <Box width="100%">
-            <Stack>
-              <Button></Button>
-              <Button></Button>
-            </Stack>
-          </Box>
           <BarChartMonthEmissions data={data} />
         </Stack>
       </Stack>
