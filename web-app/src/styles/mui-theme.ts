@@ -86,6 +86,15 @@ const theme = createTheme({
         },
       },
     },
+    MuiTab: {
+      styleOverrides: {
+        root: {
+          color: BLACK_COLOR,
+          fontFamily: "Poppins",
+          textTransform: "none",
+        },
+      },
+    },
   },
 });
 

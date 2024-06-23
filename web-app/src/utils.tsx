@@ -20,33 +20,6 @@ export function removeQueryParameter(parameterToRemove: string) {
 
 // DATE
 
-export function formatDateToDisplay(date: string) {
-  let formatedDate = new Date(date);
-  return `${formatedDate.getDate()}/${
-    formatedDate.getMonth() + 1 < 10
-      ? "0" + (formatedDate.getMonth() + 1)
-      : formatedDate.getMonth() + 1
-  }/${formatedDate.getFullYear()} `;
-}
-
-export function getMonthWithId(id: number) {
-  const months = [
-    "janvier",
-    "février",
-    "mars",
-    "avril",
-    "mai",
-    "juin",
-    "juillet",
-    "août",
-    "septembre",
-    "octobre",
-    "novembre",
-    "décembre",
-  ];
-  return months[id];
-}
-
 export function capitalizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }

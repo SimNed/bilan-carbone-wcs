@@ -1,4 +1,4 @@
-import { IconButton, Stack, Typography } from "@mui/material";
+import { Button, Stack } from "@mui/material";
 
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
@@ -17,15 +17,17 @@ const ArrowsNavigation = ({
       direction="row"
       color="primary"
       justifyContent="center"
-      alignItems="cnter"
+      alignItems="center"
+      flex={1}
+      flexBasis="25%"
     >
-      <IconButton sx={{ borderRadius: "none" }} onClick={onClickLeft}>
+      <Button sx={{ flex: 1 }} onClick={onClickLeft}>
         <ArrowBackIosIcon color="primary" />
-      </IconButton>
-      <p>{navLabel}</p>
-      <IconButton onClick={onClickRight}>
+      </Button>
+      <p style={{ flex: 6, textAlign: "center" }}>{navLabel}</p>
+      <Button sx={{ flex: 1 }} onClick={onClickRight}>
         <ArrowForwardIosIcon color="primary" />
-      </IconButton>
+      </Button>
     </Stack>
   );
 };
