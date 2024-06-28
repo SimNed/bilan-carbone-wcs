@@ -17,18 +17,18 @@ export const TRANSPARENT_BACKGROUND = css`
   opacity: 0.5;
 `;
 
-export const CARBONE_COLOR_CODE_1 = "#88d4ab";
-export const CARBONE_COLOR_CODE_2 = "#78c6a3";
-export const CARBONE_COLOR_CODE_3 = "#67b99a";
-export const CARBONE_COLOR_CODE_4 = "#56ab91";
-export const CARBONE_COLOR_CODE_5 = "#469d89";
-export const CARBONE_COLOR_CODE_6 = "#358f80";
-export const CARBONE_COLOR_CODE_7 = "#248277";
-export const CARBONE_COLOR_CODE_8 = "#14746f";
-export const CARBONE_COLOR_CODE_9 = "#036666";
+export const CARBONE_COLOR_CODE_1 = "#b5e48c";
+export const CARBONE_COLOR_CODE_2 = "#99d98c";
+export const CARBONE_COLOR_CODE_3 = "#76c893 ";
+export const CARBONE_COLOR_CODE_4 = "#52b69a";
+export const CARBONE_COLOR_CODE_5 = "#34a0a4";
+export const CARBONE_COLOR_CODE_6 = "#168aad";
+export const CARBONE_COLOR_CODE_7 = "#1a759f";
+export const CARBONE_COLOR_CODE_8 = "#1e6091";
+export const CARBONE_COLOR_CODE_9 = "#184e77";
 export const CARBONE_COLOR_CODE_NO_DATA = "#f8f9fa";
 
-export const BUS_COLOR_CODE = "#CEB992";
-export const TRAIN_COLOR_CODE = "#73937E";
+export const BUS_COLOR_CODE = "#ceb992";
+export const TRAIN_COLOR_CODE = "#73937e";
 export const CAR_COLOR_CODE = "#585563";
-export const PLANE_COLOR_CODE = "#5B2E48";
+export const PLANE_COLOR_CODE = "#5b2e48";

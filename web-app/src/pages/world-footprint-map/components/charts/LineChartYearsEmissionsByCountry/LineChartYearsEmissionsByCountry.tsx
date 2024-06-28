@@ -3,6 +3,10 @@ import { LineChart, MarkPlot } from "@mui/x-charts";
 import { getBarChartYearsEmissionsByCountryDataSeries } from "@/utils/chart.utils"; // Assurez-vous que cette fonction est correctement implémentée
 import { CarboneEmissionData } from "@/type/CarboneEmissionData.type";
 import { SUCCESS_COLOR } from "@/styles/constants";
+import {
+  WORLD_EMISSIONS_END_DATE,
+  WORLD_EMISSIONS_START_DATE,
+} from "@/utils/constants.utils";
 
 const LineChartYearsEmissionsByCountry = ({
   data,
@@ -21,8 +25,8 @@ const LineChartYearsEmissionsByCountry = ({
           {
             dataKey: "year",
             valueFormatter: (value) => value.toString(),
-            min: 1820,
-            max: 2022,
+            min: WORLD_EMISSIONS_START_DATE,
+            max: WORLD_EMISSIONS_END_DATE,
           },
         ]}
         yAxis={[

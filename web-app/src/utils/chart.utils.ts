@@ -142,7 +142,7 @@ export function getBarChartYearsEmissionsByCountryDataSeries(
   return [
     {
       dataKey: "carbonEmissionsPerCapita",
-      label: "Carbon Emissions",
+      label: "Emissions de Co2",
       valueFormatter,
       color: BLACK_COLOR,
       showMark: ({ index }: { index: number }) =>
