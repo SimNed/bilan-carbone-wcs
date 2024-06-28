@@ -5,6 +5,7 @@ import {
   Geography,
   Graticule,
   Sphere,
+  ZoomableGroup,
 } from "react-simple-maps";
 import TooltipMouseTracker from "../../../../components/Map/TooltipMouseTracker/TooltipMouseTracker";
 
@@ -19,7 +20,7 @@ const WorldMap = ({
   selectedYear: number;
   handleSelectedCountry: (name: string, code: string) => void;
 }) => {
-  const [isTooltipVisible, setIsTooltipVisible] = useState(false);
+  const [isTootlipOnCountryHover, setIsTootlipOnCountryHover] = useState(false);
   const [tooltipData, setTooltipData] = useState("");
 
   const [worldCarboneEmissions, setWorldCarboneEmissions] = useState<
@@ -57,62 +58,84 @@ const WorldMap = ({
         style={{
           width: "100%",
           height: "100%",
+          backgroundColor: "#f6f6f6",
+          boxShadow: "rgba(149, 157, 165, 0.1) 0px 8px 24px",
         }}
       >
-        <Sphere stroke="#CCC" strokeWidth={0.5} id="sphere" fill="none" />
-        <Graticule stroke="#CCC" strokeWidth={0.5} />
-        <Geographies geography="/json-datas/countries.geo.json">
-          {({ geographies }) =>
-            geographies.map((geo) => {
-              const carboneEmission = getCarboneEmissionByCountryCode(
-                geo.properties.code
-              );
-              return (
-                <Geography
-                  onMouseOver={() => {
-                    setTooltipData(
-                      carboneEmission
-                        ? `${
-                            geo.properties.nameFR
-                          }: ${carboneEmission.carbonEmissionsPerCapita.toFixed(
-                            2
-                          )} t / habitant`
-                        : `${geo.properties.nameFR}: no data`
-                    );
+        <ZoomableGroup center={[0, 0]} zoom={0.9}>
+          <Sphere
+            stroke={CARBONE_COLOR_CODE_NO_DATA}
+            strokeWidth={0.5}
+            id="sphere"
+            fill="none"
+          />
+          <Graticule stroke={CARBONE_COLOR_CODE_NO_DATA} strokeWidth={0.5} />
+          <Geographies geography="/json-datas/countries.geo.json">
+            {({ geographies }) =>
+              geographies.map((geo) => {
+                const carboneEmission = getCarboneEmissionByCountryCode(
+                  geo.properties.code
+                );
+                const carboneEmissionColorCode = carboneEmission
+                  ? getCarboneEmissionColorCode(
+                      carboneEmission?.carbonEmissionsPerCapita
+                    )
+                  : CARBONE_COLOR_CODE_NO_DATA;
 
-                    setIsTooltipVisible(true);
-                  }}
-                  onClick={() => {
-                    if (carboneEmission) {
-                      handleSelectedCountry(
-                        geo.properties.code,
-                        geo.properties.nameFR
+                return (
+                  <Geography
+                    onMouseOver={() => {
+                      setTooltipData(
+                        carboneEmission
+                          ? `${
+                              geo.properties.nameFR
+                            }: ${carboneEmission.carbonEmissionsPerCapita.toFixed(
+                              2
+                            )} t / habitant`
+                          : `${geo.properties.nameFR}: no data`
                       );
-                    }
-                  }}
-                  onMouseLeave={() => setIsTooltipVisible(false)}
-                  key={geo.rsmKey}
-                  geography={geo}
-                  style={{
-                    default: {
-                      fill: carboneEmission
-                        ? getCarboneEmissionColorCode(
-                            carboneEmission?.carbonEmissionsPerCapita
-                          )
-                        : CARBONE_COLOR_CODE_NO_DATA,
-                      outline: "none",
-                    },
-                  }}
-                />
-              );
-            })
-          }
-        </Geographies>
+
+                      setIsTootlipOnCountryHover(true);
+                    }}
+                    onClick={() => {
+                      if (carboneEmission) {
+                        handleSelectedCountry(
+                          geo.properties.code,
+                          geo.properties.nameFR
+                        );
+                      }
+                    }}
+                    onMouseLeave={() => setIsTootlipOnCountryHover(false)}
+                    key={geo.rsmKey}
+                    geography={geo}
+                    style={{
+                      default: {
+                        fill: carboneEmissionColorCode,
+                        strokeWidth: ".1",
+                        outline: "none",
+                        transition: "filter 0.3s ease",
+                      },
+                      hover: {
+                        fill: carboneEmissionColorCode,
+                        filter: "brightness(70%)",
+                        outline: "none",
+                        cursor: carboneEmission ? "pointer" : "default",
+                      },
+                      pressed: {
+                        outline: "none",
+                      },
+                    }}
+                  />
+                );
+              })
+            }
+          </Geographies>
+        </ZoomableGroup>
       </ComposableMap>
 
-      <TooltipMouseTracker isVisible={isTooltipVisible}>
-        {tooltipData}
-      </TooltipMouseTracker>
+      {isTootlipOnCountryHover && (
+        <TooltipMouseTracker>{tooltipData}</TooltipMouseTracker>
+      )}
     </>
   );
 };

@@ -11,14 +11,19 @@ import {
 const LineChartYearsEmissionsByCountry = ({
   data,
   selectedYear,
+  handleSelectedYear,
 }: {
   data: CarboneEmissionData[] | [];
   selectedYear: number;
+  handleSelectedYear: (year: number) => void;
 }) => {
   return (
     data && (
       <LineChart
         height={500}
+        onAxisClick={(_event, data) =>
+          handleSelectedYear(data?.axisValue as number)
+        }
         margin={{ top: 0 }}
         skipAnimation
         xAxis={[

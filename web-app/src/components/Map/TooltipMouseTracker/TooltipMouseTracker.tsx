@@ -1,52 +1,64 @@
-import { CARBONE_COLOR_CODE_NO_DATA } from "@/styles/constants";
-import React from "react";
+import { Box } from "@mui/material";
+import React, { useRef, useEffect, useState } from "react";
 
 interface MouseTrackerProps {
   children: React.ReactNode;
-  offset?: { x: number; y: number };
-  isVisible: boolean;
-  borderColor?: string;
 }
 
-const MouseTracker = ({
-  children,
-  offset = { x: 0, y: 0 },
-  isVisible,
-  borderColor = CARBONE_COLOR_CODE_NO_DATA,
-}: MouseTrackerProps) => {
-  const [position, setPosition] = React.useState({ x: 0, y: 0 });
+const MouseTracker = ({ children }: MouseTrackerProps) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const tooltipRef = useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
+      setIsVisible(false);
+      const positionX = e.clientX;
+      const positionY = e.clientY;
+
+      const windowWidth = window.innerWidth;
+      let tooltipWidth = tooltipRef.current
+        ? tooltipRef.current.getBoundingClientRect().width
+        : 0;
+
       setPosition({
-        x: e.clientX + offset.x,
-        y: e.clientY + offset.y,
+        x:
+          positionX + tooltipWidth > windowWidth
+            ? positionX - tooltipWidth
+            : positionX,
+        y: positionY,
       });
     };
 
     document.addEventListener("mousemove", handleMouseMove);
+
     return () => {
       document.removeEventListener("mousemove", handleMouseMove);
     };
-  }, [offset.x, offset.y]);
+  }, []);
+
+  useEffect(() => {
+    setIsVisible(true);
+  }, [position]);
 
   return (
-    <div
-      style={{
-        position: "absolute",
-        border: `3px solid ${borderColor}`,
-        top: 0,
-        left: 0,
-        padding: "1rem 2rem",
-        display: isVisible ? "block" : "none",
-        background: "white",
-        boxShadow: "rgba(149, 157, 165, 0.2) 0px 8px 24px",
-        transform: `translate(${position.x}px, ${position.y}px)`,
+    <Box
+      ref={tooltipRef}
+      position="fixed"
+      top={position.y}
+      left={position.x}
+      display={isVisible ? "block" : "none"}
+      p={4}
+      boxShadow="rgba(149, 157, 165, 0.2) 0px 8px 24px"
+      sx={{
+        background: "#f6f6f6",
         pointerEvents: "none",
+        maxWidth: "fit-content", // Ajuste la largeur au contenu
+        whiteSpace: "nowrap", // Empêche le texte de se retourner à la ligne
       }}
     >
-      {children}
-    </div>
+      <p style={{ margin: 0 }}>{children}</p>
+    </Box>
   );
 };
 

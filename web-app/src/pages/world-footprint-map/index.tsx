@@ -30,6 +30,7 @@ import {
   CARBONE_COLOR_CODE_7,
   CARBONE_COLOR_CODE_8,
   CARBONE_COLOR_CODE_9,
+  CARBONE_COLOR_CODE_NO_DATA,
 } from "@/styles/constants";
 
 const WorldFootprintMapPage = () => {
@@ -113,6 +114,7 @@ const WorldFootprintMapPage = () => {
           <LineChartsYearsEmissionsByCountry
             data={selectedCarboneEmissions}
             selectedYear={selectedYear}
+            handleSelectedYear={(year: number) => setSelectedYear(year)}
           />
         </Stack>
         <Stack justifyContent="center" alignItems="center" flex={2}>
@@ -124,7 +126,7 @@ const WorldFootprintMapPage = () => {
           </Typography>
         </Stack>
       </Stack>
-      <Box flex={3}>
+      <Box flex={3} pr={6}>
         <WorldMap
           selectedYear={selectedYear}
           handleSelectedCountry={(code: string, name: string) => {
@@ -132,7 +134,12 @@ const WorldFootprintMapPage = () => {
             setSelectedCountryName(name);
           }}
         />
-        <Stack spacing={2} direction="row" justifyContent="center">
+        <Stack
+          spacing={2}
+          direction="row"
+          justifyContent="center"
+          flexWrap="wrap"
+        >
           <Stack direction="row" alignItems="center">
             <SquareIcon sx={{ color: CARBONE_COLOR_CODE_1 }} />
             <p>{`< ${WORLD_EMISSIONS_BREAKPOINT_1}`}</p>
@@ -168,6 +175,10 @@ const WorldFootprintMapPage = () => {
           <Stack direction="row" alignItems="center">
             <SquareIcon sx={{ color: CARBONE_COLOR_CODE_9 }} />
             <p>{`> ${WORLD_EMISSIONS_BREAKPOINT_8}`}</p>
+          </Stack>
+          <Stack direction="row" alignItems="center">
+            <SquareIcon sx={{ color: CARBONE_COLOR_CODE_NO_DATA }} />
+            <p>no data</p>
           </Stack>
         </Stack>
       </Box>

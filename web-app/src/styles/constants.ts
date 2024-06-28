@@ -26,7 +26,7 @@ export const CARBONE_COLOR_CODE_6 = "#168aad";
 export const CARBONE_COLOR_CODE_7 = "#1a759f";
 export const CARBONE_COLOR_CODE_8 = "#1e6091";
 export const CARBONE_COLOR_CODE_9 = "#184e77";
-export const CARBONE_COLOR_CODE_NO_DATA = "#f8f9fa";
+export const CARBONE_COLOR_CODE_NO_DATA = "#ccc";
 
 export const BUS_COLOR_CODE = "#ceb992";
 export const TRAIN_COLOR_CODE = "#73937e";
