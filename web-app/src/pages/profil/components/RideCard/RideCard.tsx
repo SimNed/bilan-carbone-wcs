@@ -81,7 +81,7 @@ const RideCard = ({ ride }: RideCardProps) => {
           <div style={{ flex: 1 }}>
             <Button
               variant="contained"
-              color="error"
+              color="primary"
               onClick={() =>
                 handleModalComponent(
                   <DeleteRide

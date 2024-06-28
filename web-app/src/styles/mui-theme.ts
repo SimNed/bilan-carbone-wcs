@@ -59,7 +59,6 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           width: "100%",
-          height: HEADER_HEIGHT,
           display: "flex",
           justifyContent: "center",
           aligntItems: "center",

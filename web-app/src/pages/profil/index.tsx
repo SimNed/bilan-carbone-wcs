@@ -6,11 +6,11 @@ import { SEARCH_RIDES } from "@/api-gql/queries/ride.queries";
 import { GetUserProfileQuery, SearchRidesQuery } from "@/gql/graphql";
 import { useModal } from "@/components/Layout/Layout";
 
-import DashboardMainTab from "./components/DashboardTabs/MonthEmissions/MonthEmissionsTab";
-import RidesListTab from "./components/DashboardTabs/RidesListTab";
+import DashboardMainTab from "../statistics/components/tabs/MonthEmissionsTab";
+import RidesListTab from "../rides/components/RidesList";
 import TabPanel from "./components/DashboardTabs/TabPanel";
 import { HEADER_HEIGHT } from "@/styles/constants";
-import MonthEmissionsTab from "./components/DashboardTabs/MonthEmissions/MonthEmissionsTab";
+import MonthEmissionsTab from "../statistics/components/tabs/MonthEmissionsTab";
 
 export default function ProfilPage() {
   const [tabIndex, setTabIndex] = useState(0);

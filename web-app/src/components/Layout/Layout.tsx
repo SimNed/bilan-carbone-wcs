@@ -1,5 +1,5 @@
 import { SnackbarProvider } from "notistack";
-import { Container } from "@mui/material";
+import { Box, Container, Stack } from "@mui/material";
 import Header from "@/components/Header/Header";
 import { ReactNode, createContext, useContext, useState } from "react";
 import Modal from "../Modal/Modal";
@@ -38,18 +38,19 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <ModalContext.Provider value={modalContextValue}>
       <SnackbarProvider>
-        <Header />
-        <Container
-          sx={{
-            height: `calc(100vh - ${HEADER_HEIGHT})`,
-            position: "relative",
-            top: HEADER_HEIGHT,
-          }}
-          maxWidth={false}
-          disableGutters
-        >
-          {children}
-        </Container>
+        <Box sx={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+          <Header />
+          <Container
+            maxWidth={false}
+            sx={{
+              flexGrow: 1,
+              marginTop: "64px",
+            }}
+            disableGutters
+          >
+            {children}
+          </Container>
+        </Box>
         {isModalOpen && modalComponent && (
           <Modal onClose={handleCloseModal}>{modalComponent}</Modal>
         )}

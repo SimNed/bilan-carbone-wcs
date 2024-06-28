@@ -1,14 +1,14 @@
 import { Grid, Stack } from "@mui/material";
-import PieChartCard from "../../PieChartCard";
+import PieChartCard from "../../../profil/components/PieChartCard";
 import {
   getPieChartRidesCounterSeriesData,
   getPieChartRidesEmissionsSeriesData,
 } from "@/utils/chart.utils";
-import BarChartMonthEmissions from "./BarChartMonthEmissions";
+import BarChartMonthEmissions from "../charts/BarChartMonthEmissions";
 import { SearchRidesQuery } from "@/gql/graphql";
 
 import { useState } from "react";
-import MonthEmissionNavigation from "./MonthEmissionNavigation";
+import MonthEmissionNavigation from "../MonthEmissionNavigation";
 
 const MonthEmissionsTab = ({ data }: { data: SearchRidesQuery }) => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());

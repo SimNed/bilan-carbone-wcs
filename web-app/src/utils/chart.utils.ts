@@ -1,5 +1,6 @@
 import { SearchRidesQuery } from "@/gql/graphql";
 import {
+  BLACK_COLOR,
   BUS_COLOR_CODE,
   CAR_COLOR_CODE,
   PLANE_COLOR_CODE,
@@ -127,6 +128,20 @@ export function getBarChartMonthEmissionsDataSeries() {
       label: "avion",
       valueFormatter,
       color: PLANE_COLOR_CODE,
+    },
+  ];
+}
+
+export function getBarChartYearsEmissionsByCountryDataSeries() {
+  const valueFormatter = (value: number | null) => `${value}/t per capita`;
+
+  return [
+    {
+      dataKey: "carbonEmissionsPerCapita",
+      label: "Carbon Emissions",
+      valueFormatter,
+      color: BLACK_COLOR,
+      showMark: false,
     },
   ];
 }

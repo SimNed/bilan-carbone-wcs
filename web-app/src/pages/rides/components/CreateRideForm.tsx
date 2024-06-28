@@ -6,6 +6,7 @@ import {
   Container,
   MenuItem,
   Select,
+  Box,
 } from "@mui/material";
 import {
   CreateRideFormMutation,
@@ -71,18 +72,13 @@ export default function CreateRideForm() {
   };
 
   return (
-    <Container
-      component="main"
-      maxWidth="xs"
-      style={{ display: "flex", flexDirection: "column", alignItems: "center" }}
-    >
+    <Box width="100%" height="100%">
       <Typography variant="h5">Nouveau trajet :</Typography>
       <form
         onSubmit={(event) => {
           event.preventDefault();
           createRide();
         }}
-        style={{ width: "100%", marginTop: "1rem" }}
       >
         <Typography variant="body1">Nom du trajet:</Typography>
         <TextField
@@ -138,6 +134,6 @@ export default function CreateRideForm() {
           </Button>
         </div>
       </form>
-    </Container>
+    </Box>
   );
 }
