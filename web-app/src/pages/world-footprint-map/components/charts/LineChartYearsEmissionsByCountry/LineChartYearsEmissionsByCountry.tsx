@@ -15,7 +15,7 @@ const LineChartYearsEmissionsByCountry = ({
     data && (
       <LineChart
         height={500}
-        margin={0}
+        margin={{ top: 0 }}
         skipAnimation
         xAxis={[
           {

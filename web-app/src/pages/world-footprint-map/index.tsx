@@ -50,8 +50,8 @@ const WorldFootprintMapPage = () => {
   return worldCarboneEmissions ? (
     <Stack direction="row" height="100%" alignItems="center">
       <Stack flex={1} direction="column" justifyContent="center" height="100%">
-        <Stack flexGrow={0} direction="column" justifyContent="center">
-          <Typography variant="h3" p={4}>
+        <Stack flex={1} direction="column" justifyContent="center">
+          <Typography variant="h4" px={4}>
             {selectedCountryName}
           </Typography>
         </Stack>
@@ -77,7 +77,7 @@ const WorldFootprintMapPage = () => {
             {selectedCarboneEmissions
               .find((data) => data.year === selectedYear)
               ?.carbonEmissionsPerCapita.toFixed(5)}{" "}
-            t / habitant
+            t.co2 / habitant
           </Typography>
         </Stack>
       </Stack>
