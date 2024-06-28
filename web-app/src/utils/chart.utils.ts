@@ -6,6 +6,7 @@ import {
   PLANE_COLOR_CODE,
   TRAIN_COLOR_CODE,
 } from "@/styles/constants";
+import { CarboneEmissionData } from "@/type/CarboneEmissionData.type";
 
 export function getPieChartRidesCounterSeriesData(data: SearchRidesQuery) {
   return [
@@ -132,7 +133,10 @@ export function getBarChartMonthEmissionsDataSeries() {
   ];
 }
 
-export function getBarChartYearsEmissionsByCountryDataSeries() {
+export function getBarChartYearsEmissionsByCountryDataSeries(
+  data: CarboneEmissionData[],
+  selectedYear: number
+) {
   const valueFormatter = (value: number | null) => `${value}/t per capita`;
 
   return [
@@ -141,7 +145,8 @@ export function getBarChartYearsEmissionsByCountryDataSeries() {
       label: "Carbon Emissions",
       valueFormatter,
       color: BLACK_COLOR,
-      showMark: false,
+      showMark: ({ index }: { index: number }) =>
+        data[index].year === selectedYear,
     },
   ];
 }

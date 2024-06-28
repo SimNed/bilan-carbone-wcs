@@ -82,12 +82,14 @@ const WorldMap = ({
 
                     setIsTooltipVisible(true);
                   }}
-                  onClick={() =>
-                    handleSelectedCountry(
-                      geo.properties.nameFR,
-                      geo.properties.code
-                    )
-                  }
+                  onClick={() => {
+                    if (carboneEmission) {
+                      handleSelectedCountry(
+                        geo.properties.code,
+                        geo.properties.nameFR
+                      );
+                    }
+                  }}
                   onMouseLeave={() => setIsTooltipVisible(false)}
                   key={geo.rsmKey}
                   geography={geo}
