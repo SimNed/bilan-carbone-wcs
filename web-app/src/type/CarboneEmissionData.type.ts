@@ -6,5 +6,5 @@ export type IssuingCountryData = {
 
 export type CarboneEmissionData = {
   year: number;
-  carbonEmissionsPerCapita: number;
+  carboneEmissionsPerCapita: number;
 };

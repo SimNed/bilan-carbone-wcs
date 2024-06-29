@@ -11,8 +11,8 @@ const MouseTracker = ({ children }: MouseTrackerProps) => {
   const tooltipRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setIsVisible(false);
     const handleMouseMove = (e: MouseEvent) => {
-      setIsVisible(false);
       const positionX = e.clientX;
       const positionY = e.clientY;
 
@@ -53,8 +53,7 @@ const MouseTracker = ({ children }: MouseTrackerProps) => {
       sx={{
         background: "#f6f6f6",
         pointerEvents: "none",
-        maxWidth: "fit-content", // Ajuste la largeur au contenu
-        whiteSpace: "nowrap", // Empêche le texte de se retourner à la ligne
+        whiteSpace: "nowrap",
       }}
     >
       <p style={{ margin: 0 }}>{children}</p>

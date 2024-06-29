@@ -7,43 +7,30 @@ import {
   Sphere,
   ZoomableGroup,
 } from "react-simple-maps";
-import TooltipMouseTracker from "../../../../components/Map/TooltipMouseTracker/TooltipMouseTracker";
+import TooltipMouseTracker from "../../../../../components/Map/TooltipMouseTracker/TooltipMouseTracker";
 
-import { IssuingCountryData } from "@/type/CarboneEmissionData.type";
 import { getCarboneEmissionColorCode } from "@/utils";
 import { CARBONE_COLOR_CODE_NO_DATA } from "@/styles/constants";
+import { WorldDataFeature } from "@/type/WorldData.type";
 
 const WorldMap = ({
   selectedYear,
+  worldDataFeatures,
   handleSelectedCountry,
 }: {
   selectedYear: number;
+  worldDataFeatures: WorldDataFeature[];
   handleSelectedCountry: (name: string, code: string) => void;
 }) => {
   const [isTootlipOnCountryHover, setIsTootlipOnCountryHover] = useState(false);
   const [tooltipData, setTooltipData] = useState("");
 
-  const [worldCarboneEmissions, setWorldCarboneEmissions] = useState<
-    IssuingCountryData[]
-  >([]);
-
-  useEffect(() => {
-    const fetchWorldCarboneEmissions = () => {
-      return fetch("/json-datas/carbone-emissions.json")
-        .then((response) => response.json())
-        .then((data: IssuingCountryData[]) => {
-          console.log(data);
-          setWorldCarboneEmissions(data);
-        });
-    };
-
-    fetchWorldCarboneEmissions();
-  }, []);
-
   const getCarboneEmissionByCountryCode = (code: string) => {
-    return worldCarboneEmissions
-      .find((data: IssuingCountryData) => data.code === code)
-      ?.data.find((data) => data.year === selectedYear);
+    return (
+      worldDataFeatures
+        .find((feature: WorldDataFeature) => feature.properties.code === code)
+        ?.properties.data.find((data) => data.year === selectedYear) || 0
+    );
   };
 
   return (
@@ -70,7 +57,7 @@ const WorldMap = ({
             fill="none"
           />
           <Graticule stroke={CARBONE_COLOR_CODE_NO_DATA} strokeWidth={0.5} />
-          <Geographies geography="/json-datas/countries.geo.json">
+          <Geographies geography="/json-datas/world.data.json">
             {({ geographies }) =>
               geographies.map((geo) => {
                 const carboneEmission = getCarboneEmissionByCountryCode(
@@ -78,7 +65,7 @@ const WorldMap = ({
                 );
                 const carboneEmissionColorCode = carboneEmission
                   ? getCarboneEmissionColorCode(
-                      carboneEmission?.carbonEmissionsPerCapita
+                      carboneEmission?.carboneEmissionsPerCapita
                     )
                   : CARBONE_COLOR_CODE_NO_DATA;
 
@@ -89,7 +76,7 @@ const WorldMap = ({
                         carboneEmission
                           ? `${
                               geo.properties.nameFR
-                            }: ${carboneEmission.carbonEmissionsPerCapita.toFixed(
+                            }: ${carboneEmission.carboneEmissionsPerCapita.toFixed(
                               2
                             )} t / habitant`
                           : `${geo.properties.nameFR}: no data`

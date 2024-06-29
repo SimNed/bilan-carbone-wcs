@@ -1,187 +1,135 @@
-import WorldMap from "@/pages/world-footprint-map/components/WorldMap/WorldMap";
+import WorldMap from "@/pages/world-footprint-map/components/map/WorldMap/WorldMap";
 import LineChartsYearsEmissionsByCountry from "./components/charts/LineChartYearsEmissionsByCountry/LineChartYearsEmissionsByCountry";
-import {
-  CarboneEmissionData,
-  IssuingCountryData,
-} from "@/type/CarboneEmissionData.type";
+import { CarboneEmissionData } from "@/type/CarboneEmissionData.type";
 import { useEffect, useMemo, useState } from "react";
 import { Box, Stack, Typography } from "@mui/material";
 import ArrowsNavigation from "@/components/Nav/ArrowsNavigtion";
 import {
-  WORLD_EMISSIONS_BREAKPOINT_1,
-  WORLD_EMISSIONS_BREAKPOINT_2,
-  WORLD_EMISSIONS_BREAKPOINT_3,
-  WORLD_EMISSIONS_BREAKPOINT_4,
-  WORLD_EMISSIONS_BREAKPOINT_5,
-  WORLD_EMISSIONS_BREAKPOINT_6,
-  WORLD_EMISSIONS_BREAKPOINT_7,
-  WORLD_EMISSIONS_BREAKPOINT_8,
   WORLD_EMISSIONS_END_DATE,
   WORLD_EMISSIONS_START_DATE,
 } from "@/utils/constants.utils";
-import SquareIcon from "@mui/icons-material/Square";
-import {
-  CARBONE_COLOR_CODE_1,
-  CARBONE_COLOR_CODE_2,
-  CARBONE_COLOR_CODE_3,
-  CARBONE_COLOR_CODE_4,
-  CARBONE_COLOR_CODE_5,
-  CARBONE_COLOR_CODE_6,
-  CARBONE_COLOR_CODE_7,
-  CARBONE_COLOR_CODE_8,
-  CARBONE_COLOR_CODE_9,
-  CARBONE_COLOR_CODE_NO_DATA,
-} from "@/styles/constants";
+import { WorldData, WorldDataFeature } from "@/type/WorldData.type";
+import WorldMapLegend from "./components/map/WorldMapLegend/WorldMapLegend";
 
 const WorldFootprintMapPage = () => {
   const [selectedCountryCode, setSelectedCountryCode] = useState("");
-  const [selectedCountryName, setSelectedCountryName] = useState("");
   const [selectedYear, setSelectedYear] = useState(2022);
 
-  const [worldCarboneEmissions, setWorldCarboneEmissions] = useState<
-    IssuingCountryData[] | []
+  const [worldDataFeatures, setWorldDataFeatures] = useState<
+    WorldDataFeature[]
   >([]);
 
   const [selectedCarboneEmissions, setSelectedCarboneEmissions] = useState<
     CarboneEmissionData[] | []
   >([]);
 
-  const fetchWorldCarboneEmissions = useMemo(
+  const fetchWorldDataFeatures = useMemo(
     () => async () => {
-      return await fetch("/json-datas/carbone-emissions.json")
+      return await fetch("/json-datas/world.data.json")
         .then((response) => response.json())
-        .then((data: IssuingCountryData[]) => setWorldCarboneEmissions(data));
+        .then((data: WorldData) => setWorldDataFeatures(data.features));
     },
     []
   );
 
-  const selectItems = [];
+  const selectYearItems = [];
+  const selectNameItems = worldDataFeatures.map((data: any) => {
+    return { value: data.properties.code, label: data.properties.nameFR };
+  });
 
-  for (let i = WORLD_EMISSIONS_END_DATE; i >= WORLD_EMISSIONS_START_DATE; i--) {
-    selectItems.push({ value: i, label: i });
+  for (let i = WORLD_EMISSIONS_START_DATE; i <= WORLD_EMISSIONS_END_DATE; i++) {
+    selectYearItems.push({ value: i, label: i });
   }
 
   useEffect(() => {
-    fetchWorldCarboneEmissions();
+    fetchWorldDataFeatures();
     setSelectedCountryCode("FRA");
-    setSelectedCountryName("France");
   }, []);
 
   useEffect(() => {
-    const carboneEmissions = worldCarboneEmissions.find(
-      (data) => data.code === selectedCountryCode
-    );
+    const carboneEmissions = worldDataFeatures.find(
+      (feature) => feature.properties.code === selectedCountryCode
+    )?.properties.data;
+
     if (!carboneEmissions) return;
-    console.log("TEST", worldCarboneEmissions);
-    setSelectedCarboneEmissions(carboneEmissions.data);
-  }, [selectedCountryCode, worldCarboneEmissions]);
+    setSelectedCarboneEmissions(carboneEmissions);
+  }, [selectedCountryCode, worldDataFeatures]);
 
-  useEffect(() => {}, [selectedYear]);
-
-  return worldCarboneEmissions ? (
-    <Stack direction="row" height="100%" alignItems="center">
-      <Stack flex={2} direction="column" justifyContent="center" height="100%">
-        <Stack
-          flex={1}
-          direction="row"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Typography variant="h4" textAlign="center" p={2}>
-            {selectedCountryName}
-          </Typography>
+  return worldDataFeatures && selectedCountryCode && selectedYear ? (
+    <Stack direction="column" height="100%">
+      <Stack
+        direction="row"
+        height="100%"
+        justifyContent="space-around"
+        alignItems="center"
+        flex={1}
+      >
+        <Stack flex={1}>
+          <ArrowsNavigation
+            handleSelectChange={(code) =>
+              setSelectedCountryCode(code as string)
+            }
+            selectItems={selectNameItems}
+            selectValue={{
+              label: worldDataFeatures.find(
+                (feature) => feature.properties.code === selectedCountryCode
+              )?.properties.nameFR as string,
+              value: selectedCountryCode,
+            }}
+          />
         </Stack>
-        <Stack justifyContent="center" alignItems="center" flex={6}>
-          <Stack>
-            <ArrowsNavigation
-              navLabel={selectedYear}
-              onClickLeft={() => {
-                if (selectedYear > WORLD_EMISSIONS_START_DATE)
-                  setSelectedYear(selectedYear - 1);
-              }}
-              onClickRight={() => {
-                if (selectedYear < WORLD_EMISSIONS_END_DATE)
-                  setSelectedYear(selectedYear + 1);
-              }}
-              onSelectChange={(value) => setSelectedYear(value as number)}
-              selectItems={selectItems}
-              selectValue={{
-                label: selectedYear,
-                value: selectedYear,
-              }}
-            />
-          </Stack>
+        <Stack flex={1}>
+          <ArrowsNavigation
+            isReversed
+            handleSelectChange={(value) => setSelectedYear(value as number)}
+            selectItems={selectYearItems}
+            selectValue={{
+              label: selectedYear,
+              value: selectedYear,
+            }}
+          />
+        </Stack>
+      </Stack>
+
+      <Stack direction="row" flex={5} height="100%" alignItems="center">
+        <Stack
+          flex={2}
+          direction="column"
+          justifyContent="center"
+          height="100%"
+        >
           <LineChartsYearsEmissionsByCountry
             data={selectedCarboneEmissions}
             selectedYear={selectedYear}
             handleSelectedYear={(year: number) => setSelectedYear(year)}
           />
+
+          <Stack
+            justifyContent="center"
+            alignItems="center"
+            flex={1}
+            flexShrink={1}
+          >
+            <Typography variant="h4">
+              {selectedCarboneEmissions
+                .find((data) => data.year === selectedYear)
+                ?.carboneEmissionsPerCapita.toFixed(5)}{" "}
+              t.co2 / habitant
+            </Typography>
+          </Stack>
         </Stack>
-        <Stack justifyContent="center" alignItems="center" flex={2}>
-          <Typography variant="h4">
-            {selectedCarboneEmissions
-              .find((data) => data.year === selectedYear)
-              ?.carbonEmissionsPerCapita.toFixed(5)}{" "}
-            t.co2 / habitant
-          </Typography>
-        </Stack>
+
+        <Box flex={3} p={4}>
+          <WorldMap
+            selectedYear={selectedYear}
+            worldDataFeatures={worldDataFeatures}
+            handleSelectedCountry={(code: string) =>
+              setSelectedCountryCode(code)
+            }
+          />
+          <WorldMapLegend />
+        </Box>
       </Stack>
-      <Box flex={3} pr={6}>
-        <WorldMap
-          selectedYear={selectedYear}
-          handleSelectedCountry={(code: string, name: string) => {
-            setSelectedCountryCode(code);
-            setSelectedCountryName(name);
-          }}
-        />
-        <Stack
-          spacing={2}
-          direction="row"
-          justifyContent="center"
-          flexWrap="wrap"
-        >
-          <Stack direction="row" alignItems="center">
-            <SquareIcon sx={{ color: CARBONE_COLOR_CODE_1 }} />
-            <p>{`< ${WORLD_EMISSIONS_BREAKPOINT_1}`}</p>
-          </Stack>
-          <Stack direction="row" alignItems="center">
-            <SquareIcon sx={{ color: CARBONE_COLOR_CODE_2 }} />
-            <p>{`${WORLD_EMISSIONS_BREAKPOINT_1} - ${WORLD_EMISSIONS_BREAKPOINT_2}`}</p>
-          </Stack>
-          <Stack direction="row" alignItems="center">
-            <SquareIcon sx={{ color: CARBONE_COLOR_CODE_3 }} />
-            <p>{`${WORLD_EMISSIONS_BREAKPOINT_2} - ${WORLD_EMISSIONS_BREAKPOINT_3}`}</p>
-          </Stack>
-          <Stack direction="row" alignItems="center">
-            <SquareIcon sx={{ color: CARBONE_COLOR_CODE_4 }} />
-            <p>{`${WORLD_EMISSIONS_BREAKPOINT_3} - ${WORLD_EMISSIONS_BREAKPOINT_4}`}</p>
-          </Stack>
-          <Stack direction="row" alignItems="center">
-            <SquareIcon sx={{ color: CARBONE_COLOR_CODE_5 }} />
-            <p>{`${WORLD_EMISSIONS_BREAKPOINT_4} - ${WORLD_EMISSIONS_BREAKPOINT_5}`}</p>
-          </Stack>
-          <Stack direction="row" alignItems="center">
-            <SquareIcon sx={{ color: CARBONE_COLOR_CODE_6 }} />
-            <p>{`${WORLD_EMISSIONS_BREAKPOINT_5} - ${WORLD_EMISSIONS_BREAKPOINT_6}`}</p>
-          </Stack>
-          <Stack direction="row" alignItems="center">
-            <SquareIcon sx={{ color: CARBONE_COLOR_CODE_7 }} />
-            <p>{`${WORLD_EMISSIONS_BREAKPOINT_6} - ${WORLD_EMISSIONS_BREAKPOINT_7}`}</p>
-          </Stack>
-          <Stack direction="row" alignItems="center">
-            <SquareIcon sx={{ color: CARBONE_COLOR_CODE_8 }} />
-            <p>{`${WORLD_EMISSIONS_BREAKPOINT_7} - ${WORLD_EMISSIONS_BREAKPOINT_8}`}</p>
-          </Stack>
-          <Stack direction="row" alignItems="center">
-            <SquareIcon sx={{ color: CARBONE_COLOR_CODE_9 }} />
-            <p>{`> ${WORLD_EMISSIONS_BREAKPOINT_8}`}</p>
-          </Stack>
-          <Stack direction="row" alignItems="center">
-            <SquareIcon sx={{ color: CARBONE_COLOR_CODE_NO_DATA }} />
-            <p>no data</p>
-          </Stack>
-        </Stack>
-      </Box>
     </Stack>
   ) : (
     <p>Loading</p>
