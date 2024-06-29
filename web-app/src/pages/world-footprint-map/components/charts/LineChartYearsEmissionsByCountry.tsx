@@ -1,8 +1,8 @@
 import React from "react";
-import { LineChart, MarkPlot } from "@mui/x-charts";
+import { LineChart, MarkPlot, axisClasses } from "@mui/x-charts";
 import { getBarChartYearsEmissionsByCountryDataSeries } from "@/utils/chart.utils"; // Assurez-vous que cette fonction est correctement implémentée
 import { CarboneEmissionData } from "@/type/CarboneEmissionData.type";
-import { SUCCESS_COLOR } from "@/styles/constants";
+import { BLACK_COLOR, PRIMARY_COLOR, SUCCESS_COLOR } from "@/styles/constants";
 import {
   WORLD_EMISSIONS_END_DATE,
   WORLD_EMISSIONS_START_DATE,
@@ -37,6 +37,7 @@ const LineChartYearsEmissionsByCountry = ({
         yAxis={[
           {
             max: 25,
+            label: "Co2 t. per capita ",
           },
         ]}
         grid={{ vertical: true, horizontal: true }}
@@ -48,19 +49,19 @@ const LineChartYearsEmissionsByCountry = ({
         sx={{
           padding: 0,
           ["& .MuiMarkElement-root"]: {
-            strokeWidth: 2,
-            stroke: SUCCESS_COLOR,
-            fill: "none",
+            strokeWidth: 3,
+            stroke: BLACK_COLOR,
+            fill: BLACK_COLOR,
+          },
+          [`.${axisClasses.left} .${axisClasses.label}`]: {
+            transform: "translate(-12px, 0)",
           },
         }}
         slotProps={{
           legend: {
             hidden: true,
-            position: { vertical: "top", horizontal: "left" },
-            padding: {
-              left: 30,
-            },
           },
+
           popper: {
             sx: {
               ["& .MuiChartsTooltip-mark"]: {

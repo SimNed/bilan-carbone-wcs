@@ -100,6 +100,7 @@ const WorldFootprintMapPage = () => {
             )}
           </Stack>
         </Stack>
+
         <Stack direction="column" flex={3}>
           <Box flex={4} p={4}>
             <WorldMap

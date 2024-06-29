@@ -48,7 +48,7 @@ const CountryCarboneEmissionsDetails = ({
     <CountryCO2EmissionsDetailsContainer>
       <CountryCO2EmissionsDetailsColumn>
         <Stack>
-          <Typography>Co2 en t per capita</Typography>
+          <Typography>Co2 t. per capita</Typography>
         </Stack>
         <Stack>
           <Typography variant="h5">

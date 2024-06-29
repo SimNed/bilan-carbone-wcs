@@ -1,5 +1,5 @@
-import { borderRight, fontSize, styled, width } from "@mui/system";
-import { BLACK_COLOR, TITLE_FONT_FAMILY, WHITE_COLOR } from "./constants";
+import { styled } from "@mui/system";
+import { TITLE_FONT_FAMILY, WHITE_COLOR } from "./constants";
 import Link from "next/link";
 import { Stack } from "@mui/material";
 
@@ -33,7 +33,7 @@ export const CountryCO2EmissionsDetailsContainer = styled(Stack)(
     justifyContent: "space-around",
     alignItems: "center",
     "& > .MuiStack-root > .MuiStack-root:first-child": {
-      borderRight: "1px solid #fff",
+      borderRight: "1px solid " + WHITE_COLOR,
     },
     "& > .MuiStack-root:last-child > .MuiStack-root:first-child": {
       borderRight: "none",
@@ -53,10 +53,7 @@ export const CountryCO2EmissionsDetailsColumn = styled(Stack)(({ theme }) => ({
     width: "100%",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#c5c5c5",
-    "& > .MuiTypography-root": {
-      color: "#fff",
-    },
+    backgroundColor: "#fff",
   },
   "& > .MuiStack-root:last-child": {
     flex: 3,
@@ -69,3 +66,5 @@ export const CountryCO2EmissionsDetailsColumn = styled(Stack)(({ theme }) => ({
     },
   },
 }));
+
+//
