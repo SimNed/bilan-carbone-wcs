@@ -1,5 +1,5 @@
-import { styled } from "@mui/system";
-import { TITLE_FONT_FAMILY, WHITE_COLOR } from "./constants";
+import { styled, textAlign } from "@mui/system";
+import { TITLE_FONT_FAMILY } from "./constants";
 import Link from "next/link";
 import { Stack } from "@mui/material";
 
@@ -27,16 +27,21 @@ export const AppBarLink = styled(Link)(({ theme }) => ({
 export const CountryCO2EmissionsDetailsContainer = styled(Stack)(
   ({ theme }) => ({
     flex: 1,
-    width: "100%",
+    width: "90%",
     height: "100%",
     flexDirection: "row",
     justifyContent: "space-around",
     alignItems: "center",
-    "& > .MuiStack-root > .MuiStack-root:first-child": {
-      borderRight: "1px solid " + WHITE_COLOR,
+    marginLeft: "10%",
+    "& > .MuiStack-root > .MuiStack-root": {
+      borderRight: "1px solid #c5c5c5",
+      borderBottom: "1px solid #c5c5c5",
     },
-    "& > .MuiStack-root:last-child > .MuiStack-root:first-child": {
+    "& > .MuiStack-root:last-child > .MuiStack-root": {
       borderRight: "none",
+    },
+    "& > .MuiStack-root > .MuiStack-root:last-child": {
+      borderBottom: "none",
     },
   })
 );
@@ -49,21 +54,27 @@ export const CountryCO2EmissionsDetailsColumn = styled(Stack)(({ theme }) => ({
   alignItems: "center",
 
   "& > .MuiStack-root:first-child": {
-    flex: 2,
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#fff",
-  },
-  "& > .MuiStack-root:last-child": {
-    flex: 3,
+    flex: 1,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    fontSize: "40px",
-    "& > .MuiSvgIcon-root": {
+    gap: 6,
+    width: "100%",
+    "& > .MuiTypography-root": {
+      textAlign: "center",
+      fontSize: 12,
+    },
+    "& > .MuiSvgIcon-root, & > .MuiTypography-root ": {
       fontSize: "inherit",
     },
+  },
+  "& > .MuiStack-root:last-child": {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    fontSize: "250%",
   },
 }));
 

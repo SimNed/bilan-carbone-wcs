@@ -1,8 +1,8 @@
 import React from "react";
-import { LineChart, MarkPlot, axisClasses } from "@mui/x-charts";
+import { LineChart, axisClasses } from "@mui/x-charts";
 import { getBarChartYearsEmissionsByCountryDataSeries } from "@/utils/chart.utils"; // Assurez-vous que cette fonction est correctement implémentée
 import { CarboneEmissionData } from "@/type/CarboneEmissionData.type";
-import { BLACK_COLOR, PRIMARY_COLOR, SUCCESS_COLOR } from "@/styles/constants";
+import { BLACK_COLOR } from "@/styles/constants";
 import {
   WORLD_EMISSIONS_END_DATE,
   WORLD_EMISSIONS_START_DATE,

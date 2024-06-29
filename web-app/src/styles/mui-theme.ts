@@ -78,11 +78,11 @@ const theme = createTheme({
         },
         h5: {
           fontFamily: BASE_FONT_FAMILY,
-          fontWeight: 500,
+          fontWeight: 600,
         },
         h6: {
           fontFamily: BASE_FONT_FAMILY,
-          fontWeight: 500,
+          fontWeight: 400,
         },
       },
     },

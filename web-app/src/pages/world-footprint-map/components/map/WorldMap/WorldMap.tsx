@@ -12,6 +12,7 @@ import TooltipMouseTracker from "../../../../../components/Map/TooltipMouseTrack
 import { getCarboneEmissionColorCode } from "@/utils";
 import { CARBONE_COLOR_CODE_NO_DATA } from "@/styles/constants";
 import { WorldDataFeature } from "@/type/WorldData.type";
+import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
 
 const WorldMap = ({
   selectedYear,
@@ -76,9 +77,9 @@ const WorldMap = ({
                         carboneEmission
                           ? `${
                               geo.properties.nameFR
-                            }: ${carboneEmission.carboneEmissionsPerCapita.toFixed(
-                              2
-                            )} t / habitant`
+                            }: ${getNumberFormatedToTwoDecimals(
+                              carboneEmission.carboneEmissionsPerCapita
+                            )} / Co2 t per capita`
                           : `${geo.properties.nameFR}: no data`
                       );
 

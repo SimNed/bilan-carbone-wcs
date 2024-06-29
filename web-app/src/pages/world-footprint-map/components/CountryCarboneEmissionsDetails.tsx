@@ -8,7 +8,10 @@ import {
   CountryCO2EmissionsDetailsColumn,
   CountryCO2EmissionsDetailsContainer,
 } from "@/styles/mui-classes";
-import { getPercentage } from "@/utils/maths.utils";
+import {
+  getNumberFormatedToTwoDecimals,
+  getPercentage,
+} from "@/utils/maths.utils";
 
 const CountryCarboneEmissionsDetails = ({
   carboneEmissions,
@@ -48,13 +51,14 @@ const CountryCarboneEmissionsDetails = ({
     <CountryCO2EmissionsDetailsContainer>
       <CountryCO2EmissionsDetailsColumn>
         <Stack>
-          <Typography>Co2 t. per capita</Typography>
+          <Typography variant="h6">Co2 t. PER CAPITA</Typography>
         </Stack>
         <Stack>
           <Typography variant="h5">
-            {carboneEmissions[
-              selectedCarboneEmissionIndex
-            ]?.carboneEmissionsPerCapita.toFixed(5)}
+            {getNumberFormatedToTwoDecimals(
+              carboneEmissions[selectedCarboneEmissionIndex]
+                ?.carboneEmissionsPerCapita
+            )}
           </Typography>
         </Stack>
       </CountryCO2EmissionsDetailsColumn>
@@ -62,16 +66,17 @@ const CountryCarboneEmissionsDetails = ({
       {selectedCarboneEmissionIndex > 0 && (
         <CountryCO2EmissionsDetailsColumn>
           <Stack>
-            <Typography>
+            <Typography variant="h6">
               {`${carboneEmissions[selectedCarboneEmissionIndex - 1]?.year}`}
             </Typography>
-          </Stack>
-          <Stack>
             {carboneEmissionsPreviousYearDifferencePercentage > 0 ? (
               <NorthEastIcon sx={{ color: ERROR_COLOR }} />
             ) : (
               <SouthEastIcon sx={{ color: SUCCESS_COLOR }} />
             )}
+          </Stack>
+
+          <Stack>
             <Typography variant="h5">
               {`${
                 carboneEmissionsPreviousYearDifferencePercentage > 0 ? "+" : ""
@@ -84,16 +89,16 @@ const CountryCarboneEmissionsDetails = ({
       {selectedCarboneEmissionIndex < carboneEmissions.length - 1 && (
         <CountryCO2EmissionsDetailsColumn>
           <Stack>
-            <Typography>
+            <Typography variant="h6">
               {`${carboneEmissions[selectedCarboneEmissionIndex + 1]?.year}`}
             </Typography>
-          </Stack>
-          <Stack>
             {carboneEmissionsNextYearDifferencePercentage > 0 ? (
-              <NorthEastIcon sx={{ color: ERROR_COLOR, fontSize: 40 }} />
+              <NorthEastIcon sx={{ color: ERROR_COLOR }} />
             ) : (
               <SouthEastIcon sx={{ color: SUCCESS_COLOR }} />
             )}
+          </Stack>
+          <Stack>
             <Typography variant="h5">
               {`${
                 carboneEmissionsNextYearDifferencePercentage > 0 ? "+" : ""
