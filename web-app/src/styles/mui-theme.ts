@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 import {
+  BASE_FONT_FAMILY,
   BLACK_COLOR,
   ERROR_COLOR,
   HEADER_HEIGHT,
@@ -64,7 +65,7 @@ const theme = createTheme({
           aligntItems: "center",
           backgroundColor: WHITE_COLOR,
           color: BLACK_COLOR,
-          boxShadow: "none", // Retire la ombre par défaut
+          boxShadow: "none",
         },
       },
     },
@@ -74,6 +75,14 @@ const theme = createTheme({
           fontFamily: TITLE_FONT_FAMILY,
           fontWeight: 800,
           color: BLACK_COLOR,
+        },
+        h5: {
+          fontFamily: BASE_FONT_FAMILY,
+          fontWeight: 500,
+        },
+        h6: {
+          fontFamily: BASE_FONT_FAMILY,
+          fontWeight: 500,
         },
       },
     },

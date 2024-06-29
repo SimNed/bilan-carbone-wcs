@@ -15,11 +15,13 @@ const ArrowsNavigation = ({
   selectValue,
   handleSelectChange,
   isReversed = false,
+  flex = 1,
 }: {
   selectItems: { label: string | number; value: string | number }[];
   selectValue: { label: string | number; value: string | number };
   handleSelectChange: (value: string | number) => void;
   isReversed?: boolean;
+  flex?: number;
 }) => {
   const sortedSelectItems = useMemo(() => {
     if (selectItems.length <= 0) return;
@@ -61,7 +63,7 @@ const ArrowsNavigation = ({
       color="primary"
       justifyContent="center"
       alignItems="center"
-      flex={1}
+      flex={flex}
       flexBasis="25%"
     >
       <Button sx={{ flex: 1 }} onClick={() => onNavChange(isReversed ? 1 : -1)}>

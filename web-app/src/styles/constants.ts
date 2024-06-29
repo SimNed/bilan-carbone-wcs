@@ -9,6 +9,7 @@ export const WARNING_COLOR = "#e9c46a";
 export const ERROR_COLOR = "#e76f51";
 export const INFO_COLOR = "#8ecae6";
 
+export const BASE_FONT_FAMILY = "Poppins";
 export const TITLE_FONT_FAMILY = "Nunito Sans";
 
 export const HEADER_HEIGHT = "52px";

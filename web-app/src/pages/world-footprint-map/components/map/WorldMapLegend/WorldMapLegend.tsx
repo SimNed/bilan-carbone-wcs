@@ -28,7 +28,13 @@ import { Stack } from "@mui/material";
 
 const WorldMapLegend = () => {
   return (
-    <Stack spacing={2} direction="row" justifyContent="center" flexWrap="wrap">
+    <Stack
+      direction="row"
+      justifyContent="center"
+      alignItems="center"
+      flex={1}
+      flexWrap="wrap"
+    >
       <Stack direction="row" alignItems="center">
         <SquareIcon sx={{ color: CARBONE_COLOR_CODE_1 }} />
         <p>{`< ${WORLD_EMISSIONS_BREAKPOINT_1}`}</p>
