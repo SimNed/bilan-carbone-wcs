@@ -2,8 +2,7 @@ import WorldMap from "@/pages/world-footprint-map/components/map/WorldMap/WorldM
 import LineChartsYearsEmissionsByCountry from "./components/charts/LineChartYearsEmissionsByCountry";
 import { CarboneEmissionData } from "@/type/CarboneEmissionData.type";
 import { useEffect, useMemo, useState } from "react";
-import { Box, Stack, Typography } from "@mui/material";
-import ArrowsNavigation from "@/components/Nav/ArrowsNavigtion";
+import { Box, Stack } from "@mui/material";
 import {
   WORLD_EMISSIONS_END_DATE,
   WORLD_EMISSIONS_START_DATE,
@@ -11,6 +10,7 @@ import {
 import { WorldData, WorldDataFeature } from "@/type/WorldData.type";
 import WorldMapLegend from "./components/map/WorldMapLegend/WorldMapLegend";
 import CountryCarboneEmissionsDetails from "./components/CountryCarboneEmissionsDetails";
+import SelectWithNavigation from "@/components/Nav/SelectWithNavigtion";
 
 const WorldFootprintMapPage = () => {
   const [selectedCountryCode, setSelectedCountryCode] = useState("");
@@ -57,32 +57,36 @@ const WorldFootprintMapPage = () => {
   }, [selectedCountryCode, worldDataFeatures]);
 
   return worldDataFeatures && selectedCountryCode && selectedYear ? (
-    <Stack direction="column" height="100%">
-      <Stack direction="row" flex={1}>
-        <ArrowsNavigation
-          flex={2}
-          handleSelectChange={(code) => setSelectedCountryCode(code as string)}
-          selectItems={selectNameItems}
-          selectValue={{
-            label: worldDataFeatures.find(
-              (feature) => feature.properties.code === selectedCountryCode
-            )?.properties.nameFR as string,
-            value: selectedCountryCode,
-          }}
-        />
-        <ArrowsNavigation
-          flex={3}
-          isReversed
-          handleSelectChange={(value) => setSelectedYear(value as number)}
-          selectItems={selectYearItems}
-          selectValue={{
-            label: selectedYear,
-            value: selectedYear,
-          }}
-        />
+    <Stack direction="column" height="100%" p={2}>
+      <Stack pt={4} direction="row">
+        <Stack flex={2}>
+          <SelectWithNavigation
+            handleSelectChange={(code) =>
+              setSelectedCountryCode(code as string)
+            }
+            selectItems={selectNameItems}
+            selectValue={{
+              label: worldDataFeatures.find(
+                (feature) => feature.properties.code === selectedCountryCode
+              )?.properties.nameFR as string,
+              value: selectedCountryCode,
+            }}
+          />
+        </Stack>
+        <Stack flex={3}>
+          <SelectWithNavigation
+            isReversed
+            handleSelectChange={(value) => setSelectedYear(value as number)}
+            selectItems={selectYearItems}
+            selectValue={{
+              label: selectedYear,
+              value: selectedYear,
+            }}
+          />
+        </Stack>
       </Stack>
 
-      <Stack direction="row" flex={5}>
+      <Stack direction="row" flex={5} spacing={2}>
         <Stack direction="column" flex={2}>
           <Stack flex={4} justifyContent="center" alignItems="center">
             <LineChartsYearsEmissionsByCountry

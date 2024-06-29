@@ -9,13 +9,13 @@ import {
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useMemo } from "react";
+import { SelectWithNavigationContainer } from "@/styles/mui-classes";
 
-const ArrowsNavigation = ({
+const SelectWithNavigation = ({
   selectItems,
   selectValue,
   handleSelectChange,
   isReversed = false,
-  flex = 1,
 }: {
   selectItems: { label: string | number; value: string | number }[];
   selectValue: { label: string | number; value: string | number };
@@ -58,44 +58,38 @@ const ArrowsNavigation = ({
   };
 
   return (
-    <Stack
-      direction="row"
-      color="primary"
-      justifyContent="center"
-      alignItems="center"
-      flex={flex}
-      flexBasis="25%"
-    >
-      <Button sx={{ flex: 1 }} onClick={() => onNavChange(isReversed ? 1 : -1)}>
-        <ArrowBackIosIcon color="primary" />
-      </Button>
-      <Select
-        variant="standard"
-        size="medium"
-        labelId="demo-simple-select-filled-label"
-        id="demo-simple-select-filled"
-        value={selectValue.value}
-        onChange={onSelectChange}
-        MenuProps={{
-          style: {
-            minWidth: 250,
-            padding: 8,
-            maxHeight: 260,
-          },
-        }}
-      >
-        {sortedSelectItems &&
-          sortedSelectItems.map((item) => (
-            <MenuItem key={item.label} value={item.value}>
-              {item.label}
-            </MenuItem>
-          ))}
-      </Select>
-      <Button sx={{ flex: 1 }} onClick={() => onNavChange(isReversed ? -1 : 1)}>
-        <ArrowForwardIosIcon color="primary" />
-      </Button>
-    </Stack>
+    <SelectWithNavigationContainer>
+      <Stack>
+        <Button onClick={() => onNavChange(isReversed ? 1 : -1)}>
+          <ArrowBackIosIcon color="primary" />
+        </Button>
+        <Select
+          variant="standard"
+          size="medium"
+          id="demo-simple-select-filled"
+          labelId="demo-simple-select-filled-label"
+          value={selectValue.value}
+          onChange={onSelectChange}
+          MenuProps={{
+            style: {
+              minWidth: 250,
+              maxHeight: 260,
+            },
+          }}
+        >
+          {sortedSelectItems &&
+            sortedSelectItems.map((item) => (
+              <MenuItem key={item.label} value={item.value}>
+                {item.label}
+              </MenuItem>
+            ))}
+        </Select>
+        <Button onClick={() => onNavChange(isReversed ? -1 : 1)}>
+          <ArrowForwardIosIcon color="primary" />
+        </Button>
+      </Stack>
+    </SelectWithNavigationContainer>
   );
 };
 
-export default ArrowsNavigation;
+export default SelectWithNavigation;

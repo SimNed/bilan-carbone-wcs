@@ -1,5 +1,5 @@
 import { Stack } from "@mui/material";
-import ArrowsNavigation from "@/components/Nav/ArrowsNavigtion";
+import ArrowsNavigation from "@/components/Nav/SelectWithNavigtion";
 import { getMonthWithId } from "@/utils/date.utils";
 import CircleIcon from "@mui/icons-material/Circle";
 import {

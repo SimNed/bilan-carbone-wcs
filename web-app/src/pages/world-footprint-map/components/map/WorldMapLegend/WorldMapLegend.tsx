@@ -24,58 +24,67 @@ import {
 } from "@/styles/constants";
 
 import SquareIcon from "@mui/icons-material/Square";
-import { Stack } from "@mui/material";
+import { Stack, Typography } from "@mui/material";
+import { WorldMapLegendContainer } from "@/styles/mui-classes";
 
 const WorldMapLegend = () => {
   return (
-    <Stack
-      direction="row"
-      justifyContent="center"
-      alignItems="center"
-      flex={1}
-      flexWrap="wrap"
-    >
-      <Stack direction="row" alignItems="center">
+    <WorldMapLegendContainer>
+      <Stack>
         <SquareIcon sx={{ color: CARBONE_COLOR_CODE_1 }} />
-        <p>{`< ${WORLD_EMISSIONS_BREAKPOINT_1}`}</p>
+        <Typography paragraph>{`< ${WORLD_EMISSIONS_BREAKPOINT_1}`}</Typography>
       </Stack>
-      <Stack direction="row" alignItems="center">
+      <Stack>
         <SquareIcon sx={{ color: CARBONE_COLOR_CODE_2 }} />
-        <p>{`${WORLD_EMISSIONS_BREAKPOINT_1} - ${WORLD_EMISSIONS_BREAKPOINT_2}`}</p>
+        <Typography
+          paragraph
+        >{`${WORLD_EMISSIONS_BREAKPOINT_1} - ${WORLD_EMISSIONS_BREAKPOINT_2}`}</Typography>
       </Stack>
-      <Stack direction="row" alignItems="center">
+      <Stack>
         <SquareIcon sx={{ color: CARBONE_COLOR_CODE_3 }} />
-        <p>{`${WORLD_EMISSIONS_BREAKPOINT_2} - ${WORLD_EMISSIONS_BREAKPOINT_3}`}</p>
+        <Typography
+          paragraph
+        >{`${WORLD_EMISSIONS_BREAKPOINT_2} - ${WORLD_EMISSIONS_BREAKPOINT_3}`}</Typography>
       </Stack>
-      <Stack direction="row" alignItems="center">
+      <Stack>
         <SquareIcon sx={{ color: CARBONE_COLOR_CODE_4 }} />
-        <p>{`${WORLD_EMISSIONS_BREAKPOINT_3} - ${WORLD_EMISSIONS_BREAKPOINT_4}`}</p>
+        <Typography
+          paragraph
+        >{`${WORLD_EMISSIONS_BREAKPOINT_3} - ${WORLD_EMISSIONS_BREAKPOINT_4}`}</Typography>
       </Stack>
-      <Stack direction="row" alignItems="center">
+      <Stack>
         <SquareIcon sx={{ color: CARBONE_COLOR_CODE_5 }} />
-        <p>{`${WORLD_EMISSIONS_BREAKPOINT_4} - ${WORLD_EMISSIONS_BREAKPOINT_5}`}</p>
+        <Typography
+          paragraph
+        >{`${WORLD_EMISSIONS_BREAKPOINT_4} - ${WORLD_EMISSIONS_BREAKPOINT_5}`}</Typography>
       </Stack>
-      <Stack direction="row" alignItems="center">
+      <Stack>
         <SquareIcon sx={{ color: CARBONE_COLOR_CODE_6 }} />
-        <p>{`${WORLD_EMISSIONS_BREAKPOINT_5} - ${WORLD_EMISSIONS_BREAKPOINT_6}`}</p>
+        <Typography
+          paragraph
+        >{`${WORLD_EMISSIONS_BREAKPOINT_5} - ${WORLD_EMISSIONS_BREAKPOINT_6}`}</Typography>
       </Stack>
-      <Stack direction="row" alignItems="center">
+      <Stack>
         <SquareIcon sx={{ color: CARBONE_COLOR_CODE_7 }} />
-        <p>{`${WORLD_EMISSIONS_BREAKPOINT_6} - ${WORLD_EMISSIONS_BREAKPOINT_7}`}</p>
+        <Typography
+          paragraph
+        >{`${WORLD_EMISSIONS_BREAKPOINT_6} - ${WORLD_EMISSIONS_BREAKPOINT_7}`}</Typography>
       </Stack>
-      <Stack direction="row" alignItems="center">
+      <Stack>
         <SquareIcon sx={{ color: CARBONE_COLOR_CODE_8 }} />
-        <p>{`${WORLD_EMISSIONS_BREAKPOINT_7} - ${WORLD_EMISSIONS_BREAKPOINT_8}`}</p>
+        <Typography
+          paragraph
+        >{`${WORLD_EMISSIONS_BREAKPOINT_7} - ${WORLD_EMISSIONS_BREAKPOINT_8}`}</Typography>
       </Stack>
-      <Stack direction="row" alignItems="center">
+      <Stack>
         <SquareIcon sx={{ color: CARBONE_COLOR_CODE_9 }} />
-        <p>{`> ${WORLD_EMISSIONS_BREAKPOINT_8}`}</p>
+        <Typography paragraph>{`> ${WORLD_EMISSIONS_BREAKPOINT_8}`}</Typography>
       </Stack>
-      <Stack direction="row" alignItems="center">
+      <Stack>
         <SquareIcon sx={{ color: CARBONE_COLOR_CODE_NO_DATA }} />
-        <p>no data</p>
+        <Typography paragraph>no data</Typography>
       </Stack>
-    </Stack>
+    </WorldMapLegendContainer>
   );
 };
 

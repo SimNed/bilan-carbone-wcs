@@ -24,7 +24,7 @@ const LineChartYearsEmissionsByCountry = ({
         onAxisClick={(_event, data) =>
           handleSelectedYear(data?.axisValue as number)
         }
-        margin={{ top: 0, left: 80, right: 0, bottom: 0 }}
+        margin={{ top: 0, left: 60, right: 0, bottom: 0 }}
         skipAnimation
         xAxis={[
           {

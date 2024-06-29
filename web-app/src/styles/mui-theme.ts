@@ -84,6 +84,12 @@ const theme = createTheme({
           fontFamily: BASE_FONT_FAMILY,
           fontWeight: 400,
         },
+        paragraph: {
+          fontFamily: BASE_FONT_FAMILY,
+          fontWeight: 400,
+          margin: 0,
+          padding: 0,
+        },
       },
     },
     MuiTextField: {

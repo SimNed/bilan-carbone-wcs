@@ -78,4 +78,30 @@ export const CountryCO2EmissionsDetailsColumn = styled(Stack)(({ theme }) => ({
   },
 }));
 
+export const SelectWithNavigationContainer = styled(Stack)(({ theme }) => ({
+  flex: 1,
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  color: "primary",
+  "& > .MuiStack-root": {
+    flex: "0 1 360px",
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+}));
+
+export const WorldMapLegendContainer = styled(Stack)(({ theme }) => ({
+  flex: 1,
+  flexDirection: "row",
+  justifyContent: "center",
+  alignItems: "center",
+  flexWrap: "wrap",
+  gap: 12,
+  "& > .MuiStack-root": {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+}));
+
 //
