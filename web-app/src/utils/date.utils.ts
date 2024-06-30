@@ -24,3 +24,14 @@ export function getMonthWithId(id: number) {
   ];
   return months[id];
 }
+
+export function checkRideMonthAndYearEquality(
+  rideDate: any,
+  month: number,
+  year: number
+) {
+  return (
+    new Date(rideDate).getMonth() === month &&
+    new Date(rideDate).getFullYear() === year
+  );
+}

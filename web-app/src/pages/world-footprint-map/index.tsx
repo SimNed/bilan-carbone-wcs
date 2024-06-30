@@ -8,7 +8,7 @@ import {
   WORLD_EMISSIONS_START_DATE,
 } from "@/constants/constants";
 import { WorldData, WorldDataFeature } from "@/type/WorldData.type";
-import CountryCarboneEmissionsDetails from "./components/CountryCarboneEmissionsDetails";
+import WorldStatsDetailsTable from "./components/WorldStatsDetailsTable";
 import SelectWithNavigation from "@/components/Nav/SelectWithNavigtion";
 import LegendContainer from "@/components/Container/LegendContainer";
 import { MAP_LEGEND_ELEMENTS } from "@/constants/charts.constants";
@@ -98,7 +98,7 @@ const WorldFootprintMapPage = () => {
           </Stack>
           <Stack flex={1} justifyContent="center" alignItems="center">
             {selectedCarboneEmissions && (
-              <CountryCarboneEmissionsDetails
+              <WorldStatsDetailsTable
                 carboneEmissions={selectedCarboneEmissions}
                 selectedYear={selectedYear}
               />

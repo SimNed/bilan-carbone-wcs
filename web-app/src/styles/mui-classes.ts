@@ -1,4 +1,4 @@
-import { styled, textAlign } from "@mui/system";
+import { styled } from "@mui/system";
 import { TITLE_FONT_FAMILY } from "./constants";
 import Link from "next/link";
 import { Stack } from "@mui/material";
@@ -24,29 +24,27 @@ export const AppBarLink = styled(Link)(({ theme }) => ({
 
 // CONTAINERS
 
-export const CountryCO2EmissionsDetailsContainer = styled(Stack)(
-  ({ theme }) => ({
-    flex: 1,
-    width: "90%",
-    height: "100%",
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
-    marginLeft: "10%",
-    "& > .MuiStack-root > .MuiStack-root": {
-      borderRight: "1px solid #c5c5c5",
-      borderBottom: "1px solid #c5c5c5",
-    },
-    "& > .MuiStack-root:last-child > .MuiStack-root": {
-      borderRight: "none",
-    },
-    "& > .MuiStack-root > .MuiStack-root:last-child": {
-      borderBottom: "none",
-    },
-  })
-);
+export const StatsDetailsTable = styled(Stack)(({ theme }) => ({
+  flex: 1,
+  width: "90%",
+  height: "100%",
+  flexDirection: "row",
+  justifyContent: "space-around",
+  alignItems: "center",
+  // marginLeft: "10%",
+  "& > .MuiStack-root > .MuiStack-root": {
+    borderRight: "1px solid #c5c5c5",
+    borderBottom: "1px solid #c5c5c5",
+  },
+  "& > .MuiStack-root:last-child > .MuiStack-root": {
+    borderRight: "none",
+  },
+  "& > .MuiStack-root > .MuiStack-root:last-child": {
+    borderBottom: "none",
+  },
+}));
 
-export const CountryCO2EmissionsDetailsColumn = styled(Stack)(({ theme }) => ({
+export const StatsDetailsTableColumn = styled(Stack)(({ theme }) => ({
   flex: 1,
   height: "100%",
   flexDirection: "column",
@@ -88,19 +86,6 @@ export const SelectWithNavigationContainer = styled(Stack)(({ theme }) => ({
     flex: "0 1 360px",
     flexDirection: "row",
     justifyContent: "space-between",
-  },
-}));
-
-export const LegendContainerStyled = styled(Stack)(({ theme }) => ({
-  flex: 1,
-  flexDirection: "row",
-  justifyContent: "center",
-  alignItems: "center",
-  flexWrap: "wrap",
-  gap: 12,
-  "& > .MuiStack-root": {
-    flexDirection: "row",
-    alignItems: "center",
   },
 }));
 

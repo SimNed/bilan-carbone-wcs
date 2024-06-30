@@ -5,15 +5,15 @@ import SouthEastIcon from "@mui/icons-material/SouthEast";
 import { useMemo } from "react";
 import { ERROR_COLOR, SUCCESS_COLOR } from "@/styles/constants";
 import {
-  CountryCO2EmissionsDetailsColumn,
-  CountryCO2EmissionsDetailsContainer,
+  StatsDetailsTableColumn,
+  StatsDetailsTable,
 } from "@/styles/mui-classes";
 import {
   getNumberFormatedToTwoDecimals,
   getPercentage,
 } from "@/utils/maths.utils";
 
-const CountryCarboneEmissionsDetails = ({
+const WorldStatsDetailsTable = ({
   carboneEmissions,
   selectedYear,
 }: {
@@ -48,8 +48,8 @@ const CountryCarboneEmissionsDetails = ({
   );
 
   return (
-    <CountryCO2EmissionsDetailsContainer>
-      <CountryCO2EmissionsDetailsColumn>
+    <StatsDetailsTable>
+      <StatsDetailsTableColumn>
         <Stack>
           <Typography variant="h6">Co2 t. PER CAPITA</Typography>
         </Stack>
@@ -61,10 +61,10 @@ const CountryCarboneEmissionsDetails = ({
             )}
           </Typography>
         </Stack>
-      </CountryCO2EmissionsDetailsColumn>
+      </StatsDetailsTableColumn>
 
       {selectedCarboneEmissionIndex > 0 && (
-        <CountryCO2EmissionsDetailsColumn>
+        <StatsDetailsTableColumn>
           <Stack>
             <Typography variant="h6">
               {`${carboneEmissions[selectedCarboneEmissionIndex - 1]?.year}`}
@@ -83,11 +83,11 @@ const CountryCarboneEmissionsDetails = ({
               }${carboneEmissionsPreviousYearDifferencePercentage}%`}
             </Typography>
           </Stack>
-        </CountryCO2EmissionsDetailsColumn>
+        </StatsDetailsTableColumn>
       )}
 
       {selectedCarboneEmissionIndex < carboneEmissions.length - 1 && (
-        <CountryCO2EmissionsDetailsColumn>
+        <StatsDetailsTableColumn>
           <Stack>
             <Typography variant="h6">
               {`${carboneEmissions[selectedCarboneEmissionIndex + 1]?.year}`}
@@ -105,10 +105,10 @@ const CountryCarboneEmissionsDetails = ({
               }${carboneEmissionsNextYearDifferencePercentage}%`}
             </Typography>
           </Stack>
-        </CountryCO2EmissionsDetailsColumn>
+        </StatsDetailsTableColumn>
       )}
-    </CountryCO2EmissionsDetailsContainer>
+    </StatsDetailsTable>
   );
 };
 
-export default CountryCarboneEmissionsDetails;
+export default WorldStatsDetailsTable;
