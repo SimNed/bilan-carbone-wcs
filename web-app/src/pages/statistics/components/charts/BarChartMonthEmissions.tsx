@@ -3,7 +3,6 @@ import { BarChartDayEmissionData, ChartData } from "@/type/ChartData.type";
 import { BarChart, axisClasses } from "@mui/x-charts";
 import { useEffect, useState } from "react";
 
-import { Card, CardContent } from "@mui/material";
 import { SearchRidesQuery } from "@/gql/graphql";
 import { getBarChartMonthEmissionsDataSeries } from "@/utils/chart.utils";
 
@@ -12,7 +11,7 @@ const BarChartMonthEmissions = ({
   selectedMonth,
   selectedYear,
 }: {
-  data: SearchRidesQuery;
+  data: SearchRidesQuery | undefined;
   selectedMonth: number;
   selectedYear: number;
 }) => {
@@ -59,9 +58,9 @@ const BarChartMonthEmissions = ({
     for (let i = 1; i < numberOfDaysInMonth + 1; i++) {
       chartSeriesData.push({
         day: i,
-        voiture: getTotalEmissionsByDayAndTransportation(i, "voiture"),
-        bus: getTotalEmissionsByDayAndTransportation(i, "bus"),
         train: getTotalEmissionsByDayAndTransportation(i, "train"),
+        bus: getTotalEmissionsByDayAndTransportation(i, "bus"),
+        voiture: getTotalEmissionsByDayAndTransportation(i, "voiture"),
         avion: getTotalEmissionsByDayAndTransportation(i, "avion"),
       });
     }
@@ -69,40 +68,37 @@ const BarChartMonthEmissions = ({
   }
 
   return (
-    <Card sx={{ flex: 2 }}>
-      <CardContent sx={{ height: "100%", padding: "2rem" }}>
-        <BarChart
-          borderRadius={2}
-          margin={{ left: 75 }}
-          dataset={barChartDataset}
-          xAxis={[
-            {
-              scaleType: "band",
-              dataKey: "day",
-            },
-          ]}
-          yAxis={[
-            {
-              label: "kg / co2",
-              min: 0,
-              max: 1000,
-              position: "left",
-            },
-          ]}
-          slotProps={{
-            legend: {
-              hidden: true,
-            },
-          }}
-          sx={{
-            [`.${axisClasses.left} .${axisClasses.label}`]: {
-              transform: "translate(-30px, 0)",
-            },
-          }}
-          series={getBarChartMonthEmissionsDataSeries()}
-        />
-      </CardContent>
-    </Card>
+    <BarChart
+      borderRadius={2}
+      height={500}
+      margin={{ left: 70 }}
+      dataset={barChartDataset}
+      xAxis={[
+        {
+          scaleType: "band",
+          dataKey: "day",
+        },
+      ]}
+      yAxis={[
+        {
+          label: "kg / co2",
+          min: 0,
+          max: 1000,
+          position: "left",
+        },
+      ]}
+      slotProps={{
+        legend: {
+          hidden: true,
+        },
+      }}
+      sx={{
+        [`.${axisClasses.left} .${axisClasses.label}`]: {
+          transform: "translate(-12px, 0)",
+        },
+      }}
+      series={getBarChartMonthEmissionsDataSeries()}
+    />
   );
 };
 

@@ -15,7 +15,7 @@ import {
 } from "@/gql/graphql";
 import { enqueueSnackbar } from "notistack";
 import { useMutation, useQuery } from "@apollo/client";
-import { capitalizeFirstLetter } from "@/utils";
+import { capitalizeFirstLetter } from "@/utils/utils";
 import { GET_TRANSPORTATIONS } from "@/api-gql/queries/transportation.queries";
 import { CREATE_RIDE } from "@/api-gql/mutations/ride.mutations";
 import { useRouter } from "next/router";

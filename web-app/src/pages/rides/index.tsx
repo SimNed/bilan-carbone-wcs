@@ -1,4 +1,3 @@
-import DividedStack from "@/components/Container/DividedStack";
 import CreateRideForm from "./components/CreateRideForm";
 import RidesList from "./components/RidesList";
 import { GetUserProfileQuery, SearchRidesQuery } from "@/gql/graphql";
@@ -20,10 +19,10 @@ const RidesPage = () => {
   if (error) return <p>Error: {error.message}</p>;
 
   return (
-    <DividedStack
-      leftNode={<CreateRideForm />}
-      rightNode={<RidesList data={data} />}
-    />
+    <div>
+      <CreateRideForm />
+      <RidesList data={data} />
+    </div>
   );
 };
 

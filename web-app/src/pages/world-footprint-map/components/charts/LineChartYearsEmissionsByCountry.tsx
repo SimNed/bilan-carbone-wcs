@@ -6,7 +6,7 @@ import { BLACK_COLOR } from "@/styles/constants";
 import {
   WORLD_EMISSIONS_END_DATE,
   WORLD_EMISSIONS_START_DATE,
-} from "@/utils/constants.utils";
+} from "@/constants/constants";
 
 const LineChartYearsEmissionsByCountry = ({
   data,
@@ -20,7 +20,7 @@ const LineChartYearsEmissionsByCountry = ({
   return (
     data && (
       <LineChart
-        height={500}
+        height={400}
         onAxisClick={(_event, data) =>
           handleSelectedYear(data?.axisValue as number)
         }

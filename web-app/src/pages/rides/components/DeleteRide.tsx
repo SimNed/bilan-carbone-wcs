@@ -1,5 +1,5 @@
 import { useMutation } from "@apollo/client";
-import { SEARCH_RIDES } from "../../../../api-gql/queries/ride.queries";
+import { SEARCH_RIDES } from "../../../api-gql/queries/ride.queries";
 import { DELETE_RIDE } from "@/api-gql/mutations/ride.mutations";
 import { Box, Button, Modal, Typography } from "@mui/material";
 

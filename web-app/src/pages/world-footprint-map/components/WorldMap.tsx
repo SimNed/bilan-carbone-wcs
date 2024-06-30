@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   ComposableMap,
   Geographies,
@@ -7,11 +7,11 @@ import {
   Sphere,
   ZoomableGroup,
 } from "react-simple-maps";
-import TooltipMouseTracker from "../../../../../components/Map/TooltipMouseTracker/TooltipMouseTracker";
+import TooltipMouseTracker from "../../../components/Map/TooltipMouseTracker/TooltipMouseTracker";
 
-import { getCarboneEmissionColorCode } from "@/utils";
 import { CARBONE_COLOR_CODE_NO_DATA } from "@/styles/constants";
 import { WorldDataFeature } from "@/type/WorldData.type";
+import { getCarboneEmissionColorCode } from "@/utils/chart.utils";
 import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
 
 const WorldMap = ({
@@ -46,8 +46,6 @@ const WorldMap = ({
         style={{
           width: "100%",
           height: "100%",
-          // backgroundColor: "#f6f6f6",
-          // boxShadow: "rgba(149, 157, 165, 0.1) 0px 8px 24px",
         }}
       >
         <ZoomableGroup center={[0, 0]} zoom={0.9}>

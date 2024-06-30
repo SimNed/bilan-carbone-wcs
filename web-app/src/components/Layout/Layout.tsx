@@ -1,9 +1,8 @@
 import { SnackbarProvider } from "notistack";
-import { Box, Container, Stack } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import Header from "@/components/Header/Header";
 import { ReactNode, createContext, useContext, useState } from "react";
 import Modal from "../Modal/Modal";
-import { HEADER_HEIGHT } from "@/styles/constants";
 
 interface LayoutProps {
   children: ReactNode;

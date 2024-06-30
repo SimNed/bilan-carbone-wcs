@@ -16,12 +16,15 @@ const SelectWithNavigation = ({
   selectValue,
   handleSelectChange,
   isReversed = false,
+  isLeftButtonEnable = true,
+  isRightButtonEnable = true,
 }: {
   selectItems: { label: string | number; value: string | number }[];
   selectValue: { label: string | number; value: string | number };
   handleSelectChange: (value: string | number) => void;
   isReversed?: boolean;
-  flex?: number;
+  isLeftButtonEnable?: boolean;
+  isRightButtonEnable?: boolean;
 }) => {
   const sortedSelectItems = useMemo(() => {
     if (selectItems.length <= 0) return;
@@ -60,7 +63,11 @@ const SelectWithNavigation = ({
   return (
     <SelectWithNavigationContainer>
       <Stack>
-        <Button onClick={() => onNavChange(isReversed ? 1 : -1)}>
+        <Button
+          onClick={() => {
+            if (isLeftButtonEnable) onNavChange(isReversed ? 1 : -1);
+          }}
+        >
           <ArrowBackIosIcon color="primary" />
         </Button>
         <Select
@@ -84,7 +91,11 @@ const SelectWithNavigation = ({
               </MenuItem>
             ))}
         </Select>
-        <Button onClick={() => onNavChange(isReversed ? -1 : 1)}>
+        <Button
+          onClick={() => {
+            if (isRightButtonEnable) onNavChange(isReversed ? -1 : 1);
+          }}
+        >
           <ArrowForwardIosIcon color="primary" />
         </Button>
       </Stack>

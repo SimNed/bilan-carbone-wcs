@@ -1,7 +1,7 @@
 import { GET_TRANSPORTATIONS } from "@/api-gql/queries/transportation.queries";
 import { GetTransportationsQuery } from "@/gql/graphql";
 import { RideFilterData } from "@/type/RideFilterData.type";
-import { capitalizeFirstLetter } from "@/utils";
+import { capitalizeFirstLetter } from "@/utils/utils";
 import { useQuery } from "@apollo/client";
 import {
   Container,

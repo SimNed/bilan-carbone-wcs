@@ -1,4 +1,4 @@
-import WorldMap from "@/pages/world-footprint-map/components/map/WorldMap/WorldMap";
+import WorldMap from "@/pages/world-footprint-map/components/WorldMap";
 import LineChartsYearsEmissionsByCountry from "./components/charts/LineChartYearsEmissionsByCountry";
 import { CarboneEmissionData } from "@/type/CarboneEmissionData.type";
 import { useEffect, useMemo, useState } from "react";
@@ -6,11 +6,12 @@ import { Box, Stack } from "@mui/material";
 import {
   WORLD_EMISSIONS_END_DATE,
   WORLD_EMISSIONS_START_DATE,
-} from "@/utils/constants.utils";
+} from "@/constants/constants";
 import { WorldData, WorldDataFeature } from "@/type/WorldData.type";
-import WorldMapLegend from "./components/map/WorldMapLegend/WorldMapLegend";
 import CountryCarboneEmissionsDetails from "./components/CountryCarboneEmissionsDetails";
 import SelectWithNavigation from "@/components/Nav/SelectWithNavigtion";
+import LegendContainer from "@/components/Container/LegendContainer";
+import { MAP_LEGEND_ELEMENTS } from "@/constants/charts.constants";
 
 const WorldFootprintMapPage = () => {
   const [selectedCountryCode, setSelectedCountryCode] = useState("");
@@ -33,11 +34,11 @@ const WorldFootprintMapPage = () => {
     []
   );
 
-  const selectYearItems = [];
   const selectNameItems = worldDataFeatures.map((data: any) => {
     return { value: data.properties.code, label: data.properties.nameFR };
   });
 
+  const selectYearItems = [];
   for (let i = WORLD_EMISSIONS_START_DATE; i <= WORLD_EMISSIONS_END_DATE; i++) {
     selectYearItems.push({ value: i, label: i });
   }
@@ -57,8 +58,8 @@ const WorldFootprintMapPage = () => {
   }, [selectedCountryCode, worldDataFeatures]);
 
   return worldDataFeatures && selectedCountryCode && selectedYear ? (
-    <Stack direction="column" height="100%" p={2}>
-      <Stack pt={4} direction="row">
+    <Stack direction="column" height="100%" p={4}>
+      <Stack direction="row">
         <Stack flex={2}>
           <SelectWithNavigation
             handleSelectChange={(code) =>
@@ -115,7 +116,7 @@ const WorldFootprintMapPage = () => {
               }
             />
           </Box>
-          <WorldMapLegend />
+          <LegendContainer elements={MAP_LEGEND_ELEMENTS} />
         </Stack>
       </Stack>
     </Stack>

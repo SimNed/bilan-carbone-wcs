@@ -3,9 +3,7 @@ import {
   BASE_FONT_FAMILY,
   BLACK_COLOR,
   ERROR_COLOR,
-  HEADER_HEIGHT,
   INFO_COLOR,
-  PRIMARY_COLOR,
   SECONDARY_COLOR,
   SUCCESS_COLOR,
   TITLE_FONT_FAMILY,
@@ -73,7 +71,7 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           fontFamily: TITLE_FONT_FAMILY,
-          fontWeight: 800,
+          fontWeight: 600,
           color: BLACK_COLOR,
         },
         h5: {

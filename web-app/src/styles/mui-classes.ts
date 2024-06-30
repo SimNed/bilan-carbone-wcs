@@ -91,7 +91,7 @@ export const SelectWithNavigationContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 
-export const WorldMapLegendContainer = styled(Stack)(({ theme }) => ({
+export const LegendContainerStyled = styled(Stack)(({ theme }) => ({
   flex: 1,
   flexDirection: "row",
   justifyContent: "center",
