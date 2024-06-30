@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 import {
+  BASE_BORDER,
   BASE_FONT_FAMILY,
   BLACK_COLOR,
   ERROR_COLOR,
@@ -104,6 +105,7 @@ const theme = createTheme({
           color: BLACK_COLOR,
           fontFamily: "Poppins",
           textTransform: "none",
+          borderBottom: BASE_BORDER,
         },
       },
     },

@@ -1,5 +1,5 @@
 import { styled } from "@mui/system";
-import { TITLE_FONT_FAMILY } from "./constants";
+import { BASE_BORDER, GRAY_COLOR, TITLE_FONT_FAMILY } from "./constants";
 import Link from "next/link";
 import { Stack } from "@mui/material";
 
@@ -33,8 +33,8 @@ export const StatsDetailsTable = styled(Stack)(({ theme }) => ({
   alignItems: "center",
   // marginLeft: "10%",
   "& > .MuiStack-root > .MuiStack-root": {
-    borderRight: "1px solid #c5c5c5",
-    borderBottom: "1px solid #c5c5c5",
+    borderRight: BASE_BORDER,
+    borderBottom: BASE_BORDER,
   },
   "& > .MuiStack-root:last-child > .MuiStack-root": {
     borderRight: "none",
