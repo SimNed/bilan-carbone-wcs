@@ -5,20 +5,19 @@ import {
   StatsDetailsTable,
   StatsDetailsTableColumn,
 } from "@/styles/mui-classes";
-import {
-  getPieChartRidesCounterSeriesData,
-  getPieChartRidesEmissionsSeriesData,
-  getPieChartRidesCounterByMonthAndYearSeriesData,
-} from "@/utils/chart.utils";
+
 import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
 import { Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import BarChartMonthEmissions from "../charts/BarChartMonthEmissions";
-import PieChartCard from "../charts/PieChartCard";
+
 import { SearchRidesQuery } from "@/gql/graphql";
 import { useMemo, useState } from "react";
 import { getMonthWithId } from "@/utils/date.utils";
 import { checkRideMonthAndYearEquality } from "@/utils/ride.utils";
+import PieChartGlobalRidesCounter from "../charts/PiChartGlobalRidesCounter";
+import PieChartGlobalRidesEmissions from "../charts/PieChartGlobalRidesEmissions";
+import PieChartMonthRidesEmissions from "../charts/PieChartMonthRidesCounter";
 
 const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
@@ -73,10 +72,7 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
           alignItems="flex-start"
         >
           <Stack flex={1} direction="row" alignItems="center">
-            <PieChartCard
-              data={data}
-              seriesData={data ? getPieChartRidesCounterSeriesData(data) : []}
-            />
+            <PieChartGlobalRidesCounter data={data} />
             <Stack direction="column" alignItems="flex-start">
               <Typography variant="h2">{578}</Typography>
               <Typography paragraph textAlign="center">
@@ -85,10 +81,7 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
             </Stack>
           </Stack>
           <Stack flex={1} direction="row" alignItems="center">
-            <PieChartCard
-              data={data}
-              seriesData={data ? getPieChartRidesEmissionsSeriesData(data) : []}
-            />
+            <PieChartGlobalRidesEmissions data={data} />
             <Stack direction="column" alignItems="flex-start">
               <Typography variant="h2">
                 {getNumberFormatedToTwoDecimals(10.789795)}
@@ -143,20 +136,10 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
                 <Typography variant="h6">TRAJETS</Typography>
               </Stack>
               <Stack>
-                <PieChartCard
+                <PieChartMonthRidesEmissions
                   data={data}
-                  pieSeriesData={
-                    data
-                      ? getPieChartRidesCounterByMonthAndYearSeriesData(
-                          data,
-                          selectedMonth,
-                          selectedYear
-                        )
-                      : []
-                  }
-                  total={875}
-                  cardLabel="trajets totaux"
-                  unit=""
+                  month={selectedMonth}
+                  year={selectedYear}
                 />
                 <Typography variant="h5">{ridesByMonthAndYear}</Typography>
               </Stack>
@@ -166,14 +149,10 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
                 <Typography variant="h6">Co2 kg</Typography>
               </Stack>
               <Stack>
-                <PieChartCard
+                <PieChartMonthRidesEmissions
                   data={data}
-                  pieSeriesData={
-                    data ? getPieChartRidesCounterSeriesData(data) : []
-                  }
-                  total={98798}
-                  cardLabel="trajets totaux"
-                  unit=""
+                  month={selectedMonth}
+                  year={selectedYear}
                 />
                 <Typography variant="h5">
                   {getNumberFormatedToTwoDecimals(CO2ByMonthAndYear)}

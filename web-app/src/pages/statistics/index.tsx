@@ -16,7 +16,7 @@ import {
   getPieChartRidesCounterSeriesData,
   getPieChartRidesEmissionsSeriesData,
 } from "@/utils/chart.utils";
-import PieChartCard from "./components/charts/PieChartCard";
+import PieChartCard from "./components/charts/BasePieChart";
 import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
 import { capitalizeFirstLetter } from "@/utils/typo.utils";
 import LegendContainer from "@/components/Container/LegendContainer";

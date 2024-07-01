@@ -11,8 +11,8 @@ const BasePieChart = ({
 }: {
   data: SearchRidesQuery | undefined;
   seriesData: MakeOptional<PieValueType, "id">[];
-  width: number;
-  height: number;
+  width?: number;
+  height?: number;
 }) => {
   return (
     data && (

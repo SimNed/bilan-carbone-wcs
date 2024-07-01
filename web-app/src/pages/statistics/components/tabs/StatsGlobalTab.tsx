@@ -1,15 +1,14 @@
 import LegendContainer from "@/components/containers/LegendContainer";
 import { STATISTICS_LEGEND_ELEMENTS } from "@/constants/charts.constants";
-import {
-  getPieChartRidesCounterSeriesData,
-  getPieChartRidesEmissionsSeriesData,
-} from "@/utils/chart.utils";
+
 import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
 import { Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import PieChartCard from "../charts/PieChartCard";
+
 import { SearchRidesQuery } from "@/gql/graphql";
 import { useMemo } from "react";
+import PieChartGlobalRideCounter from "../charts/PiChartGlobalRidesCounter";
+import PieChartGlobalRidesEmissions from "../charts/PieChartGlobalRidesEmissions";
 
 const StatsGlobalTab = ({ data }: { data: SearchRidesQuery }) => {
   const totalRides = useMemo(
@@ -38,15 +37,7 @@ const StatsGlobalTab = ({ data }: { data: SearchRidesQuery }) => {
           alignItems="flex-start"
         >
           <Stack flex={1} direction="row" alignItems="center">
-            <PieChartCard
-              data={data}
-              pieSeriesData={
-                data ? getPieChartRidesCounterSeriesData(data) : []
-              }
-              total={totalRides}
-              cardLabel="trajets totaux"
-              unit=""
-            />
+            <PieChartGlobalRideCounter data={data} />
             <Stack direction="column" alignItems="flex-start">
               <Typography variant="h2">{totalRides}</Typography>
               <Typography paragraph textAlign="center">
@@ -55,18 +46,10 @@ const StatsGlobalTab = ({ data }: { data: SearchRidesQuery }) => {
             </Stack>
           </Stack>
           <Stack flex={1} direction="row" alignItems="center">
-            <PieChartCard
-              data={data}
-              pieSeriesData={
-                data ? getPieChartRidesEmissionsSeriesData(data) : []
-              }
-              total={totalCO2}
-              cardLabel="émissions totales"
-              unit="kg"
-            />
+            <PieChartGlobalRidesEmissions data={data} />
             <Stack direction="column" alignItems="flex-start">
               <Typography variant="h2">
-                {getNumberFormatedToTwoDecimals(10.789795)}
+                {getNumberFormatedToTwoDecimals(totalCO2)}
               </Typography>
               <Typography paragraph textAlign="center">
                 Co2 EN t
