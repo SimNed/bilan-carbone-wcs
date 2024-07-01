@@ -6,9 +6,9 @@ import {
 } from "@mui/icons-material";
 import { useState } from "react";
 import { useAuth } from "@/AuthProvider";
-import { useModal } from "../Layout/Layout";
-import SignUpForm from "../Auth/SignUpForm";
-import SignInForm from "../Auth/SignInForm";
+import { useModal } from "../layout/Layout";
+import SignUpForm from "../auth/SignUpForm";
+import SignInForm from "../auth/SignInForm";
 
 import MobileMenu from "./MobileMenu";
 import HeaderNav from "./HeaderNav";

@@ -1,9 +1,9 @@
 import { useAuth } from "@/AuthProvider";
 import { AccountCircle } from "@mui/icons-material";
 import { Button, Divider, IconButton, Menu, MenuItem } from "@mui/material";
-import SignInForm from "../Auth/SignInForm";
-import { useModal } from "../Layout/Layout";
-import SignUpForm from "../Auth/SignUpForm";
+import SignInForm from "../auth/SignInForm";
+import { useModal } from "../layout/Layout";
+import SignUpForm from "../auth/SignUpForm";
 import { AppBarLink } from "@/styles/mui-classes";
 import Link from "next/link";
 import { useRouter } from "next/router";

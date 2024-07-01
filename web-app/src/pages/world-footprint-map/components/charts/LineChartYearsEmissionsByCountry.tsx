@@ -1,12 +1,11 @@
-import React from "react";
-import { LineChart, axisClasses } from "@mui/x-charts";
-import { getBarChartYearsEmissionsByCountryDataSeries } from "@/utils/chart.utils"; // Assurez-vous que cette fonction est correctement implémentée
+import React, { useMemo } from "react";
 import { CarboneEmissionData } from "@/type/CarboneEmissionData.type";
 import { BLACK_COLOR } from "@/styles/constants";
 import {
   WORLD_EMISSIONS_END_DATE,
   WORLD_EMISSIONS_START_DATE,
 } from "@/constants/constants";
+import BaseLineChart from "@/components/charts/BaseLineChart";
 
 const LineChartYearsEmissionsByCountry = ({
   data,
@@ -17,61 +16,45 @@ const LineChartYearsEmissionsByCountry = ({
   selectedYear: number;
   handleSelectedYear: (year: number) => void;
 }) => {
-  return (
-    data && (
-      <LineChart
-        height={400}
-        onAxisClick={(_event, data) =>
-          handleSelectedYear(data?.axisValue as number)
-        }
-        margin={{ top: 0, left: 60, right: 0, bottom: 0 }}
-        skipAnimation
-        xAxis={[
-          {
-            dataKey: "year",
-            valueFormatter: (value) => value.toString(),
-            min: WORLD_EMISSIONS_START_DATE,
-            max: WORLD_EMISSIONS_END_DATE,
-          },
-        ]}
-        yAxis={[
-          {
-            max: 25,
-            label: "Co2 t. per capita ",
-          },
-        ]}
-        grid={{ vertical: true, horizontal: true }}
-        series={getBarChartYearsEmissionsByCountryDataSeries(
-          data,
-          selectedYear
-        )}
-        dataset={data}
-        sx={{
-          padding: 0,
-          ["& .MuiMarkElement-root"]: {
-            strokeWidth: 3,
-            stroke: BLACK_COLOR,
-            fill: BLACK_COLOR,
-          },
-          [`.${axisClasses.left} .${axisClasses.label}`]: {
-            transform: "translate(-12px, 0)",
-          },
-        }}
-        slotProps={{
-          legend: {
-            hidden: true,
-          },
+  const xAxis = [
+    {
+      dataKey: "year",
+      valueFormatter: (value: number) => value.toString(),
+      min: WORLD_EMISSIONS_START_DATE,
+      max: WORLD_EMISSIONS_END_DATE,
+    },
+  ];
 
-          popper: {
-            sx: {
-              ["& .MuiChartsTooltip-mark"]: {
-                display: "none",
-              },
-            },
-          },
-        }}
-      ></LineChart>
-    )
+  const yAxis = [
+    {
+      max: 25,
+      label: "Co2 t. per capita ",
+    },
+  ];
+
+  const series = useMemo(() => {
+    return [
+      {
+        dataKey: "carboneEmissionsPerCapita",
+        label: "Emissions de Co2",
+        valueFormatter: (value: number | null) => `${value}/t per capita`,
+        color: BLACK_COLOR,
+        showMark: ({ index }: { index: number }) =>
+          data[index].year === selectedYear,
+      },
+    ];
+  }, [data, selectedYear]);
+
+  return (
+    <BaseLineChart
+      dataset={data}
+      series={series}
+      onAxisClick={(_event, data) =>
+        handleSelectedYear(data?.axisValue as number)
+      }
+      xAxis={xAxis}
+      yAxis={yAxis}
+    />
   );
 };
 

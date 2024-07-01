@@ -7,7 +7,7 @@ import {
   Sphere,
   ZoomableGroup,
 } from "react-simple-maps";
-import TooltipMouseTracker from "../../../components/Map/TooltipMouseTracker/TooltipMouseTracker";
+import TooltipMouseTracker from "../../../components/maps/TooltipMouseTracker/TooltipMouseTracker";
 
 import { CARBONE_COLOR_CODE_NO_DATA } from "@/styles/constants";
 import { WorldDataFeature } from "@/type/WorldData.type";

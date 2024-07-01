@@ -1,7 +1,7 @@
 import { useAuth } from "@/AuthProvider";
-import SignInForm from "@/components/Auth/SignInForm";
-import { useModal } from "@/components/Layout/Layout";
-import { HEADER_HEIGHT, WHITE_COLOR } from "@/styles/constants";
+import SignInForm from "@/components/auth/SignInForm";
+import { useModal } from "@/components/layout/Layout";
+import { WHITE_COLOR } from "@/styles/constants";
 import { Box, Button, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 

@@ -1,8 +1,8 @@
 import { SnackbarProvider } from "notistack";
 import { Box, Container } from "@mui/material";
-import Header from "@/components/Header/Header";
+import Header from "@/components/headers/Header";
 import { ReactNode, createContext, useContext, useState } from "react";
-import Modal from "../Modal/Modal";
+import Modal from "../modal/Modal";
 
 interface LayoutProps {
   children: ReactNode;

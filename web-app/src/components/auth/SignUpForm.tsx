@@ -10,7 +10,7 @@ import {
   Typography,
 } from "@mui/material";
 import { SIGN_UP_FORM } from "@/api-gql/mutations/user.mutations";
-import { useModal } from "@/components/Layout/Layout";
+import { useModal } from "@/components/layout/Layout";
 import SignInForm from "./SignInForm";
 
 export default function SignUpForm() {

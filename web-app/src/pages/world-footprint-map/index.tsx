@@ -9,8 +9,8 @@ import {
 } from "@/constants/constants";
 import { WorldData, WorldDataFeature } from "@/type/WorldData.type";
 import WorldStatsDetailsTable from "./components/WorldStatsDetailsTable";
-import SelectWithNavigation from "@/components/Nav/SelectWithNavigtion";
-import LegendContainer from "@/components/Container/LegendContainer";
+import SelectWithNavigation from "@/components/navs/SelectWithNavigtion";
+import LegendContainer from "@/components/containers/LegendContainer";
 import { MAP_LEGEND_ELEMENTS } from "@/constants/charts.constants";
 
 const WorldFootprintMapPage = () => {

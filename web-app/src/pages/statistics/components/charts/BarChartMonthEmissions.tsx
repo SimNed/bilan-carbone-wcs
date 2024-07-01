@@ -1,10 +1,23 @@
-import { BarChartDayEmissionData, ChartData } from "@/type/ChartData.type";
+import { BarChartDayEmissionData } from "@/type/ChartData.type";
 
-import { BarChart, axisClasses } from "@mui/x-charts";
-import { useEffect, useState } from "react";
+import {
+  AxisConfig,
+  ChartsXAxisProps,
+  ChartsYAxisProps,
+  ScaleName,
+} from "@mui/x-charts";
+import { useEffect, useMemo, useState } from "react";
 
 import { SearchRidesQuery } from "@/gql/graphql";
-import { getBarChartMonthEmissionsDataSeries } from "@/utils/chart.utils";
+import BaseBarChart from "@/components/charts/BaseBarChart";
+import {
+  TRAIN_COLOR_CODE,
+  BUS_COLOR_CODE,
+  CAR_COLOR_CODE,
+  PLANE_COLOR_CODE,
+} from "@/styles/constants";
+import { getTotalEmissionsByDayAndTransportation } from "@/utils/ride.utils";
+import { MakeOptional } from "@mui/x-charts/internals";
 
 const BarChartMonthEmissions = ({
   data,
@@ -15,89 +28,106 @@ const BarChartMonthEmissions = ({
   selectedMonth: number;
   selectedYear: number;
 }) => {
-  const [numberOfDaysInMonth, setNumberOfDaysInMonth] = useState(0);
+  const numberOfDaysInMonth = useMemo(
+    () => new Date(selectedYear, selectedMonth + 1, 0).getDate(),
+    [selectedMonth, selectedYear]
+  );
 
-  const [barChartDataset, setBarCharDataset] = useState<
-    BarChartDayEmissionData[]
-  >([]);
-
-  useEffect(() => {
-    const numberOfDays = new Date(selectedYear, selectedMonth + 1, 0).getDate();
-    setNumberOfDaysInMonth(numberOfDays);
-  }, [selectedYear, selectedMonth]);
-
-  useEffect(() => {
-    setBarCharDataset(getEmissionsInMonth());
-  }, [numberOfDaysInMonth, selectedYear]);
-
-  function getEmissionsInMonth() {
-    if (!data) return [];
-
-    let chartSeriesData: BarChartDayEmissionData[] = [];
-
-    function getTotalEmissionsByDayAndTransportation(
-      day: number,
-      transportationLabel: string
-    ) {
-      if (!data) return 0;
-      return data.searchRides
-        .filter(
-          (ride) =>
-            ride.transportation.label === transportationLabel &&
-            new Date(ride.date).getDate() === day &&
-            new Date(ride.date).getMonth() === selectedMonth &&
-            new Date(ride.date).getFullYear() === selectedYear
-        )
-        .reduce(
-          (acc, ride) =>
-            acc + (ride.distance * ride.transportation.carboneEmission) / 1000,
-          0
-        );
-    }
+  const dataset = useMemo(() => {
+    if (!data) return;
+    let chartDataSet: BarChartDayEmissionData[] = [];
 
     for (let i = 1; i < numberOfDaysInMonth + 1; i++) {
-      chartSeriesData.push({
+      chartDataSet.push({
         day: i,
-        train: getTotalEmissionsByDayAndTransportation(i, "train"),
-        bus: getTotalEmissionsByDayAndTransportation(i, "bus"),
-        voiture: getTotalEmissionsByDayAndTransportation(i, "voiture"),
-        avion: getTotalEmissionsByDayAndTransportation(i, "avion"),
+        train: getTotalEmissionsByDayAndTransportation(
+          data,
+          "train",
+          i,
+          selectedMonth,
+          selectedYear
+        ),
+        bus: getTotalEmissionsByDayAndTransportation(
+          data,
+          "bus",
+          i,
+          selectedMonth,
+          selectedYear
+        ),
+        voiture: getTotalEmissionsByDayAndTransportation(
+          data,
+          "voiture",
+          i,
+          selectedMonth,
+          selectedYear
+        ),
+        avion: getTotalEmissionsByDayAndTransportation(
+          data,
+          "avion",
+          i,
+          selectedMonth,
+          selectedYear
+        ),
       });
     }
-    return chartSeriesData;
-  }
+    console.log("CHARTS DATASET!!", chartDataSet);
+
+    return chartDataSet;
+  }, [selectedMonth, selectedYear]);
+
+  const series = [
+    {
+      dataKey: "train",
+      label: "train",
+      color: TRAIN_COLOR_CODE,
+    },
+    {
+      dataKey: "bus",
+      label: "bus",
+      color: BUS_COLOR_CODE,
+    },
+    {
+      dataKey: "voiture",
+      label: "voiture",
+      color: CAR_COLOR_CODE,
+    },
+    {
+      dataKey: "avion",
+      label: "avion",
+      color: PLANE_COLOR_CODE,
+    },
+  ].map((serie) => ({
+    ...serie,
+    valueFormatter: (value: number | null) => `${value} kg`,
+  }));
+
+  const xAxis: MakeOptional<
+    AxisConfig<ScaleName, any, ChartsXAxisProps>,
+    "id"
+  >[] = [
+    {
+      dataKey: "day",
+      scaleType: "band",
+    },
+  ];
+
+  const yAxis: MakeOptional<
+    AxisConfig<ScaleName, any, ChartsYAxisProps>,
+    "id"
+  >[] = [
+    {
+      label: "kg / co2",
+      min: 0,
+      max: 1000,
+    },
+  ];
 
   return (
-    <BarChart
-      borderRadius={2}
-      height={500}
-      margin={{ left: 70 }}
-      dataset={barChartDataset}
-      xAxis={[
-        {
-          scaleType: "band",
-          dataKey: "day",
-        },
-      ]}
-      yAxis={[
-        {
-          label: "kg / co2",
-          min: 0,
-          max: 1000,
-          position: "left",
-        },
-      ]}
-      slotProps={{
-        legend: {
-          hidden: true,
-        },
-      }}
-      sx={{
-        [`.${axisClasses.left} .${axisClasses.label}`]: {
-          transform: "translate(-12px, 0)",
-        },
-      }}
-      series={getBarChartMonthEmissionsDataSeries()}
+    <BaseBarChart
+      dataset={dataset}
+      series={series}
+      xAxis={xAxis}
+      yAxis={yAxis}
     />
   );
 };

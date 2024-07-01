@@ -10,7 +10,6 @@ import {
 } from "@/constants/constants";
 import { SearchRidesQuery } from "@/gql/graphql";
 import {
-  BLACK_COLOR,
   BUS_COLOR_CODE,
   CARBONE_COLOR_CODE_1,
   CARBONE_COLOR_CODE_2,
@@ -25,8 +24,7 @@ import {
   PLANE_COLOR_CODE,
   TRAIN_COLOR_CODE,
 } from "@/styles/constants";
-import { CarboneEmissionData } from "@/type/CarboneEmissionData.type";
-import { checkRideMonthAndYearEquality } from "./date.utils";
+import { checkRideMonthAndYearEquality } from "./ride.utils";
 
 export function getPieChartRidesCounterSeriesData(data: SearchRidesQuery) {
   return [
@@ -162,55 +160,6 @@ export function getPieChartRidesEmissionsSeriesData(data: SearchRidesQuery) {
         ),
       label: "avion",
       color: PLANE_COLOR_CODE,
-    },
-  ];
-}
-
-export function getBarChartMonthEmissionsDataSeries() {
-  const valueFormatter = (value: number | null) => `${value} kg`;
-
-  return [
-    {
-      dataKey: "train",
-      label: "train",
-      valueFormatter,
-      color: TRAIN_COLOR_CODE,
-    },
-    {
-      dataKey: "bus",
-      label: "bus",
-      valueFormatter,
-      color: BUS_COLOR_CODE,
-    },
-    {
-      dataKey: "voiture",
-      label: "voiture",
-      valueFormatter,
-      color: CAR_COLOR_CODE,
-    },
-    {
-      dataKey: "avion",
-      label: "avion",
-      valueFormatter,
-      color: PLANE_COLOR_CODE,
-    },
-  ];
-}
-
-export function getBarChartYearsEmissionsByCountryDataSeries(
-  data: CarboneEmissionData[],
-  selectedYear: number
-) {
-  const valueFormatter = (value: number | null) => `${value}/t per capita`;
-
-  return [
-    {
-      dataKey: "carboneEmissionsPerCapita",
-      label: "Emissions de Co2",
-      valueFormatter,
-      color: BLACK_COLOR,
-      showMark: ({ index }: { index: number }) =>
-        data[index].year === selectedYear,
     },
   ];
 }

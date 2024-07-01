@@ -1,18 +1,12 @@
-import LegendContainer from "@/components/Container/LegendContainer";
+import LegendContainer from "@/components/containers/LegendContainer";
 import { STATISTICS_LEGEND_ELEMENTS } from "@/constants/charts.constants";
-import {
-  StatsDetailsTable,
-  StatsDetailsTableColumn,
-} from "@/styles/mui-classes";
 import {
   getPieChartRidesCounterSeriesData,
   getPieChartRidesEmissionsSeriesData,
-  getPieChartRidesCounterByMonthAndYearSeriesData,
 } from "@/utils/chart.utils";
 import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
 import { Typography } from "@mui/material";
 import { Stack } from "@mui/system";
-import BarChartMonthEmissions from "../charts/BarChartMonthEmissions";
 import PieChartCard from "../charts/PieChartCard";
 import { SearchRidesQuery } from "@/gql/graphql";
 import { useMemo } from "react";

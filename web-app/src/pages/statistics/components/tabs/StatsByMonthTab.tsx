@@ -1,5 +1,5 @@
-import LegendContainer from "@/components/Container/LegendContainer";
-import SelectWithNavigation from "@/components/Nav/SelectWithNavigtion";
+import LegendContainer from "@/components/containers/LegendContainer";
+import SelectWithNavigation from "@/components/navs/SelectWithNavigtion";
 import { STATISTICS_LEGEND_ELEMENTS } from "@/constants/charts.constants";
 import {
   StatsDetailsTable,
@@ -17,10 +17,8 @@ import BarChartMonthEmissions from "../charts/BarChartMonthEmissions";
 import PieChartCard from "../charts/PieChartCard";
 import { SearchRidesQuery } from "@/gql/graphql";
 import { useMemo, useState } from "react";
-import {
-  checkRideMonthAndYearEquality,
-  getMonthWithId,
-} from "@/utils/date.utils";
+import { getMonthWithId } from "@/utils/date.utils";
+import { checkRideMonthAndYearEquality } from "@/utils/ride.utils";
 
 const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
@@ -77,12 +75,7 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
           <Stack flex={1} direction="row" alignItems="center">
             <PieChartCard
               data={data}
-              pieSeriesData={
-                data ? getPieChartRidesCounterSeriesData(data) : []
-              }
-              total={10}
-              cardLabel="trajets totaux"
-              unit=""
+              seriesData={data ? getPieChartRidesCounterSeriesData(data) : []}
             />
             <Stack direction="column" alignItems="flex-start">
               <Typography variant="h2">{578}</Typography>
@@ -94,12 +87,7 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
           <Stack flex={1} direction="row" alignItems="center">
             <PieChartCard
               data={data}
-              pieSeriesData={
-                data ? getPieChartRidesEmissionsSeriesData(data) : []
-              }
-              total={8763}
-              cardLabel="émissions totales"
-              unit="kg"
+              seriesData={data ? getPieChartRidesEmissionsSeriesData(data) : []}
             />
             <Stack direction="column" alignItems="flex-start">
               <Typography variant="h2">
