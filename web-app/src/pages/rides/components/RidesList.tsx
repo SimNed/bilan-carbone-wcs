@@ -1,10 +1,10 @@
 import { SearchRidesQuery } from "@/gql/graphql";
 import { Button, Stack } from "@mui/material";
 import RideCard from "./RideCard";
-import { useModal } from "@/components/Layout/Layout";
 
 import { RideFilterData } from "@/type/RideFilterData.type";
 import RideFilters from "./RideFilters";
+import { useModal } from "@/components/layout/Layout";
 
 const RidesList = ({ data }: { data: SearchRidesQuery }) => {
   const { handleModalComponent, handleCloseModal } = useModal();

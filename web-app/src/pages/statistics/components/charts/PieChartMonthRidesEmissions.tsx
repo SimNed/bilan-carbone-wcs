@@ -1,17 +1,18 @@
 import BasePieChart from "@/components/charts/BasePieChart";
-import { SearchRidesQuery } from "@/gql/graphql";
+import { Ride } from "@/gql/graphql";
 import {
   BUS_COLOR_CODE,
   CAR_COLOR_CODE,
   PLANE_COLOR_CODE,
   TRAIN_COLOR_CODE,
 } from "@/styles/constants";
+import { getTotalEmissionsByTransportation } from "@/utils/ride.utils";
 
-const PieChartGlobalRidesEmissions = ({ data }: { data: SearchRidesQuery }) => {
+const PieChartMonthRidesEmissions = ({ data }: { data: Ride[] }) => {
   const series = [
     {
       id: 0,
-      value: data.searchRides
+      value: data
         .filter((ride) => ride.transportation.label.toLowerCase() === "voiture")
         .reduce(
           (accumulator, ride) =>
@@ -24,7 +25,7 @@ const PieChartGlobalRidesEmissions = ({ data }: { data: SearchRidesQuery }) => {
     },
     {
       id: 1,
-      value: data.searchRides
+      value: data
         .filter((ride) => ride.transportation.label.toLowerCase() === "bus")
         .reduce(
           (accumulator, ride) =>
@@ -37,20 +38,13 @@ const PieChartGlobalRidesEmissions = ({ data }: { data: SearchRidesQuery }) => {
     },
     {
       id: 2,
-      value: data.searchRides
-        .filter((ride) => ride.transportation.label.toLowerCase() === "train")
-        .reduce(
-          (accumulator, ride) =>
-            accumulator +
-            (ride.distance * ride.transportation.carboneEmission) / 1000,
-          0
-        ),
+      value: getTotalEmissionsByTransportation(data, "train"),
       label: "train",
       color: TRAIN_COLOR_CODE,
     },
     {
       id: 3,
-      value: data.searchRides
+      value: data
         .filter((ride) => ride.transportation.label.toLowerCase() === "avion")
         .reduce(
           (accumulator, ride) =>
@@ -63,7 +57,7 @@ const PieChartGlobalRidesEmissions = ({ data }: { data: SearchRidesQuery }) => {
     },
   ];
 
-  return <BasePieChart data={data} seriesData={series} />;
+  return <BasePieChart seriesData={series} />;
 };
 
-export default PieChartGlobalRidesEmissions;
+export default PieChartMonthRidesEmissions;

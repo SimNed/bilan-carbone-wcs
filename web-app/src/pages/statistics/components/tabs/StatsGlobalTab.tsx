@@ -7,8 +7,8 @@ import { Stack } from "@mui/system";
 
 import { SearchRidesQuery } from "@/gql/graphql";
 import { useMemo } from "react";
-import PieChartGlobalRideCounter from "../charts/PiChartGlobalRidesCounter";
-import PieChartGlobalRidesEmissions from "../charts/PieChartGlobalRidesEmissions";
+import PieChartRidesCounter from "../charts/PieChartRidesCounter";
+import PieChartRidesEmissions from "../charts/PieChartRidesEmissions";
 
 const StatsGlobalTab = ({ data }: { data: SearchRidesQuery }) => {
   const totalRides = useMemo(
@@ -37,7 +37,7 @@ const StatsGlobalTab = ({ data }: { data: SearchRidesQuery }) => {
           alignItems="flex-start"
         >
           <Stack flex={1} direction="row" alignItems="center">
-            <PieChartGlobalRideCounter data={data} />
+            <PieChartRidesCounter rides={data.searchRides} />
             <Stack direction="column" alignItems="flex-start">
               <Typography variant="h2">{totalRides}</Typography>
               <Typography paragraph textAlign="center">
@@ -46,8 +46,8 @@ const StatsGlobalTab = ({ data }: { data: SearchRidesQuery }) => {
             </Stack>
           </Stack>
           <Stack flex={1} direction="row" alignItems="center">
-            <PieChartGlobalRidesEmissions data={data} />
             <Stack direction="column" alignItems="flex-start">
+              <PieChartRidesEmissions rides={data.searchRides} />
               <Typography variant="h2">
                 {getNumberFormatedToTwoDecimals(totalCO2)}
               </Typography>

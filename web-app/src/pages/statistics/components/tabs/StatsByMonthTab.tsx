@@ -15,41 +15,31 @@ import { SearchRidesQuery } from "@/gql/graphql";
 import { useMemo, useState } from "react";
 import { getMonthWithId } from "@/utils/date.utils";
 import { checkRideMonthAndYearEquality } from "@/utils/ride.utils";
-import PieChartGlobalRidesCounter from "../charts/PiChartGlobalRidesCounter";
-import PieChartGlobalRidesEmissions from "../charts/PieChartGlobalRidesEmissions";
 import PieChartMonthRidesEmissions from "../charts/PieChartMonthRidesCounter";
+import PieChartRidesCounter from "../charts/PieChartRidesCounter";
+import PieChartRidesEmissions from "../charts/PieChartRidesEmissions";
 
 const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
 
-  const ridesByMonthAndYear = useMemo(
+  const rides = useMemo(
     () =>
-      data && data.searchRides.length > 0
-        ? data.searchRides.filter((ride) =>
-            checkRideMonthAndYearEquality(
-              ride.date,
-              selectedMonth,
-              selectedYear
-            )
-          ).length
-        : 0,
+      data.searchRides.filter((ride) =>
+        checkRideMonthAndYearEquality(ride.date, selectedMonth, selectedYear)
+      ),
     [data, selectedMonth, selectedYear]
   );
 
   const CO2ByMonthAndYear = useMemo(() => {
-    if (!data || data.searchRides.length === 0) return 0;
+    if (!data || data.searchRides.length === 0) return 10;
 
-    return data.searchRides
-      .filter((ride) =>
-        checkRideMonthAndYearEquality(ride.date, selectedMonth, selectedYear)
-      )
-      .reduce(
-        (accumulator, ride) =>
-          accumulator +
-          (ride.distance * ride.transportation.carboneEmission) / 1000,
-        0
-      );
+    return rides.reduce(
+      (accumulator, ride) =>
+        accumulator +
+        (ride.distance * ride.transportation.carboneEmission) / 1000,
+      0
+    );
   }, [data, selectedYear, selectedMonth]);
 
   const monthSelectItems = [];
@@ -72,7 +62,7 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
           alignItems="flex-start"
         >
           <Stack flex={1} direction="row" alignItems="center">
-            <PieChartGlobalRidesCounter data={data} />
+            <PieChartRidesCounter rides={rides} />
             <Stack direction="column" alignItems="flex-start">
               <Typography variant="h2">{578}</Typography>
               <Typography paragraph textAlign="center">
@@ -81,7 +71,7 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
             </Stack>
           </Stack>
           <Stack flex={1} direction="row" alignItems="center">
-            <PieChartGlobalRidesEmissions data={data} />
+            <PieChartRidesEmissions rides={rides} />
             <Stack direction="column" alignItems="flex-start">
               <Typography variant="h2">
                 {getNumberFormatedToTwoDecimals(10.789795)}
@@ -95,11 +85,7 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
         <LegendContainer elements={STATISTICS_LEGEND_ELEMENTS} gap={12} />
       </Stack>
 
-      <Stack
-        direction="column"
-        flex={3}
-        // sx={{ backgroundColor: "red" }}
-      >
+      <Stack direction="column" flex={3}>
         <Stack direction="row" flex={1}>
           <SelectWithNavigation
             isReversed
@@ -128,7 +114,6 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
           direction="row"
           justifyContent="space-around"
           alignItems="center"
-          // sx={{ backgroundColor: "blue" }}
         >
           <StatsDetailsTable>
             <StatsDetailsTableColumn>
@@ -141,7 +126,7 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
                   month={selectedMonth}
                   year={selectedYear}
                 />
-                <Typography variant="h5">{ridesByMonthAndYear}</Typography>
+                <Typography variant="h5">{rides.length}</Typography>
               </Stack>
             </StatsDetailsTableColumn>
             <StatsDetailsTableColumn>
@@ -149,11 +134,7 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
                 <Typography variant="h6">Co2 kg</Typography>
               </Stack>
               <Stack>
-                <PieChartMonthRidesEmissions
-                  data={data}
-                  month={selectedMonth}
-                  year={selectedYear}
-                />
+                <PieChartRidesEmissions rides={rides} />
                 <Typography variant="h5">
                   {getNumberFormatedToTwoDecimals(CO2ByMonthAndYear)}
                 </Typography>

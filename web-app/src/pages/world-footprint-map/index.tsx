@@ -1,17 +1,22 @@
 import WorldMap from "@/pages/world-footprint-map/components/WorldMap";
 import LineChartsYearsEmissionsByCountry from "./components/charts/LineChartYearsEmissionsByCountry";
-import { CarboneEmissionData } from "@/type/CarboneEmissionData.type";
+
 import { useEffect, useMemo, useState } from "react";
 import { Box, Stack } from "@mui/material";
 import {
   WORLD_EMISSIONS_END_DATE,
   WORLD_EMISSIONS_START_DATE,
 } from "@/constants/constants";
-import { WorldData, WorldDataFeature } from "@/type/WorldData.type";
-import WorldStatsDetailsTable from "./components/WorldStatsDetailsTable";
+import {
+  CarboneEmission,
+  WorldData,
+  WorldDataFeature,
+} from "@/type/WorldData.type";
 import SelectWithNavigation from "@/components/navs/SelectWithNavigtion";
 import LegendContainer from "@/components/containers/LegendContainer";
 import { MAP_LEGEND_ELEMENTS } from "@/constants/charts.constants";
+import DataComparator from "@/components/charts/DataComparator/DataComparator";
+import Loader from "@/components/loader/Loader";
 
 const WorldFootprintMapPage = () => {
   const [selectedCountryCode, setSelectedCountryCode] = useState("");
@@ -22,7 +27,7 @@ const WorldFootprintMapPage = () => {
   >([]);
 
   const [selectedCarboneEmissions, setSelectedCarboneEmissions] = useState<
-    CarboneEmissionData[] | []
+    CarboneEmission[] | []
   >([]);
 
   const fetchWorldDataFeatures = useMemo(
@@ -56,6 +61,15 @@ const WorldFootprintMapPage = () => {
     if (!carboneEmissions) return;
     setSelectedCarboneEmissions(carboneEmissions);
   }, [selectedCountryCode, worldDataFeatures]);
+
+  useEffect(
+    () =>
+      console.log(
+        "TEST START INDEX",
+        selectedCarboneEmissions.findIndex((data) => data.year === selectedYear)
+      ),
+    [selectedCarboneEmissions]
+  );
 
   return worldDataFeatures && selectedCountryCode && selectedYear ? (
     <Stack direction="column" height="100%" p={4}>
@@ -97,10 +111,15 @@ const WorldFootprintMapPage = () => {
             />
           </Stack>
           <Stack flex={1} justifyContent="center" alignItems="center">
-            {selectedCarboneEmissions && (
-              <WorldStatsDetailsTable
-                carboneEmissions={selectedCarboneEmissions}
-                selectedYear={selectedYear}
+            {selectedCarboneEmissions.length > 0 && (
+              <DataComparator
+                data={selectedCarboneEmissions}
+                startIndex={selectedCarboneEmissions.findIndex(
+                  (data) => data.year === selectedYear
+                )}
+                comparatedProperty={"carboneEmissionsPerCapita"}
+                labelProperty={"year"}
+                breakpoints={[-1, 1]}
               />
             )}
           </Stack>
@@ -121,7 +140,7 @@ const WorldFootprintMapPage = () => {
       </Stack>
     </Stack>
   ) : (
-    <p>Loading</p>
+    <Loader />
   );
 };
 

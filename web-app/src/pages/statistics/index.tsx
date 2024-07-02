@@ -1,33 +1,17 @@
 import { GET_USER_PROFIL } from "@/api-gql/queries/user.queries";
-import SelectWithNavigation from "@/components/Nav/SelectWithNavigtion";
+
 import { GetUserProfileQuery, SearchRidesQuery } from "@/gql/graphql";
-import {
-  checkRideMonthAndYearEquality,
-  getMonthWithId,
-} from "@/utils/date.utils";
+
 import { useQuery } from "@apollo/client";
 import { Stack, Tab, Tabs, Typography } from "@mui/material";
 import { SyntheticEvent, useEffect, useMemo, useState } from "react";
-import BarChartMonthEmissions from "./components/charts/BarChartMonthEmissions";
+
 import { SEARCH_RIDES } from "@/api-gql/queries/ride.queries";
 
-import {
-  getPieChartRidesCounterByMonthAndYearSeriesData,
-  getPieChartRidesCounterSeriesData,
-  getPieChartRidesEmissionsSeriesData,
-} from "@/utils/chart.utils";
-import PieChartCard from "./components/charts/BasePieChart";
-import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
-import { capitalizeFirstLetter } from "@/utils/typo.utils";
-import LegendContainer from "@/components/Container/LegendContainer";
-import { STATISTICS_LEGEND_ELEMENTS } from "@/constants/charts.constants";
-import {
-  StatsDetailsTable,
-  StatsDetailsTableColumn,
-} from "@/styles/mui-classes";
-import TabPanel from "../profil/components/DashboardTabs/TabPanel";
 import StatsGlobalTab from "./components/tabs/StatsGlobalTab";
 import StatsByMonthTab from "./components/tabs/StatsByMonthTab";
+import TabNav from "@/components/navs/TabNav";
+import Loader from "@/components/loader/Loader";
 
 const StatisticsPage = () => {
   const { data: userData } = useQuery<GetUserProfileQuery>(GET_USER_PROFIL);
@@ -43,7 +27,7 @@ const StatisticsPage = () => {
     refetch();
   }, [refetch]);
 
-  return (
+  return !loading ? (
     <Stack direction="column" sx={{ width: "100%", height: "100%" }}>
       <Stack direction="row" alignItems="center" px={6} spacing={6}>
         <Typography variant="h5">
@@ -67,16 +51,18 @@ const StatisticsPage = () => {
         </Tabs>
       </Stack>
 
-      <TabPanel value={tabIndex} index={0}>
+      <TabNav value={tabIndex} index={0}>
         {data && <StatsGlobalTab data={data} />}
-      </TabPanel>
-      <TabPanel value={tabIndex} index={1}>
+      </TabNav>
+      <TabNav value={tabIndex} index={1}>
         {data && <StatsByMonthTab data={data} />}
-      </TabPanel>
-      <TabPanel value={tabIndex} index={2}>
+      </TabNav>
+      <TabNav value={tabIndex} index={2}>
         Content for the third tab
-      </TabPanel>
+      </TabNav>
     </Stack>
+  ) : (
+    <Loader />
   );
 };
 

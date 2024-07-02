@@ -1,5 +1,5 @@
 import React, { useMemo } from "react";
-import { CarboneEmissionData } from "@/type/CarboneEmissionData.type";
+import { CarboneEmissionData } from "@/type/CarboneEmission.type";
 import { BLACK_COLOR } from "@/styles/constants";
 import {
   WORLD_EMISSIONS_END_DATE,

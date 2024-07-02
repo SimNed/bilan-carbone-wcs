@@ -1,9 +1,8 @@
 import { BASE_BORDER } from "@/styles/constants";
-import { Stack, Typography } from "@mui/material";
+import { Stack } from "@mui/material";
 import { styled } from "@mui/system";
-import { ReactNode } from "react";
 
-const StatsDetailsTable = styled(Stack)(({ theme }) => ({
+export const StatsDetailsTable = styled(Stack)(({ theme }) => ({
   flex: 1,
   width: "90%",
   height: "100%",
@@ -22,7 +21,7 @@ const StatsDetailsTable = styled(Stack)(({ theme }) => ({
   },
 }));
 
-const StatsDetailsTableColumn = styled(Stack)(({ theme }) => ({
+export const StatsDetailsTableColumn = styled(Stack)(({ theme }) => ({
   flex: 1,
   height: "100%",
   flexDirection: "column",
@@ -53,26 +52,3 @@ const StatsDetailsTableColumn = styled(Stack)(({ theme }) => ({
     fontSize: "250%",
   },
 }));
-
-const StatsDetailsContainer = ({
-  elements,
-}: {
-  elements: { label: ReactNode | string | number; value: string | number }[];
-}) => {
-  return (
-    <StatsDetailsTable>
-      {elements.map((element) => (
-        <StatsDetailsTableColumn>
-          <Stack>
-            <Typography variant="h6">{element.label}</Typography>
-          </Stack>
-          <Stack>
-            <Typography variant="h5">{element.value}</Typography>
-          </Stack>
-        </StatsDetailsTableColumn>
-      ))}
-    </StatsDetailsTable>
-  );
-};
-
-export default StatsDetailsContainer;

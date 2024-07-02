@@ -1,4 +1,4 @@
-import { BarChartDayEmissionData } from "@/type/ChartData.type";
+import { BarChartDayEmissionData } from "@/type/ChartDatas.type";
 
 import {
   AxisConfig,
@@ -6,7 +6,7 @@ import {
   ChartsYAxisProps,
   ScaleName,
 } from "@mui/x-charts";
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 
 import { SearchRidesQuery } from "@/gql/graphql";
 import BaseBarChart from "@/components/charts/BaseBarChart";
@@ -70,7 +70,6 @@ const BarChartMonthEmissions = ({
         ),
       });
     }
-    console.log("CHARTS DATASET!!", chartDataSet);
 
     return chartDataSet;
   }, [selectedMonth, selectedYear]);

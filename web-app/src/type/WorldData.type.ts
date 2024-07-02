@@ -14,3 +14,8 @@ export type WorldDataFeature = {
   };
   geometry: { type: "Polygon"; coordinates: [string, string][] };
 };
+
+export type CarboneEmission = {
+  year: number;
+  carboneEmissionsPerCapita: number;
+};

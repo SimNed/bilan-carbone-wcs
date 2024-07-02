@@ -3,7 +3,7 @@ import DirectionsCarFilledIcon from "@mui/icons-material/DirectionsCarFilled";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import DirectionsRailwayIcon from "@mui/icons-material/DirectionsRailway";
 import FlightIcon from "@mui/icons-material/Flight";
-import { useModal } from "@/components/Layout/Layout";
+import { useModal } from "@/components/layout/Layout";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import DeleteRide from "./DeleteRide";

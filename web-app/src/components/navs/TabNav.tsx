@@ -1,7 +1,6 @@
-import { HEADER_HEIGHT } from "@/styles/constants";
 import { Box } from "@mui/material";
 
-const TabPanel = (props: {
+const TabNav = (props: {
   children: React.ReactNode;
   value: number;
   index: number;
@@ -10,7 +9,6 @@ const TabPanel = (props: {
 
   return (
     <Box
-      minHeight={`calc(100% - ${HEADER_HEIGHT} - ${HEADER_HEIGHT})`}
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
@@ -21,4 +19,4 @@ const TabPanel = (props: {
   );
 };
 
-export default TabPanel;
+export default TabNav;

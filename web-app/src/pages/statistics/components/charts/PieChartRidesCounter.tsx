@@ -1,17 +1,17 @@
 import BasePieChart from "@/components/charts/BasePieChart";
-import { SearchRidesQuery } from "@/gql/graphql";
 import {
   BUS_COLOR_CODE,
   CAR_COLOR_CODE,
   PLANE_COLOR_CODE,
   TRAIN_COLOR_CODE,
 } from "@/styles/constants";
+import { RideData } from "@/type/RideData.type";
 
-const PieChartGlobalRideCounter = ({ data }: { data: SearchRidesQuery }) => {
+const PieChartRidesCounter = ({ rides }: { rides: RideData[] | [] }) => {
   const series = [
     {
       id: 0,
-      value: data.searchRides.filter(
+      value: rides.filter(
         (ride) => ride.transportation.label.toLowerCase() === "voiture"
       ).length,
       label: "voiture",
@@ -19,7 +19,7 @@ const PieChartGlobalRideCounter = ({ data }: { data: SearchRidesQuery }) => {
     },
     {
       id: 1,
-      value: data.searchRides.filter(
+      value: rides.filter(
         (ride) => ride.transportation.label.toLowerCase() === "bus"
       ).length,
       label: "bus",
@@ -27,7 +27,7 @@ const PieChartGlobalRideCounter = ({ data }: { data: SearchRidesQuery }) => {
     },
     {
       id: 2,
-      value: data.searchRides.filter(
+      value: rides.filter(
         (ride) => ride.transportation.label.toLowerCase() === "train"
       ).length,
       label: "train",
@@ -35,7 +35,7 @@ const PieChartGlobalRideCounter = ({ data }: { data: SearchRidesQuery }) => {
     },
     {
       id: 3,
-      value: data.searchRides.filter(
+      value: rides.filter(
         (ride) => ride.transportation.label.toLowerCase() === "avion"
       ).length,
       label: "avion",
@@ -43,7 +43,7 @@ const PieChartGlobalRideCounter = ({ data }: { data: SearchRidesQuery }) => {
     },
   ];
 
-  return <BasePieChart data={data} seriesData={series} />;
+  return <BasePieChart seriesData={series} />;
 };
 
-export default PieChartGlobalRideCounter;
+export default PieChartRidesCounter;
