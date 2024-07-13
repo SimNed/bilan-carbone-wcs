@@ -3,7 +3,7 @@ import SelectWithNavigation from "@/components/navs/SelectWithNavigtion";
 import { STATISTICS_LEGEND_ELEMENTS } from "@/constants/charts.constants";
 
 import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
-import { Typography } from "@mui/material";
+import { Grid, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import BarChartMonthEmissions from "../charts/BarChartMonthEmissions";
 
@@ -15,8 +15,14 @@ import PieChartRidesCounter from "../charts/PieChartRidesCounter";
 import PieChartRidesEmissions from "../charts/PieChartRidesEmissions";
 
 import RidesCounterDateComparator from "../RidesCounterDateComparator";
-import { BLACK_COLOR, GRAY_COLOR, PRIMARY_COLOR } from "@/styles/constants";
+import {
+  BLACK_COLOR,
+  GRAY_COLOR,
+  PRIMARY_COLOR,
+  WHITE_COLOR,
+} from "@/styles/constants";
 import { capitalizeFirstLetter } from "@/utils/typo.utils";
+import StatCard from "../StatCard";
 
 const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
@@ -52,101 +58,101 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
   }
 
   return (
-    <Stack direction="row" flex={1} height="100%">
-      <Stack direction="column" flex={2} p={8} justifyContent="flex-start">
-        <Stack>
-          <Typography variant="h2">{`${capitalizeFirstLetter(
-            getMonthWithId(selectedMonth)
-          )} ${selectedYear}`}</Typography>
-        </Stack>
-        <Stack
-          flex={1}
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-        >
-          <Stack flex={1} direction="row" alignItems="center">
-            <PieChartRidesCounter rides={rides} />
-            <Stack
-              direction="column"
-              alignItems="flex-start"
-              color={rides.length > 0 ? BLACK_COLOR : GRAY_COLOR}
-            >
-              <Typography variant="h3" color="inherit">
-                {rides.length}
-              </Typography>
-              <Typography paragraph textAlign="center" color="inherit">
-                TRAJETS
-              </Typography>
-            </Stack>
-          </Stack>
-          <Stack flex={1} direction="row" alignItems="center">
-            <PieChartRidesEmissions rides={rides} />
-            <Stack
-              direction="column"
-              alignItems="flex-start"
-              color={rides.length > 0 ? BLACK_COLOR : GRAY_COLOR}
-            >
-              <Typography
-                variant="h3"
-                color="inherit"
-                sx={{ transition: "color ease .2s" }}
-              >
-                {getNumberFormatedToTwoDecimals(CO2ByMonthAndYear)}
-              </Typography>
-              <Typography
-                paragraph
-                textAlign="center"
-                color="inherit"
-                sx={{ transition: "color ease .2s" }}
-              >
-                Co2 EN t
-              </Typography>
-            </Stack>
-          </Stack>
-        </Stack>
-        <LegendContainer elements={STATISTICS_LEGEND_ELEMENTS} gap={12} />
-      </Stack>
+    <Grid
+      container
+      height="100%"
+      alignItems={{ md: "center", xs: "flex-start" }}
+      sx={{ backgroundColor: WHITE_COLOR }}
+    >
+      <Grid
+        container
+        item
+        xs={12}
+        position={{ xs: "sticky", md: "relative" }}
+        top={0}
+        sx={{ backgroundColor: WHITE_COLOR }}
+        zIndex={10}
+      >
+        <Grid item lg={4} xs={12} justifyContent="center" alignItems="center">
+          <Grid item xs={12} justifyContent="center" alignItems="center">
+            <Typography
+              variant="h2"
+              fontSize={{ xs: "2rem", md: "3rem", lg: "4rem" }}
+              textAlign="center"
+            >{`${capitalizeFirstLetter(
+              getMonthWithId(selectedMonth)
+            )} ${selectedYear}`}</Typography>
+          </Grid>
+          <Grid
+            item
+            container
+            py={2}
+            xs={12}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <SelectWithNavigation
+              isRightButtonEnable={
+                new Date(selectedYear, selectedMonth + 1) <= new Date()
+              }
+              handleSelectChange={(value) => setSelectedMonth(value as number)}
+              selectItems={monthSelectItems}
+              selectValue={{ label: selectedMonth, value: selectedMonth }}
+            />
 
-      <Stack direction="column" flex={3}>
-        <Stack direction="row" flex={1}>
-          <SelectWithNavigation
-            isReversed
-            handleSelectChange={(value) => setSelectedYear(value as number)}
-            selectItems={yearSelectItems}
-            selectValue={{ label: selectedYear, value: selectedYear }}
+            <SelectWithNavigation
+              isReversed
+              handleSelectChange={(value) => setSelectedYear(value as number)}
+              selectItems={yearSelectItems}
+              selectValue={{ label: selectedYear, value: selectedYear }}
+            />
+          </Grid>
+        </Grid>
+        <Grid container item lg={8} xs={12} alignItems="center">
+          <LegendContainer elements={STATISTICS_LEGEND_ELEMENTS} gap={12} />
+        </Grid>
+      </Grid>
+
+      <Grid
+        container
+        item
+        lg={4}
+        xs={12}
+        justifyContent={{ lg: "center", xs: "flex-start" }}
+        alignItems="center"
+      >
+        <Grid item lg={12} xs={6} justifyContent="center">
+          <StatCard
+            value={rides.length}
+            label="trajets"
+            pieChart={<PieChartRidesCounter rides={rides} />}
           />
-          <SelectWithNavigation
-            isRightButtonEnable={
-              new Date(selectedYear, selectedMonth + 1) <= new Date()
-            }
-            handleSelectChange={(value) => setSelectedMonth(value as number)}
-            selectItems={monthSelectItems}
-            selectValue={{ label: selectedMonth, value: selectedMonth }}
+        </Grid>
+        <Grid item lg={12} xs={6}>
+          <StatCard
+            value={getNumberFormatedToTwoDecimals(CO2ByMonthAndYear)}
+            label="co2 en t"
+            pieChart={<PieChartRidesEmissions rides={rides} />}
           />
-        </Stack>
-        <Stack flex={4}>
-          <BarChartMonthEmissions
-            data={data}
-            selectedMonth={selectedMonth}
-            selectedYear={selectedYear}
-          />
-        </Stack>
-        <Stack
-          flex={2}
-          direction="row"
-          justifyContent="space-around"
-          alignItems="center"
-        >
-          <RidesCounterDateComparator
-            data={data}
-            currentRides={rides}
-            month={selectedMonth}
-            year={selectedYear}
-          />
-        </Stack>
-      </Stack>
-    </Stack>
+        </Grid>
+      </Grid>
+      <Grid item lg={8} xs={12}>
+        <BarChartMonthEmissions
+          data={data}
+          selectedMonth={selectedMonth}
+          selectedYear={selectedYear}
+        />
+      </Grid>
+
+      <Grid item md={6} xs={12}>
+        <RidesCounterDateComparator
+          data={data}
+          currentRides={rides}
+          month={selectedMonth}
+          year={selectedYear}
+        />
+      </Grid>
+    </Grid>
   );
 };
 

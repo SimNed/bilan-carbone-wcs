@@ -4,7 +4,7 @@ import { Stack } from "@mui/material";
 
 export default function CircularIndeterminate() {
   return (
-    <Stack flex={1} height="100%">
+    <Stack flex={1} height="100%" alignItems="center">
       <CircularProgress />
     </Stack>
   );

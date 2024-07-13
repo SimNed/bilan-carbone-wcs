@@ -13,7 +13,6 @@ const TabNav = (props: {
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      height="100%"
     >
       {value === index && <Box height="100%">{children}</Box>}
     </Box>

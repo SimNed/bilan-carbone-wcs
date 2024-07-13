@@ -15,6 +15,7 @@ import HeaderNav from "./HeaderNav";
 
 import ProfileMenu from "./ProfileMenu";
 import { AppBarLink } from "@/styles/mui-classes";
+import { DEFAULT_HEADER_HEIGHT } from "@/styles/constants";
 
 const Header = () => {
   const [profileAnchorEl, setProfileAnchorEl] = useState<null | HTMLElement>(
@@ -44,23 +45,19 @@ const Header = () => {
 
   return (
     <AppBar position="fixed">
-      <Toolbar>
-        <Box
-          sx={{
-            display: {
-              xs: "none",
-              md: "flex",
-              justifyContent: "center",
-            },
-            padding: 0,
-            height: "100%",
-            gap: 6,
-          }}
+      <Toolbar disableGutters>
+        <Stack
+          height={DEFAULT_HEADER_HEIGHT}
+          display={{ xs: "none", md: "flex" }}
+          flexDirection="row"
+          flexGrow={1}
+          justifyContent="center"
+          alignItems="center"
         >
           <AppBarLink href="./">BC</AppBarLink>
           <AppBarLink href="./world-footprint-map">Données monde</AppBarLink>
           <AppBarLink href="./">Données france</AppBarLink>
-        </Box>
+        </Stack>
 
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
           <IconButton
@@ -75,58 +72,50 @@ const Header = () => {
           </IconButton>
         </Box>
 
-        <Box sx={{ flexGrow: 1 }} />
+        <Box sx={{ flexGrow: 4 }} />
 
-        <Box sx={{ display: { xs: "none", md: "flex", gap: 2 } }}>
-          {user ? (
-            <>
-              <Box
-                sx={{
-                  display: {
-                    xs: "none",
-                    md: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                  },
-                  padding: 0,
-                  height: "100%",
-                  gap: 6,
-                }}
-              >
-                <AppBarLink href="./statistics">Statistiques</AppBarLink>
-                <AppBarLink href="./rides">Trajets</AppBarLink>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls="profile-menu"
-                  aria-haspopup="true"
-                  onClick={handleMenuOpen(setProfileAnchorEl)}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
-              </Box>
-            </>
-          ) : (
-            <>
-              <Button
-                color="primary"
-                variant="outlined"
-                onClick={() => handleModalComponent(<SignInForm />)}
-              >
-                Sign In
-              </Button>
-              <Button
-                color="primary"
-                variant="contained"
-                onClick={() => handleModalComponent(<SignUpForm />)}
-              >
-                Sign Up
-              </Button>
-            </>
-          )}
-        </Box>
+        {user ? (
+          <Stack
+            height={DEFAULT_HEADER_HEIGHT}
+            display={{ xs: "none", md: "flex" }}
+            flexDirection="row"
+            flexGrow={1}
+            justifyContent="center"
+            alignItems="center"
+          >
+            <AppBarLink href="./statistics">Statistiques</AppBarLink>
+            <AppBarLink href="./rides">Trajets</AppBarLink>
+
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls="profile-menu"
+              aria-haspopup="true"
+              color="inherit"
+              onClick={handleMenuOpen(setProfileAnchorEl)}
+            >
+              <AccountCircle />
+            </IconButton>
+          </Stack>
+        ) : (
+          <>
+            <Button
+              color="primary"
+              variant="outlined"
+              onClick={() => handleModalComponent(<SignInForm />)}
+            >
+              Sign In
+            </Button>
+            <Button
+              color="primary"
+              variant="contained"
+              onClick={() => handleModalComponent(<SignUpForm />)}
+            >
+              Sign Up
+            </Button>
+          </>
+        )}
 
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
           <IconButton

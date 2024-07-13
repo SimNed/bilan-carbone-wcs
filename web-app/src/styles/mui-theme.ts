@@ -3,6 +3,7 @@ import {
   BASE_BORDER,
   BASE_FONT_FAMILY,
   BLACK_COLOR,
+  DEFAULT_HEADER_HEIGHT,
   ERROR_COLOR,
   INFO_COLOR,
   SECONDARY_COLOR,
@@ -55,16 +56,35 @@ const theme = createTheme({
         },
       },
     },
+    MuiIconButton: {
+      styleOverrides: {
+        root: {
+          margin: "0 12px",
+        },
+      },
+    },
     MuiAppBar: {
       styleOverrides: {
         root: {
-          width: "100%",
+          // width: "100%",
+          minHeight: DEFAULT_HEADER_HEIGHT,
+          maxHeight: DEFAULT_HEADER_HEIGHT,
+          height: DEFAULT_HEADER_HEIGHT,
           display: "flex",
           justifyContent: "center",
           aligntItems: "center",
           backgroundColor: WHITE_COLOR,
           color: BLACK_COLOR,
           boxShadow: "none",
+        },
+      },
+    },
+    MuiToolbar: {
+      styleOverrides: {
+        root: {
+          minHeight: "12px",
+          maxHeight: DEFAULT_HEADER_HEIGHT,
+          height: DEFAULT_HEADER_HEIGHT,
         },
       },
     },

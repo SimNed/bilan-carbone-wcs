@@ -42,3 +42,7 @@ export const TITLE_FONT_FAMILY = "Nunito Sans";
 // Border
 
 export const BASE_BORDER = `1px solid ${GRAY_COLOR}`;
+
+// Sizes
+
+export const DEFAULT_HEADER_HEIGHT = "56px";

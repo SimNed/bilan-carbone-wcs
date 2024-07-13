@@ -12,6 +12,7 @@ import StatsGlobalTab from "./components/tabs/StatsGlobalTab";
 import StatsByMonthTab from "./components/tabs/StatsByMonthTab";
 import TabNav from "@/components/navs/TabNav";
 import Loader from "@/components/loader/Loader";
+import { WHITE_COLOR } from "@/styles/constants";
 
 const StatisticsPage = () => {
   const { data: userData } = useQuery<GetUserProfileQuery>(GET_USER_PROFIL);
@@ -28,8 +29,19 @@ const StatisticsPage = () => {
   }, [refetch]);
 
   return !loading ? (
-    <Stack direction="column" height="100%">
-      <Stack direction="row" alignItems="center" px={6} spacing={6}>
+    <Stack
+      direction="column"
+      width="100%"
+      height="100%"
+      sx={{ backgroundColor: WHITE_COLOR }}
+    >
+      <Stack
+        direction="row"
+        alignItems="center"
+        px={6}
+        spacing={6}
+        position="sticky"
+      >
         <Typography variant="h5">
           {`${userData?.getUserProfile.firstName} ${userData?.getUserProfile.lastName}`}
         </Typography>
