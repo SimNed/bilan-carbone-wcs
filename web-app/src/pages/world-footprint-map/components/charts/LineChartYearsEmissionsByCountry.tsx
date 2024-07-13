@@ -1,18 +1,19 @@
 import React, { useMemo } from "react";
-import { CarboneEmissionData } from "@/type/CarboneEmission.type";
+
 import { BLACK_COLOR } from "@/styles/constants";
 import {
   WORLD_EMISSIONS_END_DATE,
   WORLD_EMISSIONS_START_DATE,
 } from "@/constants/constants";
 import BaseLineChart from "@/components/charts/BaseLineChart";
+import { CarboneEmission } from "@/type/WorldData.type";
 
 const LineChartYearsEmissionsByCountry = ({
   data,
   selectedYear,
   handleSelectedYear,
 }: {
-  data: CarboneEmissionData[] | [];
+  data: CarboneEmission[] | [];
   selectedYear: number;
   handleSelectedYear: (year: number) => void;
 }) => {

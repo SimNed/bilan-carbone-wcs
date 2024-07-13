@@ -28,7 +28,7 @@ const StatisticsPage = () => {
   }, [refetch]);
 
   return !loading ? (
-    <Stack direction="column" sx={{ width: "100%", height: "100%" }}>
+    <Stack direction="column" height="100%">
       <Stack direction="row" alignItems="center" px={6} spacing={6}>
         <Typography variant="h5">
           {`${userData?.getUserProfile.firstName} ${userData?.getUserProfile.lastName}`}

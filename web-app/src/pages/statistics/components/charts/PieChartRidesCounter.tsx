@@ -7,7 +7,15 @@ import {
 } from "@/styles/constants";
 import { RideData } from "@/type/RideData.type";
 
-const PieChartRidesCounter = ({ rides }: { rides: RideData[] | [] }) => {
+const PieChartRidesCounter = ({
+  rides,
+  width,
+  height,
+}: {
+  rides: RideData[] | [];
+  width?: number;
+  height?: number;
+}) => {
   const series = [
     {
       id: 0,
@@ -43,7 +51,7 @@ const PieChartRidesCounter = ({ rides }: { rides: RideData[] | [] }) => {
     },
   ];
 
-  return <BasePieChart seriesData={series} />;
+  return <BasePieChart seriesData={series} width={width} height={height} />;
 };
 
 export default PieChartRidesCounter;

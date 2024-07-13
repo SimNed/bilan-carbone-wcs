@@ -1,5 +1,5 @@
-export function getPercentage(value: number, valueComparator: number) {
-  const percentage = ((value - valueComparator) / valueComparator) * 100;
+export function getPercentage(value: number, comparatedValue: number) {
+  const percentage = ((comparatedValue - value) / value) * 100;
   return getNumberFormatedToTwoDecimals(percentage);
 }
 

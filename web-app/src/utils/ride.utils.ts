@@ -58,3 +58,23 @@ export function getTotalEmissionsByDayAndTransportation(
       0
     );
 }
+
+export function getTotalEmissionsByMonthAndTransportation(
+  data: SearchRidesQuery,
+  transportationLabel: string,
+  month: number,
+  year: number
+) {
+  if (!data) return 0;
+  return data.searchRides
+    .filter(
+      (ride) =>
+        ride.transportation.label === transportationLabel &&
+        checkRideMonthAndYearEquality(ride.date, month, year)
+    )
+    .reduce(
+      (acc, ride) =>
+        acc + (ride.distance * ride.transportation.carboneEmission) / 1000,
+      0
+    );
+}

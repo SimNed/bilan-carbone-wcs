@@ -53,7 +53,6 @@ const BaseLineChart = ({
         legend: {
           hidden: true,
         },
-
         popper: {
           sx: {
             ["& .MuiChartsTooltip-mark"]: {

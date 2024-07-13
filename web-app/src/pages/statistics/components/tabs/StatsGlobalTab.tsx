@@ -39,7 +39,7 @@ const StatsGlobalTab = ({ data }: { data: SearchRidesQuery }) => {
           <Stack flex={1} direction="row" alignItems="center">
             <PieChartRidesCounter rides={data.searchRides} />
             <Stack direction="column" alignItems="flex-start">
-              <Typography variant="h2">{totalRides}</Typography>
+              <Typography variant="h3">{totalRides}</Typography>
               <Typography paragraph textAlign="center">
                 TRAJETS
               </Typography>
@@ -48,7 +48,7 @@ const StatsGlobalTab = ({ data }: { data: SearchRidesQuery }) => {
           <Stack flex={1} direction="row" alignItems="center">
             <Stack direction="column" alignItems="flex-start">
               <PieChartRidesEmissions rides={data.searchRides} />
-              <Typography variant="h2">
+              <Typography variant="h3">
                 {getNumberFormatedToTwoDecimals(totalCO2)}
               </Typography>
               <Typography paragraph textAlign="center">

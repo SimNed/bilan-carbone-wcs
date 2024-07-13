@@ -2,7 +2,7 @@ import { BASE_BORDER } from "@/styles/constants";
 import { Stack } from "@mui/material";
 import { styled } from "@mui/system";
 
-export const StatsDetailsTable = styled(Stack)(({ theme }) => ({
+export const ComparatorTable = styled(Stack)(({ theme }) => ({
   flex: 1,
   width: "90%",
   height: "100%",
@@ -21,7 +21,7 @@ export const StatsDetailsTable = styled(Stack)(({ theme }) => ({
   },
 }));
 
-export const StatsDetailsTableColumn = styled(Stack)(({ theme }) => ({
+export const ComparatorTableColumn = styled(Stack)(({ theme }) => ({
   flex: 1,
   height: "100%",
   flexDirection: "column",
@@ -44,7 +44,7 @@ export const StatsDetailsTableColumn = styled(Stack)(({ theme }) => ({
     },
   },
   "& > .MuiStack-root:last-child": {
-    flex: 1,
+    flex: 3,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",

@@ -15,8 +15,9 @@ import {
 import SelectWithNavigation from "@/components/navs/SelectWithNavigtion";
 import LegendContainer from "@/components/containers/LegendContainer";
 import { MAP_LEGEND_ELEMENTS } from "@/constants/charts.constants";
-import DataComparator from "@/components/charts/DataComparator/DataComparator";
+
 import Loader from "@/components/loader/Loader";
+import Comparator from "@/components/charts/Comparator/Comparator";
 
 const WorldFootprintMapPage = () => {
   const [selectedCountryCode, setSelectedCountryCode] = useState("");
@@ -62,15 +63,6 @@ const WorldFootprintMapPage = () => {
     setSelectedCarboneEmissions(carboneEmissions);
   }, [selectedCountryCode, worldDataFeatures]);
 
-  useEffect(
-    () =>
-      console.log(
-        "TEST START INDEX",
-        selectedCarboneEmissions.findIndex((data) => data.year === selectedYear)
-      ),
-    [selectedCarboneEmissions]
-  );
-
   return worldDataFeatures && selectedCountryCode && selectedYear ? (
     <Stack direction="column" height="100%" p={4}>
       <Stack direction="row">
@@ -112,14 +104,30 @@ const WorldFootprintMapPage = () => {
           </Stack>
           <Stack flex={1} justifyContent="center" alignItems="center">
             {selectedCarboneEmissions.length > 0 && (
-              <DataComparator
-                data={selectedCarboneEmissions}
-                startIndex={selectedCarboneEmissions.findIndex(
-                  (data) => data.year === selectedYear
-                )}
-                comparatedProperty={"carboneEmissionsPerCapita"}
-                labelProperty={"year"}
-                breakpoints={[-1, 1]}
+              <Comparator
+                baseElement={{
+                  label: selectedYear,
+                  value:
+                    selectedCarboneEmissions.find(
+                      (emission) => emission.year === selectedYear
+                    )?.carboneEmissionsPerCapita || 0,
+                }}
+                comparatedElements={[
+                  {
+                    label: selectedYear - 1,
+                    value:
+                      selectedCarboneEmissions.find(
+                        (emission) => emission.year === selectedYear - 1
+                      )?.carboneEmissionsPerCapita || 0,
+                  },
+                  {
+                    label: selectedYear + 1,
+                    value:
+                      selectedCarboneEmissions.find(
+                        (emission) => emission.year === selectedYear + 1
+                      )?.carboneEmissionsPerCapita || 0,
+                  },
+                ]}
               />
             )}
           </Stack>
