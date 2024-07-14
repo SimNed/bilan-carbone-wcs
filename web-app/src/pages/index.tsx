@@ -23,15 +23,7 @@ export default function HomePage() {
     >
       <div style={{ textAlign: "center" }}>
         <Typography variant="h1">Bilan Carbone</Typography>
-        <Typography
-          variant="h2"
-          sx={{
-            color: "#8d99ae",
-            fontFamily: "Poppins",
-            fontSize: "1.2rem",
-            fontWeight: "300",
-          }}
-        >
+        <Typography variant="h5" color="#8d99ae">
           Calculer votre empreinte carbone et consulter les émissions de CO₂
         </Typography>
         <Box

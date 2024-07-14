@@ -107,25 +107,40 @@ const WorldFootprintMapPage = () => {
               <Comparator
                 baseElement={{
                   label: selectedYear,
-                  value:
-                    selectedCarboneEmissions.find(
-                      (emission) => emission.year === selectedYear
-                    )?.carboneEmissionsPerCapita || 0,
+                  comparatedValues: [
+                    {
+                      label: "co2 t per capita",
+                      value:
+                        selectedCarboneEmissions.find(
+                          (emission) => emission.year === selectedYear
+                        )?.carboneEmissionsPerCapita || 0,
+                    },
+                  ],
                 }}
                 comparatedElements={[
                   {
                     label: selectedYear - 1,
-                    value:
-                      selectedCarboneEmissions.find(
-                        (emission) => emission.year === selectedYear - 1
-                      )?.carboneEmissionsPerCapita || 0,
+                    comparatedValues: [
+                      {
+                        label: "co2 t per capita",
+                        value:
+                          selectedCarboneEmissions.find(
+                            (emission) => emission.year === selectedYear - 1
+                          )?.carboneEmissionsPerCapita || 0,
+                      },
+                    ],
                   },
                   {
                     label: selectedYear + 1,
-                    value:
-                      selectedCarboneEmissions.find(
-                        (emission) => emission.year === selectedYear + 1
-                      )?.carboneEmissionsPerCapita || 0,
+                    comparatedValues: [
+                      {
+                        label: "co2 t per capita",
+                        value:
+                          selectedCarboneEmissions.find(
+                            (emission) => emission.year === selectedYear + 1
+                          )?.carboneEmissionsPerCapita || 0,
+                      },
+                    ],
                   },
                 ]}
               />

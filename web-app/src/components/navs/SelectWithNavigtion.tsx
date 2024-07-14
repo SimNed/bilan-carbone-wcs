@@ -62,6 +62,7 @@ const SelectWithNavigation = ({
   return (
     <Stack flexDirection="row" sx={{ width: "fit-content" }}>
       <Button
+        sx={{ flexGrow: 0 }}
         onClick={() => {
           if (isLeftButtonEnable) onNavChange(isReversed ? 1 : -1);
         }}
@@ -70,7 +71,7 @@ const SelectWithNavigation = ({
       </Button>
       <Select
         variant="standard"
-        sx={{ width: "100px", textAlign: "center" }}
+        sx={{ width: "80px", textAlign: "center" }}
         size="medium"
         id="demo-simple-select-filled"
         labelId="demo-simple-select-filled-label"

@@ -3,6 +3,7 @@ import { Box, Container, Stack } from "@mui/material";
 import Header from "@/components/headers/Header";
 import { ReactNode, createContext, useContext, useState } from "react";
 import Modal from "../modal/Modal";
+import { DEFAULT_HEADER_HEIGHT } from "@/styles/constants";
 
 interface LayoutProps {
   children: ReactNode;
@@ -40,7 +41,9 @@ const Layout = ({ children }: LayoutProps) => {
         <Stack maxWidth="100%" height="100vh" component="main">
           <Header />
           <Stack
-            maxWidth="100%"
+            position="relative"
+            top={DEFAULT_HEADER_HEIGHT}
+            maxHeight={`calc(100% - ${DEFAULT_HEADER_HEIGHT})`}
             flexGrow={1}
             justifyContent="center"
             alignItems="center"

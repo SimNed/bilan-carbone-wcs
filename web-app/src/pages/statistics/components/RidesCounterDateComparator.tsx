@@ -2,9 +2,13 @@ import { useMemo } from "react";
 import { SearchRidesQuery } from "@/gql/graphql";
 import Comparator from "../../../components/charts/Comparator/Comparator";
 import { getMonthWithId } from "@/utils/date.utils";
-import { checkRideMonthAndYearEquality } from "@/utils/ride.utils";
+import {
+  checkRideMonthAndYearEquality,
+  getTotalEmissions,
+} from "@/utils/ride.utils";
 import PieChartRidesCounter from "./charts/PieChartRidesCounter";
 import { RideData } from "@/type/RideData.type";
+import PieChartRidesEmissions from "./charts/PieChartRidesEmissions";
 
 const RidesCounterDateComparator = ({
   data,
@@ -41,22 +45,47 @@ const RidesCounterDateComparator = ({
     <Comparator
       baseElement={{
         label: getMonthWithId(month),
-        value: currentRides.length,
+        comparatedValues: [
+          {
+            label: "trajets",
+            value: currentRides.length,
+          },
+          {
+            label: "co2 en t",
+            value: getTotalEmissions(currentRides),
+          },
+        ],
       }}
       comparatedElements={[
         {
           label: getMonthWithId(month - 1),
-          value: prevRides.length,
-          optionalNode: (
-            <PieChartRidesCounter rides={prevRides} width={80} height={80} />
-          ),
+          comparatedValues: [
+            {
+              label: "trajets",
+              value: prevRides.length,
+              optionalNode: <PieChartRidesCounter rides={prevRides} />,
+            },
+            {
+              label: "co2 en t",
+              value: getTotalEmissions(prevRides),
+              optionalNode: <PieChartRidesEmissions rides={prevRides} />,
+            },
+          ],
         },
         {
           label: getMonthWithId(month + 1),
-          value: nextRides.length,
-          optionalNode: (
-            <PieChartRidesCounter rides={nextRides} width={80} height={80} />
-          ),
+          comparatedValues: [
+            {
+              label: "trajets",
+              value: nextRides.length,
+              optionalNode: <PieChartRidesCounter rides={nextRides} />,
+            },
+            {
+              label: "co2 en t",
+              value: getTotalEmissions(nextRides),
+              optionalNode: <PieChartRidesEmissions rides={nextRides} />,
+            },
+          ],
         },
       ]}
     />

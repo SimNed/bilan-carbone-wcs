@@ -1,4 +1,5 @@
 import { Ride, SearchRidesQuery } from "@/gql/graphql";
+import { RideData } from "@/type/RideData.type";
 
 export function checkRideMonthAndYearEquality(
   rideDate: any,
@@ -21,6 +22,15 @@ export function checkRideDayMonthAndYearEquality(
     new Date(rideDate).getDate() === day &&
     new Date(rideDate).getMonth() === month &&
     new Date(rideDate).getFullYear() === year
+  );
+}
+
+export function getTotalEmissions(rides: RideData[]) {
+  return rides.reduce(
+    (accumulator, ride) =>
+      accumulator +
+      (ride.distance * ride.transportation.carboneEmission) / 1000,
+    0
   );
 }
 

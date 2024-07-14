@@ -12,6 +12,7 @@ import {
   WARNING_COLOR,
   WHITE_COLOR,
 } from "./constants";
+import { fontWeight } from "@mui/system";
 
 declare module "@mui/material/styles" {
   interface PaletteColor {
@@ -22,7 +23,9 @@ declare module "@mui/material/styles" {
     white?: string;
   }
 }
-const theme = createTheme({
+
+let theme = createTheme();
+theme = createTheme(theme, {
   palette: {
     primary: {
       main: BLACK_COLOR,
@@ -66,7 +69,6 @@ const theme = createTheme({
     MuiAppBar: {
       styleOverrides: {
         root: {
-          // width: "100%",
           minHeight: DEFAULT_HEADER_HEIGHT,
           maxHeight: DEFAULT_HEADER_HEIGHT,
           height: DEFAULT_HEADER_HEIGHT,
@@ -82,7 +84,7 @@ const theme = createTheme({
     MuiToolbar: {
       styleOverrides: {
         root: {
-          minHeight: "12px",
+          minHeight: DEFAULT_HEADER_HEIGHT,
           maxHeight: DEFAULT_HEADER_HEIGHT,
           height: DEFAULT_HEADER_HEIGHT,
         },
@@ -95,16 +97,81 @@ const theme = createTheme({
           fontWeight: 600,
           color: BLACK_COLOR,
         },
-        h5: {
+        h1: {
+          [theme.breakpoints.up("xs")]: {
+            fontSize: "3rem",
+          },
+          [theme.breakpoints.up("md")]: {
+            fontSize: "4.5rem",
+          },
+          [theme.breakpoints.up("lg")]: {
+            fontSize: "6rem",
+          },
+        },
+        h2: {
+          [theme.breakpoints.up("xs")]: {
+            fontSize: "2rem",
+          },
+          [theme.breakpoints.up("md")]: {
+            fontSize: "2.5rem",
+          },
+          [theme.breakpoints.up("lg")]: {
+            fontSize: "3rem",
+          },
+        },
+        h3: {
+          [theme.breakpoints.up("xs")]: {
+            fontSize: "1.25rem",
+          },
+          [theme.breakpoints.up("md")]: {
+            fontSize: "2rem",
+          },
+          [theme.breakpoints.up("lg")]: {
+            fontSize: "2.5rem",
+          },
+        },
+        h4: {
           fontFamily: BASE_FONT_FAMILY,
           fontWeight: 600,
+          [theme.breakpoints.up("xs")]: {
+            fontSize: "1rem",
+          },
+          [theme.breakpoints.up("md")]: {
+            fontSize: "1rem",
+          },
+          [theme.breakpoints.up("lg")]: {
+            fontSize: "1.25rem",
+          },
+        },
+        h5: {
+          fontFamily: BASE_FONT_FAMILY,
+          fontWeight: 500,
+          [theme.breakpoints.up("xs")]: {
+            fontSize: "1rem",
+          },
+          [theme.breakpoints.up("md")]: {
+            fontSize: "1rem",
+          },
+          [theme.breakpoints.up("lg")]: {
+            fontSize: "1.25rem",
+          },
         },
         h6: {
           fontFamily: BASE_FONT_FAMILY,
           fontWeight: 400,
+          [theme.breakpoints.up("xs")]: {
+            fontSize: "1rem",
+          },
+          [theme.breakpoints.up("md")]: {
+            fontSize: "1rem",
+          },
+          [theme.breakpoints.up("lg")]: {
+            fontSize: "1.25rem",
+          },
         },
         paragraph: {
           fontFamily: BASE_FONT_FAMILY,
+          fontSize: "1rem",
           fontWeight: 400,
           margin: 0,
           padding: 0,

@@ -1,4 +1,4 @@
-import { Stack, Typography } from "@mui/material";
+import { Box, Stack, Typography } from "@mui/material";
 import PieChartRidesCounter from "./charts/PieChartRidesCounter";
 import { RideData } from "@/type/RideData.type";
 import { BLACK_COLOR, GRAY_COLOR } from "@/styles/constants";
@@ -14,15 +14,14 @@ const StatCard = ({
 }) => {
   return (
     <Stack flex={1} direction="row" justifyContent="center" alignItems="center">
-      {pieChart}
+      <Box flexGrow={0}>{pieChart}</Box>
       <Stack
         direction="column"
         alignItems="flex-start"
         color={value > 0 ? BLACK_COLOR : GRAY_COLOR}
       >
         <Typography
-          variant="h3"
-          fontSize={{ md: "3rem", xs: "2rem" }}
+          variant="h4"
           color="inherit"
           sx={{ transition: "color ease .2s" }}
         >

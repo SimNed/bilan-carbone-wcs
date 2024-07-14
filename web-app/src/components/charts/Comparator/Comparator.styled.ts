@@ -37,10 +37,6 @@ export const ComparatorTableColumn = styled(Stack)(({ theme }) => ({
     width: "100%",
     "& > .MuiTypography-root": {
       textAlign: "center",
-      fontSize: 12,
-    },
-    "& > .MuiSvgIcon-root, & > .MuiTypography-root ": {
-      fontSize: "inherit",
     },
   },
   "& > .MuiStack-root:last-child": {

@@ -8,7 +8,15 @@ import {
 } from "@/styles/constants";
 import { RideData } from "@/type/RideData.type";
 
-const PieChartRidesEmissions = ({ rides }: { rides: RideData[] }) => {
+const PieChartRidesEmissions = ({
+  rides,
+  width,
+  height,
+}: {
+  rides: RideData[];
+  width?: number;
+  height?: number;
+}) => {
   const series = [
     {
       id: 0,
@@ -64,7 +72,7 @@ const PieChartRidesEmissions = ({ rides }: { rides: RideData[] }) => {
     },
   ];
 
-  return <BasePieChart seriesData={series} />;
+  return <BasePieChart seriesData={series} width={width} height={height} />;
 };
 
 export default PieChartRidesEmissions;

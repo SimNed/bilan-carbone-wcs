@@ -6,8 +6,8 @@ import { GRAY_COLOR } from "@/styles/constants";
 
 const BasePieChart = ({
   seriesData,
-  width = 160,
-  height = 160,
+  width = 120,
+  height = 120,
 }: {
   seriesData: MakeOptional<PieValueType, "id">[];
   width?: number;
@@ -16,9 +16,16 @@ const BasePieChart = ({
   const filteredSeriesData = seriesData.filter((serie) => serie.value > 0);
 
   return (
-    <Box>
+    <Box
+      sx={{
+        width: {
+          xs: width / 2,
+          lg: width,
+        },
+        margin: "auto",
+      }}
+    >
       <PieChart
-        width={width}
         height={height}
         tooltip={{ trigger: filteredSeriesData.length > 0 ? "item" : "none" }}
         margin={{ top: 0, bottom: 0, left: 0, right: 0 }}
@@ -39,7 +46,7 @@ const BasePieChart = ({
                       color: GRAY_COLOR,
                     },
                   ],
-            innerRadius: 12,
+            innerRadius: 6,
             outerRadius: "60%",
             paddingAngle: 1,
             cornerRadius: 1,
