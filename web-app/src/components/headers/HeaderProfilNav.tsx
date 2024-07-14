@@ -2,14 +2,14 @@ import { useAuth } from "@/AuthProvider";
 import { Menu, MenuItem } from "@mui/material";
 import { useRouter } from "next/router";
 
-const ProfileMenu = ({
+const HeaderProfilNav = ({
   isOpen,
   anchorEl,
-  handleProfileMenuClose,
+  handleHeaderProfilNavClose,
 }: {
   isOpen: boolean;
   anchorEl: null | HTMLElement;
-  handleProfileMenuClose: () => void;
+  handleHeaderProfilNavClose: () => void;
 }) => {
   const { logout } = useAuth();
   const router = useRouter();
@@ -28,11 +28,11 @@ const ProfileMenu = ({
         horizontal: "right",
       }}
       open={isOpen}
-      onClose={handleProfileMenuClose}
+      onClose={handleHeaderProfilNavClose}
     >
       <MenuItem
         onClick={() => {
-          handleProfileMenuClose();
+          handleHeaderProfilNavClose();
           router.push("./profil");
         }}
       >
@@ -40,7 +40,7 @@ const ProfileMenu = ({
       </MenuItem>
       <MenuItem
         onClick={() => {
-          handleProfileMenuClose;
+          handleHeaderProfilNavClose;
           logout();
         }}
       >
@@ -50,4 +50,4 @@ const ProfileMenu = ({
   );
 };
 
-export default ProfileMenu;
+export default HeaderProfilNav;
