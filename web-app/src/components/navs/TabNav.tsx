@@ -12,16 +12,20 @@ const TabNav = (props: {
     <Box
       position="relative"
       top={{
-        xs: `calc(${DEFAULT_HEADER_HEIGHT} * 2)`,
-        md: DEFAULT_HEADER_HEIGHT,
+        xs: `calc(${DEFAULT_HEADER_HEIGHT})`,
+        md: 0,
       }}
+      height={`calc(100vh - ${DEFAULT_HEADER_HEIGHT} * 2)`}
       role="tabpanel"
       hidden={value !== index}
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
-      sx={{ backgroundColor: "red" }}
     >
-      {value === index && <Box height="100%">{children}</Box>}
+      {value === index && (
+        <Box flexGrow={1} minHeight="inherit" height="100%">
+          {children}
+        </Box>
+      )}
     </Box>
   );
 };

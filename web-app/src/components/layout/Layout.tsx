@@ -38,13 +38,10 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <ModalContext.Provider value={modalContextValue}>
       <SnackbarProvider>
-        <Stack maxWidth="100%" height="100vh" component="main">
+        <Stack maxWidth="100%" minHeight="100vh" component="main">
           <Header />
           <Stack
-            position="relative"
-            top={DEFAULT_HEADER_HEIGHT}
-            maxHeight={`calc(100% - ${DEFAULT_HEADER_HEIGHT})`}
-            flexGrow={1}
+            minHeight={`calc(100vh - ${DEFAULT_HEADER_HEIGHT})`}
             justifyContent="center"
             alignItems="center"
           >

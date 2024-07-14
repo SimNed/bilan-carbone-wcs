@@ -9,6 +9,11 @@ import {
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { useMemo } from "react";
+import {
+  DEFAULT_HEADER_HEIGHT,
+  SELECT_WITH_NAV_MENU_HEIGHT,
+  SELECT_WITH_NAV_MENU_WIDTH,
+} from "@/styles/constants";
 
 const SelectWithNavigation = ({
   selectItems,
@@ -60,9 +65,12 @@ const SelectWithNavigation = ({
   };
 
   return (
-    <Stack flexDirection="row" sx={{ width: "fit-content" }}>
+    <Stack
+      height={DEFAULT_HEADER_HEIGHT}
+      flexDirection="row"
+      sx={{ width: "fit-content", backgroundColor: "inherit" }}
+    >
       <Button
-        sx={{ flexGrow: 0 }}
         onClick={() => {
           if (isLeftButtonEnable) onNavChange(isReversed ? 1 : -1);
         }}
@@ -79,8 +87,8 @@ const SelectWithNavigation = ({
         onChange={onSelectChange}
         MenuProps={{
           style: {
-            minWidth: 250,
-            maxHeight: 260,
+            minWidth: SELECT_WITH_NAV_MENU_WIDTH,
+            maxHeight: SELECT_WITH_NAV_MENU_HEIGHT,
           },
         }}
       >

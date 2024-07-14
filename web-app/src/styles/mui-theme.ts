@@ -69,9 +69,11 @@ theme = createTheme(theme, {
     MuiAppBar: {
       styleOverrides: {
         root: {
+          [theme.breakpoints.up("xs")]: {
+            height: DEFAULT_HEADER_HEIGHT,
+          },
           minHeight: DEFAULT_HEADER_HEIGHT,
           maxHeight: DEFAULT_HEADER_HEIGHT,
-          height: DEFAULT_HEADER_HEIGHT,
           display: "flex",
           justifyContent: "center",
           aligntItems: "center",
@@ -189,6 +191,7 @@ theme = createTheme(theme, {
     MuiTab: {
       styleOverrides: {
         root: {
+          height: DEFAULT_HEADER_HEIGHT,
           color: BLACK_COLOR,
           fontFamily: "Poppins",
           textTransform: "none",

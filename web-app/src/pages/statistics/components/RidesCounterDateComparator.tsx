@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { SearchRidesQuery } from "@/gql/graphql";
-import Comparator from "../../../components/charts/Comparator/Comparator";
+import Comparator from "../../../components/charts/Comparator";
 import { getMonthWithId } from "@/utils/date.utils";
 import {
   checkRideMonthAndYearEquality,

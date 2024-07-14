@@ -44,7 +44,7 @@ const Header = () => {
       setter(null);
 
   return (
-    <AppBar position="fixed">
+    <AppBar position="sticky">
       <Toolbar disableGutters>
         <Stack
           height={DEFAULT_HEADER_HEIGHT}

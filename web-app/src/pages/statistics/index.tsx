@@ -45,14 +45,15 @@ const StatisticsPage = () => {
         height={DEFAULT_HEADER_HEIGHT}
         sx={{ backgroundColor: WHITE_COLOR }}
         width="100%"
-        position="fixed"
+        position="sticky"
+        top={DEFAULT_HEADER_HEIGHT}
         zIndex={100}
       >
         <Grid
           container
           item
           xs={12}
-          md={4}
+          md={6}
           direction="row"
           justifyContent={{ xs: "space-between", md: "flex-start" }}
           alignItems="center"
@@ -80,7 +81,7 @@ const StatisticsPage = () => {
           </Tabs>
         </Grid>
 
-        <Grid item xs={12} md={4} height={DEFAULT_HEADER_HEIGHT}>
+        <Grid item xs={12} md={6} height={DEFAULT_HEADER_HEIGHT}>
           <LegendContainer elements={STATISTICS_LEGEND_ELEMENTS} />
         </Grid>
       </Grid>

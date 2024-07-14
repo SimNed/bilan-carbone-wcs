@@ -1,13 +1,12 @@
 import { Box } from "@mui/material";
-import { SearchRidesQuery } from "@/gql/graphql";
 import { PieChart, PieValueType } from "@mui/x-charts";
 import { MakeOptional } from "@mui/x-charts/internals";
-import { GRAY_COLOR } from "@/styles/constants";
+import { BASE_PIE_CHART_RADIUS, GRAY_COLOR } from "@/styles/constants";
 
 const BasePieChart = ({
   seriesData,
-  width = 120,
-  height = 120,
+  width = BASE_PIE_CHART_RADIUS,
+  height = BASE_PIE_CHART_RADIUS,
 }: {
   seriesData: MakeOptional<PieValueType, "id">[];
   width?: number;

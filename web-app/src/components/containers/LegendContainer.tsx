@@ -1,11 +1,14 @@
-import { DEFAULT_HEADER_HEIGHT, WHITE_COLOR } from "@/styles/constants";
+import {
+  DEFAULT_HEADER_HEIGHT,
+  DEFAULT_LEGEND_CONTAINER_GAP,
+  WHITE_COLOR,
+} from "@/styles/constants";
 import SquareIcon from "@mui/icons-material/Square";
-import { Grid, Stack, Typography } from "@mui/material";
-import { styled } from "@mui/system";
+import { Stack, Typography } from "@mui/material";
 
 const LegendContainer = ({
   elements,
-  gap = 3,
+  gap = DEFAULT_LEGEND_CONTAINER_GAP,
 }: {
   elements: { label: string; color: string }[];
   gap?: number;
@@ -15,7 +18,7 @@ const LegendContainer = ({
       height={DEFAULT_HEADER_HEIGHT}
       flex={1}
       flexDirection="row"
-      gap={3}
+      gap={gap}
       justifyContent={{ md: "flex-end", xs: "center" }}
       alignItems="center"
       sx={{ backgroundColor: WHITE_COLOR }}

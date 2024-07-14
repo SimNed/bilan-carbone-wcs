@@ -17,7 +17,7 @@ import LegendContainer from "@/components/containers/LegendContainer";
 import { MAP_LEGEND_ELEMENTS } from "@/constants/charts.constants";
 
 import Loader from "@/components/loader/Loader";
-import Comparator from "@/components/charts/Comparator/Comparator";
+import Comparator from "@/components/charts/Comparator";
 
 const WorldFootprintMapPage = () => {
   const [selectedCountryCode, setSelectedCountryCode] = useState("");

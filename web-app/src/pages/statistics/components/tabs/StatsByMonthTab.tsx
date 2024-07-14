@@ -50,60 +50,49 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
   }
 
   return (
-    <Grid
-      container
-      height="100%"
-      alignItems={{ md: "center", xs: "flex-start" }}
-      sx={{ backgroundColor: WHITE_COLOR }}
-    >
+    <Grid container height="100%" px={{ xs: 0, md: 4 }}>
+      <Grid
+        item
+        lg={8}
+        md={6}
+        display={{ md: "grid", xs: "none" }}
+        alignItems="center"
+      >
+        <Typography variant="h2">{`${capitalizeFirstLetter(
+          getMonthWithId(selectedMonth)
+        )} ${selectedYear}`}</Typography>
+      </Grid>
       <Grid
         container
         item
         xs={12}
+        md={6}
         lg={4}
+        justifyContent="center"
+        alignItems="center"
+        position={{ xs: "sticky", md: "relative" }}
+        top={{ xs: `calc(${DEFAULT_HEADER_HEIGHT} * 3)`, md: 0 }}
+        zIndex={100}
         sx={{ backgroundColor: WHITE_COLOR }}
-        zIndex={10}
       >
-        <Grid
-          item
-          xs={12}
-          justifyContent="center"
-          alignItems="center"
-          display={{ md: "grid", xs: "none" }}
-        >
-          <Typography variant="h2" textAlign="center">{`${capitalizeFirstLetter(
-            getMonthWithId(selectedMonth)
-          )} ${selectedYear}`}</Typography>
-        </Grid>
-        <Grid
-          p={0}
-          item
-          container
-          height={DEFAULT_HEADER_HEIGHT}
-          position={{ xs: "sticky", md: "relative" }}
-          top={{ xs: `calc((${DEFAULT_HEADER_HEIGHT} * 2.7))`, md: 0 }}
-          xs={12}
-          justifyContent="center"
-          sx={{ backgroundColor: WHITE_COLOR }}
-          zIndex={100}
-        >
-          <SelectWithNavigation
-            isRightButtonEnable={
-              new Date(selectedYear, selectedMonth + 1) <= new Date()
-            }
-            handleSelectChange={(value) => setSelectedMonth(value as number)}
-            selectItems={monthSelectItems}
-            selectValue={{ label: selectedMonth, value: selectedMonth }}
-          />
+        <SelectWithNavigation
+          isRightButtonEnable={
+            new Date(selectedYear, selectedMonth + 1) <= new Date()
+          }
+          handleSelectChange={(value) => setSelectedMonth(value as number)}
+          selectItems={monthSelectItems}
+          selectValue={{ label: selectedMonth, value: selectedMonth }}
+        />
 
-          <SelectWithNavigation
-            isReversed
-            handleSelectChange={(value) => setSelectedYear(value as number)}
-            selectItems={yearSelectItems}
-            selectValue={{ label: selectedYear, value: selectedYear }}
-          />
-        </Grid>
-        <Grid container item xs={12} justifyContent="flex-start">
+        <SelectWithNavigation
+          isReversed
+          handleSelectChange={(value) => setSelectedYear(value as number)}
+          selectItems={yearSelectItems}
+          selectValue={{ label: selectedYear, value: selectedYear }}
+        />
+      </Grid>
+      <Grid container item direction={{ xs: "row", md: "row-reverse" }}>
+        <Grid container item xs={12} md={4} alignItems="flex-end">
           <Grid item xs={6} justifyContent="center">
             <StatCard
               value={rides.length}
@@ -127,14 +116,13 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
             />
           </Grid>
         </Grid>
-      </Grid>
-
-      <Grid item lg={8} xs={12}>
-        <BarChartMonthEmissions
-          data={data}
-          selectedMonth={selectedMonth}
-          selectedYear={selectedYear}
-        />
+        <Grid container item xs={12} md={8} alignItems="flex-end">
+          <BarChartMonthEmissions
+            data={data}
+            selectedMonth={selectedMonth}
+            selectedYear={selectedYear}
+          />
+        </Grid>
       </Grid>
     </Grid>
   );

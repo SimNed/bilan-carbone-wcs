@@ -46,3 +46,15 @@ export const BASE_BORDER = `1px solid ${GRAY_COLOR}`;
 // Sizes
 
 export const DEFAULT_HEADER_HEIGHT = "56px";
+
+export const SELECT_WITH_NAV_MENU_WIDTH = 200;
+export const SELECT_WITH_NAV_MENU_HEIGHT = 260;
+
+export const BASE_BAR_CHART_HEIGHT = 680;
+export const BASE_LINE_CHART_HEIGHT = 500;
+
+export const BASE_PIE_CHART_RADIUS = 120;
+
+// Margins
+
+export const DEFAULT_LEGEND_CONTAINER_GAP = 3;
