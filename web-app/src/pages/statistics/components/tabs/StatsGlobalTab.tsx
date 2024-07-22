@@ -9,6 +9,7 @@ import { SearchRidesQuery } from "@/gql/graphql";
 import { useMemo } from "react";
 import PieChartRidesCounter from "../charts/PieChartRidesCounter";
 import PieChartRidesEmissions from "../charts/PieChartRidesEmissions";
+import LineChartYearEmissions from "../charts/LineChartYearEmissions";
 
 const StatsGlobalTab = ({ data }: { data: SearchRidesQuery }) => {
   const totalRides = useMemo(
@@ -61,7 +62,9 @@ const StatsGlobalTab = ({ data }: { data: SearchRidesQuery }) => {
       </Stack>
 
       <Stack direction="column" flex={3}>
-        <p>gh</p>
+        {data && data.searchRides.length > 0 && (
+          <LineChartYearEmissions data={data} />
+        )}
       </Stack>
     </Stack>
   );

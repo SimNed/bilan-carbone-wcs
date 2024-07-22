@@ -13,10 +13,10 @@ import { MakeOptional } from "@mui/x-charts/internals";
 import { BASE_LINE_CHART_HEIGHT, BLACK_COLOR } from "@/styles/constants";
 
 const BaseLineChart = ({
-  dataset,
+  dataset = [],
   series,
-  xAxis,
-  yAxis,
+  xAxis = undefined,
+  yAxis = undefined,
   color = BLACK_COLOR,
   onAxisClick,
   height = BASE_LINE_CHART_HEIGHT,
@@ -24,8 +24,8 @@ const BaseLineChart = ({
   dataset?: any | [];
   series: MakeOptional<LineSeriesType, "type">[];
   onAxisClick?: (event: MouseEvent, data: any | null) => void;
-  xAxis: MakeOptional<AxisConfig<ScaleName, any, ChartsXAxisProps>, "id">[];
-  yAxis: MakeOptional<AxisConfig<ScaleName, any, ChartsYAxisProps>, "id">[];
+  xAxis?: MakeOptional<AxisConfig<ScaleName, any, ChartsXAxisProps>, "id">[];
+  yAxis?: MakeOptional<AxisConfig<ScaleName, any, ChartsYAxisProps>, "id">[];
   color?: string;
   height?: number;
 }) => {
