@@ -12,6 +12,7 @@ import { TransportationResolver } from "./resolvers/TransportationResolver";
 import { RideResolver } from "./resolvers/RideResolver";
 import { getDataSource } from "./database";
 import { UserResolver } from "./resolvers/UserResolver";
+import { getCache } from "./cache";
 
 export type Context = {
   req: Request;
@@ -47,6 +48,8 @@ const startApolloServer = async () => {
 
   await getDataSource();
   await Transportation.initializeTransportations();
+
+  await getCache();
 
   console.log(`🚀  Server ready at: ${url}`);
 };
