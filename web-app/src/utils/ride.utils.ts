@@ -1,6 +1,10 @@
 import { Ride, SearchRidesQuery } from "@/gql/graphql";
 import { RideData } from "@/type/RideData.type";
 
+export function checkRideYearEquality(rideDate: any, year: number) {
+  return new Date(rideDate).getFullYear() === year;
+}
+
 export function checkRideMonthAndYearEquality(
   rideDate: any,
   month: number,
@@ -87,4 +91,24 @@ export function getTotalEmissionsByMonthAndTransportation(
         acc + (ride.distance * ride.transportation.carboneEmission) / 1000,
       0
     );
+}
+
+export function getAllMonthsEmissionsByYearAndTransportation(
+  data: SearchRidesQuery,
+  year: number,
+  transportationLabel: string
+) {
+  const accumulator = Array(12).fill(0);
+
+  return data.searchRides
+    .filter(
+      (ride) =>
+        ride.transportation.label === transportationLabel &&
+        checkRideYearEquality(ride.date, year)
+    )
+    .reduce((acc, ride) => {
+      acc[new Date(ride.date).getMonth()] +=
+        (ride.distance * ride.transportation.carboneEmission) / 1000;
+      return acc;
+    }, accumulator);
 }
