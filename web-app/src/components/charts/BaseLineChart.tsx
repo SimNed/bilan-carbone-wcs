@@ -21,9 +21,9 @@ const BaseLineChart = ({
   onAxisClick,
   height = BASE_LINE_CHART_HEIGHT,
 }: {
-  dataset: any | [];
+  dataset?: any | [];
   series: MakeOptional<LineSeriesType, "type">[];
-  onAxisClick: (event: MouseEvent, data: any | null) => void;
+  onAxisClick?: (event: MouseEvent, data: any | null) => void;
   xAxis: MakeOptional<AxisConfig<ScaleName, any, ChartsXAxisProps>, "id">[];
   yAxis: MakeOptional<AxisConfig<ScaleName, any, ChartsYAxisProps>, "id">[];
   color?: string;
