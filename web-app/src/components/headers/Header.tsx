@@ -49,7 +49,6 @@ const Header = () => {
         >
           <AppBarLink href="./">BC</AppBarLink>
           <AppBarLink href="./world-footprint-map">Données monde</AppBarLink>
-          <AppBarLink href="./">Données france</AppBarLink>
         </Stack>
 
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -82,18 +81,6 @@ const Header = () => {
               <AppBarLink href="./rides" onClick={() => logout()}>
                 Log out
               </AppBarLink>
-
-              {/* <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls="profile-menu"
-                aria-haspopup="true"
-                color="inherit"
-                onClick={handleMenuOpen(setProfileNavAnchorEl)}
-              >
-                <AccountCircle />
-              </IconButton> */}
             </Stack>
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
               <IconButton

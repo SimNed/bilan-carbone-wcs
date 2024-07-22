@@ -57,13 +57,6 @@ const HeaderMobileNav = ({
             </ListItemButton>
           </ListItem>
           <Divider />
-          <ListItem key="Bilan Carbonee" disablePadding>
-            <ListItemButton onClick={() => router.push("./")}>
-              <ListItemIcon>FR</ListItemIcon>
-              <ListItemText primary="Données France" />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
         </List>
       </Box>
     </Drawer>
