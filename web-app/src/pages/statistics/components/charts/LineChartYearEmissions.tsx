@@ -8,26 +8,10 @@ import {
 } from "@/styles/constants";
 import { getMonthWithId } from "@/utils/date.utils";
 import { getAllMonthsEmissionsByYearAndTransportation } from "@/utils/ride.utils";
-import { LineChart } from "@mui/x-charts";
 import { useMemo } from "react";
 
 const LineChartYearEmissions = ({ data }: { data: SearchRidesQuery }) => {
   const currentYear = new Date().getFullYear();
-
-  const monthNames = [
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "Aug",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec",
-  ];
 
   const series = useMemo(() => {
     return [
