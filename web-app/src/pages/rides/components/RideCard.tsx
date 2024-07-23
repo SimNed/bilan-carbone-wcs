@@ -20,13 +20,13 @@ const RideCard = ({ ride }: RideCardProps) => {
   const getCardIcon = (transportationLabel: string) => {
     switch (transportationLabel) {
       case "voiture":
-        return <DirectionsCarFilledIcon sx={{ fontSize: "4rem" }} />;
+        return <DirectionsCarFilledIcon sx={{ fontSize: "3rem" }} />;
       case "bus":
-        return <DirectionsBusIcon />;
+        return <DirectionsBusIcon sx={{ fontSize: "3rem" }} />;
       case "train":
-        return <DirectionsRailwayIcon />;
+        return <DirectionsRailwayIcon sx={{ fontSize: "3rem" }} />;
       case "avion":
-        return <FlightIcon />;
+        return <FlightIcon sx={{ fontSize: "3rem" }} />;
       default:
         return;
     }

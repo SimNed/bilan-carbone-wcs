@@ -77,7 +77,9 @@ const Header = () => {
               alignItems="center"
             >
               <AppBarLink href="./statistics">Statistiques</AppBarLink>
-              <AppBarLink href="./rides">Trajets</AppBarLink>
+              <AppBarLink href="./rides">Mes trajets</AppBarLink>
+              <AppBarLink href="./add-ride">Ajouter un trajet</AppBarLink>
+
               <AppBarLink href="./rides" onClick={() => logout()}>
                 Log out
               </AppBarLink>

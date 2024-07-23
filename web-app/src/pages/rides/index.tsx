@@ -1,4 +1,4 @@
-import CreateRideForm from "./components/CreateRideForm";
+import CreateRideForm from "../add-ride/components/CreateRideForm";
 import RidesList from "./components/RidesList";
 import { GetUserProfileQuery, SearchRidesQuery } from "@/gql/graphql";
 import { useQuery } from "@apollo/client";
@@ -20,7 +20,6 @@ const RidesPage = () => {
 
   return (
     <div>
-      <CreateRideForm />
       <RidesList data={data} />
     </div>
   );

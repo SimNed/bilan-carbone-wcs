@@ -5,8 +5,6 @@ import {
   Typography,
   Container,
   MenuItem,
-  Select,
-  Box,
 } from "@mui/material";
 import {
   CreateRideFormMutation,
@@ -64,76 +62,87 @@ export default function CreateRideForm() {
     }
   };
 
-  const handleSubmit = () => {
-    // event.preventDefault();
-    // Place your authentication logic here
-    console.log("Email:");
-    console.log("Password:");
-  };
-
   return (
-    <Box width="100%" height="100%">
-      <Typography variant="h5">Nouveau trajet :</Typography>
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        margin: 0,
+        p: 6,
+      }}
+    >
+      <Typography variant="h5">Nouveau trajet</Typography>
       <form
         onSubmit={(event) => {
           event.preventDefault();
           createRide();
+          router.push("./rides");
         }}
+        style={{ width: "100%", marginTop: "1rem" }}
       >
-        <Typography variant="body1">Nom du trajet:</Typography>
         <TextField
-          variant="outlined"
+          required
+          label="Nom du trajet"
+          size="small"
+          InputLabelProps={{ shrink: true }}
           onChange={(event) => {
             updateFormData({ label: event.target.value });
           }}
-          style={{ marginBottom: "1rem", width: "100%" }}
         />
-        <Typography variant="body1">Distance en km:</Typography>
         <TextField
+          required
+          label="Distance en km"
+          size="small"
+          InputLabelProps={{ shrink: true }}
           onChange={(event) => {
             updateFormData({ distance: parseInt(event.target.value) });
           }}
-          variant="outlined"
-          style={{ marginBottom: "1rem", width: "100%" }}
         />
-        <Typography variant="body1">Date:</Typography>
         <TextField
+          required
+          label="Date"
+          size="small"
+          InputLabelProps={{ shrink: true }}
           onChange={(event) => {
             updateFormData({
               date: new Date(event.target.value).toISOString(),
             });
           }}
           type="date"
-          variant="outlined"
-          required
-          style={{ marginBottom: "1rem", width: "100%" }}
         />
-        <Typography variant="body1">Moyen de transport:</Typography>
-        <Select
+        <TextField
+          required
+          select
+          label="Moyen de transport"
+          size="small"
           onChange={(event) => {
             updateFormData({
               transportationId: parseInt(event.target.value as string),
             });
           }}
-          style={{ width: "100%" }}
+          sx={{ width: "100%" }}
         >
           {data?.transportations.map((transportation) => (
             <MenuItem key={transportation.id} value={transportation.id}>
               {capitalizeFirstLetter(transportation.label)}
             </MenuItem>
           ))}
-        </Select>
+        </TextField>
         <div style={{ marginTop: "16px" }}>
           <Button
             variant="contained"
-            color="primary"
+            color="success"
             type="submit"
-            style={{ width: "100%" }}
+            sx={{ mb: 4 }}
+            fullWidth
           >
             Ajouter mon trajet
           </Button>
         </div>
       </form>
-    </Box>
+    </Container>
   );
 }

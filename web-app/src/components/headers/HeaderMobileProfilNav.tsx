@@ -67,7 +67,16 @@ const HeaderMobileProfilNav = ({
               <ListItemIcon>
                 <CardTravelIcon />
               </ListItemIcon>
-              <ListItemText primary="Trajets" />
+              <ListItemText primary="Mes trajets" />
+            </ListItemButton>
+          </ListItem>
+          <Divider />
+          <ListItem key="add-ride" disablePadding>
+            <ListItemButton onClick={() => router.push("./add-ride")}>
+              <ListItemIcon>
+                <CardTravelIcon />
+              </ListItemIcon>
+              <ListItemText primary="add-ride" />
             </ListItemButton>
           </ListItem>
           <Divider />

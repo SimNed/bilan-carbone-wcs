@@ -6,11 +6,9 @@ import { useQuery } from "@apollo/client";
 import {
   Container,
   Button,
-  Select,
   TextField,
   Typography,
   MenuItem,
-  Slider,
 } from "@mui/material";
 import { useState } from "react";
 
@@ -33,19 +31,24 @@ const RideFilters = ({
   };
 
   return (
-    <form
-      onSubmit={(event) => {
-        event.preventDefault();
-        handleRideFilter(filterData);
+    <Container
+      component="main"
+      maxWidth="xs"
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        margin: 0,
+        p: 6,
       }}
     >
-      <div
-        style={{
-          width: "100%",
-          display: "flex",
-          flexDirection: "column",
-          gap: "1rem",
+      <Typography variant="h5">Filtrer mes trajets</Typography>
+      <form
+        onSubmit={(event) => {
+          event.preventDefault();
+          handleRideFilter(filterData);
         }}
+        style={{ width: "100%", marginTop: "1rem" }}
       >
         <TextField
           label="Nom du trajet"
@@ -95,18 +98,35 @@ const RideFilters = ({
           sx={{ marginBottom: "1rem", width: "100%" }}
         />
 
-        <Typography id="distance-slider" gutterBottom>
-          Distance
-        </Typography>
-        <Slider
-          getAriaLabel={() => "Distance"}
-          value={[0, 100]}
-          valueLabelDisplay="auto"
-          aria-labelledby="display-slider"
-          disableSwap
+        <TextField
+          label="Distance minimum"
+          type="number"
+          InputLabelProps={{ shrink: true }}
+          value={filterData.minDistance || ""}
+          onChange={(event) => {
+            setFilterData({
+              ...filterData,
+              minDistance: parseInt(event.target.value),
+            });
+          }}
+          sx={{ marginBottom: "1rem", width: "100%" }}
+        />
+        <TextField
+          label="Distance maximum"
+          type="number"
+          InputLabelProps={{ shrink: true }}
+          value={filterData.maxDistance || ""}
+          onChange={(event) => {
+            setFilterData({
+              ...filterData,
+              maxDistance: parseInt(event.target.value),
+            });
+          }}
+          sx={{ marginBottom: "1rem", width: "100%" }}
         />
 
-        <Select
+        <TextField
+          select
           label="Moyen de transport"
           size="small"
           value={filterData.transportationMode || ""}
@@ -116,33 +136,34 @@ const RideFilters = ({
               transportationMode: event.target.value,
             });
           }}
-          sx={{ marginBottom: "1rem", width: "100%" }}
         >
           {data?.transportations.map((transportation) => (
             <MenuItem key={transportation.id} value={transportation.label}>
               {capitalizeFirstLetter(transportation.label)}
             </MenuItem>
           ))}
-        </Select>
+        </TextField>
 
         <Button
           variant="contained"
-          color="primary"
+          color="success"
           type="submit"
-          sx={{ flex: 1 }}
+          sx={{ mb: 2 }}
+          fullWidth
         >
           Rechercher
         </Button>
         <Button
+          fullWidth
           variant="outlined"
-          color="secondary"
+          color="success"
           onClick={handleClearFilters}
-          sx={{ flex: 1 }}
+          sx={{ mb: 4 }}
         >
           Effacer les filtres
         </Button>
-      </div>
-    </form>
+      </form>
+    </Container>
   );
 };
 

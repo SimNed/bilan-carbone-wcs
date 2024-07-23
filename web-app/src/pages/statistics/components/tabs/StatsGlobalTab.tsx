@@ -7,8 +7,6 @@ import PieChartRidesCounter from "../charts/PieChartRidesCounter";
 import PieChartRidesEmissions from "../charts/PieChartRidesEmissions";
 import LineChartYearEmissions from "../charts/LineChartYearEmissions";
 
-import rides from "@/pages/rides";
-import RidesCounterDateComparator from "../RidesCounterDateComparator";
 import StatCard from "../StatCard";
 
 const StatsGlobalTab = ({ data }: { data: SearchRidesQuery }) => {
@@ -66,9 +64,3 @@ const StatsGlobalTab = ({ data }: { data: SearchRidesQuery }) => {
 };
 
 export default StatsGlobalTab;
-
-{
-  /* <PieChartRidesCounter rides={data.searchRides} />;
-
-<PieChartRidesEmissions rides={data.searchRides} />; */
-}
