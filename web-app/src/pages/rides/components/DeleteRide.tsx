@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { SEARCH_RIDES } from "../../../api-gql/queries/ride.queries";
 import { DELETE_RIDE } from "@/api-gql/mutations/ride.mutations";
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Button, Container, Typography } from "@mui/material";
 
 interface DeleteRideProps {
   rideId: string;
@@ -23,37 +23,42 @@ const DeleteRide = ({ rideId, handleCloseModal }: DeleteRideProps) => {
   };
 
   return (
-    <Box
+    <Container
+      component="main"
+      maxWidth="xs"
       sx={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        bgcolor: "white",
-        boxShadow: 24,
-        p: 4,
-        borderRadius: "8px",
-        textAlign: "center",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        margin: 0,
+        p: 6,
       }}
     >
-      <Typography variant="h6" gutterBottom>
+      <Typography variant="h5" mb={2}>
         Confirmation de suppression
       </Typography>
-      <Typography variant="body1" gutterBottom>
+      <Typography variant="body1" mb={2}>
         Voulez-vous supprimer ce trajet ?
       </Typography>
       <Button
-        onClick={handleDeleteRide}
         variant="contained"
-        color="primary"
-        sx={{ mr: 2 }}
+        color="success"
+        onClick={handleDeleteRide}
+        sx={{ mb: 2 }}
+        fullWidth
       >
         Oui
       </Button>
-      <Button onClick={handleCloseModal} variant="contained" color="primary">
+      <Button
+        variant="outlined"
+        color="success"
+        onClick={handleCloseModal}
+        sx={{ mb: 4 }}
+        fullWidth
+      >
         Annuler
       </Button>
-    </Box>
+    </Container>
   );
 };
 

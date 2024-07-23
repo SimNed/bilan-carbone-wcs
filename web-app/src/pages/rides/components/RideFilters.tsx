@@ -131,14 +131,15 @@ const RideFilters = ({
           size="small"
           value={filterData.transportationMode || ""}
           onChange={(event) => {
+            console.log("CONSOLELOGEVENT", event.target.value);
             setFilterData({
               ...filterData,
-              transportationMode: event.target.value,
+              transportationId: parseInt(event.target.value),
             });
           }}
         >
           {data?.transportations.map((transportation) => (
-            <MenuItem key={transportation.id} value={transportation.label}>
+            <MenuItem key={transportation.id} value={transportation.id}>
               {capitalizeFirstLetter(transportation.label)}
             </MenuItem>
           ))}

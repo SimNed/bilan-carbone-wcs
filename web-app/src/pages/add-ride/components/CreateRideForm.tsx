@@ -131,17 +131,16 @@ export default function CreateRideForm() {
             </MenuItem>
           ))}
         </TextField>
-        <div style={{ marginTop: "16px" }}>
-          <Button
-            variant="contained"
-            color="success"
-            type="submit"
-            sx={{ mb: 4 }}
-            fullWidth
-          >
-            Ajouter mon trajet
-          </Button>
-        </div>
+
+        <Button
+          variant="contained"
+          color="success"
+          type="submit"
+          sx={{ mb: 4 }}
+          fullWidth
+        >
+          Ajouter mon trajet
+        </Button>
       </form>
     </Container>
   );
