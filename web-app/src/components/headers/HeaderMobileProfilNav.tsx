@@ -19,6 +19,7 @@ import TrendingDownIcon from "@mui/icons-material/TrendingDown";
 import CardTravelIcon from "@mui/icons-material/CardTravel";
 import AccountBoxIcon from "@mui/icons-material/AccountBox";
 import LogoutIcon from "@mui/icons-material/Logout";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
 const HeaderMobileProfilNav = ({
   isOpen,
@@ -74,9 +75,9 @@ const HeaderMobileProfilNav = ({
           <ListItem key="add-ride" disablePadding>
             <ListItemButton onClick={() => router.push("./add-ride")}>
               <ListItemIcon>
-                <CardTravelIcon />
+                <AddCircleOutlineIcon />
               </ListItemIcon>
-              <ListItemText primary="add-ride" />
+              <ListItemText primary="Ajouter un trajet" />
             </ListItemButton>
           </ListItem>
           <Divider />
