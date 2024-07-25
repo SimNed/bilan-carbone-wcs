@@ -3,20 +3,17 @@ import DirectionsCarFilledIcon from "@mui/icons-material/DirectionsCarFilled";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import DirectionsRailwayIcon from "@mui/icons-material/DirectionsRailway";
 import FlightIcon from "@mui/icons-material/Flight";
-import { useModal } from "@/components/layout/Layout";
 
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import DeleteRide from "./DeleteRide";
 import { Stack } from "@mui/system";
 import { getFormatedDate } from "@/utils/date.utils";
 
 interface RideCardProps {
   ride: any;
+  handleDeleteRide: (rideId: number) => void;
 }
 
-const RideCard = ({ ride }: RideCardProps) => {
-  const { handleModalComponent, handleCloseModal } = useModal();
-
+const RideCard = ({ ride, handleDeleteRide }: RideCardProps) => {
   const getCardIcon = (transportationLabel: string) => {
     switch (transportationLabel) {
       case "voiture":
@@ -82,14 +79,7 @@ const RideCard = ({ ride }: RideCardProps) => {
             <Button
               variant="contained"
               color="primary"
-              onClick={() =>
-                handleModalComponent(
-                  <DeleteRide
-                    rideId={ride.id}
-                    handleCloseModal={handleCloseModal}
-                  />
-                )
-              }
+              onClick={() => handleDeleteRide(ride.id)}
               style={{
                 margin: "0.5rem",
               }}

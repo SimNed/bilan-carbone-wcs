@@ -100,6 +100,7 @@ const RideFilters = ({
 
         <TextField
           label="Distance minimum"
+          size="small"
           type="number"
           InputLabelProps={{ shrink: true }}
           value={filterData.minDistance || ""}
@@ -113,6 +114,7 @@ const RideFilters = ({
         />
         <TextField
           label="Distance maximum"
+          size="small"
           type="number"
           InputLabelProps={{ shrink: true }}
           value={filterData.maxDistance || ""}
@@ -129,7 +131,7 @@ const RideFilters = ({
           select
           label="Moyen de transport"
           size="small"
-          value={filterData.transportationMode || ""}
+          value={filterData.transportationMode}
           onChange={(event) => {
             console.log("CONSOLELOGEVENT", event.target.value);
             setFilterData({

@@ -1,27 +1,16 @@
-import { useMutation } from "@apollo/client";
-import { SEARCH_RIDES } from "../../../api-gql/queries/ride.queries";
-import { DELETE_RIDE } from "@/api-gql/mutations/ride.mutations";
 import { Button, Container, Typography } from "@mui/material";
 
 interface DeleteRideProps {
-  rideId: string;
+  rideId: number;
+  handleDeleteRideConfirmation: (rideId: number) => void;
   handleCloseModal: () => void;
 }
 
-const DeleteRide = ({ rideId, handleCloseModal }: DeleteRideProps) => {
-  const [deleteRideMutation] = useMutation(DELETE_RIDE, {
-    onCompleted: () => {
-      handleCloseModal();
-    },
-  });
-
-  const handleDeleteRide = () => {
-    deleteRideMutation({
-      variables: { id: rideId },
-      refetchQueries: [{ query: SEARCH_RIDES, variables: {} }],
-    });
-  };
-
+const DeleteRide = ({
+  rideId,
+  handleDeleteRideConfirmation,
+  handleCloseModal,
+}: DeleteRideProps) => {
   return (
     <Container
       component="main"
@@ -43,7 +32,7 @@ const DeleteRide = ({ rideId, handleCloseModal }: DeleteRideProps) => {
       <Button
         variant="contained"
         color="success"
-        onClick={handleDeleteRide}
+        onClick={() => handleDeleteRideConfirmation(rideId)}
         sx={{ mb: 2 }}
         fullWidth
       >
