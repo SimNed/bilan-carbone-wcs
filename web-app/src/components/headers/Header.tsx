@@ -1,4 +1,12 @@
-import { AppBar, Box, Button, IconButton, Stack, Toolbar } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  Link,
+  Stack,
+  Toolbar,
+} from "@mui/material";
 import { AccountCircle, Menu as MenuIcon } from "@mui/icons-material";
 import { useState } from "react";
 import { useAuth } from "@/AuthProvider";
@@ -6,15 +14,11 @@ import { useModal } from "../layout/Layout";
 import SignUpForm from "../auth/SignUpForm";
 import SignInForm from "../auth/SignInForm";
 
-import HeaderProfilNav from "./HeaderProfilNav";
-import { AppBarLink } from "@/styles/mui-classes";
 import { DEFAULT_HEADER_HEIGHT } from "@/styles/constants";
 import HeaderMobileNav from "./HeaderMobileNav";
 import HeaderMobileProfilNav from "./HeaderMobileProfilNav";
 
 const Header = () => {
-  const [profileNavAnchorEl, setProfileNavAnchorEl] =
-    useState<null | HTMLElement>(null);
   const [mobileNavAnchorEl, setMobileNavAnchorEl] =
     useState<null | HTMLElement>(null);
   const [mobileProfilNavAnchorEl, setMobileProfilNavAnchorEl] =
@@ -23,7 +27,6 @@ const Header = () => {
   const { user, logout } = useAuth();
   const { handleModalComponent } = useModal();
 
-  const isHeaderProfilNavOpen = Boolean(profileNavAnchorEl);
   const isHeaderMobileNavOpen = Boolean(mobileNavAnchorEl);
   const isHeaderMobileProfilNavOpen = Boolean(mobileProfilNavAnchorEl);
 
@@ -47,8 +50,8 @@ const Header = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <AppBarLink href="./">BC</AppBarLink>
-          <AppBarLink href="./world-footprint-map">Données monde</AppBarLink>
+          <Link href="./">BC</Link>
+          <Link href="./world-footprint-map">Données monde</Link>
         </Stack>
 
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -72,17 +75,17 @@ const Header = () => {
               height={DEFAULT_HEADER_HEIGHT}
               display={{ xs: "none", md: "flex" }}
               flexDirection="row"
-              flexGrow={1}
+              flexGrow={3}
               justifyContent="center"
               alignItems="center"
             >
-              <AppBarLink href="./statistics">Statistiques</AppBarLink>
-              <AppBarLink href="./rides">Mes trajets</AppBarLink>
-              <AppBarLink href="./add-ride">Ajouter un trajet</AppBarLink>
+              <Link href="./statistics">Statistiques</Link>
+              <Link href="./rides">Mes trajets</Link>
+              <Link href="./add-ride">Ajouter un trajet</Link>
 
-              <AppBarLink href="./rides" onClick={() => logout()}>
+              <Link href="./" onClick={() => logout()}>
                 Log out
-              </AppBarLink>
+              </Link>
             </Stack>
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
               <IconButton
