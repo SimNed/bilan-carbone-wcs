@@ -46,6 +46,7 @@ export const BASE_BORDER = `1px solid ${GRAY_COLOR}`;
 // Sizes
 
 export const DEFAULT_HEADER_HEIGHT = "56px";
+export const DEFAULT_CONTENT_HEIGHT = `calc(100vh - ${DEFAULT_HEADER_HEIGHT})`;
 
 export const SELECT_WITH_NAV_MENU_WIDTH = 200;
 export const SELECT_WITH_NAV_MENU_HEIGHT = 260;
