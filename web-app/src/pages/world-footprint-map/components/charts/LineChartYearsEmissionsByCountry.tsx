@@ -1,12 +1,13 @@
 import React, { useMemo } from "react";
 
 import { BLACK_COLOR } from "@/styles/constants";
+
+import BaseLineChart from "@/components/charts/BaseLineChart";
+import { CarboneEmission } from "@/type/WorldData.type";
 import {
   WORLD_EMISSIONS_END_DATE,
   WORLD_EMISSIONS_START_DATE,
-} from "@/constants/constants";
-import BaseLineChart from "@/components/charts/BaseLineChart";
-import { CarboneEmission } from "@/type/WorldData.type";
+} from "@/charts.constants";
 
 const LineChartYearsEmissionsByCountry = ({
   data,
