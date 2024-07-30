@@ -1,9 +1,9 @@
 import { SnackbarProvider } from "notistack";
-import { Box, Container, Stack } from "@mui/material";
+import { Stack } from "@mui/material";
 import Header from "@/components/headers/Header";
 import { ReactNode, createContext, useContext, useState } from "react";
 import Modal from "../modal/Modal";
-import { DEFAULT_HEADER_HEIGHT } from "@/styles/constants";
+import { DEFAULT_CONTENT_HEIGHT } from "@/styles/constants";
 
 interface LayoutProps {
   children: ReactNode;
@@ -41,7 +41,8 @@ const Layout = ({ children }: LayoutProps) => {
         <Stack maxWidth="100%" minHeight="100vh" component="main">
           <Header />
           <Stack
-            minHeight={`calc(100vh - ${DEFAULT_HEADER_HEIGHT})`}
+            maxWidth="inherit"
+            minHeight={DEFAULT_CONTENT_HEIGHT}
             justifyContent="center"
             alignItems="center"
           >
