@@ -11,6 +11,7 @@ export const INFO_COLOR = "#8ecae6";
 
 export const BLACK_COLOR = "#264653";
 export const GRAY_COLOR = "#c5c5c5";
+export const DARK_GRAY_COLOR = "#8d99ae";
 export const WHITE_COLOR = "#f5f5f5";
 
 export const CARBONE_COLOR_CODE_1 = "#b5e48c";
