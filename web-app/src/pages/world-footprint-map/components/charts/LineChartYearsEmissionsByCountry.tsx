@@ -50,6 +50,7 @@ const LineChartYearsEmissionsByCountry = ({
     <BaseLineChart
       dataset={data}
       series={series}
+      height={520}
       onAxisClick={(_event, data) =>
         handleSelectedYear(data?.axisValue as number)
       }
