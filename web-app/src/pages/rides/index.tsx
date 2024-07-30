@@ -1,9 +1,9 @@
 import { GetUserProfileQuery, SearchRidesQuery } from "@/gql/graphql";
 import { useMutation, useQuery } from "@apollo/client";
 import { SEARCH_RIDES } from "@/api-gql/queries/ride.queries";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { GET_USER_PROFIL } from "@/api-gql/queries/user.queries";
-import { Box, Button, Chip, Container, Grid, Typography } from "@mui/material";
+import { Box, Button, Grid, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import RideCard from "./components/RideCard";
 import RideFilters from "./components/RideFilters";
@@ -11,14 +11,18 @@ import { useModal } from "@/components/layout/Layout";
 import { RideFilterData } from "@/type/RideFilterData.type";
 import DeleteRide from "./components/DeleteRide";
 import { DELETE_RIDE } from "@/api-gql/mutations/ride.mutations";
-import { DEFAULT_HEADER_HEIGHT, WHITE_COLOR } from "@/styles/constants";
-import LegendContainer from "@/components/containers/LegendContainer";
-import { STATISTICS_LEGEND_ELEMENTS } from "@/constants/charts.constants";
+import {
+  DEFAULT_CONTENT_HEIGHT,
+  DEFAULT_HEADER_HEIGHT,
+  WHITE_COLOR,
+} from "@/styles/constants";
+import ChipFilter from "./components/ChipFilter";
 
 const RidesPage = () => {
   const [filters, setFilters] = useState<RideFilterData>({});
 
-  const { handleModalComponent, handleCloseModal } = useModal();
+  const { handleModalComponent, handleCloseModal, handleModalResponsive } =
+    useModal();
 
   const { data: userData } = useQuery<GetUserProfileQuery>(GET_USER_PROFIL);
 
@@ -66,10 +70,6 @@ const RidesPage = () => {
     refetch();
   };
 
-  useEffect(() => {
-    console.log("Filters", filters);
-  }, [filters]);
-
   if (loading || typeof data === "undefined") return <p>Loading...</p>;
   if (error) return <p>Error: {error.message}</p>;
 
@@ -83,53 +83,57 @@ const RidesPage = () => {
       <Grid
         container
         direction="row"
-        justifyContent="space-between"
+        justifyContent="center"
         alignItems="center"
-        height={DEFAULT_HEADER_HEIGHT}
-        sx={{ backgroundColor: WHITE_COLOR }}
-        width="100%"
         position="sticky"
         top={DEFAULT_HEADER_HEIGHT}
+        width="100%"
+        height={DEFAULT_HEADER_HEIGHT}
         zIndex={100}
+        spacing={2}
       >
-        <Grid
-          container
-          item
-          xs={12}
-          md={6}
-          direction="row"
-          justifyContent={{ xs: "space-between", md: "flex-start" }}
-          alignItems="center"
-          sx={{ backgroundColor: WHITE_COLOR }}
-        >
-          <Typography variant="h5" mx={4}>
-            {`${userData?.getUserProfile.firstName} ${userData?.getUserProfile.lastName}`}
-          </Typography>
-
-          <Button
-            variant="contained"
-            color="primary"
-            sx={{ display: { xs: "block", md: "none" } }}
-            onClick={() =>
-              handleModalComponent(
-                <RideFilters
-                  handleRideFilter={handleRideFilter}
-                  closeModal={handleCloseModal}
-                />
-              )
-            }
+        <Grid item xs={12} md={4}>
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            px={4}
           >
-            Filtrer les trajets
-          </Button>
+            <Typography variant="h5">
+              {`${userData?.getUserProfile.firstName} ${userData?.getUserProfile.lastName}`}
+            </Typography>
+
+            <Box>
+              <Button
+                variant="outlined"
+                color="primary"
+                sx={{ display: { xs: "block", md: "none" } }}
+                onClick={() =>
+                  handleModalComponent(
+                    <RideFilters
+                      handleRideFilter={handleRideFilter}
+                      closeModal={handleCloseModal}
+                      handleModalResponsive={handleModalResponsive}
+                    />
+                  )
+                }
+              >
+                Filtrer les trajets
+              </Button>
+            </Box>
+          </Stack>
         </Grid>
-        <Grid item xs={12} md={6} height={DEFAULT_HEADER_HEIGHT}>
-          {Object.keys(filters).map((key) => (
-            <Chip
-              key={key}
-              label={`${key}: ${filters[key as keyof RideFilterData]}`}
-              onDelete={() => handleDeleteFilter(key as keyof RideFilterData)}
-            />
-          ))}
+
+        <Grid item xs={12} md={8}>
+          <Stack direction="row" flexWrap="wrap" gap={1}>
+            {Object.keys(filters).map((key) => (
+              <ChipFilter
+                chipKey={key}
+                value={filters[key as keyof RideFilterData]}
+                handleDeleteFilter={handleDeleteFilter}
+              />
+            ))}
+          </Stack>
         </Grid>
       </Grid>
 
@@ -138,17 +142,17 @@ const RidesPage = () => {
         position="relative"
         direction="row"
         top={{
-          xs: `calc(${DEFAULT_HEADER_HEIGHT})`,
+          xs: DEFAULT_HEADER_HEIGHT,
           md: 0,
         }}
-        height={`calc(100vh - ${DEFAULT_HEADER_HEIGHT} * 2)`}
+        height={`calc(${DEFAULT_CONTENT_HEIGHT} - ${DEFAULT_HEADER_HEIGHT})`}
       >
         <Grid
           container
           item
           display={{ xs: "none", md: "grid" }}
           xs={4}
-          height={`calc(100vh - ${DEFAULT_HEADER_HEIGHT} * 2)`}
+          height="inherit"
           justifyContent="center"
         >
           <Grid
@@ -169,8 +173,8 @@ const RidesPage = () => {
           item
           xs={12}
           md={8}
-          p={8}
-          height={`calc(100vh - ${DEFAULT_HEADER_HEIGHT} * 2)`}
+          p={data.searchRides.length > 0 ? 8 : 0}
+          height="inherit"
         >
           {data && data.searchRides.length > 0 ? (
             data.searchRides.map((ride) => (
@@ -181,11 +185,7 @@ const RidesPage = () => {
               />
             ))
           ) : (
-            <Stack
-              justifyContent="center"
-              alignItems="center"
-              height={`calc(100vh - ${DEFAULT_HEADER_HEIGHT} * 2)`}
-            >
+            <Stack justifyContent="center" alignItems="center" height="inherit">
               <Typography paragraph>Aucun trajet.</Typography>
             </Stack>
           )}
