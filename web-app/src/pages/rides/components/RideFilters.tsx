@@ -102,6 +102,7 @@ const RideFilters = ({
           label="Distance minimum"
           size="small"
           type="number"
+          InputProps={{ inputProps: { min: 0 } }}
           InputLabelProps={{ shrink: true }}
           value={filterData.minDistance || ""}
           onChange={(event) => {
@@ -116,6 +117,7 @@ const RideFilters = ({
           label="Distance maximum"
           size="small"
           type="number"
+          InputProps={{ inputProps: { min: 0 } }}
           InputLabelProps={{ shrink: true }}
           value={filterData.maxDistance || ""}
           onChange={(event) => {
@@ -131,9 +133,8 @@ const RideFilters = ({
           select
           label="Moyen de transport"
           size="small"
-          value={filterData.transportationMode}
+          value={filterData.transportationId || ""}
           onChange={(event) => {
-            console.log("CONSOLELOGEVENT", event.target.value);
             setFilterData({
               ...filterData,
               transportationId: parseInt(event.target.value),
