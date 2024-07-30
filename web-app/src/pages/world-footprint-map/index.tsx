@@ -3,10 +3,7 @@ import LineChartsYearsEmissionsByCountry from "./components/charts/LineChartYear
 
 import { useEffect, useMemo, useState } from "react";
 import { Box, Stack } from "@mui/material";
-import {
-  WORLD_EMISSIONS_END_DATE,
-  WORLD_EMISSIONS_START_DATE,
-} from "@/constants/constants";
+
 import {
   CarboneEmission,
   WorldData,
@@ -14,7 +11,11 @@ import {
 } from "@/type/WorldData.type";
 import SelectWithNavigation from "@/components/navs/SelectWithNavigtion";
 import LegendContainer from "@/components/containers/LegendContainer";
-import { MAP_LEGEND_ELEMENTS } from "@/constants/charts.constants";
+import {
+  MAP_LEGEND_ELEMENTS,
+  WORLD_EMISSIONS_END_DATE,
+  WORLD_EMISSIONS_START_DATE,
+} from "@/charts.constants";
 
 import Loader from "@/components/loader/Loader";
 import Comparator from "@/components/charts/Comparator";

@@ -14,7 +14,7 @@ import TabNav from "@/components/navs/TabNav";
 import Loader from "@/components/loader/Loader";
 import { DEFAULT_HEADER_HEIGHT, WHITE_COLOR } from "@/styles/constants";
 import LegendContainer from "@/components/containers/LegendContainer";
-import { STATISTICS_LEGEND_ELEMENTS } from "@/constants/charts.constants";
+import { STATISTICS_LEGEND_ELEMENTS } from "@/charts.constants";
 
 const StatisticsPage = () => {
   const { data: userData } = useQuery<GetUserProfileQuery>(GET_USER_PROFIL);
