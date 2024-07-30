@@ -94,8 +94,10 @@ export default function CreateRideForm() {
         />
         <TextField
           required
+          type="number"
           label="Distance en km"
           size="small"
+          InputProps={{ inputProps: { min: 0 } }}
           InputLabelProps={{ shrink: true }}
           onChange={(event) => {
             updateFormData({ distance: parseInt(event.target.value) });
