@@ -17,12 +17,12 @@ import {
   WHITE_COLOR,
 } from "@/styles/constants";
 import ChipFilter from "./components/ChipFilter";
+import SubHeader from "@/components/headers/SubHeader";
 
 const RidesPage = () => {
   const [filters, setFilters] = useState<RideFilterData>({});
 
-  const { handleModalComponent, handleCloseModal, handleModalResponsive } =
-    useModal();
+  const { handleModalComponent, handleCloseModal } = useModal();
 
   const { data: userData } = useQuery<GetUserProfileQuery>(GET_USER_PROFIL);
 
@@ -80,24 +80,12 @@ const RidesPage = () => {
       height="100%"
       sx={{ backgroundColor: WHITE_COLOR }}
     >
-      <Grid
-        container
-        direction="row"
-        justifyContent="center"
-        alignItems="center"
-        position="sticky"
-        top={DEFAULT_HEADER_HEIGHT}
-        width="100%"
-        height={DEFAULT_HEADER_HEIGHT}
-        zIndex={100}
-        spacing={2}
-      >
-        <Grid item xs={12} md={4}>
+      <SubHeader
+        leftChildren={
           <Stack
             direction="row"
             justifyContent="space-between"
             alignItems="center"
-            px={4}
           >
             <Typography variant="h5">
               {`${userData?.getUserProfile.firstName} ${userData?.getUserProfile.lastName}`}
@@ -113,7 +101,6 @@ const RidesPage = () => {
                     <RideFilters
                       handleRideFilter={handleRideFilter}
                       closeModal={handleCloseModal}
-                      handleModalResponsive={handleModalResponsive}
                     />
                   )
                 }
@@ -122,10 +109,16 @@ const RidesPage = () => {
               </Button>
             </Box>
           </Stack>
-        </Grid>
-
-        <Grid item xs={12} md={8}>
-          <Stack direction="row" flexWrap="wrap" gap={1}>
+        }
+        rightChildren={
+          <Stack
+            direction="row"
+            justifyContent={{ xs: "space-between", md: "flex-start" }}
+            flexWrap="wrap"
+            gap={1}
+            py={2}
+            sx={{ backgroundColor: WHITE_COLOR }}
+          >
             {Object.keys(filters).map((key) => (
               <ChipFilter
                 chipKey={key}
@@ -134,8 +127,8 @@ const RidesPage = () => {
               />
             ))}
           </Stack>
-        </Grid>
-      </Grid>
+        }
+      />
 
       <Grid
         container

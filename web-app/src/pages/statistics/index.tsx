@@ -15,6 +15,7 @@ import Loader from "@/components/loader/Loader";
 import { DEFAULT_HEADER_HEIGHT, WHITE_COLOR } from "@/styles/constants";
 import LegendContainer from "@/components/containers/LegendContainer";
 import { STATISTICS_LEGEND_ELEMENTS } from "@/charts.constants";
+import SubHeader from "@/components/headers/SubHeader";
 
 const StatisticsPage = () => {
   const { data: userData } = useQuery<GetUserProfileQuery>(GET_USER_PROFIL);
@@ -37,54 +38,35 @@ const StatisticsPage = () => {
       height="100%"
       sx={{ backgroundColor: WHITE_COLOR }}
     >
-      <Grid
-        container
-        direction="row"
-        justifyContent="space-between"
-        alignItems="center"
-        height={DEFAULT_HEADER_HEIGHT}
-        sx={{ backgroundColor: WHITE_COLOR }}
-        width="100%"
-        position="sticky"
-        top={DEFAULT_HEADER_HEIGHT}
-        zIndex={100}
-      >
-        <Grid
-          container
-          item
-          xs={12}
-          md={6}
-          direction="row"
-          justifyContent={{ xs: "space-between", md: "flex-start" }}
-          alignItems="center"
-          sx={{ backgroundColor: WHITE_COLOR }}
-        >
-          <Typography variant="h5" mx={4}>
-            {`${userData?.getUserProfile.firstName} ${userData?.getUserProfile.lastName}`}
-          </Typography>
+      <SubHeader
+        leftChildren={
+          <Stack direction="row" alignItems="center" gap={6}>
+            <Typography variant="h5">
+              {`${userData?.getUserProfile.firstName} ${userData?.getUserProfile.lastName}`}
+            </Typography>
 
-          <Tabs
-            value={tabIndex}
-            onChange={handleTabChange}
-            aria-label="simple tabs example"
-          >
-            <Tab
-              label="Global"
-              id="simple-tab-0"
-              aria-controls="simple-tabpanel-0"
-            />
-            <Tab
-              label="Mois"
-              id="simple-tab-1"
-              aria-controls="simple-tabpanel-1"
-            />
-          </Tabs>
-        </Grid>
-
-        <Grid item xs={12} md={6} height={DEFAULT_HEADER_HEIGHT}>
+            <Tabs
+              value={tabIndex}
+              onChange={handleTabChange}
+              aria-label="simple tabs example"
+            >
+              <Tab
+                label="Global"
+                id="global-tab"
+                aria-controls="simple-tabpanel-0"
+              />
+              <Tab
+                label="Mois"
+                id="month-tab"
+                aria-controls="simple-tabpanel-1"
+              />
+            </Tabs>
+          </Stack>
+        }
+        rightChildren={
           <LegendContainer elements={STATISTICS_LEGEND_ELEMENTS} />
-        </Grid>
-      </Grid>
+        }
+      />
 
       <TabNav value={tabIndex} index={0}>
         {data && <StatsGlobalTab data={data} />}
