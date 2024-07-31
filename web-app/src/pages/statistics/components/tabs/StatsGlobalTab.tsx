@@ -39,19 +39,31 @@ const StatsGlobalTab = ({ data }: { data: SearchRidesQuery }) => {
       </Grid>
 
       <Grid container item direction={{ xs: "row", md: "row-reverse" }}>
-        <Grid container item xs={12} md={4} alignItems="cneter">
-          <Grid item xs={6} justifyContent="center">
+        <Grid container item xs={12} md={4} alignItems="center">
+          <Grid item xs={12} justifyContent="center">
             <StatCard
               value={totalRides}
               label="trajets"
-              pieChart={<PieChartRidesCounter rides={data.searchRides} />}
+              pieChart={
+                <PieChartRidesCounter
+                  rides={data.searchRides}
+                  width={200}
+                  height={200}
+                />
+              }
             />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             <StatCard
               value={getNumberFormatedToTwoDecimals(totalCO2)}
               label="co2 en t"
-              pieChart={<PieChartRidesEmissions rides={data.searchRides} />}
+              pieChart={
+                <PieChartRidesEmissions
+                  rides={data.searchRides}
+                  width={200}
+                  height={200}
+                />
+              }
             />
           </Grid>
         </Grid>
