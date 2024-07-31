@@ -81,15 +81,6 @@ const HeaderMobileProfilNav = ({
             </ListItemButton>
           </ListItem>
           <Divider />
-          <ListItem key="profil" disablePadding>
-            <ListItemButton onClick={() => router.push("./profil")}>
-              <ListItemIcon>
-                <AccountBoxIcon />
-              </ListItemIcon>
-              <ListItemText primary="Profile" />
-            </ListItemButton>
-          </ListItem>
-          <Divider />
           <ListItem key="log-out" disablePadding>
             <ListItemButton onClick={() => logout()}>
               <ListItemIcon>

@@ -1,7 +1,7 @@
 import SelectWithNavigation from "@/components/navs/SelectWithNavigtion";
 
 import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
-import { Grid, Typography } from "@mui/material";
+import { Grid, Stack, Typography } from "@mui/material";
 import BarChartMonthEmissions from "../charts/BarChartMonthEmissions";
 
 import { SearchRidesQuery } from "@/gql/graphql";
@@ -15,6 +15,7 @@ import RidesCounterDateComparator from "../RidesCounterDateComparator";
 import { DEFAULT_HEADER_HEIGHT, WHITE_COLOR } from "@/styles/constants";
 import { capitalizeFirstLetter } from "@/utils/typo.utils";
 import StatCard from "../StatCard";
+import SubHeader from "@/components/headers/SubHeader";
 
 const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
@@ -51,46 +52,36 @@ const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
 
   return (
     <Grid container height="100%" px={{ xs: 0, md: 4 }}>
-      <Grid
-        item
-        lg={8}
-        md={6}
-        display={{ md: "grid", xs: "none" }}
-        alignItems="center"
-      >
-        <Typography variant="h2">{`${capitalizeFirstLetter(
-          getMonthWithId(selectedMonth)
-        )} ${selectedYear}`}</Typography>
-      </Grid>
-      <Grid
-        container
-        item
-        xs={12}
-        md={6}
-        lg={4}
-        justifyContent="center"
-        alignItems="center"
-        position={{ xs: "sticky", md: "relative" }}
-        top={{ xs: `calc(${DEFAULT_HEADER_HEIGHT} * 3)`, md: 0 }}
-        zIndex={100}
-        sx={{ backgroundColor: WHITE_COLOR }}
-      >
-        <SelectWithNavigation
-          isRightButtonEnable={
-            new Date(selectedYear, selectedMonth + 1) <= new Date()
-          }
-          handleSelectChange={(value) => setSelectedMonth(value as number)}
-          selectItems={monthSelectItems}
-          selectValue={{ label: selectedMonth, value: selectedMonth }}
-        />
+      <SubHeader
+        leftChildren={
+          <Typography
+            variant="h2"
+            display={{ xs: "none", md: "block" }}
+          >{`${capitalizeFirstLetter(
+            getMonthWithId(selectedMonth)
+          )} ${selectedYear}`}</Typography>
+        }
+        rightChildren={
+          <Stack direction="row" justifyContent="flex-end">
+            <SelectWithNavigation
+              isRightButtonEnable={
+                new Date(selectedYear, selectedMonth + 1) <= new Date()
+              }
+              handleSelectChange={(value) => setSelectedMonth(value as number)}
+              selectItems={monthSelectItems}
+              selectValue={{ label: selectedMonth, value: selectedMonth }}
+            />
 
-        <SelectWithNavigation
-          isReversed
-          handleSelectChange={(value) => setSelectedYear(value as number)}
-          selectItems={yearSelectItems}
-          selectValue={{ label: selectedYear, value: selectedYear }}
-        />
-      </Grid>
+            <SelectWithNavigation
+              isReversed
+              handleSelectChange={(value) => setSelectedYear(value as number)}
+              selectItems={yearSelectItems}
+              selectValue={{ label: selectedYear, value: selectedYear }}
+            />
+          </Stack>
+        }
+      />
+
       <Grid container item direction={{ xs: "row", md: "row-reverse" }}>
         <Grid container item xs={12} md={4} alignItems="flex-end">
           <Grid item xs={6} justifyContent="center">

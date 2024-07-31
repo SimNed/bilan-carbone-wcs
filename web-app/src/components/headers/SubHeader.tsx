@@ -24,13 +24,13 @@ const SubHeader = ({
       sx={{ backgroundColor: WHITE_COLOR }}
     >
       {leftChildren && (
-        <Grid item xs direction="row" alignItems="center">
+        <Grid item xs={12} md direction="row" alignItems="center">
           {leftChildren}
         </Grid>
       )}
 
       {rightChildren && (
-        <Grid item xs direction="row" alignItems="center">
+        <Grid item xs={12} md direction="row" alignItems="center">
           {rightChildren}
         </Grid>
       )}
