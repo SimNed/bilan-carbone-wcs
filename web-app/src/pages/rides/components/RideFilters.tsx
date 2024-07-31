@@ -1,7 +1,3 @@
-import { GET_TRANSPORTATIONS } from "@/api-gql/queries/transportation.queries";
-import { GetTransportationsQuery } from "@/gql/graphql";
-import { RideFilterData } from "@/type/RideFilterData.type";
-import { capitalizeFirstLetter } from "@/utils/typo.utils";
 import { useQuery } from "@apollo/client";
 import {
   Container,
@@ -9,15 +5,23 @@ import {
   TextField,
   Typography,
   MenuItem,
+  useMediaQuery,
+  useTheme,
 } from "@mui/material";
-import { useState } from "react";
+import { useMemo, useState, useEffect, ReactNode } from "react";
+import { GET_TRANSPORTATIONS } from "@/api-gql/queries/transportation.queries";
+import { GetTransportationsQuery } from "@/gql/graphql";
+import { RideFilterData } from "@/type/RideFilterData.type";
+import { capitalizeFirstLetter } from "@/utils/typo.utils";
 
 const RideFilters = ({
   handleRideFilter,
   closeModal,
+  handleModalResponsive,
 }: {
   handleRideFilter: (filterData: RideFilterData) => void;
   closeModal: () => void;
+  handleModalResponsive?: () => void;
 }) => {
   const [filterData, setFilterData] = useState<RideFilterData>({});
 
@@ -29,6 +33,8 @@ const RideFilters = ({
     handleRideFilter(clearedFilterData);
     closeModal();
   };
+
+  if (handleModalResponsive) handleModalResponsive();
 
   return (
     <Container
