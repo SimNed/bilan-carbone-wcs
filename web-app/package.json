@@ -16,13 +16,13 @@
     "@mui/icons-material": "^5.15.20",
     "@mui/material": "^5.15.20",
     "@mui/system": "^5.15.20",
+    "@mui/x-charts": "^7.7.0",
     "graphql": "^16.8.1",
     "next": "latest",
     "notistack": "^3.0.1",
     "react": "latest",
     "react-dom": "latest",
-    "react-simple-maps": "^3.0.0",
-    "styled-components": "^6.0.8"
+    "react-simple-maps": "^3.0.0"
   },
   "devDependencies": {
     "@graphql-codegen/cli": "5.0.0",

@@ -1,0 +1,125 @@
+import { BASE_BORDER, ERROR_COLOR, SUCCESS_COLOR } from "@/styles/constants";
+import { getPercentage } from "@/utils/maths.utils";
+import { Box, Grid, Stack, Typography } from "@mui/material";
+
+import NorthEastIcon from "@mui/icons-material/NorthEast";
+import SouthEastIcon from "@mui/icons-material/SouthEast";
+
+import { ReactNode } from "react";
+
+type ComparatorElement = {
+  label: string | number;
+  comparatedValues: {
+    label: string | number;
+    value: number;
+    optionalNode?: ReactNode;
+  }[];
+};
+
+const Comparator = ({
+  baseElement,
+  comparatedElements,
+}: {
+  baseElement: ComparatorElement;
+  comparatedElements: ComparatorElement[];
+}) => {
+  return (
+    <Grid
+      container
+      direction="row"
+      sx={{
+        "& > .MuiGrid-root:last-child": {
+          borderRight: "none",
+        },
+        "& > .MuiGrid-root > .MuiGrid-root:last-child": {
+          borderBottom: "none",
+        },
+      }}
+    >
+      {comparatedElements.map((element) => {
+        let elementValueLabel = "";
+        let percentage = 0;
+
+        return (
+          <Grid
+            container
+            item
+            xs
+            direction="column"
+            sx={{ borderRight: BASE_BORDER }}
+          >
+            <Grid item py={2} sx={{ borderBottom: BASE_BORDER }}>
+              <Stack flexDirection="row" justifyContent="center">
+                <Typography variant="h4">{element.label}</Typography>
+              </Stack>
+            </Grid>
+            {element.comparatedValues.map((comparatedValue) => {
+              const baseValue =
+                baseElement.comparatedValues.find(
+                  (baseComparatedValue) =>
+                    baseComparatedValue.label === comparatedValue.label
+                )?.value || 0;
+              if (comparatedValue.value !== 0) {
+                if (baseValue !== 0) {
+                  percentage = getPercentage(baseValue, comparatedValue.value);
+                  elementValueLabel = `${
+                    percentage > 0 ? "+" : ""
+                  }${percentage}%`;
+                }
+              } else {
+                elementValueLabel = "no data";
+              }
+              return (
+                <Grid
+                  container
+                  item
+                  xs
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center"
+                  py={2}
+                  sx={{ borderBottom: BASE_BORDER }}
+                >
+                  <Stack
+                    width="60%"
+                    height="100%"
+                    flexDirection="row"
+                    justifyContent={
+                      percentage === 0 ? "center" : "space-between"
+                    }
+                    alignItems="center"
+                  >
+                    <Box>
+                      {comparatedValue.optionalNode &&
+                        comparatedValue.value !== 0 &&
+                        comparatedValue.optionalNode}
+                    </Box>
+
+                    <Stack flexDirection="column">
+                      <Typography variant="h5">
+                        {elementValueLabel}{" "}
+                        {percentage !== 0 && percentage > 0 && (
+                          <NorthEastIcon sx={{ color: ERROR_COLOR }} />
+                        )}
+                        {percentage !== 0 && percentage < 0 && (
+                          <SouthEastIcon sx={{ color: SUCCESS_COLOR }} />
+                        )}
+                      </Typography>
+                      {percentage !== 0 && (
+                        <Typography paragraph>
+                          {comparatedValue.label}
+                        </Typography>
+                      )}
+                    </Stack>
+                  </Stack>
+                </Grid>
+              );
+            })}
+          </Grid>
+        );
+      })}
+    </Grid>
+  );
+};
+
+export default Comparator;

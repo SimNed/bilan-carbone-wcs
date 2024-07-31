@@ -5,7 +5,7 @@ import createApolloClient from "../apollo-client";
 import { ThemeProvider } from "@mui/material";
 import theme from "@/styles/mui-theme";
 import { AuthProvider } from "@/AuthProvider";
-import Layout from "@/components/Layout/Layout";
+import Layout from "@/components/layout/Layout";
 
 export default function App({ Component, pageProps }: AppProps) {
   const apolloClient = createApolloClient();
