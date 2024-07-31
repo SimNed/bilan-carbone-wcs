@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  transpilePackages: ['@mui/x-charts'],
   reactStrictMode: true,
   async rewrites() {
     return [
