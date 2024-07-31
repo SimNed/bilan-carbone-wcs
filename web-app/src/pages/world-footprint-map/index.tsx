@@ -2,7 +2,7 @@ import WorldMap from "@/pages/world-footprint-map/components/WorldMap";
 import LineChartsYearsEmissionsByCountry from "./components/charts/LineChartYearsEmissionsByCountry";
 
 import { useEffect, useMemo, useState } from "react";
-import { Box, Stack } from "@mui/material";
+import { Box, Grid, Stack } from "@mui/material";
 
 import {
   CarboneEmission,
@@ -19,6 +19,7 @@ import {
 
 import Loader from "@/components/loader/Loader";
 import Comparator from "@/components/charts/Comparator";
+import SubHeader from "@/components/headers/SubHeader";
 
 const WorldFootprintMapPage = () => {
   const [selectedCountryCode, setSelectedCountryCode] = useState("");
@@ -66,88 +67,90 @@ const WorldFootprintMapPage = () => {
 
   return worldDataFeatures && selectedCountryCode && selectedYear ? (
     <Stack direction="column" height="100%" p={4}>
-      <Stack direction="row">
-        <Stack flex={2}>
-          <SelectWithNavigation
-            handleSelectChange={(code) =>
-              setSelectedCountryCode(code as string)
-            }
-            selectItems={selectNameItems}
-            selectValue={{
-              label: worldDataFeatures.find(
-                (feature) => feature.properties.code === selectedCountryCode
-              )?.properties.nameFR as string,
-              value: selectedCountryCode,
-            }}
-          />
-        </Stack>
-        <Stack flex={3}>
-          <SelectWithNavigation
-            isReversed
-            handleSelectChange={(value) => setSelectedYear(value as number)}
-            selectItems={selectYearItems}
-            selectValue={{
-              label: selectedYear,
-              value: selectedYear,
-            }}
-          />
-        </Stack>
-      </Stack>
-
-      <Stack direction="row" flex={5} spacing={2}>
-        <Stack direction="column" flex={2}>
-          <Stack flex={4} justifyContent="center" alignItems="center">
-            <LineChartsYearsEmissionsByCountry
-              data={selectedCarboneEmissions}
-              selectedYear={selectedYear}
-              handleSelectedYear={(year: number) => setSelectedYear(year)}
+      <SubHeader
+        leftChildren={
+          <Stack direction="row">
+            <SelectWithNavigation
+              handleSelectChange={(code) =>
+                setSelectedCountryCode(code as string)
+              }
+              selectItems={selectNameItems}
+              selectValue={{
+                label: worldDataFeatures.find(
+                  (feature) => feature.properties.code === selectedCountryCode
+                )?.properties.nameFR as string,
+                value: selectedCountryCode,
+              }}
+            />
+            <SelectWithNavigation
+              isReversed
+              handleSelectChange={(value) => setSelectedYear(value as number)}
+              selectItems={selectYearItems}
+              selectValue={{
+                label: selectedYear,
+                value: selectedYear,
+              }}
             />
           </Stack>
-          <Stack flex={1} justifyContent="center" alignItems="center">
-            {selectedCarboneEmissions.length > 0 && (
-              <Comparator
-                baseElement={{
-                  label: selectedYear,
-                  comparatedValues: [
-                    {
-                      label: "co2 t per capita",
-                      value:
-                        selectedCarboneEmissions.find(
-                          (emission) => emission.year === selectedYear
-                        )?.carboneEmissionsPerCapita || 0,
-                    },
-                  ],
-                }}
-                comparatedElements={[
-                  {
-                    label: selectedYear - 1,
-                    comparatedValues: [
-                      {
-                        label: "co2 t per capita",
-                        value:
-                          selectedCarboneEmissions.find(
-                            (emission) => emission.year === selectedYear - 1
-                          )?.carboneEmissionsPerCapita || 0,
-                      },
-                    ],
-                  },
-                  {
-                    label: selectedYear + 1,
-                    comparatedValues: [
-                      {
-                        label: "co2 t per capita",
-                        value:
-                          selectedCarboneEmissions.find(
-                            (emission) => emission.year === selectedYear + 1
-                          )?.carboneEmissionsPerCapita || 0,
-                      },
-                    ],
-                  },
-                ]}
+        }
+      />
+
+      <Grid container direction="row" spacing={2}>
+        <Grid item xs={12} md={6}>
+          <Stack direction="column" flex={2}>
+            <Stack flex={4} justifyContent="center" alignItems="center">
+              <LineChartsYearsEmissionsByCountry
+                data={selectedCarboneEmissions}
+                selectedYear={selectedYear}
+                handleSelectedYear={(year: number) => setSelectedYear(year)}
               />
-            )}
+            </Stack>
+            <Stack flex={1} justifyContent="center" alignItems="center">
+              {selectedCarboneEmissions.length > 0 && (
+                <Comparator
+                  baseElement={{
+                    label: selectedYear,
+                    comparatedValues: [
+                      {
+                        label: "co2 t per capita",
+                        value:
+                          selectedCarboneEmissions.find(
+                            (emission) => emission.year === selectedYear
+                          )?.carboneEmissionsPerCapita || 0,
+                      },
+                    ],
+                  }}
+                  comparatedElements={[
+                    {
+                      label: selectedYear - 1,
+                      comparatedValues: [
+                        {
+                          label: "co2 t per capita",
+                          value:
+                            selectedCarboneEmissions.find(
+                              (emission) => emission.year === selectedYear - 1
+                            )?.carboneEmissionsPerCapita || 0,
+                        },
+                      ],
+                    },
+                    {
+                      label: selectedYear + 1,
+                      comparatedValues: [
+                        {
+                          label: "co2 t per capita",
+                          value:
+                            selectedCarboneEmissions.find(
+                              (emission) => emission.year === selectedYear + 1
+                            )?.carboneEmissionsPerCapita || 0,
+                        },
+                      ],
+                    },
+                  ]}
+                />
+              )}
+            </Stack>
           </Stack>
-        </Stack>
+        </Grid>
 
         <Stack direction="column" flex={3}>
           <Box flex={4} p={4}>
@@ -161,7 +164,7 @@ const WorldFootprintMapPage = () => {
           </Box>
           <LegendContainer elements={MAP_LEGEND_ELEMENTS} />
         </Stack>
-      </Stack>
+      </Grid>
     </Stack>
   ) : (
     <Loader />

@@ -6,8 +6,8 @@ const SubHeader = ({
   leftChildren,
   rightChildren,
 }: {
-  leftChildren: ReactNode;
-  rightChildren: ReactNode;
+  leftChildren?: ReactNode;
+  rightChildren?: ReactNode;
 }) => {
   return (
     <Grid
@@ -23,13 +23,17 @@ const SubHeader = ({
       px={{ xs: 2, md: 4 }}
       sx={{ backgroundColor: WHITE_COLOR }}
     >
-      <Grid item xs={12} md={6} direction="row" alignItems="center">
-        {leftChildren}
-      </Grid>
+      {leftChildren && (
+        <Grid item xs direction="row" alignItems="center">
+          {leftChildren}
+        </Grid>
+      )}
 
-      <Grid item xs={12} md={6} direction="row" alignItems="center">
-        {rightChildren}
-      </Grid>
+      {rightChildren && (
+        <Grid item xs direction="row" alignItems="center">
+          {rightChildren}
+        </Grid>
+      )}
     </Grid>
   );
 };
