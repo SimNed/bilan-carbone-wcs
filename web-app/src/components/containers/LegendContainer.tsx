@@ -18,6 +18,7 @@ const LegendContainer = ({
       height={DEFAULT_HEADER_HEIGHT}
       flex={1}
       flexDirection="row"
+      flexWrap="wrap"
       gap={gap}
       justifyContent={{ md: "flex-end", xs: "center" }}
       alignItems="center"
