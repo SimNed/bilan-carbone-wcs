@@ -20,7 +20,7 @@ const SubHeader = ({
       width="100%"
       height={DEFAULT_HEADER_HEIGHT}
       zIndex={100}
-      px={4}
+      px={{ xs: 2, md: 4 }}
       sx={{ backgroundColor: WHITE_COLOR }}
     >
       <Grid item xs={12} md={6} direction="row" alignItems="center">
