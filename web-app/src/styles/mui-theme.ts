@@ -12,7 +12,6 @@ import {
   WARNING_COLOR,
   WHITE_COLOR,
 } from "./constants";
-import { fontWeight } from "@mui/system";
 
 declare module "@mui/material/styles" {
   interface PaletteColor {
@@ -111,6 +110,23 @@ theme = createTheme(theme, {
           "&:hover": {
             backgroundColor: "rgba(0,0,0,.05)",
           },
+        },
+      },
+    },
+    MuiChartsTooltip: {
+      styleOverrides: {
+        root: {
+          backgroundColor: "#FFF",
+          padding: "2px 7px",
+          boxShadow: 0,
+          "& .MuiTypography-root": {
+            fontFamily: BASE_FONT_FAMILY,
+            fontWeight: 400,
+          },
+        },
+        table: {
+          borderRadius: 0,
+          backgroundColor: "#FFF",
         },
       },
     },
@@ -215,9 +231,18 @@ theme = createTheme(theme, {
         root: {
           height: DEFAULT_HEADER_HEIGHT,
           color: BLACK_COLOR,
-          fontFamily: "Poppins",
+          fontFamily: BASE_FONT_FAMILY,
           textTransform: "none",
           borderBottom: BASE_BORDER,
+        },
+      },
+    },
+    MuiCardContent: {
+      styleOverrides: {
+        root: {
+          margin: 0,
+          padding: 0,
+          "&:last-child": { paddingBottom: 0 },
         },
       },
     },
