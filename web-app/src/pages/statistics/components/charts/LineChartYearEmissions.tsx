@@ -39,7 +39,7 @@ const LineChartYearEmissions = ({ data }: { data: SearchRidesQuery }) => {
         data: getAllMonthsEmissionsByYearAndTransportation(
           data,
           currentYear,
-          "car"
+          "voiture"
         ),
         label: "voiture",
         valueFormatter: (value: number | null) => `${value} / kg Co2`,
@@ -49,9 +49,9 @@ const LineChartYearEmissions = ({ data }: { data: SearchRidesQuery }) => {
         data: getAllMonthsEmissionsByYearAndTransportation(
           data,
           currentYear,
-          "plane"
+          "avion"
         ),
-        label: "plane",
+        label: "avion",
         valueFormatter: (value: number | null) => `${value} / kg Co2`,
         color: PLANE_COLOR_CODE,
       },
@@ -64,7 +64,6 @@ const LineChartYearEmissions = ({ data }: { data: SearchRidesQuery }) => {
       xAxis={[
         {
           data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-          label: "mois",
           valueFormatter: (value: number) => getMonthWithId(value),
           tickMinStep: 1,
         },
