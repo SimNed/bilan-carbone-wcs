@@ -15,6 +15,15 @@ import {
   SELECT_WITH_NAV_MENU_WIDTH,
 } from "@/styles/constants";
 
+interface SelectWithNavigationProps {
+  selectItems: { label: string | number; value: string | number }[];
+  selectValue: { label: string | number; value: string | number };
+  handleSelectChange: (value: string | number) => void;
+  isReversed?: boolean;
+  isLeftButtonEnable?: boolean;
+  isRightButtonEnable?: boolean;
+}
+
 const SelectWithNavigation = ({
   selectItems,
   selectValue,
@@ -22,14 +31,7 @@ const SelectWithNavigation = ({
   isReversed = false,
   isLeftButtonEnable = true,
   isRightButtonEnable = true,
-}: {
-  selectItems: { label: string | number; value: string | number }[];
-  selectValue: { label: string | number; value: string | number };
-  handleSelectChange: (value: string | number) => void;
-  isReversed?: boolean;
-  isLeftButtonEnable?: boolean;
-  isRightButtonEnable?: boolean;
-}) => {
+}: SelectWithNavigationProps) => {
   const sortedSelectItems = useMemo(() => {
     if (selectItems.length <= 0) return;
 

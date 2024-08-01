@@ -2,13 +2,12 @@ import { DEFAULT_HEADER_HEIGHT, WHITE_COLOR } from "@/styles/constants";
 import { Grid } from "@mui/material";
 import { ReactNode } from "react";
 
-const SubHeader = ({
-  leftChildren,
-  rightChildren,
-}: {
+interface SubHeaderProps {
   leftChildren?: ReactNode;
   rightChildren?: ReactNode;
-}) => {
+}
+
+const SubHeader = ({ leftChildren, rightChildren }: SubHeaderProps) => {
   return (
     <Grid
       container

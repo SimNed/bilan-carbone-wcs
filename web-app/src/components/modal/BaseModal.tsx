@@ -4,15 +4,13 @@ import { Stack } from "@mui/material";
 import Modal from "@mui/material/Modal";
 import { WHITE_COLOR } from "@/styles/constants";
 
-const BaseModal = ({
-  open = false,
-  children,
-  onClose,
-}: {
+interface BaseModalProps {
   open: boolean;
   children: ReactNode;
   onClose: () => void;
-}) => {
+}
+
+const BaseModal = ({ open = false, children, onClose }: BaseModalProps) => {
   return (
     <Modal
       open={open}

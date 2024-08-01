@@ -6,13 +6,15 @@ import {
 import SquareIcon from "@mui/icons-material/Square";
 import { Stack, Typography } from "@mui/material";
 
+interface LegendContainerProps {
+  elements: { label: string; color: string }[];
+  gap?: number;
+}
+
 const LegendContainer = ({
   elements,
   gap = DEFAULT_LEGEND_CONTAINER_GAP,
-}: {
-  elements: { label: string; color: string }[];
-  gap?: number;
-}) => {
+}: LegendContainerProps) => {
   return (
     <Stack
       height={DEFAULT_HEADER_HEIGHT}

@@ -1,13 +1,13 @@
 import { DEFAULT_HEADER_HEIGHT } from "@/styles/constants";
 import { Box } from "@mui/material";
 
-const TabNav = (props: {
+interface TabNavProps {
   children: React.ReactNode;
   value: number;
   index: number;
-}) => {
-  const { children, value, index } = props;
+}
 
+const TabNav = ({ children, value, index }: TabNavProps) => {
   return (
     <Box
       position="relative"
