@@ -3,8 +3,8 @@ import { GET_USER_PROFIL } from "@/api-gql/queries/user.queries";
 import { GetUserProfileQuery, SearchRidesQuery } from "@/gql/graphql";
 
 import { useQuery } from "@apollo/client";
-import { Grid, Stack, Tab, Tabs, Typography } from "@mui/material";
-import { SyntheticEvent, useEffect, useMemo, useState } from "react";
+import { Stack, Tab, Tabs, Typography } from "@mui/material";
+import { SyntheticEvent, useEffect, useState } from "react";
 
 import { SEARCH_RIDES } from "@/api-gql/queries/ride.queries";
 
@@ -12,7 +12,7 @@ import StatsGlobalTab from "./components/tabs/StatsGlobalTab";
 import StatsByMonthTab from "./components/tabs/StatsByMonthTab";
 import TabNav from "@/components/navs/TabNav";
 import Loader from "@/components/loader/Loader";
-import { DEFAULT_HEADER_HEIGHT, WHITE_COLOR } from "@/styles/constants";
+import { WHITE_COLOR } from "@/styles/constants";
 import LegendContainer from "@/components/containers/LegendContainer";
 import { STATISTICS_LEGEND_ELEMENTS } from "@/charts.constants";
 import SubHeader from "@/components/headers/SubHeader";

@@ -13,7 +13,7 @@ import { SIGN_UP_FORM } from "@/api-gql/mutations/user.mutations";
 import { useModal } from "@/components/layout/Layout";
 import SignInForm from "./SignInForm";
 
-export default function SignUpForm() {
+const SignUpForm = () => {
   const [formData, setFormData] = useState<SignUpMutationVariables>({
     email: "",
     firstName: "",
@@ -179,4 +179,6 @@ export default function SignUpForm() {
       </p>
     </Container>
   );
-}
+};
+
+export default SignUpForm;

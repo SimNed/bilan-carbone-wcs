@@ -24,10 +24,10 @@ interface SignInPageProps {
   onValidationRedirectionPath?: string;
 }
 
-export default function SignInForm({
+const SignInForm = ({
   subtitle,
   onValidationRedirectionPath,
-}: SignInPageProps) {
+}: SignInPageProps) => {
   const router = useRouter();
   const { setUser } = useAuth();
   const { handleCloseModal, handleModalComponent } = useModal();
@@ -125,4 +125,6 @@ export default function SignInForm({
       </p>
     </Container>
   );
-}
+};
+
+export default SignInForm;

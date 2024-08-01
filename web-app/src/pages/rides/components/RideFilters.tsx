@@ -5,24 +5,24 @@ import {
   TextField,
   Typography,
   MenuItem,
-  useMediaQuery,
-  useTheme,
 } from "@mui/material";
-import { useMemo, useState, useEffect, ReactNode } from "react";
+import { useState } from "react";
 import { GET_TRANSPORTATIONS } from "@/api-gql/queries/transportation.queries";
 import { GetTransportationsQuery } from "@/gql/graphql";
 import { RideFilterData } from "@/type/RideFilterData.type";
 import { capitalizeFirstLetter } from "@/utils/typo.utils";
 
+interface RideFiltersProps {
+  handleRideFilter: (filterData: RideFilterData) => void;
+  closeModal: () => void;
+  handleModalResponsive?: () => void;
+}
+
 const RideFilters = ({
   handleRideFilter,
   closeModal,
   handleModalResponsive,
-}: {
-  handleRideFilter: (filterData: RideFilterData) => void;
-  closeModal: () => void;
-  handleModalResponsive?: () => void;
-}) => {
+}: RideFiltersProps) => {
   const [filterData, setFilterData] = useState<RideFilterData>({});
 
   const { data } = useQuery<GetTransportationsQuery>(GET_TRANSPORTATIONS);

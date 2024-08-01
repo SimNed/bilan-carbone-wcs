@@ -1,13 +1,24 @@
-import { Card, CardContent, Typography, Button, Box } from "@mui/material";
+import { Card, CardContent, Typography, Button } from "@mui/material";
 import DirectionsCarFilledIcon from "@mui/icons-material/DirectionsCarFilled";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import DirectionsRailwayIcon from "@mui/icons-material/DirectionsRailway";
 import FlightIcon from "@mui/icons-material/Flight";
 
+import LabelIcon from "@mui/icons-material/Label";
+
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { Stack } from "@mui/system";
 import { getFormatedDate } from "@/utils/date.utils";
-import { BASE_BORDER, WHITE_COLOR } from "@/styles/constants";
+import {
+  BASE_BORDER,
+  BLACK_COLOR,
+  BUS_COLOR_CODE,
+  CAR_COLOR_CODE,
+  GRAY_COLOR,
+  PLANE_COLOR_CODE,
+  TRAIN_COLOR_CODE,
+  WHITE_COLOR,
+} from "@/styles/constants";
 
 interface RideCardProps {
   ride: any;
@@ -15,87 +26,116 @@ interface RideCardProps {
 }
 
 const RideCard = ({ ride, handleDeleteRide }: RideCardProps) => {
-  const getCardIcon = (transportationLabel: string) => {
+  const getCardTransportationInfos = (transportationLabel: string) => {
     switch (transportationLabel) {
       case "voiture":
-        return <DirectionsCarFilledIcon sx={{ fontSize: "3rem" }} />;
+        return {
+          icon: <DirectionsCarFilledIcon />,
+          color: CAR_COLOR_CODE,
+        };
       case "bus":
-        return <DirectionsBusIcon sx={{ fontSize: "3rem" }} />;
+        return {
+          icon: <DirectionsBusIcon />,
+          color: BUS_COLOR_CODE,
+        };
       case "train":
-        return <DirectionsRailwayIcon sx={{ fontSize: "3rem" }} />;
+        return {
+          icon: <DirectionsRailwayIcon />,
+          color: TRAIN_COLOR_CODE,
+        };
       case "avion":
-        return <FlightIcon sx={{ fontSize: "3rem" }} />;
+        return {
+          icon: <FlightIcon />,
+          color: PLANE_COLOR_CODE,
+        };
       default:
         return;
     }
   };
 
-  return (
-    <Card sx={{ m: 2 }}>
-      <CardContent sx={{ border: BASE_BORDER }}>
-        <Stack direction="row" justifyContent="space-between">
-          <Stack
-            direction="column"
-            justifyContent="space-around"
-            alignItems="center"
-            fontSize="5rem"
-            flex={1}
-            p={2}
-            borderRight={BASE_BORDER}
-          >
-            {getCardIcon(ride.transportation.label)}
-            <Typography variant="h4">{getFormatedDate(ride.date)}</Typography>
-          </Stack>
+  const cardTransportationInfos = getCardTransportationInfos(
+    ride.transportation.label
+  );
 
-          <Stack
-            direction="column"
-            flex={4}
-            sx={{ backgroundColor: WHITE_COLOR }}
-          >
+  return (
+    <Card sx={{ m: 2, borderRadius: 2 }}>
+      <CardContent sx={{ backgroundColor: "#fff" }}>
+        <Stack direction="column" p={2} gap={2}>
+          <Stack direction="row">
+            <LabelIcon
+              sx={{
+                fontSize: 40,
+                color: cardTransportationInfos?.color,
+                transform: "translate(70%, -20%) rotate(90deg)",
+              }}
+            />
+            <Stack
+              p={2}
+              borderRadius={2}
+              border={`1px solid ${cardTransportationInfos?.color}`}
+              sx={{
+                "& > *": { fontSize: "3rem" },
+              }}
+              color={BLACK_COLOR}
+            >
+              {cardTransportationInfos?.icon}
+            </Stack>
             <Stack
               direction="row"
               justifyContent="space-between"
               alignItems="center"
-              borderBottom={BASE_BORDER}
-              p={2}
+              flex={3}
+              mx={2}
+              px={2}
             >
+              <Typography paragraph>{ride.label}</Typography>
               <Typography
-                variant="h4"
-                gutterBottom
-                style={{ marginBottom: "0.5rem" }}
+                variant="h5"
+                borderBottom={BASE_BORDER}
+                color={GRAY_COLOR}
               >
-                {ride.label}
+                {getFormatedDate(ride.date)}
               </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={() => handleDeleteRide(ride.id)}
-                style={{
-                  margin: "0.5rem",
-                }}
-              >
-                <DeleteOutlineIcon />
-              </Button>
             </Stack>
-
-            <Box flex={3} p={2}>
-              <Stack direction="row" alignItems="center" gap={2} my={1}>
-                <Typography variant="h4">Moyen de transport:</Typography>
-                <Typography variant="h6">
+            <Button
+              variant="outlined"
+              color="primary"
+              onClick={() => handleDeleteRide(ride.id)}
+              style={{
+                margin: "0.5rem",
+              }}
+            >
+              <DeleteOutlineIcon />
+            </Button>
+          </Stack>
+          <Stack flexGrow={1} direction="column">
+            <Stack
+              direction="row"
+              justifyContent="space-around"
+              alignItems="center"
+              p={4}
+              sx={{
+                backgroundColor: WHITE_COLOR,
+                borderRadius: 2,
+              }}
+            >
+              <Stack direction="column" alignItems="center" gap={2} my={1}>
+                <Typography paragraph>MOYEN DE TRANSPORT</Typography>
+                <Typography variant="h4">
                   {ride.transportation.label}
                 </Typography>
               </Stack>
-              <Stack direction="row" alignItems="center" gap={2} my={1}>
-                <Typography variant="h4">Distance:</Typography>
-                <Typography variant="h6">{ride.distance}</Typography>
+              <Stack direction="column" alignItems="center" gap={2} my={1}>
+                <Typography paragraph>DISTANCE</Typography>
+                <Typography variant="h4">{ride.distance} km</Typography>
               </Stack>
-              <Stack direction="row" alignItems="center" gap={2} my={1}>
-                <Typography variant="h4">Emissions de Co2:</Typography>
-                <Typography variant="h6">
+              <Stack direction="column" alignItems="center" gap={2} my={1}>
+                <Typography paragraph>T / Co2</Typography>
+                <Typography variant="h4">
                   {(ride.distance * ride.transportation.carboneEmission) / 1000}
                 </Typography>
               </Stack>
-            </Box>
+            </Stack>
           </Stack>
         </Stack>
       </CardContent>

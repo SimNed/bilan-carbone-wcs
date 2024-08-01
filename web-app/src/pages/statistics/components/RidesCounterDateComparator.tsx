@@ -10,17 +10,19 @@ import PieChartRidesCounter from "./charts/PieChartRidesCounter";
 import { RideData } from "@/type/RideData.type";
 import PieChartRidesEmissions from "./charts/PieChartRidesEmissions";
 
+interface RidesCounterDateComparatorProps {
+  data: SearchRidesQuery;
+  currentRides: RideData[];
+  month: number;
+  year: number;
+}
+
 const RidesCounterDateComparator = ({
   data,
   currentRides,
   month,
   year,
-}: {
-  data: SearchRidesQuery;
-  currentRides: RideData[];
-  month: number;
-  year: number;
-}) => {
+}: RidesCounterDateComparatorProps) => {
   const prevRides = useMemo(
     () =>
       data.searchRides.filter((ride) =>

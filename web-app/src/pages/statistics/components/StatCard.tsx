@@ -1,17 +1,13 @@
 import { Box, Stack, Typography } from "@mui/material";
-import PieChartRidesCounter from "./charts/PieChartRidesCounter";
-import { RideData } from "@/type/RideData.type";
 import { BLACK_COLOR, GRAY_COLOR } from "@/styles/constants";
 
-const StatCard = ({
-  value,
-  label,
-  pieChart,
-}: {
+interface StatCardProps {
   value: number;
   label: string;
   pieChart: React.ReactNode;
-}) => {
+}
+
+const StatCard = ({ value, label, pieChart }: StatCardProps) => {
   return (
     <Stack flex={1} direction="row" justifyContent="center" alignItems="center">
       <Box flexGrow={0}>{pieChart}</Box>
