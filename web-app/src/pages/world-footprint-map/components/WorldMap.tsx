@@ -14,15 +14,17 @@ import { WorldDataFeature } from "@/type/WorldData.type";
 import { getCarboneEmissionColorCode } from "@/utils/chart.utils";
 import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
 
+interface WorldMapProps {
+  selectedYear: number;
+  worldDataFeatures: WorldDataFeature[];
+  handleSelectedCountry: (name: string, code: string) => void;
+}
+
 const WorldMap = ({
   selectedYear,
   worldDataFeatures,
   handleSelectedCountry,
-}: {
-  selectedYear: number;
-  worldDataFeatures: WorldDataFeature[];
-  handleSelectedCountry: (name: string, code: string) => void;
-}) => {
+}: WorldMapProps) => {
   const [isTootlipOnCountryHover, setIsTootlipOnCountryHover] = useState(false);
   const [tooltipData, setTooltipData] = useState("");
 
