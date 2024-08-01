@@ -4,10 +4,10 @@ import {
   Entity,
   OneToMany,
   PrimaryGeneratedColumn,
-} from 'typeorm';
-import { ObjectType, Field, Float, Int } from 'type-graphql';
-import { CreateOrUpdateTransportation } from './transportation.args';
-import Ride from './ride';
+} from "typeorm";
+import { ObjectType, Field, Float, Int } from "type-graphql";
+import { CreateOrUpdateTransportation } from "./transportation.args";
+import Ride from "./ride";
 
 @Entity()
 @ObjectType()
@@ -22,7 +22,7 @@ class Transportation extends BaseEntity {
 
   @Column()
   @Field(() => Float)
-  carboneEmission!: number;
+  carboneEmissionsByGrPerKm!: number;
 
   @OneToMany(() => Ride, (ride) => ride.transportation)
   @Field(() => [Ride])
@@ -33,33 +33,33 @@ class Transportation extends BaseEntity {
 
     if (transportation) {
       if (!transportation.label) {
-        throw new Error('Label is required');
+        throw new Error("Label is required");
       }
-      if (!transportation.carboneEmission) {
-        throw new Error('Label is required');
+      if (!transportation.carboneEmissionsByGrPerKm) {
+        throw new Error("Label is required");
       }
       this.label = transportation.label;
-      this.carboneEmission = transportation.carboneEmission;
+      this.carboneEmissionsByGrPerKm = transportation.carboneEmissionsByGrPerKm;
     }
   }
 
   static async initializeTransportations(): Promise<void> {
     await Transportation.createTransportationIfNotExisting({
-      label: 'voiture',
-      carboneEmission: 200,
+      label: "train",
+      carboneEmissionsByGrPerKm: 50,
     });
     await Transportation.createTransportationIfNotExisting({
-      label: 'bus',
-      carboneEmission: 100,
+      label: "bus",
+      carboneEmissionsByGrPerKm: 90,
     });
     await Transportation.createTransportationIfNotExisting({
-      label: 'train',
-      carboneEmission: 50,
+      label: "voiture",
+      carboneEmissionsByGrPerKm: 135,
     });
     await Transportation.createTransportationIfNotExisting({
       id: 5,
-      label: 'train',
-      carboneEmission: 500,
+      label: "avion",
+      carboneEmissionsByGrPerKm: 175,
     });
   }
 
@@ -82,7 +82,7 @@ class Transportation extends BaseEntity {
     transportationData: Partial<Transportation>
   ): Promise<Transportation> {
     if (!transportationData.label) {
-      throw new Error('Label is required');
+      throw new Error("Label is required");
     }
     const existingTransportation = await Transportation.getTransportationByName(
       transportationData.label
