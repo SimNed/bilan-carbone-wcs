@@ -5,24 +5,14 @@ import { Box, Grid, Stack, Typography } from "@mui/material";
 import NorthEastIcon from "@mui/icons-material/NorthEast";
 import SouthEastIcon from "@mui/icons-material/SouthEast";
 
-import { ReactNode } from "react";
+import { ComparatorElement } from "@/type/ComparatorElement.type";
 
-type ComparatorElement = {
-  label: string | number;
-  comparatedValues: {
-    label: string | number;
-    value: number;
-    optionalNode?: ReactNode;
-  }[];
-};
-
-const Comparator = ({
-  baseElement,
-  comparatedElements,
-}: {
+interface ComparatorProps {
   baseElement: ComparatorElement;
   comparatedElements: ComparatorElement[];
-}) => {
+}
+
+const Comparator = ({ baseElement, comparatedElements }: ComparatorProps) => {
   return (
     <Grid
       container
