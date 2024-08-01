@@ -20,17 +20,19 @@ import CardTravelIcon from "@mui/icons-material/CardTravel";
 import LogoutIcon from "@mui/icons-material/Logout";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 
-const HeaderMobileProfilNav = ({
-  isOpen,
-  handleHeaderMobileProfilNavClose,
-}: {
+interface HeaderMobileProfilNavProps {
   isOpen: boolean;
   anchorEl: null | HTMLElement;
   handleHeaderMobileProfilNavOpen: (
     event: React.MouseEvent<HTMLElement>
   ) => void;
   handleHeaderMobileProfilNavClose: () => void;
-}) => {
+}
+
+const HeaderMobileProfilNav = ({
+  isOpen,
+  handleHeaderMobileProfilNavClose,
+}: HeaderMobileProfilNavProps) => {
   const router = useRouter();
   const { logout } = useAuth();
 

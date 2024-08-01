@@ -14,15 +14,16 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import PublicIcon from "@mui/icons-material/Public";
 
-const HeaderMobileNav = ({
-  isOpen,
-
-  handleHeaderMobileNavClose,
-}: {
+interface HeaderMobileNavProps {
   isOpen: boolean;
   anchorEl: null | HTMLElement;
   handleHeaderMobileNavClose: () => void;
-}) => {
+}
+
+const HeaderMobileNav = ({
+  isOpen,
+  handleHeaderMobileNavClose,
+}: HeaderMobileNavProps) => {
   const router = useRouter();
   const theme = useTheme();
   const isMediumUp = useMediaQuery(theme.breakpoints.up("md"));
