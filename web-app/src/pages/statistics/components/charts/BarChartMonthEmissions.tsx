@@ -19,15 +19,17 @@ import {
 import { getTotalEmissionsByDayAndTransportation } from "@/utils/ride.utils";
 import { MakeOptional } from "@mui/x-charts/internals";
 
+interface BarChartMonthEmissionsProps {
+  data: SearchRidesQuery | undefined;
+  selectedMonth: number;
+  selectedYear: number;
+}
+
 const BarChartMonthEmissions = ({
   data,
   selectedMonth,
   selectedYear,
-}: {
-  data: SearchRidesQuery | undefined;
-  selectedMonth: number;
-  selectedYear: number;
-}) => {
+}: BarChartMonthEmissionsProps) => {
   const numberOfDaysInMonth = useMemo(
     () => new Date(selectedYear, selectedMonth + 1, 0).getDate(),
     [selectedMonth, selectedYear]

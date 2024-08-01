@@ -7,15 +7,17 @@ import {
 } from "@/styles/constants";
 import { RideData } from "@/type/RideData.type";
 
+interface PieChartRidesCounterProps {
+  rides: RideData[] | [];
+  width?: number;
+  height?: number;
+}
+
 const PieChartRidesCounter = ({
   rides,
   width,
   height,
-}: {
-  rides: RideData[] | [];
-  width?: number;
-  height?: number;
-}) => {
+}: PieChartRidesCounterProps) => {
   const series = [
     {
       id: 0,

@@ -10,7 +10,11 @@ import { getMonthWithId } from "@/utils/date.utils";
 import { getAllMonthsEmissionsByYearAndTransportation } from "@/utils/ride.utils";
 import { useMemo } from "react";
 
-const LineChartYearEmissions = ({ data }: { data: SearchRidesQuery }) => {
+interface LineChartYearEmissionsProps {
+  data: SearchRidesQuery;
+}
+
+const LineChartYearEmissions = ({ data }: LineChartYearEmissionsProps) => {
   const currentYear = new Date().getFullYear();
 
   const series = useMemo(() => {

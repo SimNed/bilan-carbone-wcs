@@ -1,5 +1,4 @@
 import BasePieChart from "@/components/charts/BasePieChart";
-import { Ride, SearchRidesQuery } from "@/gql/graphql";
 import {
   BUS_COLOR_CODE,
   CAR_COLOR_CODE,
@@ -8,15 +7,17 @@ import {
 } from "@/styles/constants";
 import { RideData } from "@/type/RideData.type";
 
+interface PieChartRidesEmissionsProps {
+  rides: RideData[];
+  width?: number;
+  height?: number;
+}
+
 const PieChartRidesEmissions = ({
   rides,
   width,
   height,
-}: {
-  rides: RideData[];
-  width?: number;
-  height?: number;
-}) => {
+}: PieChartRidesEmissionsProps) => {
   const series = [
     {
       id: 0,

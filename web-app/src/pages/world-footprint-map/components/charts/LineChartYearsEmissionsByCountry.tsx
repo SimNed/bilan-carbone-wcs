@@ -9,15 +9,17 @@ import {
   WORLD_EMISSIONS_START_DATE,
 } from "@/charts.constants";
 
+interface LineChartYearsEmissionsByCountryProps {
+  data: CarboneEmission[] | [];
+  selectedYear: number;
+  handleSelectedYear: (year: number) => void;
+}
+
 const LineChartYearsEmissionsByCountry = ({
   data,
   selectedYear,
   handleSelectedYear,
-}: {
-  data: CarboneEmission[] | [];
-  selectedYear: number;
-  handleSelectedYear: (year: number) => void;
-}) => {
+}: LineChartYearsEmissionsByCountryProps) => {
   const xAxis = [
     {
       dataKey: "year",
