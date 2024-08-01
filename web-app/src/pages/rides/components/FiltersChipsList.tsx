@@ -1,15 +1,16 @@
 import { RideFilterData } from "@/type/RideFilterData.type";
 import { getFormatedDate } from "@/utils/date.utils";
 import { Chip } from "@mui/material";
-import { useState } from "react";
+
+interface FiltersChipsListProps {
+  filters: RideFilterData;
+  handleDeleteFilter: (key: keyof RideFilterData) => void;
+}
 
 const FiltersChipsList = ({
   filters,
   handleDeleteFilter,
-}: {
-  filters: RideFilterData;
-  handleDeleteFilter: (key: keyof RideFilterData) => void;
-}) => {
+}: FiltersChipsListProps) => {
   function getChip(key: string, label: string) {
     return (
       <Chip
