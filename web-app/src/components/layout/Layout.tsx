@@ -53,8 +53,9 @@ const Layout = ({ children }: LayoutProps) => {
   };
 
   useEffect(() => {
-    if (isModalResponsive && isModalOpen && !isSmallScreen)
+    if (isModalResponsive && isModalOpen && !isSmallScreen) {
       setIsModalOpen(false);
+    }
   }, [isSmallScreen]);
 
   return (

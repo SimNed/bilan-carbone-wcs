@@ -144,6 +144,10 @@ const RideFilters = ({
             setFilterData({
               ...filterData,
               transportationId: parseInt(event.target.value),
+              transportationMode: data?.transportations.find(
+                (transportation) =>
+                  transportation.id === parseInt(event.target.value)
+              )?.label,
             });
           }}
         >

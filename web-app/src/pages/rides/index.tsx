@@ -16,8 +16,9 @@ import {
   DEFAULT_HEADER_HEIGHT,
   WHITE_COLOR,
 } from "@/styles/constants";
-import ChipFilter from "./components/ChipFilter";
 import SubHeader from "@/components/headers/SubHeader";
+import Loader from "@/components/loader/Loader";
+import FiltersChipsList from "./components/FiltersChipsList";
 
 const RidesPage = () => {
   const [filters, setFilters] = useState<RideFilterData>({});
@@ -26,13 +27,10 @@ const RidesPage = () => {
 
   const { data: userData } = useQuery<GetUserProfileQuery>(GET_USER_PROFIL);
 
-  const { loading, error, data, refetch } = useQuery<SearchRidesQuery>(
-    SEARCH_RIDES,
-    {
-      variables: filters,
-      fetchPolicy: "cache-and-network",
-    }
-  );
+  const { loading, data, refetch } = useQuery<SearchRidesQuery>(SEARCH_RIDES, {
+    variables: filters,
+    fetchPolicy: "cache-and-network",
+  });
 
   const [deleteRideMutation] = useMutation(DELETE_RIDE, {
     onCompleted: () => {
@@ -70,10 +68,7 @@ const RidesPage = () => {
     refetch();
   };
 
-  if (loading || typeof data === "undefined") return <p>Loading...</p>;
-  if (error) return <p>Error: {error.message}</p>;
-
-  return (
+  return !loading && data ? (
     <Stack
       direction="column"
       width="100%"
@@ -119,17 +114,13 @@ const RidesPage = () => {
             py={2}
             sx={{ backgroundColor: WHITE_COLOR }}
           >
-            {Object.keys(filters).map((key) => (
-              <ChipFilter
-                chipKey={key}
-                value={filters[key as keyof RideFilterData]}
-                handleDeleteFilter={handleDeleteFilter}
-              />
-            ))}
+            <FiltersChipsList
+              filters={filters}
+              handleDeleteFilter={handleDeleteFilter}
+            />
           </Stack>
         }
       />
-
       <Grid
         container
         position="relative"
@@ -185,6 +176,8 @@ const RidesPage = () => {
         </Grid>
       </Grid>
     </Stack>
+  ) : (
+    <Loader />
   );
 };
 
