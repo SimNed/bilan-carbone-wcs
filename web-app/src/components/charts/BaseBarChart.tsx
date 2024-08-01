@@ -10,19 +10,21 @@ import {
 } from "@mui/x-charts";
 import { MakeOptional } from "@mui/x-charts/internals";
 
+interface BaseBarChartProps {
+  dataset: any | [];
+  series: MakeOptional<BarSeriesType, "type">[];
+  xAxis: MakeOptional<AxisConfig<ScaleName, any, ChartsXAxisProps>, "id">[];
+  yAxis: MakeOptional<AxisConfig<ScaleName, any, ChartsYAxisProps>, "id">[];
+  height?: number;
+}
+
 const BaseBarChart = ({
   dataset,
   series,
   xAxis,
   yAxis,
   height = BASE_BAR_CHART_HEIGHT,
-}: {
-  dataset: any | [];
-  series: MakeOptional<BarSeriesType, "type">[];
-  xAxis: MakeOptional<AxisConfig<ScaleName, any, ChartsXAxisProps>, "id">[];
-  yAxis: MakeOptional<AxisConfig<ScaleName, any, ChartsYAxisProps>, "id">[];
-  height?: number;
-}) => {
+}: BaseBarChartProps) => {
   return (
     <BarChart
       borderRadius={2}

@@ -3,15 +3,17 @@ import { PieChart, PieValueType } from "@mui/x-charts";
 import { MakeOptional } from "@mui/x-charts/internals";
 import { BASE_PIE_CHART_RADIUS, GRAY_COLOR } from "@/styles/constants";
 
+interface BasePieChartProps {
+  seriesData: MakeOptional<PieValueType, "id">[];
+  width?: number;
+  height?: number;
+}
+
 const BasePieChart = ({
   seriesData,
   width = BASE_PIE_CHART_RADIUS,
   height = BASE_PIE_CHART_RADIUS,
-}: {
-  seriesData: MakeOptional<PieValueType, "id">[];
-  width?: number;
-  height?: number;
-}) => {
+}: BasePieChartProps) => {
   const filteredSeriesData = seriesData.filter((serie) => serie.value > 0);
 
   return (
