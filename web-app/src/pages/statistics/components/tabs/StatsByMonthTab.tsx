@@ -12,12 +12,15 @@ import PieChartRidesCounter from "../charts/PieChartRidesCounter";
 import PieChartRidesEmissions from "../charts/PieChartRidesEmissions";
 
 import RidesCounterDateComparator from "../RidesCounterDateComparator";
-import { DEFAULT_HEADER_HEIGHT, WHITE_COLOR } from "@/styles/constants";
 import { capitalizeFirstLetter } from "@/utils/typo.utils";
 import StatCard from "../StatCard";
 import SubHeader from "@/components/headers/SubHeader";
 
-const StatsByMonthTab = ({ data }: { data: SearchRidesQuery }) => {
+interface StatsByMonthTabProps {
+  data: SearchRidesQuery;
+}
+
+const StatsByMonthTab = ({ data }: StatsByMonthTabProps) => {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth());
 

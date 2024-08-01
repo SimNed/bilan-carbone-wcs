@@ -9,7 +9,11 @@ import LineChartYearEmissions from "../charts/LineChartYearEmissions";
 
 import StatCard from "../StatCard";
 
-const StatsGlobalTab = ({ data }: { data: SearchRidesQuery }) => {
+interface StatsGlobalTabProps {
+  data: SearchRidesQuery;
+}
+
+const StatsGlobalTab = ({ data }: StatsGlobalTabProps) => {
   const totalRides = useMemo(
     () => (data && data.searchRides.length > 0 ? data.searchRides.length : 0),
     [data]
