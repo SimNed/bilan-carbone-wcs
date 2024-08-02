@@ -12,7 +12,9 @@ import {
 import SelectWithNavigation from "@/components/navs/SelectWithNavigtion";
 import LegendContainer from "@/components/containers/LegendContainer";
 import {
+  CO2_TON_UNIT_LABEL,
   MAP_LEGEND_ELEMENTS,
+  PER_CAPITA_UNIT_LABEL,
   WORLD_EMISSIONS_END_DATE,
   WORLD_EMISSIONS_START_DATE,
 } from "@/charts.constants";
@@ -55,6 +57,15 @@ const WorldFootprintMapPage = () => {
     fetchWorldDataFeatures();
     setSelectedCountryCode("FRA");
   }, []);
+
+  useEffect(() => {
+    const carbonEmissions = worldDataFeatures.find(
+      (feature) => feature.properties.code === selectedCountryCode
+    )?.properties.data;
+
+    if (!carbonEmissions) return;
+    setSelectedCarboneEmissions(carbonEmissions);
+  }, [worldDataFeatures]);
 
   useEffect(() => {
     const carbonEmissions = worldDataFeatures.find(
@@ -112,7 +123,7 @@ const WorldFootprintMapPage = () => {
                     label: selectedYear,
                     comparatedValues: [
                       {
-                        label: "co2 t per capita",
+                        label: `${CO2_TON_UNIT_LABEL} ${PER_CAPITA_UNIT_LABEL}`,
                         value:
                           selectedCarboneEmissions.find(
                             (emission) => emission.year === selectedYear
@@ -125,7 +136,7 @@ const WorldFootprintMapPage = () => {
                       label: selectedYear - 1,
                       comparatedValues: [
                         {
-                          label: "co2 t per capita",
+                          label: `${CO2_TON_UNIT_LABEL} ${PER_CAPITA_UNIT_LABEL}`,
                           value:
                             selectedCarboneEmissions.find(
                               (emission) => emission.year === selectedYear - 1
@@ -137,7 +148,7 @@ const WorldFootprintMapPage = () => {
                       label: selectedYear + 1,
                       comparatedValues: [
                         {
-                          label: "co2 t per capita",
+                          label: `${CO2_TON_UNIT_LABEL} ${PER_CAPITA_UNIT_LABEL}`,
                           value:
                             selectedCarboneEmissions.find(
                               (emission) => emission.year === selectedYear + 1

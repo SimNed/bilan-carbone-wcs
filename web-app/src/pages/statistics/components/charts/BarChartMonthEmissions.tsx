@@ -18,6 +18,7 @@ import {
 } from "@/styles/constants";
 import { getTotalEmissionsByDayAndTransportation } from "@/utils/ride.utils";
 import { MakeOptional } from "@mui/x-charts/internals";
+import { CO2_KG_UNIT_LABEL } from "@/charts.constants";
 
 interface BarChartMonthEmissionsProps {
   data: SearchRidesQuery | undefined;
@@ -117,9 +118,9 @@ const BarChartMonthEmissions = ({
     "id"
   >[] = [
     {
-      label: "kg / co2",
+      label: CO2_KG_UNIT_LABEL,
       min: 0,
-      max: 1000,
+      max: 250,
     },
   ];
 

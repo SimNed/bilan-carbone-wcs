@@ -5,6 +5,8 @@ import { BLACK_COLOR } from "@/styles/constants";
 import BaseLineChart from "@/components/charts/BaseLineChart";
 import { CarboneEmission } from "@/type/WorldData.type";
 import {
+  CO2_TON_UNIT_LABEL,
+  PER_CAPITA_UNIT_LABEL,
   WORLD_EMISSIONS_END_DATE,
   WORLD_EMISSIONS_START_DATE,
 } from "@/charts.constants";
@@ -32,7 +34,7 @@ const LineChartYearsEmissionsByCountry = ({
   const yAxis = [
     {
       max: 25,
-      label: "Co2 t. per capita ",
+      label: `${CO2_TON_UNIT_LABEL} ${PER_CAPITA_UNIT_LABEL}`,
     },
   ];
 
@@ -41,7 +43,8 @@ const LineChartYearsEmissionsByCountry = ({
       {
         dataKey: "carboneEmissionsPerCapita",
         label: "Emissions de Co2",
-        valueFormatter: (value: number | null) => `${value}/t per capita`,
+        valueFormatter: (value: number | null) =>
+          `${value} ${CO2_TON_UNIT_LABEL} ${PER_CAPITA_UNIT_LABEL}`,
         color: BLACK_COLOR,
         showMark: ({ index }: { index: number }) =>
           data[index].year === selectedYear,

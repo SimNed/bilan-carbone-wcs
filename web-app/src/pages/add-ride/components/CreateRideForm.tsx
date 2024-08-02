@@ -23,7 +23,7 @@ export default function CreateRideForm() {
     label: "",
     distance: 0,
     date: "",
-    transportationId: 1,
+    transportationId: 0,
   });
 
   const { data } = useQuery<GetTransportationsQuery>(GET_TRANSPORTATIONS);
@@ -120,6 +120,7 @@ export default function CreateRideForm() {
           select
           label="Moyen de transport"
           size="small"
+          value={formData.transportationId || ""}
           onChange={(event) => {
             updateFormData({
               transportationId: parseInt(event.target.value as string),
@@ -127,11 +128,15 @@ export default function CreateRideForm() {
           }}
           sx={{ width: "100%" }}
         >
-          {data?.transportations.map((transportation) => (
-            <MenuItem key={transportation.id} value={transportation.id}>
-              {capitalizeFirstLetter(transportation.label)}
-            </MenuItem>
-          ))}
+          {data ? (
+            data.transportations.map((transportation) => (
+              <MenuItem key={transportation.id} value={transportation.id}>
+                {capitalizeFirstLetter(transportation.label)}
+              </MenuItem>
+            ))
+          ) : (
+            <MenuItem></MenuItem>
+          )}
         </TextField>
 
         <Button

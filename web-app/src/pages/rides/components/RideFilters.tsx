@@ -140,6 +140,7 @@ const RideFilters = ({
           label="Moyen de transport"
           size="small"
           value={filterData.transportationId || ""}
+          InputLabelProps={{ shrink: true }}
           onChange={(event) => {
             setFilterData({
               ...filterData,
@@ -151,11 +152,15 @@ const RideFilters = ({
             });
           }}
         >
-          {data?.transportations.map((transportation) => (
-            <MenuItem key={transportation.id} value={transportation.id}>
-              {capitalizeFirstLetter(transportation.label)}
-            </MenuItem>
-          ))}
+          {data ? (
+            data.transportations.map((transportation) => (
+              <MenuItem key={transportation.id} value={transportation.id}>
+                {capitalizeFirstLetter(transportation.label)}
+              </MenuItem>
+            ))
+          ) : (
+            <MenuItem></MenuItem>
+          )}
         </TextField>
 
         <Button

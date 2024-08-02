@@ -18,6 +18,7 @@ import RidesCounterDateComparator from "../RidesCounterDateComparator";
 import { capitalizeFirstLetter } from "@/utils/typo.utils";
 import StatCard from "../StatCard";
 import SubHeader from "@/components/headers/SubHeader";
+import { CO2_KG_UNIT_LABEL } from "@/charts.constants";
 
 interface StatsByMonthTabProps {
   data: SearchRidesQuery;
@@ -93,7 +94,7 @@ const StatsByMonthTab = ({ data }: StatsByMonthTabProps) => {
           <Grid item xs={6}>
             <StatCard
               value={getNumberFormatedToTwoDecimals(CO2ByMonthAndYear)}
-              label="co2 en t"
+              label={CO2_KG_UNIT_LABEL}
               pieChart={<PieChartRidesEmissions rides={rides} />}
             />
           </Grid>

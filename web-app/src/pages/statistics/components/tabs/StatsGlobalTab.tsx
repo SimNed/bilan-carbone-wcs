@@ -9,6 +9,7 @@ import LineChartYearEmissions from "../charts/LineChartYearEmissions";
 
 import StatCard from "../StatCard";
 import { getTotalEmissions } from "@/utils/ride.utils";
+import { CO2_KG_UNIT_LABEL } from "@/charts.constants";
 
 interface StatsGlobalTabProps {
   data: SearchRidesQuery;
@@ -56,7 +57,7 @@ const StatsGlobalTab = ({ data }: StatsGlobalTabProps) => {
           <Grid item xs={12}>
             <StatCard
               value={getNumberFormatedToTwoDecimals(totalCO2)}
-              label="kg/Co2"
+              label={CO2_KG_UNIT_LABEL}
               pieChart={
                 <PieChartRidesEmissions
                   rides={data.searchRides}

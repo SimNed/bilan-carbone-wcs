@@ -9,6 +9,7 @@ import {
 import PieChartRidesCounter from "./charts/PieChartRidesCounter";
 import { RideData } from "@/type/RideData.type";
 import PieChartRidesEmissions from "./charts/PieChartRidesEmissions";
+import { CO2_KG_UNIT_LABEL } from "@/charts.constants";
 
 interface RidesCounterDateComparatorProps {
   data: SearchRidesQuery;
@@ -53,7 +54,7 @@ const RidesCounterDateComparator = ({
             value: currentRides.length,
           },
           {
-            label: "co2 en t",
+            label: CO2_KG_UNIT_LABEL,
             value: getTotalEmissions(currentRides),
           },
         ],
@@ -68,7 +69,7 @@ const RidesCounterDateComparator = ({
               optionalNode: <PieChartRidesCounter rides={prevRides} />,
             },
             {
-              label: "co2 en t",
+              label: CO2_KG_UNIT_LABEL,
               value: getTotalEmissions(prevRides),
               optionalNode: <PieChartRidesEmissions rides={prevRides} />,
             },
@@ -83,7 +84,7 @@ const RidesCounterDateComparator = ({
               optionalNode: <PieChartRidesCounter rides={nextRides} />,
             },
             {
-              label: "co2 en t",
+              label: CO2_KG_UNIT_LABEL,
               value: getTotalEmissions(nextRides),
               optionalNode: <PieChartRidesEmissions rides={nextRides} />,
             },

@@ -1,3 +1,4 @@
+import { CO2_KG_UNIT_LABEL } from "@/charts.constants";
 import BaseLineChart from "@/components/charts/BaseLineChart";
 import { SearchRidesQuery } from "@/gql/graphql";
 import {
@@ -47,28 +48,32 @@ const LineChartYearEmissions = ({ data }: LineChartYearEmissionsProps) => {
       {
         data: trainEmissions,
         label: "train",
-        valueFormatter: (value: number | null) => `${value} kg/Co2`,
+        valueFormatter: (value: number | null) =>
+          `${value} ${CO2_KG_UNIT_LABEL}`,
         color: TRAIN_COLOR_CODE,
         showMark: ({ index }: { index: number }) => trainEmissions[index] > 0,
       },
       {
         data: busEmissions,
         label: "bus",
-        valueFormatter: (value: number | null) => `${value} kg/Co2`,
+        valueFormatter: (value: number | null) =>
+          `${value} ${CO2_KG_UNIT_LABEL}`,
         color: BUS_COLOR_CODE,
         showMark: ({ index }: { index: number }) => busEmissions[index] > 0,
       },
       {
         data: carEmissions,
         label: "voiture",
-        valueFormatter: (value: number | null) => `${value} kg/Co2`,
+        valueFormatter: (value: number | null) =>
+          `${value} ${CO2_KG_UNIT_LABEL}`,
         color: CAR_COLOR_CODE,
         showMark: ({ index }: { index: number }) => carEmissions[index] > 0,
       },
       {
         data: planeEmissions,
         label: "avion",
-        valueFormatter: (value: number | null) => `${value} kg/Co2`,
+        valueFormatter: (value: number | null) =>
+          `${value} ${CO2_KG_UNIT_LABEL}`,
         color: PLANE_COLOR_CODE,
         showMark: ({ index }: { index: number }) => planeEmissions[index] > 0,
       },

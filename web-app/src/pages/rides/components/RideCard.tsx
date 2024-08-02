@@ -19,6 +19,7 @@ import {
   TRAIN_COLOR_CODE,
   WHITE_COLOR,
 } from "@/styles/constants";
+import { CO2_KG_UNIT_LABEL } from "@/charts.constants";
 
 interface RideCardProps {
   ride: any;
@@ -130,7 +131,7 @@ const RideCard = ({ ride, handleDeleteRide }: RideCardProps) => {
                 <Typography variant="h4">{ride.distance} km</Typography>
               </Stack>
               <Stack direction="column" alignItems="center" gap={2} my={1}>
-                <Typography paragraph>kg/Co2</Typography>
+                <Typography paragraph>{CO2_KG_UNIT_LABEL}</Typography>
                 <Typography variant="h4">
                   {(ride.distance *
                     ride.transportation.carbonEmissionsByGrPerKm) /

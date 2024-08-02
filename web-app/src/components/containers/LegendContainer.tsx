@@ -27,7 +27,12 @@ const LegendContainer = ({
       sx={{ backgroundColor: WHITE_COLOR }}
     >
       {elements.map((element) => (
-        <Stack flexDirection="row" justifyContent="center" gap={1}>
+        <Stack
+          key={element.label}
+          flexDirection="row"
+          justifyContent="center"
+          gap={1}
+        >
           <SquareIcon sx={{ color: element.color }} />
           <Typography paragraph>{element.label}</Typography>
         </Stack>

@@ -32,6 +32,7 @@ const Comparator = ({ baseElement, comparatedElements }: ComparatorProps) => {
 
         return (
           <Grid
+            key={element.label}
             container
             item
             xs
@@ -43,7 +44,7 @@ const Comparator = ({ baseElement, comparatedElements }: ComparatorProps) => {
                 <Typography variant="h4">{element.label}</Typography>
               </Stack>
             </Grid>
-            {element.comparatedValues.map((comparatedValue) => {
+            {element.comparatedValues.map((comparatedValue, idx) => {
               const baseValue =
                 baseElement.comparatedValues.find(
                   (baseComparatedValue) =>
@@ -61,6 +62,7 @@ const Comparator = ({ baseElement, comparatedElements }: ComparatorProps) => {
               }
               return (
                 <Grid
+                  key={`${element.label}${comparatedValue.label}`}
                   container
                   item
                   xs

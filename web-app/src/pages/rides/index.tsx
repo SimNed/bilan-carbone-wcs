@@ -19,6 +19,7 @@ import {
 import SubHeader from "@/components/headers/SubHeader";
 import Loader from "@/components/loader/Loader";
 import FiltersChipsList from "./components/FiltersChipsList";
+import { enqueueSnackbar } from "notistack";
 
 const RidesPage = () => {
   const [filters, setFilters] = useState<RideFilterData>({});
@@ -35,6 +36,12 @@ const RidesPage = () => {
   const [deleteRideMutation] = useMutation(DELETE_RIDE, {
     onCompleted: () => {
       handleCloseModal();
+      enqueueSnackbar("trajet supprimé.", { variant: "info" });
+    },
+    onError: () => {
+      enqueueSnackbar("le trajet n'a pas pu être supprimé.", {
+        variant: "error",
+      });
     },
   });
 

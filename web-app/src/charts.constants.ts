@@ -67,3 +67,7 @@ export const STATISTICS_LEGEND_ELEMENTS = [
   { label: "voiture", color: CAR_COLOR_CODE },
   { label: "avion", color: PLANE_COLOR_CODE },
 ];
+
+export const CO2_KG_UNIT_LABEL = "kg/Co2";
+export const CO2_TON_UNIT_LABEL = "t/Co2";
+export const PER_CAPITA_UNIT_LABEL = "per capita";

@@ -13,6 +13,7 @@ import { CARBON_COLOR_CODE_NO_DATA } from "@/styles/constants";
 import { WorldDataFeature } from "@/type/WorldData.type";
 import { getCarboneEmissionColorCode } from "@/utils/chart.utils";
 import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
+import { CO2_TON_UNIT_LABEL, PER_CAPITA_UNIT_LABEL } from "@/charts.constants";
 
 interface WorldMapProps {
   selectedYear: number;
@@ -79,7 +80,7 @@ const WorldMap = ({
                               geo.properties.nameFR
                             }: ${getNumberFormatedToTwoDecimals(
                               carbonEmission.carboneEmissionsPerCapita
-                            )} / Co2 t per capita`
+                            )} : ${CO2_TON_UNIT_LABEL} ${PER_CAPITA_UNIT_LABEL}`
                           : `${geo.properties.nameFR}: no data`
                       );
 
