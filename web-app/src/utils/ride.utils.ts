@@ -29,13 +29,12 @@ export function checkRideDayMonthAndYearEquality(
   );
 }
 
+export function getRideEmissionsInKg(ride: RideData) {
+  return (ride.distance * ride.transportation.carbonEmissionsByGrPerKm) / 1000;
+}
+
 export function getTotalEmissions(rides: RideData[]) {
-  return rides.reduce(
-    (accumulator, ride) =>
-      accumulator +
-      (ride.distance * ride.transportation.carboneEmission) / 1000,
-    0
-  );
+  return rides.reduce((acc, ride) => acc + getRideEmissionsInKg(ride), 0);
 }
 
 export function getTotalEmissionsByTransportation(
@@ -45,11 +44,7 @@ export function getTotalEmissionsByTransportation(
   if (!rides || rides.length === 0) return 0;
   return rides
     .filter((ride) => ride.transportation.label === transportationLabel)
-    .reduce(
-      (acc, ride) =>
-        acc + (ride.distance * ride.transportation.carboneEmission) / 1000,
-      0
-    );
+    .reduce((acc, ride) => acc + getRideEmissionsInKg(ride), 0);
 }
 
 export function getTotalEmissionsByDayAndTransportation(
@@ -66,11 +61,7 @@ export function getTotalEmissionsByDayAndTransportation(
         ride.transportation.label === transportationLabel &&
         checkRideDayMonthAndYearEquality(ride.date, day, month, year)
     )
-    .reduce(
-      (acc, ride) =>
-        acc + (ride.distance * ride.transportation.carboneEmission) / 1000,
-      0
-    );
+    .reduce((acc, ride) => acc + getRideEmissionsInKg(ride), 0);
 }
 
 export function getTotalEmissionsByMonthAndTransportation(
@@ -86,11 +77,7 @@ export function getTotalEmissionsByMonthAndTransportation(
         ride.transportation.label === transportationLabel &&
         checkRideMonthAndYearEquality(ride.date, month, year)
     )
-    .reduce(
-      (acc, ride) =>
-        acc + (ride.distance * ride.transportation.carboneEmission) / 1000,
-      0
-    );
+    .reduce((acc, ride) => acc + getRideEmissionsInKg(ride), 0);
 }
 
 export function getAllMonthsEmissionsByYearAndTransportation(
@@ -107,8 +94,7 @@ export function getAllMonthsEmissionsByYearAndTransportation(
         checkRideYearEquality(ride.date, year)
     )
     .reduce((acc, ride) => {
-      acc[new Date(ride.date).getMonth()] +=
-        (ride.distance * ride.transportation.carboneEmission) / 1000;
+      acc[new Date(ride.date).getMonth()] += getRideEmissionsInKg(ride);
       return acc;
     }, accumulator);
 }

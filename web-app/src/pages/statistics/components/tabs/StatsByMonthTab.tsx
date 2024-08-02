@@ -7,7 +7,10 @@ import BarChartMonthEmissions from "../charts/BarChartMonthEmissions";
 import { SearchRidesQuery } from "@/gql/graphql";
 import { useMemo, useState } from "react";
 import { getMonthWithId } from "@/utils/date.utils";
-import { checkRideMonthAndYearEquality } from "@/utils/ride.utils";
+import {
+  checkRideMonthAndYearEquality,
+  getTotalEmissions,
+} from "@/utils/ride.utils";
 import PieChartRidesCounter from "../charts/PieChartRidesCounter";
 import PieChartRidesEmissions from "../charts/PieChartRidesEmissions";
 
@@ -33,14 +36,7 @@ const StatsByMonthTab = ({ data }: StatsByMonthTabProps) => {
   );
 
   const CO2ByMonthAndYear = useMemo(() => {
-    if (!data || data.searchRides.length === 0) return 10;
-
-    return rides.reduce(
-      (accumulator, ride) =>
-        accumulator +
-        (ride.distance * ride.transportation.carboneEmission) / 1000,
-      0
-    );
+    return data && data.searchRides.length > 0 ? getTotalEmissions(rides) : 0;
   }, [data, selectedYear, selectedMonth]);
 
   const monthSelectItems = [];

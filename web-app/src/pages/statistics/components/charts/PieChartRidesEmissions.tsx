@@ -24,9 +24,10 @@ const PieChartRidesEmissions = ({
       value: rides
         .filter((ride) => ride.transportation.label.toLowerCase() === "voiture")
         .reduce(
-          (accumulator, ride) =>
-            accumulator +
-            (ride.distance * ride.transportation.carboneEmission) / 1000,
+          (acc, ride) =>
+            acc +
+            (ride.distance * ride.transportation.carbonEmissionsByGrPerKm) /
+              1000,
           0
         ),
       label: "voiture",
@@ -37,9 +38,10 @@ const PieChartRidesEmissions = ({
       value: rides
         .filter((ride) => ride.transportation.label.toLowerCase() === "bus")
         .reduce(
-          (accumulator, ride) =>
-            accumulator +
-            (ride.distance * ride.transportation.carboneEmission) / 1000,
+          (acc, ride) =>
+            acc +
+            (ride.distance * ride.transportation.carbonEmissionsByGrPerKm) /
+              1000,
           0
         ),
       label: "bus",
@@ -50,9 +52,10 @@ const PieChartRidesEmissions = ({
       value: rides
         .filter((ride) => ride.transportation.label.toLowerCase() === "train")
         .reduce(
-          (accumulator, ride) =>
-            accumulator +
-            (ride.distance * ride.transportation.carboneEmission) / 1000,
+          (acc, ride) =>
+            acc +
+            (ride.distance * ride.transportation.carbonEmissionsByGrPerKm) /
+              1000,
           0
         ),
       label: "train",
@@ -63,9 +66,10 @@ const PieChartRidesEmissions = ({
       value: rides
         .filter((ride) => ride.transportation.label.toLowerCase() === "avion")
         .reduce(
-          (accumulator, ride) =>
-            accumulator +
-            (ride.distance * ride.transportation.carboneEmission) / 1000,
+          (acc, ride) =>
+            acc +
+            (ride.distance * ride.transportation.carbonEmissionsByGrPerKm) /
+              1000,
           0
         ),
       label: "avion",

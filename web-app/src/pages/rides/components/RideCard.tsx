@@ -130,9 +130,11 @@ const RideCard = ({ ride, handleDeleteRide }: RideCardProps) => {
                 <Typography variant="h4">{ride.distance} km</Typography>
               </Stack>
               <Stack direction="column" alignItems="center" gap={2} my={1}>
-                <Typography paragraph>T / Co2</Typography>
+                <Typography paragraph>kg/Co2</Typography>
                 <Typography variant="h4">
-                  {(ride.distance * ride.transportation.carboneEmission) / 1000}
+                  {(ride.distance *
+                    ride.transportation.carbonEmissionsByGrPerKm) /
+                    1000}
                 </Typography>
               </Stack>
             </Stack>

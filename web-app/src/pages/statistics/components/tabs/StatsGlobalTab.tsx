@@ -8,6 +8,7 @@ import PieChartRidesEmissions from "../charts/PieChartRidesEmissions";
 import LineChartYearEmissions from "../charts/LineChartYearEmissions";
 
 import StatCard from "../StatCard";
+import { getTotalEmissions } from "@/utils/ride.utils";
 
 interface StatsGlobalTabProps {
   data: SearchRidesQuery;
@@ -21,12 +22,7 @@ const StatsGlobalTab = ({ data }: StatsGlobalTabProps) => {
 
   const totalCO2 = useMemo(() => {
     return data && data.searchRides.length > 0
-      ? data.searchRides.reduce(
-          (accumulator, ride) =>
-            accumulator +
-            (ride.distance * ride.transportation.carboneEmission) / 1000000,
-          0
-        )
+      ? getTotalEmissions(data.searchRides)
       : 0;
   }, [data]);
 
@@ -60,7 +56,7 @@ const StatsGlobalTab = ({ data }: StatsGlobalTabProps) => {
           <Grid item xs={12}>
             <StatCard
               value={getNumberFormatedToTwoDecimals(totalCO2)}
-              label="co2 en t"
+              label="kg/Co2"
               pieChart={
                 <PieChartRidesEmissions
                   rides={data.searchRides}

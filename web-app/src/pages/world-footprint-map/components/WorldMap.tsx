@@ -9,7 +9,7 @@ import {
 } from "react-simple-maps";
 import TooltipMouseTracker from "../../../components/maps/TooltipMouseTracker";
 
-import { CARBONE_COLOR_CODE_NO_DATA } from "@/styles/constants";
+import { CARBON_COLOR_CODE_NO_DATA } from "@/styles/constants";
 import { WorldDataFeature } from "@/type/WorldData.type";
 import { getCarboneEmissionColorCode } from "@/utils/chart.utils";
 import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
@@ -52,33 +52,33 @@ const WorldMap = ({
       >
         <ZoomableGroup center={[0, 0]} zoom={0.9}>
           <Sphere
-            stroke={CARBONE_COLOR_CODE_NO_DATA}
+            stroke={CARBON_COLOR_CODE_NO_DATA}
             strokeWidth={0.5}
             id="sphere"
             fill="none"
           />
-          <Graticule stroke={CARBONE_COLOR_CODE_NO_DATA} strokeWidth={0.5} />
+          <Graticule stroke={CARBON_COLOR_CODE_NO_DATA} strokeWidth={0.5} />
           <Geographies geography="/json-datas/world.data.json">
             {({ geographies }) =>
               geographies.map((geo) => {
-                const carboneEmission = getCarboneEmissionByCountryCode(
+                const carbonEmission = getCarboneEmissionByCountryCode(
                   geo.properties.code
                 );
-                const carboneEmissionColorCode = carboneEmission
+                const carbonEmissionColorCode = carbonEmission
                   ? getCarboneEmissionColorCode(
-                      carboneEmission?.carboneEmissionsPerCapita
+                      carbonEmission?.carboneEmissionsPerCapita
                     )
-                  : CARBONE_COLOR_CODE_NO_DATA;
+                  : CARBON_COLOR_CODE_NO_DATA;
 
                 return (
                   <Geography
                     onMouseOver={() => {
                       setTooltipData(
-                        carboneEmission
+                        carbonEmission
                           ? `${
                               geo.properties.nameFR
                             }: ${getNumberFormatedToTwoDecimals(
-                              carboneEmission.carboneEmissionsPerCapita
+                              carbonEmission.carboneEmissionsPerCapita
                             )} / Co2 t per capita`
                           : `${geo.properties.nameFR}: no data`
                       );
@@ -86,7 +86,7 @@ const WorldMap = ({
                       setIsTootlipOnCountryHover(true);
                     }}
                     onClick={() => {
-                      if (carboneEmission) {
+                      if (carbonEmission) {
                         handleSelectedCountry(
                           geo.properties.code,
                           geo.properties.nameFR
@@ -98,16 +98,16 @@ const WorldMap = ({
                     geography={geo}
                     style={{
                       default: {
-                        fill: carboneEmissionColorCode,
+                        fill: carbonEmissionColorCode,
                         strokeWidth: ".1",
                         outline: "none",
                         transition: "filter 0.3s ease",
                       },
                       hover: {
-                        fill: carboneEmissionColorCode,
+                        fill: carbonEmissionColorCode,
                         filter: "brightness(70%)",
                         outline: "none",
-                        cursor: carboneEmission ? "pointer" : "default",
+                        cursor: carbonEmission ? "pointer" : "default",
                       },
                       pressed: {
                         outline: "none",

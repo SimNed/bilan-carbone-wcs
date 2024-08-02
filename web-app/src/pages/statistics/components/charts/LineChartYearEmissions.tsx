@@ -18,46 +18,59 @@ const LineChartYearEmissions = ({ data }: LineChartYearEmissionsProps) => {
   const currentYear = new Date().getFullYear();
 
   const series = useMemo(() => {
+    const trainEmissions = getAllMonthsEmissionsByYearAndTransportation(
+      data,
+      currentYear,
+      "train"
+    );
+
+    const busEmissions = getAllMonthsEmissionsByYearAndTransportation(
+      data,
+      currentYear,
+      "bus"
+    );
+
+    const carEmissions = getAllMonthsEmissionsByYearAndTransportation(
+      data,
+      currentYear,
+      "voiture"
+    );
+
+    const planeEmissions = getAllMonthsEmissionsByYearAndTransportation(
+      data,
+      currentYear,
+      "avion"
+    );
+
+    console.log("TRAIN", trainEmissions);
     return [
       {
-        data: getAllMonthsEmissionsByYearAndTransportation(
-          data,
-          currentYear,
-          "train"
-        ),
+        data: trainEmissions,
         label: "train",
-        valueFormatter: (value: number | null) => `${value} / kg Co2`,
+        valueFormatter: (value: number | null) => `${value} kg/Co2`,
         color: TRAIN_COLOR_CODE,
+        showMark: ({ index }: { index: number }) => trainEmissions[index] > 0,
       },
       {
-        data: getAllMonthsEmissionsByYearAndTransportation(
-          data,
-          currentYear,
-          "bus"
-        ),
+        data: busEmissions,
         label: "bus",
-        valueFormatter: (value: number | null) => `${value} / kg Co2`,
+        valueFormatter: (value: number | null) => `${value} kg/Co2`,
         color: BUS_COLOR_CODE,
+        showMark: ({ index }: { index: number }) => busEmissions[index] > 0,
       },
       {
-        data: getAllMonthsEmissionsByYearAndTransportation(
-          data,
-          currentYear,
-          "voiture"
-        ),
+        data: carEmissions,
         label: "voiture",
-        valueFormatter: (value: number | null) => `${value} / kg Co2`,
+        valueFormatter: (value: number | null) => `${value} kg/Co2`,
         color: CAR_COLOR_CODE,
+        showMark: ({ index }: { index: number }) => carEmissions[index] > 0,
       },
       {
-        data: getAllMonthsEmissionsByYearAndTransportation(
-          data,
-          currentYear,
-          "avion"
-        ),
+        data: planeEmissions,
         label: "avion",
-        valueFormatter: (value: number | null) => `${value} / kg Co2`,
+        valueFormatter: (value: number | null) => `${value} kg/Co2`,
         color: PLANE_COLOR_CODE,
+        showMark: ({ index }: { index: number }) => planeEmissions[index] > 0,
       },
     ];
   }, [data]);

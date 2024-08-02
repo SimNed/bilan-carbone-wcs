@@ -13,7 +13,7 @@ async function createTransportation() {
     {
       id: 1,
       label: "voiture",
-      carboneEmissionsByGrPerKm: 200,
+      carbonEmissionsByGrPerKm: 200,
     }
   );
   return { Transportation: transportation };

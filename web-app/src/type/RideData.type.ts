@@ -8,6 +8,6 @@ export type RideData = {
     __typename?: "Transportation" | undefined;
     id: number;
     label: string;
-    carboneEmission: number;
+    carbonEmissionsByGrPerKm: number;
   };
 };

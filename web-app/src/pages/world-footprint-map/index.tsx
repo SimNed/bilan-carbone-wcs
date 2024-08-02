@@ -57,12 +57,12 @@ const WorldFootprintMapPage = () => {
   }, []);
 
   useEffect(() => {
-    const carboneEmissions = worldDataFeatures.find(
+    const carbonEmissions = worldDataFeatures.find(
       (feature) => feature.properties.code === selectedCountryCode
     )?.properties.data;
 
-    if (!carboneEmissions) return;
-    setSelectedCarboneEmissions(carboneEmissions);
+    if (!carbonEmissions) return;
+    setSelectedCarboneEmissions(carbonEmissions);
   }, [selectedCountryCode, worldDataFeatures]);
 
   return worldDataFeatures && selectedCountryCode && selectedYear ? (

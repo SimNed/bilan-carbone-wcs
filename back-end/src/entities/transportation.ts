@@ -22,7 +22,7 @@ class Transportation extends BaseEntity {
 
   @Column()
   @Field(() => Float)
-  carboneEmissionsByGrPerKm!: number;
+  carbonEmissionsByGrPerKm!: number;
 
   @OneToMany(() => Ride, (ride) => ride.transportation)
   @Field(() => [Ride])
@@ -35,31 +35,31 @@ class Transportation extends BaseEntity {
       if (!transportation.label) {
         throw new Error("Label is required");
       }
-      if (!transportation.carboneEmissionsByGrPerKm) {
+      if (!transportation.carbonEmissionsByGrPerKm) {
         throw new Error("Label is required");
       }
       this.label = transportation.label;
-      this.carboneEmissionsByGrPerKm = transportation.carboneEmissionsByGrPerKm;
+      this.carbonEmissionsByGrPerKm = transportation.carbonEmissionsByGrPerKm;
     }
   }
 
   static async initializeTransportations(): Promise<void> {
     await Transportation.createTransportationIfNotExisting({
       label: "train",
-      carboneEmissionsByGrPerKm: 50,
+      carbonEmissionsByGrPerKm: 50,
     });
     await Transportation.createTransportationIfNotExisting({
       label: "bus",
-      carboneEmissionsByGrPerKm: 90,
+      carbonEmissionsByGrPerKm: 90,
     });
     await Transportation.createTransportationIfNotExisting({
       label: "voiture",
-      carboneEmissionsByGrPerKm: 135,
+      carbonEmissionsByGrPerKm: 135,
     });
     await Transportation.createTransportationIfNotExisting({
       id: 5,
       label: "avion",
-      carboneEmissionsByGrPerKm: 175,
+      carbonEmissionsByGrPerKm: 175,
     });
   }
 

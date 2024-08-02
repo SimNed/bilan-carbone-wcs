@@ -5,7 +5,7 @@ export const GET_TRANSPORTATIONS = gql`
     transportations {
       label
       id
-      carboneEmission
+      carbonEmissionsByGrPerKm
     }
   }
 `;
