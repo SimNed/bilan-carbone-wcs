@@ -69,24 +69,28 @@ const SignUpForm = () => {
       return;
     }
     setError(null);
-    try {
-      const { data } = await signUpMutation({ variables: formData });
-      if (data && data.signUp) {
-        setTimeout(() => {
-          handleModalComponent(<SignInForm />);
-        }, 300);
-      }
-    } catch (error: any) {
-      if (
-        error.graphQLErrors.some((e: any) =>
-          e.message.includes("duplicate key value violates unique constraint")
-        )
-      ) {
-        setError("L'adresse email est déjà utilisée.");
-      } else {
+
+    await signUpMutation({
+      variables: formData,
+      onCompleted: (data) => {
+        if (data.signUp) {
+          setTimeout(() => {
+            handleModalComponent(<SignInForm />);
+          }, 300);
+        }
+      },
+      onError: (error) => {
+        if (
+          error.graphQLErrors.some((e: any) =>
+            e.message.includes("duplicate key value violates unique constraint")
+          )
+        ) {
+          setError("L'adresse email est déjà utilisée.");
+          return;
+        }
         setError("Une erreur s'est produite. Veuillez réessayer.");
-      }
-    }
+      },
+    });
   };
 
   return (

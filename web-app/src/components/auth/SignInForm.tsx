@@ -18,6 +18,7 @@ import { SIGN_IN_FORM } from "@/api-gql/mutations/user.mutations";
 import { useAuth } from "@/AuthProvider";
 import { useModal } from "@/components/layout/Layout";
 import SignUpForm from "./SignUpForm";
+import { enqueueSnackbar } from "notistack";
 
 interface SignInPageProps {
   subtitle?: string;
@@ -36,33 +37,53 @@ const SignInForm = ({
     password: "",
   });
 
+  const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState({
+    email: "",
+    password: "",
+  });
+
   const updateFormData = (
     partialFormData: Partial<SignInFormMutationVariables>
   ) => {
     setFormData({ ...formData, ...partialFormData });
   };
 
-  const [signInMutation, { error }] = useMutation<
+  const [signInMutation] = useMutation<
     SignInFormMutation,
     SignInFormMutationVariables
   >(SIGN_IN_FORM);
 
   const signIn = async () => {
-    try {
-      const { data } = await signInMutation({
-        variables: formData,
-        onCompleted(data) {
-          if (data?.signIn) {
-            const user: User = data.signIn;
-            setUser(user);
-            handleCloseModal();
-            router.push(onValidationRedirectionPath || "/");
-          }
-        },
-      });
-    } catch (error) {
-      console.error("Sign-in error:", error);
-    }
+    const newFieldErrors = {
+      email: formData.email ? "" : "Vous devez entrer votre email.",
+      password: formData.password
+        ? ""
+        : "Vous devez entrer votre mot de passe.",
+    };
+    setFieldErrors(newFieldErrors);
+
+    await signInMutation({
+      variables: formData,
+      onCompleted: (data) => {
+        if (data.signIn) {
+          const user: User = data.signIn;
+          setUser(user);
+          handleCloseModal();
+          router.push(onValidationRedirectionPath || "/");
+          enqueueSnackbar(`Bonjour ${user.firstName} ${user.lastName} !`, {
+            variant: "info",
+          });
+        }
+      },
+      onError: () => {
+        if (Object.values(newFieldErrors).some((error) => error !== "")) {
+          setError("Veuillez remplir tous les champs obligatoires.");
+          return;
+        }
+        setError("Vos identifiants sont invalides.");
+      },
+    });
   };
 
   return (
@@ -88,24 +109,33 @@ const SignInForm = ({
       >
         <Stack spacing={2} my={6}>
           <TextField
-            required
             label="Adresse mail"
             size="small"
             InputLabelProps={{ shrink: true }}
             onChange={(event) => {
               updateFormData({ email: event.target.value });
+              setFieldErrors({ ...fieldErrors, email: "" });
             }}
+            error={!!fieldErrors.email}
+            helperText={fieldErrors.email}
           />
           <TextField
-            required
             label="Password"
             size="small"
             type="password"
             InputLabelProps={{ shrink: true }}
             onChange={(event) => {
               updateFormData({ password: event.target.value });
+              setFieldErrors({ ...fieldErrors, password: "" });
             }}
+            error={!!fieldErrors.password}
+            helperText={fieldErrors.password}
           />
+          {error && (
+            <Typography color="error" style={{ marginBottom: "1rem" }}>
+              {error}
+            </Typography>
+          )}
         </Stack>
         <Button
           variant="contained"

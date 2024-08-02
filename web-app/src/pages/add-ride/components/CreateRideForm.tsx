@@ -26,6 +26,14 @@ export default function CreateRideForm() {
     transportationId: 0,
   });
 
+  const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState({
+    label: "",
+    distance: "",
+    date: "",
+    transportationId: "",
+  });
+
   const { data } = useQuery<GetTransportationsQuery>(GET_TRANSPORTATIONS);
   const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
@@ -42,24 +50,39 @@ export default function CreateRideForm() {
   >(CREATE_RIDE);
 
   const createRide = async () => {
-    const { data } = await createRideMutation({
+    const newFieldErrors = {
+      label: formData.label ? "" : "Le nom du trajet est obligatoire.",
+      distance:
+        formData.distance > 0 ? "" : "Vous devez entrer une distance positive.",
+      date: formData.date ? "" : "La date est obligatoire.",
+      transportationId:
+        data &&
+        (formData.transportationId > data.transportations.length ||
+          formData.transportationId <= 0)
+          ? ""
+          : "Vous devez choisir un transport valide.",
+    };
+    setFieldErrors(newFieldErrors);
+
+    await createRideMutation({
       variables: {
         label: formData.label,
         distance: formData.distance,
         date: formData.date,
         transportationId: formData.transportationId,
       },
+      onCompleted: () => {
+        router.push("./rides");
+        enqueueSnackbar("trajet enregistré !", { variant: "success" });
+      },
+      onError: () => {
+        if (Object.values(newFieldErrors).some((error) => error !== "")) {
+          setError("Veuillez remplir tous les champs obligatoires.");
+          return;
+        }
+        setError("Une erreur s'est produite.");
+      },
     });
-
-    if (data) {
-      enqueueSnackbar("trajet enregistré !", { variant: "success" });
-      if (formRef.current) formRef.current.reset();
-      // setTimeout(() => {
-      //   router.push('/profil');
-      // }, 2000);
-    } else {
-      enqueueSnackbar("erreur d'enregistrement", { variant: "error" });
-    }
   };
 
   return (
@@ -79,21 +102,21 @@ export default function CreateRideForm() {
         onSubmit={(event) => {
           event.preventDefault();
           createRide();
-          router.push("./rides");
         }}
         style={{ width: "100%", marginTop: "1rem" }}
       >
         <TextField
-          required
           label="Nom du trajet"
           size="small"
           InputLabelProps={{ shrink: true }}
           onChange={(event) => {
             updateFormData({ label: event.target.value });
+            setFieldErrors({ ...fieldErrors, label: "" });
           }}
+          error={!!fieldErrors.label}
+          helperText={fieldErrors.label}
         />
         <TextField
-          required
           type="number"
           label="Distance en km"
           size="small"
@@ -101,10 +124,13 @@ export default function CreateRideForm() {
           InputLabelProps={{ shrink: true }}
           onChange={(event) => {
             updateFormData({ distance: parseInt(event.target.value) });
+            setFieldErrors({ ...fieldErrors, distance: "" });
           }}
+          error={!!fieldErrors.distance}
+          helperText={fieldErrors.distance}
         />
         <TextField
-          required
+          type="date"
           label="Date"
           size="small"
           InputLabelProps={{ shrink: true }}
@@ -112,21 +138,26 @@ export default function CreateRideForm() {
             updateFormData({
               date: new Date(event.target.value).toISOString(),
             });
+            setFieldErrors({ ...fieldErrors, date: "" });
           }}
-          type="date"
+          error={!!fieldErrors.date}
+          helperText={fieldErrors.date}
         />
         <TextField
-          required
           select
           label="Moyen de transport"
           size="small"
+          InputLabelProps={{ shrink: true }}
           value={formData.transportationId || ""}
           onChange={(event) => {
             updateFormData({
               transportationId: parseInt(event.target.value as string),
             });
+            setFieldErrors({ ...fieldErrors, transportationId: "" });
           }}
           sx={{ width: "100%" }}
+          error={!!fieldErrors.transportationId}
+          helperText={fieldErrors.transportationId}
         >
           {data ? (
             data.transportations.map((transportation) => (
@@ -138,7 +169,11 @@ export default function CreateRideForm() {
             <MenuItem></MenuItem>
           )}
         </TextField>
-
+        {error && (
+          <Typography color="error" style={{ marginBottom: "1rem" }}>
+            {error}
+          </Typography>
+        )}
         <Button
           variant="contained"
           color="success"
