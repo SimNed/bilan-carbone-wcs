@@ -1,8 +1,9 @@
-import { useAuth } from "@/AuthProvider";
+import { useAuth } from "@/providers/AuthProvider";
 import SignInForm from "@/components/auth/SignInForm";
-import { useModal } from "@/components/layout/Layout";
-import { DARK_GRAY_COLOR, WHITE_COLOR } from "@/styles/constants";
-import { Box, Button, Grid, Stack, Typography } from "@mui/material";
+import { useModal } from "@/providers/ModalProvider";
+
+import { DARK_GRAY_COLOR } from "@/styles/constants";
+import { Button, Grid, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 
 export default function HomePage() {

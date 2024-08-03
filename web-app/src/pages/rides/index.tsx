@@ -1,13 +1,12 @@
 import { GetUserProfileQuery, SearchRidesQuery } from "@/gql/graphql";
 import { useMutation, useQuery } from "@apollo/client";
 import { SEARCH_RIDES } from "@/api-gql/queries/ride.queries";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { GET_USER_PROFIL } from "@/api-gql/queries/user.queries";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import RideCard from "./components/RideCard";
 import RideFilters from "./components/RideFilters";
-import { useModal } from "@/components/layout/Layout";
 import { RideFilterData } from "@/type/RideFilterData.type";
 import DeleteRide from "./components/DeleteRide";
 import { DELETE_RIDE } from "@/api-gql/mutations/ride.mutations";
@@ -20,10 +19,10 @@ import SubHeader from "@/components/headers/SubHeader";
 import Loader from "@/components/loader/Loader";
 import FiltersChipsList from "./components/FiltersChipsList";
 import { enqueueSnackbar } from "notistack";
+import { useModal } from "@/providers/ModalProvider";
 
 const RidesPage = () => {
   const [filters, setFilters] = useState<RideFilterData>({});
-
   const { handleModalComponent, handleCloseModal } = useModal();
 
   const { data: userData } = useQuery<GetUserProfileQuery>(GET_USER_PROFIL);

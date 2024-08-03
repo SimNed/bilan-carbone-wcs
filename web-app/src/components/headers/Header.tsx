@@ -1,22 +1,16 @@
-import {
-  AppBar,
-  Box,
-  Button,
-  IconButton,
-  Link,
-  Stack,
-  Toolbar,
-} from "@mui/material";
+import { AppBar, Box, Button, IconButton, Stack, Toolbar } from "@mui/material";
 import { AccountCircle, Menu as MenuIcon } from "@mui/icons-material";
 import { useState } from "react";
-import { useAuth } from "@/AuthProvider";
-import { useModal } from "../layout/Layout";
+import { useAuth } from "@/providers/AuthProvider";
+
 import SignUpForm from "../auth/SignUpForm";
 import SignInForm from "../auth/SignInForm";
+import Link from "next/link";
 
 import { DEFAULT_HEADER_HEIGHT } from "@/styles/constants";
 import HeaderMobileNav from "./HeaderMobileNav";
 import HeaderMobileProfilNav from "./HeaderMobileProfilNav";
+import { useModal } from "@/providers/ModalProvider";
 
 const Header = () => {
   const [mobileNavAnchorEl, setMobileNavAnchorEl] =
