@@ -1,17 +1,17 @@
 import "reflect-metadata";
 import { Response, Request } from "express";
-
-import User from "./entities/user";
-
-import { parse } from "cookie";
 import { ApolloServer } from "@apollo/server";
 import { startStandaloneServer } from "@apollo/server/standalone";
 import { AuthChecker, buildSchema } from "type-graphql";
 import Transportation from "./entities/transportation";
+import User from "./entities/user";
 import { TransportationResolver } from "./resolvers/TransportationResolver";
 import { RideResolver } from "./resolvers/RideResolver";
 import { getDataSource } from "./database";
 import { UserResolver } from "./resolvers/UserResolver";
+import { createUser } from "./fixtures/user";
+import { createRides } from "./fixtures/ride";
+import { parse } from "cookie";
 
 export type Context = {
   req: Request;
@@ -25,12 +25,14 @@ const authChecker: AuthChecker<Context> = ({ context }) => {
 };
 
 const PORT = 4000;
+
 const startApolloServer = async () => {
   const schema = await buildSchema({
     resolvers: [TransportationResolver, RideResolver, UserResolver],
     validate: true,
     authChecker,
   });
+
   const server = new ApolloServer({ schema });
 
   const { url } = await startStandaloneServer(server, {
@@ -46,7 +48,13 @@ const startApolloServer = async () => {
   });
 
   await getDataSource();
+
   await Transportation.initializeTransportations();
+
+  if (process.env.NODE_ENV === "dev") {
+    const user = await createUser();
+    await createRides(3, user);
+  }
 
   console.log(`🚀  Server ready at: ${url}`);
 };
