@@ -2,8 +2,11 @@ version: "3.8"
 
 services:
   back-end:
-    build: ./back-end
+    build:
+      context: ./back-end
+      target: dev
     environment:
+      - NODE_ENV=dev
       - DATABASE_URL=postgres://postgres:password@database:5432/postgres
       - TEST_DATABASE_URL=postgres://postgres:password@test-database:5432/postgres
     depends_on:
