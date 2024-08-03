@@ -3,4 +3,5 @@ module.exports = {
   testPathIgnorePatterns: ["<rootDir>/dist"], // ignore files '.js'
   preset: "ts-jest",
   testEnvironment: "node",
+  clearMocks: true,
 };
