@@ -4,8 +4,6 @@ import User from "../entities/user";
 
 import casual from "casual";
 
-const ADS_COUNT = 10000;
-
 export async function createRides(length = 1, owner: User): Promise<void> {
   if ((await Ride.count()) >= length) {
     return;
