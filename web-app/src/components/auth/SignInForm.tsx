@@ -15,10 +15,11 @@ import {
   TextField,
 } from "@mui/material";
 import { SIGN_IN_FORM } from "@/api-gql/mutations/user.mutations";
-import { useAuth } from "@/AuthProvider";
-import { useModal } from "@/components/layout/Layout";
+import { useAuth } from "@/providers/AuthProvider";
+
 import SignUpForm from "./SignUpForm";
 import { enqueueSnackbar } from "notistack";
+import { useModal } from "@/providers/ModalProvider";
 
 interface SignInPageProps {
   subtitle?: string;
