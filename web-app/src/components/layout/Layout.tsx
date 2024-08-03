@@ -1,87 +1,41 @@
-import { SnackbarProvider } from "notistack";
-import { Stack, useMediaQuery, useTheme } from "@mui/material";
+import { Stack } from "@mui/material";
 import Header from "@/components/headers/Header";
-import {
-  ReactNode,
-  createContext,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import BaseModal from "../modal/BaseModal";
+import { ReactNode, useEffect } from "react";
 import { DEFAULT_CONTENT_HEIGHT } from "@/styles/constants";
+import { useAuth } from "@/providers/AuthProvider";
+import { useRouter } from "next/router";
 
 interface LayoutProps {
   children: ReactNode;
 }
 
-const ModalContext = createContext({
-  handleOpenModal: () => {},
-  handleCloseModal: () => {},
-  handleModalResponsive: () => {},
-  handleModalComponent: (_component: ReactNode) => {},
-});
+const protectedRoutes = ["/rides", "/add-ride", "/statistics"];
 
 const Layout = ({ children }: LayoutProps) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [isModalResponsive, setIsModalResponsive] = useState(false);
-  const [modalComponent, setModalComponent] = useState<ReactNode | null>(null);
-
-  const handleModalComponent = (component: ReactNode) => {
-    setModalComponent(component);
-    handleOpenModal();
-  };
-
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleModalResponsive = () => {
-    setIsModalResponsive(true);
-  };
-
-  const theme = useTheme();
-  const isSmallScreen = useMediaQuery(theme.breakpoints.down("md"));
-
-  const handleCloseModal = () => setIsModalOpen(false);
-
-  const modalContextValue = {
-    handleOpenModal,
-    handleCloseModal,
-    handleModalResponsive,
-    handleModalComponent,
-  };
+  const { user } = useAuth();
+  const router = useRouter();
 
   useEffect(() => {
-    if (isModalResponsive && isModalOpen && !isSmallScreen) {
-      setIsModalOpen(false);
+    if (protectedRoutes.includes(router.pathname) && !user) {
+      router.push("/403");
     }
-  }, [isSmallScreen]);
+  }, [user, router]);
 
   return (
-    <ModalContext.Provider value={modalContextValue}>
-      <SnackbarProvider>
-        <Stack maxWidth="100%" minHeight="100vh" component="main">
-          <Header />
-          <Stack
-            maxWidth="inherit"
-            minHeight={DEFAULT_CONTENT_HEIGHT}
-            justifyContent="center"
-            alignItems="center"
-          >
-            {children}
-          </Stack>
+    <>
+      <Stack maxWidth="100%" minHeight="100vh" component="main">
+        <Header />
+        <Stack
+          maxWidth="inherit"
+          minHeight={DEFAULT_CONTENT_HEIGHT}
+          justifyContent="center"
+          alignItems="center"
+        >
+          {children}
         </Stack>
-        {modalComponent && (
-          <BaseModal open={isModalOpen} onClose={handleCloseModal}>
-            {modalComponent}
-          </BaseModal>
-        )}
-      </SnackbarProvider>
-    </ModalContext.Provider>
+      </Stack>
+    </>
   );
 };
 
 export default Layout;
-
-export const useModal = () => useContext(ModalContext);
