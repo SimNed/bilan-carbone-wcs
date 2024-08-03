@@ -49,8 +49,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     });
   };
 
-  console.log("AUTH PROVIDER IS RENDERING");
-
   return (
     <AuthContext.Provider
       value={{

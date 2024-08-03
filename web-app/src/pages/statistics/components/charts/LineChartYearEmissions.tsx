@@ -43,7 +43,6 @@ const LineChartYearEmissions = ({ data }: LineChartYearEmissionsProps) => {
       "avion"
     );
 
-    console.log("TRAIN", trainEmissions);
     return [
       {
         data: trainEmissions,
