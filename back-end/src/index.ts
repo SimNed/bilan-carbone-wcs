@@ -53,7 +53,7 @@ const startApolloServer = async () => {
 
   if (process.env.NODE_ENV === "dev") {
     const user = await createUser();
-    await createRides(3, user);
+    await createRides(50, user);
   }
 
   console.log(`🚀  Server ready at: ${url}`);
