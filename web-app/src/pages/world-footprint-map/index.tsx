@@ -2,7 +2,7 @@ import WorldMap from "@/pages/world-footprint-map/components/WorldMap";
 import LineChartsYearsEmissionsByCountry from "./components/charts/LineChartYearsEmissionsByCountry";
 
 import { useEffect, useMemo, useState } from "react";
-import { Box, Grid, Stack } from "@mui/material";
+import { Box, Divider, Grid, Stack, Typography } from "@mui/material";
 
 import {
   CarboneEmission,
@@ -22,6 +22,11 @@ import {
 import Loader from "@/components/loader/Loader";
 import Comparator from "@/components/charts/Comparator";
 import SubHeader from "@/components/headers/SubHeader";
+import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
+import {
+  DEFAULT_CONTENT_HEIGHT,
+  DEFAULT_HEADER_HEIGHT,
+} from "@/styles/constants";
 
 const WorldFootprintMapPage = () => {
   const [selectedCountryCode, setSelectedCountryCode] = useState("");
@@ -77,7 +82,7 @@ const WorldFootprintMapPage = () => {
   }, [selectedCountryCode, worldDataFeatures]);
 
   return worldDataFeatures && selectedCountryCode && selectedYear ? (
-    <Stack direction="column" height="100%" p={4}>
+    <Stack direction="column" width="100%" flexGrow={1}>
       <SubHeader
         leftChildren={
           <Stack direction="row">
@@ -106,75 +111,125 @@ const WorldFootprintMapPage = () => {
         }
       />
 
-      <Grid container direction="row" spacing={2}>
-        <Grid item xs={12} md={6}>
-          <Stack direction="column" flex={2}>
-            <Stack flex={4} justifyContent="center" alignItems="center">
-              <LineChartsYearsEmissionsByCountry
-                data={selectedCarboneEmissions}
-                selectedYear={selectedYear}
-                handleSelectedYear={(year: number) => setSelectedYear(year)}
-              />
-            </Stack>
-            <Stack flex={1} justifyContent="center" alignItems="center">
-              {selectedCarboneEmissions.length > 0 && (
-                <Comparator
-                  baseElement={{
-                    label: selectedYear,
-                    comparatedValues: [
-                      {
-                        label: `${CO2_TON_UNIT_LABEL} ${PER_CAPITA_UNIT_LABEL}`,
-                        value:
-                          selectedCarboneEmissions.find(
-                            (emission) => emission.year === selectedYear
-                          )?.carboneEmissionsPerCapita || 0,
-                      },
-                    ],
-                  }}
-                  comparatedElements={[
-                    {
-                      label: selectedYear - 1,
-                      comparatedValues: [
-                        {
-                          label: `${CO2_TON_UNIT_LABEL} ${PER_CAPITA_UNIT_LABEL}`,
-                          value:
-                            selectedCarboneEmissions.find(
-                              (emission) => emission.year === selectedYear - 1
-                            )?.carboneEmissionsPerCapita || 0,
-                        },
-                      ],
-                    },
-                    {
-                      label: selectedYear + 1,
-                      comparatedValues: [
-                        {
-                          label: `${CO2_TON_UNIT_LABEL} ${PER_CAPITA_UNIT_LABEL}`,
-                          value:
-                            selectedCarboneEmissions.find(
-                              (emission) => emission.year === selectedYear + 1
-                            )?.carboneEmissionsPerCapita || 0,
-                        },
-                      ],
-                    },
-                  ]}
-                />
-              )}
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-around"
+        alignItems="center"
+        height={{
+          xs: "auto",
+          md: `calc(${DEFAULT_CONTENT_HEIGHT} - ${DEFAULT_HEADER_HEIGHT})`,
+        }}
+      >
+        <Grid item p={{ xs: 2, lg: 4 }}>
+          <Stack
+            gap={2}
+            direction={{ xs: "row", md: "column" }}
+            alignItems={{ xs: "flex-end", md: "flex-start" }}
+          >
+            <Typography variant="h2">
+              {
+                worldDataFeatures.find(
+                  (feature) => feature.properties.code === selectedCountryCode
+                )?.properties.nameFR as string
+              }
+            </Typography>
+            <Divider />
+            <Typography variant="h3">{selectedYear}</Typography>
+            <Stack gap={1} direction="row" alignItems="center">
+              <Typography variant="h3">
+                {getNumberFormatedToTwoDecimals(
+                  selectedCarboneEmissions.find(
+                    (emission) => emission.year === selectedYear
+                  )?.carboneEmissionsPerCapita || 0
+                )}
+              </Typography>
+              <Typography
+                paragraph
+              >{`${CO2_TON_UNIT_LABEL} ${PER_CAPITA_UNIT_LABEL}`}</Typography>
             </Stack>
           </Stack>
         </Grid>
 
-        <Stack direction="column" flex={3}>
-          <Box flex={4} p={4}>
-            <WorldMap
-              selectedYear={selectedYear}
-              worldDataFeatures={worldDataFeatures}
-              handleSelectedCountry={(code: string) =>
-                setSelectedCountryCode(code)
-              }
+        <Grid item xs={12} md={6} lg={8}>
+          <Stack direction="column">
+            <Box flex={4} p={{ xs: 2, md: 4, lg: 8 }}>
+              <WorldMap
+                selectedYear={selectedYear}
+                selectedCountryCode={selectedCountryCode}
+                worldDataFeatures={worldDataFeatures}
+                handleSelectedCountry={(code: string) =>
+                  setSelectedCountryCode(code)
+                }
+              />
+            </Box>
+            <LegendContainer
+              justifyContent="space-around"
+              gap={0}
+              elements={MAP_LEGEND_ELEMENTS}
             />
-          </Box>
-          <LegendContainer elements={MAP_LEGEND_ELEMENTS} />
-        </Stack>
+          </Stack>
+        </Grid>
+      </Grid>
+
+      <Grid
+        container
+        direction="row"
+        justifyContent="space-around"
+        alignItems="center"
+        height={`calc(${DEFAULT_CONTENT_HEIGHT} - ${DEFAULT_HEADER_HEIGHT})`}
+      >
+        <Grid item xs={12} md={6}>
+          <LineChartsYearsEmissionsByCountry
+            data={selectedCarboneEmissions}
+            selectedYear={selectedYear}
+            handleSelectedYear={(year: number) => setSelectedYear(year)}
+          />
+        </Grid>
+        <Grid item xs={12} md={6}>
+          {selectedCarboneEmissions.length > 0 && (
+            <Comparator
+              baseElement={{
+                label: selectedYear,
+                comparatedValues: [
+                  {
+                    label: `${CO2_TON_UNIT_LABEL} ${PER_CAPITA_UNIT_LABEL}`,
+                    value:
+                      selectedCarboneEmissions.find(
+                        (emission) => emission.year === selectedYear
+                      )?.carboneEmissionsPerCapita || 0,
+                  },
+                ],
+              }}
+              comparatedElements={[
+                {
+                  label: selectedYear - 1,
+                  comparatedValues: [
+                    {
+                      label: `${CO2_TON_UNIT_LABEL} ${PER_CAPITA_UNIT_LABEL}`,
+                      value:
+                        selectedCarboneEmissions.find(
+                          (emission) => emission.year === selectedYear - 1
+                        )?.carboneEmissionsPerCapita || 0,
+                    },
+                  ],
+                },
+                {
+                  label: selectedYear + 1,
+                  comparatedValues: [
+                    {
+                      label: `${CO2_TON_UNIT_LABEL} ${PER_CAPITA_UNIT_LABEL}`,
+                      value:
+                        selectedCarboneEmissions.find(
+                          (emission) => emission.year === selectedYear + 1
+                        )?.carboneEmissionsPerCapita || 0,
+                    },
+                  ],
+                },
+              ]}
+            />
+          )}
+        </Grid>
       </Grid>
     </Stack>
   ) : (

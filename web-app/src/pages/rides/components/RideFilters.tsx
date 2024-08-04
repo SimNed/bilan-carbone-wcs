@@ -48,7 +48,9 @@ const RideFilters = ({
         p: 6,
       }}
     >
-      <Typography variant="h5">Filtrer mes trajets</Typography>
+      <Typography variant="h2" my={4}>
+        Mes trajets
+      </Typography>
       <form
         onSubmit={(event) => {
           event.preventDefault();

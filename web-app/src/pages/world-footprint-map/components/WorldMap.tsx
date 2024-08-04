@@ -9,7 +9,7 @@ import {
 } from "react-simple-maps";
 import TooltipMouseTracker from "../../../components/maps/TooltipMouseTracker";
 
-import { CARBON_COLOR_CODE_NO_DATA } from "@/styles/constants";
+import { CARBON_COLOR_CODE_NO_DATA, WHITE_COLOR } from "@/styles/constants";
 import { WorldDataFeature } from "@/type/WorldData.type";
 import { getCarboneEmissionColorCode } from "@/utils/chart.utils";
 import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
@@ -17,12 +17,14 @@ import { CO2_TON_UNIT_LABEL, PER_CAPITA_UNIT_LABEL } from "@/charts.constants";
 
 interface WorldMapProps {
   selectedYear: number;
+  selectedCountryCode: string;
   worldDataFeatures: WorldDataFeature[];
   handleSelectedCountry: (name: string, code: string) => void;
 }
 
 const WorldMap = ({
   selectedYear,
+  selectedCountryCode,
   worldDataFeatures,
   handleSelectedCountry,
 }: WorldMapProps) => {
@@ -99,7 +101,10 @@ const WorldMap = ({
                     geography={geo}
                     style={{
                       default: {
-                        fill: carbonEmissionColorCode,
+                        fill:
+                          geo.properties.code === selectedCountryCode
+                            ? "#f4a261"
+                            : carbonEmissionColorCode,
                         strokeWidth: ".1",
                         outline: "none",
                         transition: "filter 0.3s ease",

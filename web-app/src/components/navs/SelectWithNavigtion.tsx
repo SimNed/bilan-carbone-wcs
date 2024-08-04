@@ -81,7 +81,16 @@ const SelectWithNavigation = ({
       </Button>
       <Select
         variant="standard"
-        sx={{ width: "80px", textAlign: "center" }}
+        sx={{
+          width: "80px",
+          textAlign: "center",
+          "&::before": {
+            borderBottom: "none",
+          },
+          "&::after": {
+            borderBottom: "none",
+          },
+        }}
         size="medium"
         id="demo-simple-select-filled"
         labelId="demo-simple-select-filled-label"

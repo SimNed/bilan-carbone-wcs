@@ -1,16 +1,24 @@
-import { AppBar, Box, Button, IconButton, Stack, Toolbar } from "@mui/material";
+import {
+  AppBar,
+  Box,
+  Button,
+  IconButton,
+  Link as MUILink,
+  Stack,
+  Toolbar,
+} from "@mui/material";
 import { AccountCircle, Menu as MenuIcon } from "@mui/icons-material";
 import { useState } from "react";
 import { useAuth } from "@/providers/AuthProvider";
 
 import SignUpForm from "../auth/SignUpForm";
 import SignInForm from "../auth/SignInForm";
-import Link from "next/link";
 
 import { DEFAULT_HEADER_HEIGHT } from "@/styles/constants";
 import HeaderMobileNav from "./HeaderMobileNav";
 import HeaderMobileProfilNav from "./HeaderMobileProfilNav";
 import { useModal } from "@/providers/ModalProvider";
+import Link from "next/link";
 
 const Header = () => {
   const [mobileNavAnchorEl, setMobileNavAnchorEl] =
@@ -44,8 +52,12 @@ const Header = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <Link href="./">BC</Link>
-          <Link href="./world-footprint-map">Données monde</Link>
+          <MUILink component={Link} href="./">
+            BC
+          </MUILink>
+          <MUILink component={Link} href="./world-footprint-map">
+            Données monde
+          </MUILink>
         </Stack>
 
         <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -73,13 +85,19 @@ const Header = () => {
               justifyContent="center"
               alignItems="center"
             >
-              <Link href="./statistics">Statistiques</Link>
-              <Link href="./rides">Mes trajets</Link>
-              <Link href="./add-ride">Ajouter un trajet</Link>
+              <MUILink component={Link} href="./statistics">
+                Statistiques
+              </MUILink>
+              <MUILink component={Link} href="./rides">
+                Mes trajets
+              </MUILink>
+              <MUILink component={Link} href="./add-ride">
+                Ajouter un trajet
+              </MUILink>
 
-              <Link href="./" onClick={() => logout()}>
+              <MUILink component={Link} href="./" onClick={() => logout()}>
                 Log out
-              </Link>
+              </MUILink>
             </Stack>
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
               <IconButton
