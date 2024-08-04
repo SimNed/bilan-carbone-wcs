@@ -63,47 +63,47 @@ const Comparator = ({ baseElement, comparatedElements }: ComparatorProps) => {
               return (
                 <Grid
                   key={`${element.label}${comparatedValue.label}`}
-                  container
                   item
                   xs
+                  container
                   direction="row"
                   justifyContent="center"
                   alignItems="center"
                   py={2}
                   sx={{ borderBottom: BASE_BORDER }}
                 >
-                  <Stack
-                    width="60%"
-                    height="100%"
-                    flexDirection="row"
-                    justifyContent={
-                      percentage === 0 ? "center" : "space-between"
-                    }
-                    alignItems="center"
-                  >
-                    <Box>
-                      {comparatedValue.optionalNode &&
-                        comparatedValue.value !== 0 &&
-                        comparatedValue.optionalNode}
-                    </Box>
+                  {comparatedValue.optionalNode &&
+                    comparatedValue.value !== 0 && (
+                      <Grid item xs>
+                        <Box>{comparatedValue.optionalNode}</Box>
+                      </Grid>
+                    )}
 
-                    <Stack flexDirection="column">
+                  <Grid item xs>
+                    <Stack
+                      flexGrow={1}
+                      direction="column"
+                      alignItems={
+                        comparatedValue.optionalNode ? "flex-start" : "center"
+                      }
+                    >
                       <Typography variant="h5">
                         {elementValueLabel}{" "}
                         {percentage !== 0 && percentage > 0 && (
-                          <NorthEastIcon sx={{ color: ERROR_COLOR }} />
+                          <NorthEastIcon
+                            sx={{ color: ERROR_COLOR, fontSize: "1rem" }}
+                          />
                         )}
                         {percentage !== 0 && percentage < 0 && (
-                          <SouthEastIcon sx={{ color: SUCCESS_COLOR }} />
+                          <SouthEastIcon
+                            sx={{ color: SUCCESS_COLOR, fontSize: "1rem" }}
+                          />
                         )}
                       </Typography>
-                      {percentage !== 0 && (
-                        <Typography paragraph>
-                          {comparatedValue.label}
-                        </Typography>
-                      )}
+
+                      <Typography paragraph>{comparatedValue.label}</Typography>
                     </Stack>
-                  </Stack>
+                  </Grid>
                 </Grid>
               );
             })}

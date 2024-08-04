@@ -211,6 +211,15 @@ theme = createTheme(theme, {
         },
         paragraph: {
           fontFamily: BASE_FONT_FAMILY,
+          [theme.breakpoints.up("xs")]: {
+            fontSize: ".6rem",
+          },
+          [theme.breakpoints.up("md")]: {
+            fontSize: ".8rem",
+          },
+          [theme.breakpoints.up("lg")]: {
+            fontSize: "1rem",
+          },
           fontSize: "1rem",
           fontWeight: 400,
           margin: 0,

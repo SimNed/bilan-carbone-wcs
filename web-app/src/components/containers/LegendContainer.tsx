@@ -9,20 +9,23 @@ import { Stack, Typography } from "@mui/material";
 interface LegendContainerProps {
   elements: { label: string; color: string }[];
   gap?: number;
+  justifyContent: string;
 }
 
 const LegendContainer = ({
   elements,
   gap = DEFAULT_LEGEND_CONTAINER_GAP,
+  justifyContent = "space-around",
 }: LegendContainerProps) => {
   return (
     <Stack
       height={DEFAULT_HEADER_HEIGHT}
       flex={1}
+      px={{ xs: 1, md: 2 }}
       flexDirection="row"
       flexWrap="wrap"
       gap={gap}
-      justifyContent={{ md: "flex-end", xs: "center" }}
+      justifyContent={justifyContent}
       alignItems="center"
       sx={{ backgroundColor: WHITE_COLOR }}
     >
