@@ -35,7 +35,6 @@ export default function CreateRideForm() {
   });
 
   const { data } = useQuery<GetTransportationsQuery>(GET_TRANSPORTATIONS);
-  const formRef = useRef<HTMLFormElement>(null);
   const router = useRouter();
 
   const updateFormData = (
@@ -57,8 +56,9 @@ export default function CreateRideForm() {
       date: formData.date ? "" : "La date est obligatoire.",
       transportationId:
         data &&
-        (formData.transportationId > data.transportations.length ||
-          formData.transportationId <= 0)
+        data.transportations.some(
+          (transportation) => transportation.id === formData.transportationId
+        )
           ? ""
           : "Vous devez choisir un transport valide.",
     };

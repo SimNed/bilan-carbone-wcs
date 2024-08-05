@@ -125,12 +125,20 @@ class Ride extends BaseEntity {
 
   static async createRide(rideData: RideArgs): Promise<Ride> {
     const newRide = new Ride(rideData);
-    if (rideData.transportationId) {
-      const transportation = await Transportation.getTransportationById(
-        rideData.transportationId
+    const transportation = await Transportation.getTransportationById(
+      rideData.transportationId
+    );
+
+    if (!transportation) {
+      console.log(
+        "RIDE HAVE NO TRANSPORTATIONS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
       );
-      newRide.transportation = transportation;
+      throw new Error(
+        `Transportation with ID ${rideData.transportationId} does not exist.`
+      );
     }
+
+    newRide.transportation = transportation;
     const savedRide = await newRide.save();
     return savedRide;
   }
