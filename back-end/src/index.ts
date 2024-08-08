@@ -7,11 +7,12 @@ import Transportation from "./entities/transportation";
 import User from "./entities/user";
 import { TransportationResolver } from "./resolvers/TransportationResolver";
 import { RideResolver } from "./resolvers/RideResolver";
-import { getDataSource } from "./database";
+
 import { UserResolver } from "./resolvers/UserResolver";
 import { createUser } from "./fixtures/user";
 import { createRides } from "./fixtures/ride";
 import { parse } from "cookie";
+import { getDataSource } from "./database/database";
 
 export type Context = {
   req: Request;

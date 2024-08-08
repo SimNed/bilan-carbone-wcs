@@ -1,4 +1,4 @@
-import { getDataSource } from "../database";
+import { getDataSource } from "../database/database";
 import Ride from "./ride";
 import Transportation from "./transportation";
 import User from "./user";
