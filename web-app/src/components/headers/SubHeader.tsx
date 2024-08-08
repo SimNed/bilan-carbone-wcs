@@ -5,9 +5,18 @@ import { ReactNode } from "react";
 interface SubHeaderProps {
   leftChildren?: ReactNode;
   rightChildren?: ReactNode;
+  height?: string;
+  top?:
+    | string
+    | { xs?: string; sm?: string; md?: string; lg?: string; xl?: string };
 }
 
-const SubHeader = ({ leftChildren, rightChildren }: SubHeaderProps) => {
+const SubHeader = ({
+  leftChildren,
+  rightChildren,
+  height = DEFAULT_HEADER_HEIGHT,
+  top = DEFAULT_HEADER_HEIGHT,
+}: SubHeaderProps) => {
   return (
     <Grid
       container
@@ -15,9 +24,9 @@ const SubHeader = ({ leftChildren, rightChildren }: SubHeaderProps) => {
       justifyContent={{ xs: "space-between", md: "flex-start" }}
       alignItems="center"
       position="sticky"
-      top={DEFAULT_HEADER_HEIGHT}
+      top={top}
       width="100%"
-      height={DEFAULT_HEADER_HEIGHT}
+      height={height}
       zIndex={100}
       px={{ xs: 2, md: 4 }}
       sx={{ backgroundColor: WHITE_COLOR }}

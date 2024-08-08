@@ -47,7 +47,7 @@ const WorldMap = ({
           scale: 140,
         }}
         width={800}
-        height={300}
+        height={400}
         style={{
           width: "100%",
           height: "100%",

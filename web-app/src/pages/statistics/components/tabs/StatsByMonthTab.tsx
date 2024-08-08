@@ -19,6 +19,7 @@ import { capitalizeFirstLetter } from "@/utils/typo.utils";
 import StatCard from "../StatCard";
 import SubHeader from "@/components/headers/SubHeader";
 import { CO2_KG_UNIT_LABEL } from "@/charts.constants";
+import { DEFAULT_HEADER_HEIGHT } from "@/styles/constants";
 
 interface StatsByMonthTabProps {
   data: SearchRidesQuery;
@@ -80,6 +81,11 @@ const StatsByMonthTab = ({ data }: StatsByMonthTabProps) => {
             />
           </Stack>
         }
+        height="auto"
+        top={{
+          xs: `calc(${DEFAULT_HEADER_HEIGHT} * 3)`,
+          md: `calc(${DEFAULT_HEADER_HEIGHT} * 2)`,
+        }}
       />
 
       <Grid container item direction={{ xs: "row", md: "row-reverse" }}>

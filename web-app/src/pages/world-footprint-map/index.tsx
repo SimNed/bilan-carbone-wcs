@@ -82,7 +82,7 @@ const WorldFootprintMapPage = () => {
   }, [selectedCountryCode, worldDataFeatures]);
 
   return worldDataFeatures && selectedCountryCode && selectedYear ? (
-    <Stack direction="column" width="100%" flexGrow={1}>
+    <Stack direction="column" width="100%" flexGrow={1} gap={4}>
       <SubHeader
         leftChildren={
           <Stack direction="row">
@@ -118,14 +118,14 @@ const WorldFootprintMapPage = () => {
         alignItems="center"
         height={{
           xs: "auto",
-          md: `calc(${DEFAULT_CONTENT_HEIGHT} - ${DEFAULT_HEADER_HEIGHT})`,
+          lg: `calc(${DEFAULT_CONTENT_HEIGHT} - ${DEFAULT_HEADER_HEIGHT})`,
         }}
       >
-        <Grid item p={{ xs: 2, lg: 4 }}>
+        <Grid item p={{ xs: 2, xl: 4 }}>
           <Stack
             gap={2}
-            direction={{ xs: "row", md: "column" }}
-            alignItems={{ xs: "flex-end", md: "flex-start" }}
+            direction={{ xs: "row", lg: "column" }}
+            alignItems={{ xs: "flex-end", lg: "flex-start" }}
           >
             <Typography variant="h2">
               {
@@ -151,9 +151,9 @@ const WorldFootprintMapPage = () => {
           </Stack>
         </Grid>
 
-        <Grid item xs={12} md={6} lg={8}>
+        <Grid item xs={12} lg={8}>
           <Stack direction="column">
-            <Box flex={4} p={{ xs: 2, md: 4, lg: 8 }}>
+            <Box flex={4} p={{ xs: 2, lg: 8 }}>
               <WorldMap
                 selectedYear={selectedYear}
                 selectedCountryCode={selectedCountryCode}
@@ -174,19 +174,22 @@ const WorldFootprintMapPage = () => {
 
       <Grid
         container
-        direction="row"
+        direction={{ xs: "column-reverse", lg: "row" }}
         justifyContent="space-around"
         alignItems="center"
-        height={`calc(${DEFAULT_CONTENT_HEIGHT} - ${DEFAULT_HEADER_HEIGHT})`}
+        height={{
+          xs: "auto",
+          lg: `calc(${DEFAULT_CONTENT_HEIGHT} - ${DEFAULT_HEADER_HEIGHT})`,
+        }}
       >
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} lg={8}>
           <LineChartsYearsEmissionsByCountry
             data={selectedCarboneEmissions}
             selectedYear={selectedYear}
             handleSelectedYear={(year: number) => setSelectedYear(year)}
           />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} lg={4}>
           {selectedCarboneEmissions.length > 0 && (
             <Comparator
               baseElement={{

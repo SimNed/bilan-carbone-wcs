@@ -9,7 +9,7 @@ import { Stack, Typography } from "@mui/material";
 interface LegendContainerProps {
   elements: { label: string; color: string }[];
   gap?: number;
-  justifyContent: string;
+  justifyContent?: string;
 }
 
 const LegendContainer = ({
