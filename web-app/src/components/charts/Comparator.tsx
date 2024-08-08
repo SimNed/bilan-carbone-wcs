@@ -1,5 +1,8 @@
 import { BASE_BORDER, ERROR_COLOR, SUCCESS_COLOR } from "@/styles/constants";
-import { getPercentage } from "@/utils/maths.utils";
+import {
+  getNumberFormatedToTwoDecimals,
+  getPercentage,
+} from "@/utils/maths.utils";
 import { Box, Grid, Stack, Typography } from "@mui/material";
 
 import NorthEastIcon from "@mui/icons-material/NorthEast";
@@ -14,100 +17,146 @@ interface ComparatorProps {
 
 const Comparator = ({ baseElement, comparatedElements }: ComparatorProps) => {
   return (
-    <Grid
-      container
-      direction="row"
-      sx={{
-        "& > .MuiGrid-root:last-child": {
-          borderRight: "none",
-        },
-        "& > .MuiGrid-root > .MuiGrid-root:last-child": {
-          borderBottom: "none",
-        },
-      }}
-    >
-      {comparatedElements.map((element) => {
-        let elementValueLabel = "";
-        let percentage = 0;
-
-        return (
-          <Grid
-            key={element.label}
-            container
-            item
-            xs
-            direction="column"
-            sx={{ borderRight: BASE_BORDER }}
-          >
-            <Grid item py={2} sx={{ borderBottom: BASE_BORDER }}>
-              <Stack flexDirection="row" justifyContent="center">
-                <Typography variant="h4">{element.label}</Typography>
-              </Stack>
+    <Grid container direction="row">
+      <Grid
+        item
+        xs
+        container
+        flexDirection="row"
+        borderTop={BASE_BORDER}
+        sx={{
+          "& > .MuiGrid-root:last-child": {
+            borderRight: "none",
+          },
+        }}
+      >
+        {comparatedElements.map((element) => {
+          return (
+            <Grid
+              item
+              xs
+              container
+              justifyContent="center"
+              alignItems="center"
+              borderRight={BASE_BORDER}
+              py={2}
+            >
+              <Typography variant="h4">{element.label}</Typography>
             </Grid>
-            {element.comparatedValues.map((comparatedValue, idx) => {
-              const baseValue =
-                baseElement.comparatedValues.find(
-                  (baseComparatedValue) =>
-                    baseComparatedValue.label === comparatedValue.label
-                )?.value || 0;
-              if (comparatedValue.value !== 0) {
-                if (baseValue !== 0) {
-                  percentage = getPercentage(baseValue, comparatedValue.value);
-                  elementValueLabel = `${
-                    percentage > 0 ? "+" : ""
-                  }${percentage}%`;
-                }
-              } else {
-                elementValueLabel = "no data";
-              }
-              return (
-                <Grid
-                  key={`${element.label}${comparatedValue.label}`}
-                  item
-                  xs
-                  container
-                  direction="row"
-                  justifyContent="center"
-                  alignItems="center"
-                  py={2}
-                  sx={{ borderBottom: BASE_BORDER }}
-                >
-                  {comparatedValue.optionalNode &&
-                    comparatedValue.value !== 0 && (
+          );
+        })}
+      </Grid>
+
+      {baseElement.comparatedValues.map((baseComparatedValue) => {
+        return (
+          <>
+            <Grid
+              item
+              xs={12}
+              container
+              justifyContent="center"
+              alignItems="center"
+              py={2}
+              borderTop={BASE_BORDER}
+            >
+              <Typography variant="h6" borderBottom={BASE_BORDER}>
+                {baseComparatedValue.label.toString().toUpperCase()}
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              container
+              sx={{
+                "& > .MuiGrid-root:last-child": {
+                  borderRight: "none",
+                },
+              }}
+            >
+              {comparatedElements.map((comparatedElement) => {
+                const comparatedValue = comparatedElement.comparatedValues.find(
+                  (value) => value.label === baseComparatedValue.label
+                );
+
+                const percentage =
+                  baseComparatedValue.value && comparatedValue?.value
+                    ? getPercentage(
+                        baseComparatedValue.value,
+                        comparatedValue?.value
+                      )
+                    : 0;
+
+                const percentageLabel = `${
+                  percentage > 0 ? "+" : ""
+                }${percentage}%`;
+
+                return comparatedValue ? (
+                  <Grid
+                    item
+                    xs
+                    container
+                    direction="row"
+                    justifyContent={{ xs: "center", md: "flex-start" }}
+                    alignItems="center"
+                    borderRight={BASE_BORDER}
+                  >
+                    {comparatedValue.optionalNode && (
                       <Grid item xs>
-                        <Box>{comparatedValue.optionalNode}</Box>
+                        {comparatedValue.optionalNode}
                       </Grid>
                     )}
-
-                  <Grid item xs>
-                    <Stack
-                      flexGrow={1}
+                    {/* LOOK DOWN HERE !!! */}
+                    <Grid
+                      item
+                      xs
+                      container
                       direction="column"
                       alignItems={
                         comparatedValue.optionalNode ? "flex-start" : "center"
                       }
+                      justifyContent="space-around"
+                      p={comparatedValue.optionalNode ? 0 : 2}
                     >
                       <Typography variant="h5">
-                        {elementValueLabel}{" "}
-                        {percentage !== 0 && percentage > 0 && (
-                          <NorthEastIcon
-                            sx={{ color: ERROR_COLOR, fontSize: "1rem" }}
-                          />
-                        )}
-                        {percentage !== 0 && percentage < 0 && (
-                          <SouthEastIcon
-                            sx={{ color: SUCCESS_COLOR, fontSize: "1rem" }}
-                          />
-                        )}
+                        {getNumberFormatedToTwoDecimals(comparatedValue.value)}
                       </Typography>
 
-                      <Typography paragraph>{comparatedValue.label}</Typography>
-                    </Stack>
+                      <Stack
+                        flexGrow={1}
+                        direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                      >
+                        <Typography paragraph>{percentageLabel}</Typography>
+                        {percentage !== 0 &&
+                          (percentage > 0 ? (
+                            <NorthEastIcon
+                              sx={{
+                                color: ERROR_COLOR,
+                                fontSize: ".8rem",
+                                fontWeight: 700,
+                              }}
+                            />
+                          ) : (
+                            <SouthEastIcon
+                              sx={{
+                                color: SUCCESS_COLOR,
+                                fontSize: ".8rem",
+                                fontWeight: 700,
+                              }}
+                            />
+                          ))}
+                      </Stack>
+                    </Grid>
                   </Grid>
-                </Grid>
-              );
-            })}
-          </Grid>
+                ) : (
+                  <Grid item xs>
+                    <Typography paragraph>NO DATA</Typography>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          </>
         );
       })}
     </Grid>
