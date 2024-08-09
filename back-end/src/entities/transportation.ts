@@ -43,26 +43,6 @@ class Transportation extends BaseEntity {
     }
   }
 
-  static async initializeTransportations(): Promise<void> {
-    await Transportation.createTransportationIfNotExisting({
-      label: "train",
-      carbonEmissionsByGrPerKm: 50,
-    });
-    await Transportation.createTransportationIfNotExisting({
-      label: "bus",
-      carbonEmissionsByGrPerKm: 90,
-    });
-    await Transportation.createTransportationIfNotExisting({
-      label: "voiture",
-      carbonEmissionsByGrPerKm: 135,
-    });
-    await Transportation.createTransportationIfNotExisting({
-      id: 5,
-      label: "avion",
-      carbonEmissionsByGrPerKm: 175,
-    });
-  }
-
   static async getTransportations(): Promise<Transportation[]> {
     const transportations = await Transportation.find();
     return transportations;
@@ -75,6 +55,13 @@ class Transportation extends BaseEntity {
     if (!transportation) {
       throw new Error(`Transporation with ID ${id} does not exist.`);
     }
+    return transportation;
+  }
+
+  private static async getTransportationByName(
+    label: string
+  ): Promise<Transportation | null> {
+    const transportation = await Transportation.findOneBy({ label });
     return transportation;
   }
 
@@ -112,11 +99,24 @@ class Transportation extends BaseEntity {
     return transportation;
   }
 
-  private static async getTransportationByName(
-    label: string
-  ): Promise<Transportation | null> {
-    const transportation = await Transportation.findOneBy({ label });
-    return transportation;
+  static async initializeTransportations(): Promise<void> {
+    await Transportation.createTransportationIfNotExisting({
+      label: "train",
+      carbonEmissionsByGrPerKm: 50,
+    });
+    await Transportation.createTransportationIfNotExisting({
+      label: "bus",
+      carbonEmissionsByGrPerKm: 90,
+    });
+    await Transportation.createTransportationIfNotExisting({
+      label: "voiture",
+      carbonEmissionsByGrPerKm: 135,
+    });
+    await Transportation.createTransportationIfNotExisting({
+      id: 5,
+      label: "avion",
+      carbonEmissionsByGrPerKm: 175,
+    });
   }
 }
 
