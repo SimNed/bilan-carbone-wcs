@@ -24,3 +24,21 @@ export function getMonthWithId(id: number) {
   ];
   return months[id];
 }
+
+export function getShortMonthWithId(id: number) {
+  const months = [
+    "jan",
+    "fév",
+    "mars",
+    "avr",
+    "mai",
+    "juin",
+    "juil",
+    "août",
+    "sep",
+    "oct",
+    "nov",
+    "déc",
+  ];
+  return months[id];
+}

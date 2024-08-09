@@ -7,7 +7,7 @@ import {
   PLANE_COLOR_CODE,
   TRAIN_COLOR_CODE,
 } from "@/styles/constants";
-import { getMonthWithId } from "@/utils/date.utils";
+import { getMonthWithId, getShortMonthWithId } from "@/utils/date.utils";
 import { getAllMonthsEmissionsByYearAndTransportation } from "@/utils/ride.utils";
 import { useMemo } from "react";
 
@@ -85,7 +85,7 @@ const LineChartYearEmissions = ({ data }: LineChartYearEmissionsProps) => {
       xAxis={[
         {
           data: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
-          valueFormatter: (value: number) => getMonthWithId(value),
+          valueFormatter: (value: number) => getShortMonthWithId(value),
           tickMinStep: 1,
         },
       ]}
