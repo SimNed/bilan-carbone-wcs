@@ -1,15 +1,13 @@
 import { GetUserProfileQuery, SearchRidesQuery } from "@/gql/graphql";
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { SEARCH_RIDES } from "@/api-gql/queries/ride.queries";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { GET_USER_PROFIL } from "@/api-gql/queries/user.queries";
 import { Box, Button, Grid, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import RideCard from "./components/RideCard";
 import RideFilters from "./components/RideFilters";
 import { RideFilterData } from "@/type/RideFilterData.type";
-import DeleteRide from "./components/DeleteRide";
-import { DELETE_RIDE } from "@/api-gql/mutations/ride.mutations";
 import {
   DEFAULT_CONTENT_HEIGHT,
   DEFAULT_HEADER_HEIGHT,
@@ -31,35 +29,6 @@ const RidesPage = () => {
     variables: filters,
     fetchPolicy: "cache-and-network",
   });
-
-  const [deleteRideMutation] = useMutation(DELETE_RIDE, {
-    onCompleted: () => {
-      handleCloseModal();
-      enqueueSnackbar("trajet supprimé.", { variant: "info" });
-    },
-    onError: () => {
-      enqueueSnackbar("le trajet n'a pas pu être supprimé.", {
-        variant: "error",
-      });
-    },
-  });
-
-  const handleDeleteRide = (rideId: number) => {
-    handleModalComponent(
-      <DeleteRide
-        rideId={rideId}
-        handleDeleteRideConfirmation={handleDeleteRideConfirmation}
-        handleCloseModal={handleCloseModal}
-      />
-    );
-  };
-
-  const handleDeleteRideConfirmation = (rideId: number) => {
-    deleteRideMutation({
-      variables: { id: rideId },
-      refetchQueries: [{ query: SEARCH_RIDES, variables: { ...filters } }],
-    });
-  };
 
   const handleRideFilter = (filterData: RideFilterData) => {
     setFilters(filterData);
@@ -168,11 +137,7 @@ const RidesPage = () => {
         >
           {data && data.searchRides.length > 0 ? (
             data.searchRides.map((ride) => (
-              <RideCard
-                key={ride.id}
-                ride={ride}
-                handleDeleteRide={handleDeleteRide}
-              />
+              <RideCard key={ride.id} ride={ride} />
             ))
           ) : (
             <Stack justifyContent="center" alignItems="center" height="inherit">

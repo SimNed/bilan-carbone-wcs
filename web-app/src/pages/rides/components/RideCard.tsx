@@ -1,14 +1,22 @@
-import { Card, CardContent, Typography, Button } from "@mui/material";
+import {
+  Stack,
+  Card,
+  CardContent,
+  Typography,
+  Button,
+  Divider,
+} from "@mui/material";
+
 import DirectionsCarFilledIcon from "@mui/icons-material/DirectionsCarFilled";
 import DirectionsBusIcon from "@mui/icons-material/DirectionsBus";
 import DirectionsRailwayIcon from "@mui/icons-material/DirectionsRailway";
 import FlightIcon from "@mui/icons-material/Flight";
-
 import LabelIcon from "@mui/icons-material/Label";
 
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import { Stack } from "@mui/system";
-import { getFormatedDate } from "@/utils/date.utils";
+import { getDateFormatedForDisplay } from "@/utils/date.utils";
+import { getRideEmissionsInKg } from "@/utils/ride.utils";
+import VisibilityOutlinedIcon from "@mui/icons-material/VisibilityOutlined";
+
 import {
   BASE_BORDER,
   BLACK_COLOR,
@@ -21,12 +29,15 @@ import {
 } from "@/styles/constants";
 import { CO2_KG_UNIT_LABEL } from "@/charts.constants";
 
+import { useRouter } from "next/router";
+import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
+
 interface RideCardProps {
   ride: any;
-  handleDeleteRide: (rideId: number) => void;
 }
 
-const RideCard = ({ ride, handleDeleteRide }: RideCardProps) => {
+const RideCard = ({ ride }: RideCardProps) => {
+  const router = useRouter();
   const getCardTransportationInfos = (transportationLabel: string) => {
     switch (transportationLabel) {
       case "voiture":
@@ -61,84 +72,48 @@ const RideCard = ({ ride, handleDeleteRide }: RideCardProps) => {
   return (
     <Card sx={{ m: 2, borderRadius: 2 }}>
       <CardContent sx={{ backgroundColor: "#fff" }}>
-        <Stack direction="column" p={2} gap={2}>
-          <Stack direction="row">
-            <LabelIcon
-              sx={{
-                fontSize: 40,
-                color: cardTransportationInfos?.color,
-                transform: "translate(70%, -20%) rotate(90deg)",
-              }}
-            />
+        <Stack direction="column">
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            p={2}
+          >
             <Stack
-              p={2}
-              borderRadius={2}
-              border={`1px solid ${cardTransportationInfos?.color}`}
-              sx={{
-                "& > *": { fontSize: "3rem" },
-              }}
+              direction="row"
+              alignItems="center"
+              gap={1}
               color={BLACK_COLOR}
             >
               {cardTransportationInfos?.icon}
+              {ride.transportation.label}
             </Stack>
-            <Stack
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              flex={3}
-              mx={2}
-              px={2}
-            >
-              <Typography paragraph>{ride.label}</Typography>
-              <Typography
-                variant="h5"
-                borderBottom={BASE_BORDER}
-                color={GRAY_COLOR}
-              >
-                {getFormatedDate(ride.date)}
-              </Typography>
-            </Stack>
+            <Typography paragraph>{ride.label.toUpperCase()}</Typography>
             <Button
               variant="outlined"
               color="primary"
-              onClick={() => handleDeleteRide(ride.id)}
-              style={{
-                margin: "0.5rem",
-              }}
+              onClick={() => router.push(`/edit-ride/${ride.id}`)}
             >
-              <DeleteOutlineIcon />
+              <VisibilityOutlinedIcon />
             </Button>
           </Stack>
-          <Stack flexGrow={1} direction="column">
-            <Stack
-              direction="row"
-              justifyContent="space-around"
-              alignItems="center"
-              p={4}
-              sx={{
-                backgroundColor: WHITE_COLOR,
-                borderRadius: 2,
-              }}
-            >
-              <Stack direction="column" alignItems="center" gap={2} my={1}>
-                <Typography paragraph>MOYEN DE TRANSPORT</Typography>
-                <Typography variant="h4">
-                  {ride.transportation.label}
-                </Typography>
-              </Stack>
-              <Stack direction="column" alignItems="center" gap={2} my={1}>
-                <Typography paragraph>DISTANCE</Typography>
-                <Typography variant="h4">{ride.distance} km</Typography>
-              </Stack>
-              <Stack direction="column" alignItems="center" gap={2} my={1}>
-                <Typography paragraph>{CO2_KG_UNIT_LABEL}</Typography>
-                <Typography variant="h4">
-                  {(ride.distance *
-                    ride.transportation.carbonEmissionsByGrPerKm) /
-                    1000}
-                </Typography>
-              </Stack>
-            </Stack>
+          <Divider />
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            flex={3}
+            mx={2}
+            p={2}
+          >
+            <Typography variant="h5">
+              {getDateFormatedForDisplay(ride.date)}
+            </Typography>
+            <Typography paragraph>{ride.distance} km</Typography>
+            <Typography paragraph>
+              {getNumberFormatedToTwoDecimals(getRideEmissionsInKg(ride))}{" "}
+              {CO2_KG_UNIT_LABEL}
+            </Typography>
           </Stack>
         </Stack>
       </CardContent>

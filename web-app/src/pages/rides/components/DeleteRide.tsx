@@ -1,8 +1,8 @@
 import { Button, Container, Typography } from "@mui/material";
 
 interface DeleteRideProps {
-  rideId: number;
-  handleDeleteRideConfirmation: (rideId: number) => void;
+  rideId: string;
+  handleDeleteRideConfirmation: (rideId: string) => void;
   handleCloseModal: () => void;
 }
 

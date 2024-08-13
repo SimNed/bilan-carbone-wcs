@@ -130,9 +130,6 @@ class Ride extends BaseEntity {
     );
 
     if (!transportation) {
-      console.log(
-        "RIDE HAVE NO TRANSPORTATIONS !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
-      );
       throw new Error(
         `Transportation with ID ${rideData.transportationId} does not exist.`
       );
@@ -148,6 +145,10 @@ class Ride extends BaseEntity {
     partialRide: CreateOrUpdateRide
   ): Promise<Ride> {
     const ride = await Ride.getRideById(id);
+    const transportation = await Transportation.getTransportationById(
+      partialRide.transportationId
+    );
+    ride.transportation = transportation;
     Object.assign(ride, partialRide);
     await ride.save();
     ride.reload();
