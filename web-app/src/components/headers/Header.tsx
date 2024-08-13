@@ -52,10 +52,10 @@ const Header = () => {
           justifyContent="center"
           alignItems="center"
         >
-          <MUILink component={Link} href="./">
+          <MUILink component={Link} href="/">
             BC
           </MUILink>
-          <MUILink component={Link} href="./world-footprint-map">
+          <MUILink component={Link} href="/world-footprint-map">
             Données monde
           </MUILink>
         </Stack>
@@ -85,17 +85,17 @@ const Header = () => {
               justifyContent="center"
               alignItems="center"
             >
-              <MUILink component={Link} href="./statistics">
+              <MUILink component={Link} href="/statistics">
                 Statistiques
               </MUILink>
-              <MUILink component={Link} href="./rides">
+              <MUILink component={Link} href="/rides">
                 Mes trajets
               </MUILink>
-              <MUILink component={Link} href="./add-ride">
+              <MUILink component={Link} href="/add-ride">
                 Ajouter un trajet
               </MUILink>
 
-              <MUILink component={Link} href="./" onClick={() => logout()}>
+              <MUILink component={Link} href="/" onClick={() => logout()}>
                 Log out
               </MUILink>
             </Stack>

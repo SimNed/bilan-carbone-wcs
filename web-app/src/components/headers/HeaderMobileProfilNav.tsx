@@ -56,7 +56,7 @@ const HeaderMobileProfilNav = ({
       >
         <List>
           <ListItem key="stats" disablePadding>
-            <ListItemButton onClick={() => router.push("./statistics")}>
+            <ListItemButton onClick={() => router.push("/statistics")}>
               <ListItemIcon>
                 <TrendingDownIcon />
               </ListItemIcon>
@@ -65,7 +65,7 @@ const HeaderMobileProfilNav = ({
           </ListItem>
           <Divider />
           <ListItem key="rides" disablePadding>
-            <ListItemButton onClick={() => router.push("./rides")}>
+            <ListItemButton onClick={() => router.push("/rides")}>
               <ListItemIcon>
                 <CardTravelIcon />
               </ListItemIcon>
@@ -74,7 +74,7 @@ const HeaderMobileProfilNav = ({
           </ListItem>
           <Divider />
           <ListItem key="add-ride" disablePadding>
-            <ListItemButton onClick={() => router.push("./add-ride")}>
+            <ListItemButton onClick={() => router.push("/add-ride")}>
               <ListItemIcon>
                 <AddCircleOutlineIcon />
               </ListItemIcon>

@@ -41,16 +41,14 @@ const HeaderMobileNav = ({
       >
         <List>
           <ListItem key="Bilan Carbone" disablePadding>
-            <ListItemButton onClick={() => router.push("./")}>
+            <ListItemButton onClick={() => router.push("/")}>
               <ListItemIcon>BC</ListItemIcon>
               <ListItemText primary="Bilan Carbone" />
             </ListItemButton>
           </ListItem>
           <Divider />
           <ListItem key="Données monde" disablePadding>
-            <ListItemButton
-              onClick={() => router.push("./world-footprint-map")}
-            >
+            <ListItemButton onClick={() => router.push("/world-footprint-map")}>
               <ListItemIcon>
                 <PublicIcon />
               </ListItemIcon>
