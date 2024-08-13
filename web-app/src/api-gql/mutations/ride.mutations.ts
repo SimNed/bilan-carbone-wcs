@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const CREATE_RIDE = gql`
-  mutation CreateRideForm(
+  mutation CreateRide(
     $label: String!
     $distance: Float!
     $date: DateTimeISO!
@@ -14,6 +14,33 @@ export const CREATE_RIDE = gql`
       transportationId: $transportationId
     ) {
       id
+    }
+  }
+`;
+
+export const UPDATE_RIDE = gql`
+  mutation UpdateRide(
+    $id: ID!
+    $label: String!
+    $distance: Float!
+    $date: DateTimeISO!
+    $transportationId: Int!
+  ) {
+    updateRide(
+      id: $id
+      label: $label
+      distance: $distance
+      date: $date
+      transportationId: $transportationId
+    ) {
+      id
+      label
+      distance
+      date
+      transportation {
+        id
+        label
+      }
     }
   }
 `;
