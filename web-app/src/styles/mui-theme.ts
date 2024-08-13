@@ -13,16 +13,6 @@ import {
   WHITE_COLOR,
 } from "./constants";
 
-declare module "@mui/material/styles" {
-  interface PaletteColor {
-    white?: string;
-  }
-
-  interface SimplePaletteColorOptions {
-    white?: string;
-  }
-}
-
 let theme = createTheme();
 theme = createTheme(theme, {
   palette: {
@@ -68,9 +58,9 @@ theme = createTheme(theme, {
     MuiAppBar: {
       styleOverrides: {
         root: {
-          [theme.breakpoints.up("xs")]: {
-            height: DEFAULT_HEADER_HEIGHT,
-          },
+          // [theme.breakpoints.up("xs")]: {
+          //   height: DEFAULT_HEADER_HEIGHT,
+          // },
           minHeight: DEFAULT_HEADER_HEIGHT,
           maxHeight: DEFAULT_HEADER_HEIGHT,
           display: "flex",
