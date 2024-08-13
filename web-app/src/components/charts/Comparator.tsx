@@ -105,7 +105,6 @@ const Comparator = ({ baseElement, comparatedElements }: ComparatorProps) => {
                         {comparatedValue.optionalNode}
                       </Grid>
                     )}
-                    {/* LOOK DOWN HERE !!! */}
                     <Grid
                       item
                       xs
