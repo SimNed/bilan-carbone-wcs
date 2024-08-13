@@ -24,7 +24,7 @@ export const SEARCH_RIDES = gql`
       transportation {
         id
         label
-        carboneEmission
+        carbonEmissionsByGrPerKm
       }
     }
   }

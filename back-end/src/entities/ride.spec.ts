@@ -1,4 +1,4 @@
-import { getDataSource } from "../database";
+import { getDataSource } from "../database/database";
 import Ride from "./ride";
 import Transportation from "./transportation";
 import User from "./user";
@@ -13,7 +13,7 @@ async function createTransportation() {
     {
       id: 1,
       label: "voiture",
-      carboneEmission: 200,
+      carbonEmissionsByGrPerKm: 200,
     }
   );
   return { Transportation: transportation };

@@ -19,3 +19,7 @@ web-app-test-watch:
 
 web-app-generate-graphql-types:
 	cd web-app && npm run graphql-codegen
+
+database-generate-migration:
+	docker compose exec back-end npm run migration:generate
+	docker compose cp back-end:/app/src/database/migrations/ back-end/src/database

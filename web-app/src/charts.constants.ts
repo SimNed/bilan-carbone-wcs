@@ -1,0 +1,73 @@
+import {
+  BUS_COLOR_CODE,
+  CARBON_COLOR_CODE_1,
+  CARBON_COLOR_CODE_2,
+  CARBON_COLOR_CODE_3,
+  CARBON_COLOR_CODE_4,
+  CARBON_COLOR_CODE_5,
+  CARBON_COLOR_CODE_6,
+  CARBON_COLOR_CODE_7,
+  CARBON_COLOR_CODE_8,
+  CARBON_COLOR_CODE_9,
+  CARBON_COLOR_CODE_NO_DATA,
+  CAR_COLOR_CODE,
+  PLANE_COLOR_CODE,
+  TRAIN_COLOR_CODE,
+} from "@/styles/constants";
+
+export const WORLD_EMISSIONS_BREAKPOINT_1 = 0.1;
+export const WORLD_EMISSIONS_BREAKPOINT_2 = 0.2;
+export const WORLD_EMISSIONS_BREAKPOINT_3 = 0.5;
+export const WORLD_EMISSIONS_BREAKPOINT_4 = 1;
+export const WORLD_EMISSIONS_BREAKPOINT_5 = 2;
+export const WORLD_EMISSIONS_BREAKPOINT_6 = 5;
+export const WORLD_EMISSIONS_BREAKPOINT_7 = 10;
+export const WORLD_EMISSIONS_BREAKPOINT_8 = 20;
+
+export const WORLD_EMISSIONS_START_DATE = 1820;
+export const WORLD_EMISSIONS_END_DATE = 2022;
+
+export const MAP_LEGEND_ELEMENTS = [
+  { label: `< ${WORLD_EMISSIONS_BREAKPOINT_1}`, color: CARBON_COLOR_CODE_1 },
+  {
+    label: `${WORLD_EMISSIONS_BREAKPOINT_1} - ${WORLD_EMISSIONS_BREAKPOINT_2}`,
+    color: CARBON_COLOR_CODE_2,
+  },
+  {
+    label: `${WORLD_EMISSIONS_BREAKPOINT_2} - ${WORLD_EMISSIONS_BREAKPOINT_3}`,
+    color: CARBON_COLOR_CODE_3,
+  },
+  {
+    label: `${WORLD_EMISSIONS_BREAKPOINT_3} - ${WORLD_EMISSIONS_BREAKPOINT_4}`,
+    color: CARBON_COLOR_CODE_4,
+  },
+  {
+    label: `${WORLD_EMISSIONS_BREAKPOINT_4} - ${WORLD_EMISSIONS_BREAKPOINT_5}`,
+    color: CARBON_COLOR_CODE_5,
+  },
+  {
+    label: `${WORLD_EMISSIONS_BREAKPOINT_5} - ${WORLD_EMISSIONS_BREAKPOINT_6}`,
+    color: CARBON_COLOR_CODE_6,
+  },
+  {
+    label: `${WORLD_EMISSIONS_BREAKPOINT_6} - ${WORLD_EMISSIONS_BREAKPOINT_7}`,
+    color: CARBON_COLOR_CODE_7,
+  },
+  {
+    label: `${WORLD_EMISSIONS_BREAKPOINT_7} - ${WORLD_EMISSIONS_BREAKPOINT_8}`,
+    color: CARBON_COLOR_CODE_8,
+  },
+  { label: `> ${WORLD_EMISSIONS_BREAKPOINT_8}`, color: CARBON_COLOR_CODE_9 },
+  { label: "no data", color: CARBON_COLOR_CODE_NO_DATA },
+];
+
+export const STATISTICS_LEGEND_ELEMENTS = [
+  { label: "train", color: TRAIN_COLOR_CODE },
+  { label: "bus", color: BUS_COLOR_CODE },
+  { label: "voiture", color: CAR_COLOR_CODE },
+  { label: "avion", color: PLANE_COLOR_CODE },
+];
+
+export const CO2_KG_UNIT_LABEL = "kg/Co2";
+export const CO2_TON_UNIT_LABEL = "t/Co2";
+export const PER_CAPITA_UNIT_LABEL = "per capita";

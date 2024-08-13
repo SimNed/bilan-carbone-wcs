@@ -52,7 +52,7 @@ export type MutationCreateRideArgs = {
 };
 
 export type MutationCreateTransportationArgs = {
-  carboneEmission: Scalars["Float"]["input"];
+  carbonEmissionsByGrPerKm: Scalars["Float"]["input"];
   label: Scalars["String"]["input"];
 };
 
@@ -85,7 +85,7 @@ export type MutationUpdateRideArgs = {
 };
 
 export type MutationUpdateTransportationArgs = {
-  carboneEmission: Scalars["Float"]["input"];
+  carbonEmissionsByGrPerKm: Scalars["Float"]["input"];
   id: Scalars["ID"]["input"];
   label: Scalars["String"]["input"];
 };
@@ -129,7 +129,7 @@ export type Ride = {
 
 export type Transportation = {
   __typename?: "Transportation";
-  carboneEmission: Scalars["Float"]["output"];
+  carbonEmissionsByGrPerKm: Scalars["Float"]["output"];
   id: Scalars["Int"]["output"];
   label: Scalars["String"]["output"];
   rides: Array<Ride>;
@@ -224,7 +224,7 @@ export type SearchRidesQuery = {
       __typename?: "Transportation";
       id: number;
       label: string;
-      carboneEmission: number;
+      carbonEmissionsByGrPerKm: number;
     };
   }>;
 };
@@ -237,7 +237,7 @@ export type GetTransportationsQuery = {
     __typename?: "Transportation";
     label: string;
     id: number;
-    carboneEmission: number;
+    carbonEmissionsByGrPerKm: number;
   }>;
 };
 
@@ -759,7 +759,10 @@ export const SearchRidesDocument = {
                       { kind: "Field", name: { kind: "Name", value: "label" } },
                       {
                         kind: "Field",
-                        name: { kind: "Name", value: "carboneEmission" },
+                        name: {
+                          kind: "Name",
+                          value: "carbonEmissionsByGrPerKm",
+                        },
                       },
                     ],
                   },
@@ -792,7 +795,7 @@ export const GetTransportationsDocument = {
                 { kind: "Field", name: { kind: "Name", value: "id" } },
                 {
                   kind: "Field",
-                  name: { kind: "Name", value: "carboneEmission" },
+                  name: { kind: "Name", value: "carbonEmissionsByGrPerKm" },
                 },
               ],
             },
