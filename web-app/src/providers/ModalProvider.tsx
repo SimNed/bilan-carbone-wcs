@@ -1,5 +1,5 @@
-import { useTheme } from "@mui/material";
-import { useMediaQuery } from "@mui/system";
+import { useTheme, useMediaQuery } from "@mui/material";
+
 import {
   useState,
   ReactNode,

@@ -14,13 +14,13 @@ import { User } from "@/gql/graphql";
 import { GET_USER_PROFIL } from "../api-gql/queries/user.queries";
 import { enqueueSnackbar } from "notistack";
 
-type AuthContextType = {
+interface AuthContextProps {
   user: User | null;
   setUser: Dispatch<SetStateAction<User | null>>;
   logout: () => Promise<void>;
-};
+}
 
-const AuthContext = createContext<AuthContextType | null>(null);
+const AuthContext = createContext<AuthContextProps | null>(null);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
@@ -63,5 +63,5 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 };
 
 export function useAuth() {
-  return useContext(AuthContext) as AuthContextType;
+  return useContext(AuthContext);
 }
