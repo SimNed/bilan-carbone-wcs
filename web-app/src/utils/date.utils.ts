@@ -1,10 +1,20 @@
-export function getFormatedDate(date: string) {
-  let formatedDate = new Date(date);
-  return `${formatedDate.getDate()}/${
-    formatedDate.getMonth() + 1 < 10
-      ? "0" + (formatedDate.getMonth() + 1)
-      : formatedDate.getMonth() + 1
-  }/${formatedDate.getFullYear()} `;
+export function getDateFormatedForDisplay(date: string) {
+  const formatedDate = new Date(date);
+  const formatedDateDay = formatedDate.getDate();
+  const formatedDateMonth = formatedDate.getMonth();
+
+  return `${formatedDateDay < 10 ? "0" : ""}${formatedDateDay}/${
+    formatedDateMonth + 1 < 10 ? "0" : ""
+  }${formatedDateMonth}/${formatedDate.getFullYear()}`;
+}
+
+export function getDateFormatedInISO8601(date: string) {
+  const formatedDate = new Date(date);
+  const formatedDateDay = `0${formatedDate.getDate()}`.slice(-2);
+  const formatedDateMonth = `0${formatedDate.getMonth() + 1}`.slice(-2);
+  const formatedDateYear = formatedDate.getFullYear();
+
+  return `${formatedDateYear}-${formatedDateMonth}-${formatedDateDay}`;
 }
 
 export function getMonthWithId(id: number) {
