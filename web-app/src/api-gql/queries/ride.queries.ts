@@ -29,3 +29,19 @@ export const SEARCH_RIDES = gql`
     }
   }
 `;
+
+export const GET_RIDE = gql`
+  query GetRide($id: ID!) {
+    ride(id: $id) {
+      id
+      label
+      distance
+      date
+      transportation {
+        id
+        label
+        carbonEmissionsByGrPerKm
+      }
+    }
+  }
+`;
