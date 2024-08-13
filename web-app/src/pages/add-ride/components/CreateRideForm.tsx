@@ -7,8 +7,8 @@ import {
   MenuItem,
 } from "@mui/material";
 import {
-  CreateRideFormMutation,
-  CreateRideFormMutationVariables,
+  CreateRideMutation,
+  CreateRideMutationVariables,
   GetTransportationsQuery,
 } from "@/gql/graphql";
 import { enqueueSnackbar } from "notistack";
@@ -19,7 +19,7 @@ import { CREATE_RIDE } from "@/api-gql/mutations/ride.mutations";
 import { useRouter } from "next/router";
 
 export default function CreateRideForm() {
-  const [formData, setFormData] = useState<CreateRideFormMutationVariables>({
+  const [formData, setFormData] = useState<CreateRideMutationVariables>({
     label: "",
     distance: 0,
     date: "",
@@ -38,14 +38,14 @@ export default function CreateRideForm() {
   const router = useRouter();
 
   const updateFormData = (
-    partialFormData: Partial<CreateRideFormMutationVariables>
+    partialFormData: Partial<CreateRideMutationVariables>
   ) => {
     setFormData({ ...formData, ...partialFormData });
   };
 
   const [createRideMutation] = useMutation<
-    CreateRideFormMutation,
-    CreateRideFormMutationVariables
+    CreateRideMutation,
+    CreateRideMutationVariables
   >(CREATE_RIDE);
 
   const createRide = async () => {
@@ -72,7 +72,7 @@ export default function CreateRideForm() {
         transportationId: formData.transportationId,
       },
       onCompleted: () => {
-        router.push("./rides");
+        router.push("/rides");
         enqueueSnackbar("trajet enregistré !", { variant: "success" });
       },
       onError: () => {

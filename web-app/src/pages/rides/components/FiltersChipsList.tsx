@@ -1,5 +1,5 @@
 import { RideFilterData } from "@/type/RideFilterData.type";
-import { getFormatedDate } from "@/utils/date.utils";
+import { getDateFormatedForDisplay } from "@/utils/date.utils";
 import { Chip } from "@mui/material";
 
 interface FiltersChipsListProps {
@@ -36,12 +36,16 @@ const FiltersChipsList = ({
         case "startDate":
           return getChip(
             key,
-            `date > ${getFormatedDate(filters.startDate as unknown as string)}`
+            `date > ${getDateFormatedForDisplay(
+              filters.startDate as unknown as string
+            )}`
           );
         case "endDate":
           return getChip(
             key,
-            `date < ${getFormatedDate(filters.endDate as unknown as string)}`
+            `date < ${getDateFormatedForDisplay(
+              filters.endDate as unknown as string
+            )}`
           );
         default:
           return;
