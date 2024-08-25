@@ -76,7 +76,7 @@ const EditRideForm = ({ ride, handleCancelEdition }: EditRideFormProps) => {
         transportationId: formData.transportationId,
       },
       onCompleted: () => {
-        router.push("/rides");
+        router.push("/my-rides");
         enqueueSnackbar("trajet modifié !", { variant: "success" });
       },
       onError: () => {

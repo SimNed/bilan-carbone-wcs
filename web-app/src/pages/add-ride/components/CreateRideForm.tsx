@@ -72,7 +72,7 @@ export default function CreateRideForm() {
         transportationId: formData.transportationId,
       },
       onCompleted: () => {
-        router.push("/rides");
+        router.push("/my-rides");
         enqueueSnackbar("trajet enregistré !", { variant: "success" });
       },
       onError: () => {

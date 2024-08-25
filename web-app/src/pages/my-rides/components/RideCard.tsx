@@ -92,7 +92,7 @@ const RideCard = ({ ride }: RideCardProps) => {
             <Button
               variant="outlined"
               color="primary"
-              onClick={() => router.push(`/edit-ride/${ride.id}`)}
+              onClick={() => router.push(`/rides/${ride.id}`)}
             >
               <VisibilityOutlinedIcon />
             </Button>

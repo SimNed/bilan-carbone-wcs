@@ -88,7 +88,7 @@ const Header = () => {
               <MUILink component={Link} href="/statistics">
                 Statistiques
               </MUILink>
-              <MUILink component={Link} href="/rides">
+              <MUILink component={Link} href="/my-rides">
                 Mes trajets
               </MUILink>
               <MUILink component={Link} href="/add-ride">

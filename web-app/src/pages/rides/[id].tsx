@@ -5,7 +5,7 @@ import { useMutation, useQuery } from "@apollo/client";
 import { Button, Container, Divider, Stack, Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import { enqueueSnackbar } from "notistack";
-import DeleteRide from "../rides/components/DeleteRide";
+
 import { DELETE_RIDE } from "@/api-gql/mutations/ride.mutations";
 import { useModal } from "@/providers/ModalProvider";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -16,6 +16,7 @@ import { getDateFormatedForDisplay } from "@/utils/date.utils";
 import { CO2_KG_UNIT_LABEL } from "@/charts.constants";
 import { getNumberFormatedToTwoDecimals } from "@/utils/maths.utils";
 import { getRideEmissionsInKg } from "@/utils/ride.utils";
+import DeleteRide from "../my-rides/components/DeleteRide";
 
 const EditRide = () => {
   const [isInEditMode, setIsInEditMode] = useState(false);
@@ -54,7 +55,7 @@ const EditRide = () => {
   };
 
   const handleDeleteRideConfirmation = (rideId: string) => {
-    router.push("/rides");
+    router.push("/my-rides");
     deleteRideMutation({
       variables: { id: rideId },
     });
@@ -82,7 +83,7 @@ const EditRide = () => {
             <EditIcon />
           </Button>
           <Button
-            variant="outlined"
+            variant="contained"
             color="error"
             onClick={() => handleDeleteRide(data.ride.id)}
             style={{
@@ -93,14 +94,14 @@ const EditRide = () => {
           </Button>
         </Stack>
       </Stack>
-      <Divider />
+      <Divider sx={{ my: 2 }} />
       {isInEditMode ? (
         <EditRideForm
           ride={data.ride}
           handleCancelEdition={() => setIsInEditMode(false)}
         />
       ) : (
-        <>
+        <Stack direction="column" gap={2}>
           <Typography variant="h3">
             {getDateFormatedForDisplay(data.ride.date)}
           </Typography>
@@ -110,7 +111,7 @@ const EditRide = () => {
             {getNumberFormatedToTwoDecimals(getRideEmissionsInKg(data.ride))}{" "}
             {CO2_KG_UNIT_LABEL}
           </Typography>
-        </>
+        </Stack>
       )}
     </Container>
   ) : (

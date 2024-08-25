@@ -53,10 +53,10 @@ export default function HomePage() {
             color="success"
             onClick={() =>
               user
-                ? router.push("./rides")
+                ? router.push("/my-rides")
                 : handleModalComponent(
                     <SignInForm
-                      onValidationRedirectionPath="./rides"
+                      onValidationRedirectionPath="/my-rides"
                       subtitle="Pour votre votre empreinte carbone vous devez d'abord vous connecter"
                     />
                   )
