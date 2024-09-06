@@ -10,7 +10,6 @@ import { compare, hash } from "bcrypt";
 import { CreateOrUpdateUser, SignInUser } from "./user.args";
 import Ride from "./ride";
 import UserSession from "./userSession";
-import { sendEmail } from "../utils/email";
 
 @Entity("AppUser")
 @ObjectType()
@@ -57,12 +56,17 @@ class User extends BaseEntity {
   }
 
   static async saveNewUser(userData: CreateOrUpdateUser): Promise<User> {
+    const user = await User.findOne({ where: { email: userData.email } });
+
+    if (user) {
+      // TODO: return user-friendly error message when email already used
+      throw new Error("USER_ALREADY_EXIST");
+    }
     userData.password = await hash(userData.password, 10);
 
     const newUser = new User(userData);
-    // TODO: return user-friendly error message when email already used
     const savedUser = await newUser.save();
-    sendEmail(newUser.email);
+
     return savedUser;
   }
 

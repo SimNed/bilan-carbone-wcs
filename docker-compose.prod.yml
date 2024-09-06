@@ -6,8 +6,8 @@ services:
       context: ./back-end
       target: prod
     environment:
-      - DATABASE_URL=postgres://postgres:password@database:5432/postgres
       - NODE_ENV=production
+      - DATABASE_URL=postgres://postgres:password@database:5432/postgres
     depends_on:
       - database
     expose:

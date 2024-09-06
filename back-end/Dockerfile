@@ -11,7 +11,7 @@ RUN npm run build
 FROM base as dev
 CMD npm run dev
 
-FROM base as ci
+FROM base as test
 CMD npm run test
 
 FROM base as prod

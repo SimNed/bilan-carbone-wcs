@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  back-end:
+    build:
+      context: ./back-end
+      target: test
+    environment:
+      - NODE_ENV=test 
+      - TEST_DATABASE_URL=postgres://postgres:password@test-database:5432/postgres
+    depends_on:
+      - test-database
+
+  test-database:
+    image: postgres:15
+    environment:
+      - POSTGRES_PASSWORD=password
+      
+networks:
+  default:
+    driver: bridge

@@ -1,12 +1,9 @@
-import { getDataSource } from "../database/database";
+import { DataSource } from "typeorm";
+import { getDataSource, getNewDataSource } from "../database/database";
+import { createUser } from "../fixtures/user";
 import Ride from "./ride";
 import Transportation from "./transportation";
 import User from "./user";
-
-// TODO: a retirer (Pour tester les commandes et le fonctionnement)
-// test("test", () => {
-//   expect(1 + 1).toEqual(2);
-// });
 
 async function createTransportation() {
   const transportation = await Transportation.createTransportationIfNotExisting(
@@ -17,16 +14,6 @@ async function createTransportation() {
     }
   );
   return { Transportation: transportation };
-}
-
-async function createUser() {
-  const user = new User();
-  user.lastName = "test lastName";
-  user.firstName = "test firstname";
-  user.email = "test@example.com";
-  user.hashedPassword = "password";
-  await user.save();
-  return user;
 }
 
 describe("Ride", () => {
@@ -42,7 +29,7 @@ describe("Ride", () => {
 
   afterAll(async () => {
     const database = await getDataSource();
-    await database.destroy();
+    if (database) await database.destroy();
   });
 
   // Test createRide
@@ -70,13 +57,11 @@ describe("Ride", () => {
     });
   });
 
-  // Test deleteRide
   describe("deleteRide", () => {
     it("deletes a ride with id and returns it", async () => {
       const { Transportation } = await createTransportation();
       const owner = await createUser();
 
-      // Create a ride
       const rideToCreate = {
         label: "Test first ride",
         distance: 120,
@@ -86,7 +71,6 @@ describe("Ride", () => {
       };
       const createdRide = await Ride.createRide(rideToCreate);
 
-      // Verify if the ride was created
       const retrievedRide = await Ride.getRideById(createdRide.id);
       expect(retrievedRide.label).toBe(rideToCreate.label);
       expect(retrievedRide.distance).toBe(rideToCreate.distance);
@@ -94,7 +78,6 @@ describe("Ride", () => {
 
       const deletedRide = await Ride.deleteRide(createdRide.id);
 
-      // Try to retrieve the deleted ride, expecting an error or null
       await expect(Ride.getRideById(createdRide.id)).rejects.toThrow();
 
       expect(deletedRide.id).toBe(createdRide.id);
