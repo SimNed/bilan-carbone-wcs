@@ -157,6 +157,9 @@ class Ride extends BaseEntity {
 
   static async deleteRide(id: string): Promise<Ride> {
     const ride = await Ride.getRideById(id);
+    if (!ride) {
+      throw new Error(`Ride with ID ${id} does not exist.`);
+    }
     await Ride.delete(id);
     return ride;
   }

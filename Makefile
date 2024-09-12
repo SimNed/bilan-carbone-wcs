@@ -23,3 +23,8 @@ web-app-generate-graphql-types:
 database-generate-migration:
 	docker compose exec back-end npm run migration:generate
 	docker compose cp back-end:/app/src/database/migrations/ back-end/src/database
+
+reset-database:
+	docker compose exec back-end npm run typeorm schema:drop
+	docker compose exec back-end npm run migration:generate
+	docker compose cp back-end:/app/src/database/migrations/ back-end/src/database
